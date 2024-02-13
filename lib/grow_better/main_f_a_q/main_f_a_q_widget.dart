@@ -13,10 +13,10 @@ import 'main_f_a_q_model.dart';
 export 'main_f_a_q_model.dart';
 
 class MainFAQWidget extends StatefulWidget {
-  const MainFAQWidget({Key? key}) : super(key: key);
+  const MainFAQWidget({super.key});
 
   @override
-  _MainFAQWidgetState createState() => _MainFAQWidgetState();
+  State<MainFAQWidget> createState() => _MainFAQWidgetState();
 }
 
 class _MainFAQWidgetState extends State<MainFAQWidget>
@@ -30,8 +30,8 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
     super.initState();
     _model = createModel(context, () => MainFAQModel());
 
-    _model.searchBarController ??= TextEditingController();
-    _model.searchBarFocusNode ??= FocusNode();
+    _model.faqSearchFieldController ??= TextEditingController();
+    _model.faqSearchFieldFocusNode ??= FocusNode();
 
     _model.tabBarController = TabController(
       vsync: this,
@@ -89,7 +89,8 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
             style: FlutterFlowTheme.of(context).headlineLarge.override(
                   fontFamily: 'Outfit',
                   color: FlutterFlowTheme.of(context).info,
-                  fontSize: 30.0,
+                  fontSize: 24.0,
+                  letterSpacing: 5.0,
                 ),
           ),
           actions: [],
@@ -107,8 +108,19 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 8.0, 0.0),
                     child: TextFormField(
-                      controller: _model.searchBarController,
-                      focusNode: _model.searchBarFocusNode,
+                      controller: _model.faqSearchFieldController,
+                      focusNode: _model.faqSearchFieldFocusNode,
+                      onFieldSubmitted: (_) async {
+                        context.pushNamed(
+                          'faqSearchResults',
+                          queryParameters: {
+                            'searchTerm': serializeParam(
+                              _model.faqSearchFieldController.text,
+                              ParamType.String,
+                            ),
+                          }.withoutNulls,
+                        );
+                      },
                       textCapitalization: TextCapitalization.words,
                       obscureText: false,
                       decoration: InputDecoration(
@@ -155,7 +167,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                         ),
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium,
-                      validator: _model.searchBarControllerValidator
+                      validator: _model.faqSearchFieldControllerValidator
                           .asValidator(context),
                     ),
                   ),

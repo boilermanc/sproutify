@@ -37,6 +37,13 @@ class UserplantdetailsRow extends SupabaseDataRow {
   String? get plantImage => getField<String>('plant_image');
   set plantImage(String? value) => setField<String>('plant_image', value);
 
+  DateTime? get entryTimestamp => getField<DateTime>('entry_timestamp');
+  set entryTimestamp(DateTime? value) =>
+      setField<DateTime>('entry_timestamp', value);
+
+  double? get plantCost => getField<double>('plant_cost');
+  set plantCost(double? value) => setField<double>('plant_cost', value);
+
   bool? get archived => getField<bool>('archived');
   set archived(bool? value) => setField<bool>('archived', value);
 
@@ -45,10 +52,6 @@ class UserplantdetailsRow extends SupabaseDataRow {
 
   bool? get isFavorite => getField<bool>('is_favorite');
   set isFavorite(bool? value) => setField<bool>('is_favorite', value);
-
-  DateTime? get entryTimestamp => getField<DateTime>('entry_timestamp');
-  set entryTimestamp(DateTime? value) =>
-      setField<DateTime>('entry_timestamp', value);
 
   String? get growingSeason => getField<String>('growing_season');
   set growingSeason(String? value) => setField<String>('growing_season', value);

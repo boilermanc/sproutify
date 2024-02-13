@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/components/ec_action/ec_action_widget.dart';
 import '/pages/components/ec_info/ec_info_widget.dart';
+import '/pages/components/no_towers/no_towers_widget.dart';
 import '/pages/components/ph_action/ph_action_widget.dart';
 import '/pages/components/ph_info/ph_info_widget.dart';
 import 'package:expandable/expandable.dart';
@@ -17,10 +18,15 @@ import 'my_towers_expandable_model.dart';
 export 'my_towers_expandable_model.dart';
 
 class MyTowersExpandableWidget extends StatefulWidget {
-  const MyTowersExpandableWidget({Key? key}) : super(key: key);
+  const MyTowersExpandableWidget({
+    super.key,
+    required this.userID,
+  });
+
+  final String? userID;
 
   @override
-  _MyTowersExpandableWidgetState createState() =>
+  State<MyTowersExpandableWidget> createState() =>
       _MyTowersExpandableWidgetState();
 }
 
@@ -96,7 +102,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
           child: SingleChildScrollView(
             primary: false,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
@@ -124,8 +130,12 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                       }
                       List<UsertowerdetailsRow>
                           listViewUsertowerdetailsRowList = snapshot.data!;
+                      if (listViewUsertowerdetailsRowList.isEmpty) {
+                        return NoTowersWidget();
+                      }
                       return ListView.builder(
                         padding: EdgeInsets.zero,
+                        primary: false,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewUsertowerdetailsRowList.length,
@@ -135,9 +145,9 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                           return Container(
                             decoration: BoxDecoration(),
                             child: Container(
-                              width: double.infinity,
                               color: Colors.white,
                               child: ExpandableNotifier(
+                                initialExpanded: true,
                                 child: ExpandablePanel(
                                   header: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -149,7 +159,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                           valueOrDefault<String>(
                                             listViewUsertowerdetailsRow
                                                 .towerName,
-                                            'name',
+                                            'tower name',
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .displaySmall

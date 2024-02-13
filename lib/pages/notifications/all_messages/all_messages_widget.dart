@@ -12,10 +12,10 @@ import 'all_messages_model.dart';
 export 'all_messages_model.dart';
 
 class AllMessagesWidget extends StatefulWidget {
-  const AllMessagesWidget({Key? key}) : super(key: key);
+  const AllMessagesWidget({super.key});
 
   @override
-  _AllMessagesWidgetState createState() => _AllMessagesWidgetState();
+  State<AllMessagesWidget> createState() => _AllMessagesWidgetState();
 }
 
 class _AllMessagesWidgetState extends State<AllMessagesWidget> {

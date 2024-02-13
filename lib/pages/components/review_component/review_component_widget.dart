@@ -13,18 +13,18 @@ export 'review_component_model.dart';
 
 class ReviewComponentWidget extends StatefulWidget {
   const ReviewComponentWidget({
-    Key? key,
+    super.key,
     this.plantID,
     this.userID,
     this.userPlantID,
-  }) : super(key: key);
+  });
 
   final int? plantID;
   final String? userID;
   final int? userPlantID;
 
   @override
-  _ReviewComponentWidgetState createState() => _ReviewComponentWidgetState();
+  State<ReviewComponentWidget> createState() => _ReviewComponentWidgetState();
 }
 
 class _ReviewComponentWidgetState extends State<ReviewComponentWidget> {
@@ -57,7 +57,7 @@ class _ReviewComponentWidgetState extends State<ReviewComponentWidget> {
       width: 374.0,
       height: 300.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).accent4,
+        color: FlutterFlowTheme.of(context).secondaryBackground,
         shape: BoxShape.rectangle,
       ),
       alignment: AlignmentDirectional(0.0, 1.0),
@@ -187,6 +187,8 @@ class _ReviewComponentWidgetState extends State<ReviewComponentWidget> {
 
                           Navigator.pop(context);
 
+                          context.pushNamed('myPlantExpandableCopy');
+
                           setState(() {});
                         },
                         text: 'Rate This Plant',
@@ -211,6 +213,34 @@ class _ReviewComponentWidgetState extends State<ReviewComponentWidget> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 15.0, 0.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

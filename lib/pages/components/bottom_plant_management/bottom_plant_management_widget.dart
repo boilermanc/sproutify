@@ -1,4 +1,5 @@
 import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +11,14 @@ export 'bottom_plant_management_model.dart';
 
 class BottomPlantManagementWidget extends StatefulWidget {
   const BottomPlantManagementWidget({
-    Key? key,
+    super.key,
     this.userPlantID,
-  }) : super(key: key);
+  });
 
   final int? userPlantID;
 
   @override
-  _BottomPlantManagementWidgetState createState() =>
+  State<BottomPlantManagementWidget> createState() =>
       _BottomPlantManagementWidgetState();
 }
 
@@ -114,6 +115,7 @@ class _BottomPlantManagementWidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        HapticFeedback.lightImpact();
                         await UserplantActionsTable().insert({
                           'user_plant_id': widget.userPlantID,
                           'action_type': 'Harvested',
@@ -130,6 +132,8 @@ class _BottomPlantManagementWidgetState
                           ),
                         );
                         Navigator.pop(context);
+
+                        context.pushNamed('myPlantExpandableCopy');
                       },
                       child: Container(
                         width: 100.0,
@@ -150,7 +154,7 @@ class _BottomPlantManagementWidgetState
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'I havested a plant I grew myself!',
+                                'I harvested a plant I grew myself!',
                                 style: FlutterFlowTheme.of(context).bodyLarge,
                               ),
                               Icon(
@@ -173,6 +177,7 @@ class _BottomPlantManagementWidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        HapticFeedback.lightImpact();
                         await UserplantActionsTable().insert({
                           'user_plant_id': widget.userPlantID,
                           'action_type': 'Pest',
@@ -236,6 +241,7 @@ class _BottomPlantManagementWidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        HapticFeedback.lightImpact();
                         await UserplantActionsTable().insert({
                           'user_plant_id': widget.userPlantID,
                           'action_type': 'Waste',
@@ -299,19 +305,21 @@ class _BottomPlantManagementWidgetState
               children: [
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.close_sharp,
-                      color: FlutterFlowTheme.of(context).secondaryText,
+                  child: FlutterFlowIconButton(
+                    borderColor: FlutterFlowTheme.of(context).primary,
+                    borderRadius: 20.0,
+                    borderWidth: 1.0,
+                    buttonSize: 40.0,
+                    fillColor: FlutterFlowTheme.of(context).alternate,
+                    icon: Icon(
+                      Icons.close,
+                      color: FlutterFlowTheme.of(context).primaryText,
                       size: 24.0,
                     ),
+                    onPressed: () async {
+                      HapticFeedback.lightImpact();
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
               ],

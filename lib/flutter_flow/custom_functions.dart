@@ -17,3 +17,10 @@ String? returnDateYYYYMMDD() {
   String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
   return formattedDate;
 }
+
+bool? showPlantSearchResults(
+  String textSearchFor,
+  String textSearchIn,
+) {
+  return textSearchIn.toLowerCase().contains(textSearchFor.toLowerCase());
+}

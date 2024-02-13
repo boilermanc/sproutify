@@ -19,52 +19,18 @@ class Settings2AddProfileModel
   FocusNode? firstNameFocusNode;
   TextEditingController? firstNameController;
   String? Function(BuildContext, String?)? firstNameControllerValidator;
-  String? _firstNameControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    return null;
-  }
-
   // State field(s) for lastName widget.
   FocusNode? lastNameFocusNode;
   TextEditingController? lastNameController;
   String? Function(BuildContext, String?)? lastNameControllerValidator;
-  String? _lastNameControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    return null;
-  }
-
   // State field(s) for postalCode widget.
   FocusNode? postalCodeFocusNode;
   TextEditingController? postalCodeController;
   String? Function(BuildContext, String?)? postalCodeControllerValidator;
-  String? _postalCodeControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    if (val.length < 5) {
-      return 'Requires at least 5 characters.';
-    }
-    if (val.length > 5) {
-      return 'Maximum 5 characters allowed, currently ${val.length}.';
-    }
-
-    return null;
-  }
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    firstNameControllerValidator = _firstNameControllerValidator;
-    lastNameControllerValidator = _lastNameControllerValidator;
-    postalCodeControllerValidator = _postalCodeControllerValidator;
-  }
+  void initState(BuildContext context) {}
 
   void dispose() {
     firstNameFocusNode?.dispose();

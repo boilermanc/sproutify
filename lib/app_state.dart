@@ -33,7 +33,7 @@ class FFAppState extends ChangeNotifier {
 
   late SharedPreferences prefs;
 
-  bool _isplantFavorite = true;
+  bool _isplantFavorite = false;
   bool get isplantFavorite => _isplantFavorite;
   set isplantFavorite(bool _value) {
     _isplantFavorite = _value;
@@ -56,16 +56,57 @@ class FFAppState extends ChangeNotifier {
   set token(String _value) {
     _token = _value;
   }
-}
 
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
+  UserStruct _user = UserStruct();
+  UserStruct get user => _user;
+  set user(UserStruct _value) {
+    _user = _value;
   }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
+
+  void updateUserStruct(Function(UserStruct) updateFn) {
+    updateFn(_user);
+  }
+
+  bool _plantSearchActive = false;
+  bool get plantSearchActive => _plantSearchActive;
+  set plantSearchActive(bool _value) {
+    _plantSearchActive = _value;
+  }
+
+  bool _hasNewNotifications = false;
+  bool get hasNewNotifications => _hasNewNotifications;
+  set hasNewNotifications(bool _value) {
+    _hasNewNotifications = _value;
+  }
+
+  List<String> _plantNamesForSearch = [];
+  List<String> get plantNamesForSearch => _plantNamesForSearch;
+  set plantNamesForSearch(List<String> _value) {
+    _plantNamesForSearch = _value;
+  }
+
+  void addToPlantNamesForSearch(String _value) {
+    _plantNamesForSearch.add(_value);
+  }
+
+  void removeFromPlantNamesForSearch(String _value) {
+    _plantNamesForSearch.remove(_value);
+  }
+
+  void removeAtIndexFromPlantNamesForSearch(int _index) {
+    _plantNamesForSearch.removeAt(_index);
+  }
+
+  void updatePlantNamesForSearchAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _plantNamesForSearch[_index] = updateFn(_plantNamesForSearch[_index]);
+  }
+
+  void insertAtIndexInPlantNamesForSearch(int _index, String _value) {
+    _plantNamesForSearch.insert(_index, _value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

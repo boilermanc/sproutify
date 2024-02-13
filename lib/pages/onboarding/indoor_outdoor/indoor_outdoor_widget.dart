@@ -14,16 +14,16 @@ export 'indoor_outdoor_model.dart';
 
 class IndoorOutdoorWidget extends StatefulWidget {
   const IndoorOutdoorWidget({
-    Key? key,
+    super.key,
     required this.towerName,
     required this.towerID,
-  }) : super(key: key);
+  });
 
   final String? towerName;
   final int? towerID;
 
   @override
-  _IndoorOutdoorWidgetState createState() => _IndoorOutdoorWidgetState();
+  State<IndoorOutdoorWidget> createState() => _IndoorOutdoorWidgetState();
 }
 
 class _IndoorOutdoorWidgetState extends State<IndoorOutdoorWidget> {
@@ -114,7 +114,7 @@ class _IndoorOutdoorWidgetState extends State<IndoorOutdoorWidget> {
                       width: 405.0,
                       height: 100.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(0.0),
                         shape: BoxShape.rectangle,
                       ),
@@ -127,13 +127,20 @@ class _IndoorOutdoorWidgetState extends State<IndoorOutdoorWidget> {
                           controller: _model.insideOutsideValueController ??=
                               FormFieldController<String>(null),
                           optionHeight: 32.0,
-                          textStyle: FlutterFlowTheme.of(context).labelMedium,
+                          textStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 24.0,
+                                  ),
                           selectedTextStyle:
-                              FlutterFlowTheme.of(context).bodyLarge,
+                              FlutterFlowTheme.of(context).bodyLarge.override(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 24.0,
+                                  ),
                           buttonPosition: RadioButtonPosition.left,
                           direction: Axis.vertical,
                           radioButtonColor:
-                              FlutterFlowTheme.of(context).primary,
+                              FlutterFlowTheme.of(context).tertiary,
                           inactiveRadioButtonColor:
                               FlutterFlowTheme.of(context).secondaryText,
                           toggleable: false,
@@ -155,7 +162,15 @@ class _IndoorOutdoorWidgetState extends State<IndoorOutdoorWidget> {
                           'user_id': currentUserUid,
                         });
 
-                        context.pushNamed('Settings2AddProfile');
+                        context.pushNamed(
+                          'Settings2AddProfile',
+                          queryParameters: {
+                            'userID': serializeParam(
+                              currentUserUid,
+                              ParamType.String,
+                            ),
+                          }.withoutNulls,
+                        );
                       },
                       text: 'Next...',
                       options: FFButtonOptions(

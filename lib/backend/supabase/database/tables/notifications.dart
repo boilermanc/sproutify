@@ -26,4 +26,9 @@ class NotificationsRow extends SupabaseDataRow {
 
   DateTime get timeCreated => getField<DateTime>('time_created')!;
   set timeCreated(DateTime value) => setField<DateTime>('time_created', value);
+
+  String? get formattedTimeCreated =>
+      getField<String>('formatted_time_created');
+  set formattedTimeCreated(String? value) =>
+      setField<String>('formatted_time_created', value);
 }

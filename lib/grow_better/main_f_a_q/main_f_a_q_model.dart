@@ -15,10 +15,10 @@ class MainFAQModel extends FlutterFlowModel<MainFAQWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for searchBar widget.
-  FocusNode? searchBarFocusNode;
-  TextEditingController? searchBarController;
-  String? Function(BuildContext, String?)? searchBarControllerValidator;
+  // State field(s) for faqSearchField widget.
+  FocusNode? faqSearchFieldFocusNode;
+  TextEditingController? faqSearchFieldController;
+  String? Function(BuildContext, String?)? faqSearchFieldControllerValidator;
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
@@ -30,8 +30,8 @@ class MainFAQModel extends FlutterFlowModel<MainFAQWidget> {
 
   void dispose() {
     unfocusNode.dispose();
-    searchBarFocusNode?.dispose();
-    searchBarController?.dispose();
+    faqSearchFieldFocusNode?.dispose();
+    faqSearchFieldController?.dispose();
 
     tabBarController?.dispose();
   }

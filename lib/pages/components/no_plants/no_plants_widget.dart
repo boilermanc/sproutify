@@ -8,10 +8,10 @@ import 'no_plants_model.dart';
 export 'no_plants_model.dart';
 
 class NoPlantsWidget extends StatefulWidget {
-  const NoPlantsWidget({Key? key}) : super(key: key);
+  const NoPlantsWidget({super.key});
 
   @override
-  _NoPlantsWidgetState createState() => _NoPlantsWidgetState();
+  State<NoPlantsWidget> createState() => _NoPlantsWidgetState();
 }
 
 class _NoPlantsWidgetState extends State<NoPlantsWidget> {
@@ -89,20 +89,20 @@ class _NoPlantsWidgetState extends State<NoPlantsWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional(0.0, -1.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed('plantCatalog');
-                        },
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed('plantCatalog');
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(0.0, -1.0),
                         child: Text(
                           'Plant Catalog',
                           style: FlutterFlowTheme.of(context)
@@ -113,26 +113,17 @@ class _NoPlantsWidgetState extends State<NoPlantsWidget> {
                               ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed('plantCatalog');
-                        },
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
                         child: Icon(
                           Icons.keyboard_arrow_right,
                           color: FlutterFlowTheme.of(context).secondaryText,
                           size: 24.0,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

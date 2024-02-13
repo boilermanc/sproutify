@@ -11,13 +11,12 @@ export 'ec_action_model.dart';
 
 class EcActionWidget extends StatefulWidget {
   const EcActionWidget({
-    Key? key,
+    super.key,
     required this.towerID,
     required this.timestamp,
     this.historyID,
     double? ecValue,
-  })  : this.ecValue = ecValue ?? 1.2,
-        super(key: key);
+  }) : this.ecValue = ecValue ?? 1.2;
 
   final UsertowerdetailsRow? towerID;
   final DateTime? timestamp;
@@ -25,7 +24,7 @@ class EcActionWidget extends StatefulWidget {
   final double ecValue;
 
   @override
-  _EcActionWidgetState createState() => _EcActionWidgetState();
+  State<EcActionWidget> createState() => _EcActionWidgetState();
 }
 
 class _EcActionWidgetState extends State<EcActionWidget> {
@@ -60,7 +59,7 @@ class _EcActionWidgetState extends State<EcActionWidget> {
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Container(
         width: double.infinity,
-        height: 303.0,
+        height: 330.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           boxShadow: [
@@ -114,6 +113,7 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          HapticFeedback.lightImpact();
                           Navigator.pop(context);
                         },
                         child: Icon(
@@ -154,6 +154,7 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    HapticFeedback.lightImpact();
                     await PhEchistoryTable().insert({
                       'tower_id': widget.towerID?.towerId,
                       'timestamp': supaSerialize<DateTime>(widget.timestamp),

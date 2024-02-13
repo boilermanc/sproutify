@@ -5,10 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'onboarding_questions_widget.dart' show OnboardingQuestionsWidget;
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -22,13 +19,13 @@ class OnboardingQuestionsModel
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
-  // State field(s) for PageView widget.
-  PageController? pageViewController;
+  // State field(s) for collectInfo widget.
+  PageController? collectInfoController;
 
-  int get pageViewCurrentIndex => pageViewController != null &&
-          pageViewController!.hasClients &&
-          pageViewController!.page != null
-      ? pageViewController!.page!.round()
+  int get collectInfoCurrentIndex => collectInfoController != null &&
+          collectInfoController!.hasClients &&
+          collectInfoController!.page != null
+      ? collectInfoController!.page!.round()
       : 0;
   // State field(s) for isSelfSufficiencySelected widget.
   bool? isSelfSufficiencySelectedValue;

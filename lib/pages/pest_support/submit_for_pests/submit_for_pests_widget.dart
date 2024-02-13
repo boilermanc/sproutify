@@ -13,10 +13,10 @@ import 'submit_for_pests_model.dart';
 export 'submit_for_pests_model.dart';
 
 class SubmitForPestsWidget extends StatefulWidget {
-  const SubmitForPestsWidget({Key? key}) : super(key: key);
+  const SubmitForPestsWidget({super.key});
 
   @override
-  _SubmitForPestsWidgetState createState() => _SubmitForPestsWidgetState();
+  State<SubmitForPestsWidget> createState() => _SubmitForPestsWidgetState();
 }
 
 class _SubmitForPestsWidgetState extends State<SubmitForPestsWidget>

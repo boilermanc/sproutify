@@ -1,4 +1,5 @@
 import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -12,10 +13,10 @@ import 'create_user_model.dart';
 export 'create_user_model.dart';
 
 class CreateUserWidget extends StatefulWidget {
-  const CreateUserWidget({Key? key}) : super(key: key);
+  const CreateUserWidget({super.key});
 
   @override
-  _CreateUserWidgetState createState() => _CreateUserWidgetState();
+  State<CreateUserWidget> createState() => _CreateUserWidgetState();
 }
 
 class _CreateUserWidgetState extends State<CreateUserWidget> {
@@ -101,13 +102,17 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  'assets/images/Grow_Smarter.png',
-                                  width: 300.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 20.0, 0.0, 0.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.asset(
+                                    'assets/images/Grow_Smarter.png',
+                                    width: 300.0,
+                                    height: 200.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ],
@@ -123,8 +128,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                               children: [
                                 Text(
                                   'Create an account',
-                                  style:
-                                      FlutterFlowTheme.of(context).displaySmall,
+                                  style: FlutterFlowTheme.of(context)
+                                      .displaySmall
+                                      .override(
+                                        fontFamily: 'Merriweather',
+                                      ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -132,7 +140,12 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                                   child: Text(
                                     'Let\'s get started by filling out the form below.',
                                     style: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
                                 Padding(
@@ -149,7 +162,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                                       decoration: InputDecoration(
                                         labelText: 'Email',
                                         labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium,
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              fontSize: 18.0,
+                                            ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
@@ -191,7 +208,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                                             .primaryBackground,
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            fontSize: 18.0,
+                                          ),
                                       keyboardType: TextInputType.emailAddress,
                                       validator: _model
                                           .emailAddressControllerValidator
@@ -213,7 +234,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                                       decoration: InputDecoration(
                                         labelText: 'Password',
                                         labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium,
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              fontSize: 18.0,
+                                            ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
@@ -295,7 +320,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                                       decoration: InputDecoration(
                                         labelText: 'Confirm Password',
                                         labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium,
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              fontSize: 18.0,
+                                            ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
@@ -393,9 +422,21 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                                         return;
                                       }
 
+                                      await SproutifyNewUserCall.call(
+                                        email:
+                                            _model.emailAddressController.text,
+                                      );
+
                                       context.pushNamedAuth(
-                                          'onboardingQuestions',
-                                          context.mounted);
+                                        'onboardingQuestions',
+                                        context.mounted,
+                                        queryParameters: {
+                                          'userID': serializeParam(
+                                            currentUserUid,
+                                            ParamType.String,
+                                          ),
+                                        }.withoutNulls,
+                                      );
                                     },
                                     text: 'Create Account',
                                     options: FFButtonOptions(
@@ -444,24 +485,100 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                                           TextSpan(
                                             text: 'Already have an account? ',
                                             style: TextStyle(),
-                                          ),
-                                          TextSpan(
-                                            text: 'Sign In here',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
                                           )
                                         ],
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge,
                                       ),
+                                    ),
+                                  ),
+                                ),
+                                RichText(
+                                  textScaleFactor:
+                                      MediaQuery.of(context).textScaleFactor,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'Sign In here',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .hyperlink,
+                                              fontSize: 16.0,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                      )
+                                    ],
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 20.0, 0.0, 0.0),
+                                  child: Container(
+                                    width: 388.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Powered By',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 10.0, 0.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await launchURL(
+                                                      'https://www.sweetwaterurbanfarms.com/');
+                                                },
+                                                child: Text(
+                                                  'Sweetwater Urban Farms',
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),

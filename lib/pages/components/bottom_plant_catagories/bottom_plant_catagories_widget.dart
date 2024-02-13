@@ -9,10 +9,10 @@ import 'bottom_plant_catagories_model.dart';
 export 'bottom_plant_catagories_model.dart';
 
 class BottomPlantCatagoriesWidget extends StatefulWidget {
-  const BottomPlantCatagoriesWidget({Key? key}) : super(key: key);
+  const BottomPlantCatagoriesWidget({super.key});
 
   @override
-  _BottomPlantCatagoriesWidgetState createState() =>
+  State<BottomPlantCatagoriesWidget> createState() =>
       _BottomPlantCatagoriesWidgetState();
 }
 
@@ -56,7 +56,7 @@ class _BottomPlantCatagoriesWidgetState
       ),
       child: Container(
         width: double.infinity,
-        height: 480.0,
+        height: double.infinity,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
@@ -73,7 +73,6 @@ class _BottomPlantCatagoriesWidgetState
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
               child: Container(
                 width: 50.0,
-                height: 4.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primaryBackground,
                   borderRadius: BorderRadius.circular(8.0),
@@ -87,7 +86,7 @@ class _BottomPlantCatagoriesWidgetState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Choose Category',
+                    'Choose Plant Category',
                     style: FlutterFlowTheme.of(context).headlineSmall,
                   ),
                   InkWell(
@@ -142,42 +141,41 @@ class _BottomPlantCatagoriesWidgetState
                       return Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 0.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            context.pushNamed(
-                              'plantCatagories',
-                              queryParameters: {
-                                'catagoryID': serializeParam(
-                                  listViewPlantCategoryRow.categoryId,
-                                  ParamType.int,
-                                ),
-                              }.withoutNulls,
-                            );
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 2.0,
-                              ),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
                             ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 12.0, 8.0, 12.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 12.0, 8.0, 12.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed(
+                                      'plantCatagories',
+                                      queryParameters: {
+                                        'categoryID': serializeParam(
+                                          listViewPlantCategoryRow.categoryId,
+                                          ParamType.int,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  },
+                                  child: Text(
                                     valueOrDefault<String>(
                                       listViewPlantCategoryRow.desc,
                                       'Green',
@@ -185,13 +183,13 @@ class _BottomPlantCatagoriesWidgetState
                                     style:
                                         FlutterFlowTheme.of(context).bodyLarge,
                                   ),
-                                  Icon(
-                                    Icons.chevron_right_rounded,
-                                    color: Color(0xFF7C8791),
-                                    size: 24.0,
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Icon(
+                                  Icons.chevron_right_rounded,
+                                  color: Color(0xFF7C8791),
+                                  size: 24.0,
+                                ),
+                              ],
                             ),
                           ),
                         ),

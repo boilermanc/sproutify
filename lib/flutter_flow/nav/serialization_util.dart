@@ -103,9 +103,9 @@ DateTimeRange? dateTimeRangeFromString(String dateTimeRangeStr) {
   );
 }
 
-LatLng? latLngFromString(String latLngStr) {
-  final pieces = latLngStr.split(',');
-  if (pieces.length != 2) {
+LatLng? latLngFromString(String? latLngStr) {
+  final pieces = latLngStr?.split(',');
+  if (pieces == null || pieces.length != 2) {
     return null;
   }
   return LatLng(
@@ -227,6 +227,10 @@ dynamic deserializeParam<T>(
             return PhEchistoryRow(data);
           case PlantCategoryRow:
             return PlantCategoryRow(data);
+          case VendorsRow:
+            return VendorsRow(data);
+          case ProductsRow:
+            return ProductsRow(data);
           case UserGardeningGoalsRow:
             return UserGardeningGoalsRow(data);
           case TowerGardensRow:
@@ -235,6 +239,8 @@ dynamic deserializeParam<T>(
             return AllUnreadNotificationsRow(data);
           case NotificationsRow:
             return NotificationsRow(data);
+          case UserproductlistviewRow:
+            return UserproductlistviewRow(data);
           case UserplantActionsRow:
             return UserplantActionsRow(data);
           case GardeningGoalsRow:
@@ -253,12 +259,16 @@ dynamic deserializeParam<T>(
             return TowerFaqRow(data);
           case PlantCategoryRelationRow:
             return PlantCategoryRelationRow(data);
+          case ProductsSubcategoriesRow:
+            return ProductsSubcategoriesRow(data);
           case EcValuesRow:
             return EcValuesRow(data);
           case UsersRow:
             return UsersRow(data);
           case UserNotificationsReadRow:
             return UserNotificationsReadRow(data);
+          case CategoriesRow:
+            return CategoriesRow(data);
           case GardeningPlantTypesRow:
             return GardeningPlantTypesRow(data);
           case UsertowerdetailsRow:
@@ -271,8 +281,12 @@ dynamic deserializeParam<T>(
             return ViewPlantDetailsByCategoryRow(data);
           case PhValuesRow:
             return PhValuesRow(data);
+          case PlantCatalogRow:
+            return PlantCatalogRow(data);
           case UserplantdetailsRow:
             return UserplantdetailsRow(data);
+          case UserproductsRow:
+            return UserproductsRow(data);
           default:
             return null;
         }

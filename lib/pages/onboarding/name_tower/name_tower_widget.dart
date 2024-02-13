@@ -10,14 +10,14 @@ export 'name_tower_model.dart';
 
 class NameTowerWidget extends StatefulWidget {
   const NameTowerWidget({
-    Key? key,
+    super.key,
     required this.towerID,
-  }) : super(key: key);
+  });
 
   final int? towerID;
 
   @override
-  _NameTowerWidgetState createState() => _NameTowerWidgetState();
+  State<NameTowerWidget> createState() => _NameTowerWidgetState();
 }
 
 class _NameTowerWidgetState extends State<NameTowerWidget> {
@@ -30,8 +30,7 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
     super.initState();
     _model = createModel(context, () => NameTowerModel());
 
-    _model.nameYourTowerController ??=
-        TextEditingController(text: 'Hey, I need a name!');
+    _model.nameYourTowerController ??= TextEditingController();
     _model.nameYourTowerFocusNode ??= FocusNode();
   }
 
@@ -70,7 +69,7 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
-                  fontSize: 22.0,
+                  fontSize: 24.0,
                 ),
           ),
           actions: [],
@@ -116,11 +115,12 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                       child: Container(
-                        width: double.infinity,
-                        height: 46.0,
+                        height: 75.0,
+                        constraints: BoxConstraints(
+                          minWidth: double.infinity,
+                        ),
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                         child: Form(
                           key: _model.formKey,
@@ -130,42 +130,69 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 20.0, 0.0),
-                              child: Container(
-                                width: double.infinity,
-                                child: TextFormField(
-                                  controller: _model.nameYourTowerController,
-                                  focusNode: _model.nameYourTowerFocusNode,
-                                  autofocus: true,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 18.0,
-                                        ),
-                                    hintText:
-                                        'Something like Herb or Back Deck',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    focusedErrorBorder: InputBorder.none,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                              child: TextFormField(
+                                controller: _model.nameYourTowerController,
+                                focusNode: _model.nameYourTowerFocusNode,
+                                autofocus: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'Your Tower Name',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .override(
+                                        fontFamily: 'Outfit',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                  hintText: 'Hey! I need a name!',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
                                       .override(
                                         fontFamily: 'Readex Pro',
-                                        fontSize: 18.0,
+                                        fontSize: 24.0,
                                       ),
-                                  maxLength: 20,
-                                  maxLengthEnforcement:
-                                      MaxLengthEnforcement.enforced,
-                                  validator: _model
-                                      .nameYourTowerControllerValidator
-                                      .asValidator(context),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
                                 ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 24.0,
+                                    ),
+                                maxLength: 20,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.enforced,
+                                validator: _model
+                                    .nameYourTowerControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ),

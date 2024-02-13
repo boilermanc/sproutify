@@ -60,4 +60,7 @@ class ProfilesRow extends SupabaseDataRow {
       getField<DateTime>('last_notification_read_time');
   set lastNotificationReadTime(DateTime? value) =>
       setField<DateTime>('last_notification_read_time', value);
+
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

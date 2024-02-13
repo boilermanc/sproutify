@@ -1,6 +1,10 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,16 +15,16 @@ export 'notification_component2_model.dart';
 
 class NotificationComponent2Widget extends StatefulWidget {
   const NotificationComponent2Widget({
-    Key? key,
+    super.key,
     this.parameter1,
     required this.userID,
-  }) : super(key: key);
+  });
 
   final String? parameter1;
   final String? userID;
 
   @override
-  _NotificationComponent2WidgetState createState() =>
+  State<NotificationComponent2Widget> createState() =>
       _NotificationComponent2WidgetState();
 }
 
@@ -61,16 +65,16 @@ class _NotificationComponent2WidgetState
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(10.0, 40.0, 0.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Your Notfications',
+                    'Your Notifications',
                     style: FlutterFlowTheme.of(context).headlineLarge.override(
                           fontFamily: 'Outfit',
-                          fontSize: 24.0,
+                          fontSize: 28.0,
                         ),
                   ),
                   Padding(
@@ -82,6 +86,16 @@ class _NotificationComponent2WidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        await ProfilesTable().update(
+                          data: {
+                            'last_notification_read_time':
+                                supaSerialize<DateTime>(getCurrentTimestamp),
+                          },
+                          matchingRows: (rows) => rows.eq(
+                            'id',
+                            currentUserUid,
+                          ),
+                        );
                         Navigator.pop(context);
                       },
                       child: Icon(
@@ -99,118 +113,173 @@ class _NotificationComponent2WidgetState
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  FutureBuilder<ApiCallResponse>(
-                    future: FetchNewNotficationsCall.call(
-                      userID: widget.userID,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                    child: FutureBuilder<ApiCallResponse>(
+                      future: FetchNewNotficationsCall.call(
+                        userID: widget.userID,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }
-                      final listViewFetchNewNotficationsResponse =
-                          snapshot.data!;
-                      return Builder(
-                        builder: (context) {
-                          final notifications =
-                              listViewFetchNewNotficationsResponse.jsonBody
-                                  .toList();
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: notifications.length,
-                            itemBuilder: (context, notificationsIndex) {
-                              final notificationsItem =
-                                  notifications[notificationsIndex];
-                              return Container(
-                                decoration: BoxDecoration(),
-                                child: Container(
-                                  width: double.infinity,
-                                  color: Colors.white,
-                                  child: ExpandableNotifier(
-                                    child: ExpandablePanel(
-                                      header: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              getJsonField(
-                                                notificationsItem,
-                                                r'''$.title''',
-                                              ).toString(),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .displaySmall
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color: Colors.black,
-                                                        fontSize: 18.0,
-                                                      ),
-                                            ),
-                                          ),
-                                          Text(
-                                            getJsonField(
-                                              notificationsItem,
-                                              r'''$.formatted_time_created''',
-                                            ).toString(),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
-                                          ),
-                                        ],
-                                      ),
-                                      collapsed: Container(),
-                                      expanded: Container(
-                                        decoration: BoxDecoration(),
-                                        child: Column(
+                          );
+                        }
+                        final listViewFetchNewNotficationsResponse =
+                            snapshot.data!;
+                        return Builder(
+                          builder: (context) {
+                            final notifications =
+                                listViewFetchNewNotficationsResponse.jsonBody
+                                    .toList();
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: notifications.length,
+                              itemBuilder: (context, notificationsIndex) {
+                                final notificationsItem =
+                                    notifications[notificationsIndex];
+                                return Container(
+                                  decoration: BoxDecoration(),
+                                  child: Container(
+                                    width: double.infinity,
+                                    color: Colors.white,
+                                    child: ExpandableNotifier(
+                                      initialExpanded: false,
+                                      child: ExpandablePanel(
+                                        header: Row(
                                           mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              getJsonField(
-                                                notificationsItem,
-                                                r'''$.description''',
-                                              ).toString(),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    color: Color(0x8A000000),
-                                                  ),
+                                            if (getJsonField(
+                                              notificationsItem,
+                                              r'''$.is_new''',
+                                            ))
+                                              FlutterFlowIconButton(
+                                                borderColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                borderRadius: 20.0,
+                                                borderWidth: 1.0,
+                                                buttonSize: 15.0,
+                                                fillColor: Color(0xFFE02222),
+                                                disabledColor:
+                                                    Color(0xFFE02222),
+                                                disabledIconColor:
+                                                    Color(0xFFE02222),
+                                                icon: Icon(
+                                                  Icons.lens_rounded,
+                                                  color: Color(0xFFE02222),
+                                                  size: 0.0,
+                                                ),
+                                                onPressed: !getJsonField(
+                                                  notificationsItem,
+                                                  r'''$.is_new''',
+                                                )
+                                                    ? null
+                                                    : () {
+                                                        print(
+                                                            'IconButton pressed ...');
+                                                      },
+                                              ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 0.0, 0.0, 0.0),
+                                                child: Text(
+                                                  getJsonField(
+                                                    notificationsItem,
+                                                    r'''$.title''',
+                                                  ).toString(),
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        fontSize: 16.0,
+                                                      ),
+                                                ),
+                                              ),
                                             ),
+                                            if (functions
+                                                        .returnDateYYYYMMDD() !=
+                                                    null &&
+                                                functions
+                                                        .returnDateYYYYMMDD() !=
+                                                    '')
+                                              Text(
+                                                getJsonField(
+                                                  notificationsItem,
+                                                  r'''$.formatted_time_created''',
+                                                ).toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          fontSize: 16.0,
+                                                        ),
+                                              ),
                                           ],
                                         ),
-                                      ),
-                                      theme: ExpandableThemeData(
-                                        tapHeaderToExpand: true,
-                                        tapBodyToExpand: false,
-                                        tapBodyToCollapse: false,
-                                        headerAlignment:
-                                            ExpandablePanelHeaderAlignment
-                                                .center,
-                                        hasIcon: true,
+                                        collapsed: Container(),
+                                        expanded: Container(
+                                          decoration: BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                getJsonField(
+                                                  notificationsItem,
+                                                  r'''$.description''',
+                                                ).toString(),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      color: Color(0x8A000000),
+                                                      fontSize: 16.0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        theme: ExpandableThemeData(
+                                          tapHeaderToExpand: true,
+                                          tapBodyToExpand: false,
+                                          tapBodyToCollapse: false,
+                                          headerAlignment:
+                                              ExpandablePanelHeaderAlignment
+                                                  .center,
+                                          hasIcon: true,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

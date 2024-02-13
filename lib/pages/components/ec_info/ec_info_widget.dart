@@ -8,10 +8,10 @@ import 'ec_info_model.dart';
 export 'ec_info_model.dart';
 
 class EcInfoWidget extends StatefulWidget {
-  const EcInfoWidget({Key? key}) : super(key: key);
+  const EcInfoWidget({super.key});
 
   @override
-  _EcInfoWidgetState createState() => _EcInfoWidgetState();
+  State<EcInfoWidget> createState() => _EcInfoWidgetState();
 }
 
 class _EcInfoWidgetState extends State<EcInfoWidget> {
@@ -72,6 +72,7 @@ class _EcInfoWidgetState extends State<EcInfoWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          HapticFeedback.lightImpact();
                           Navigator.pop(context);
                         },
                         child: Icon(

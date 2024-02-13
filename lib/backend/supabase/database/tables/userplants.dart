@@ -23,12 +23,15 @@ class UserplantsRow extends SupabaseDataRow {
   int? get plantId => getField<int>('plant_id');
   set plantId(int? value) => setField<int>('plant_id', value);
 
-  DateTime? get addedOn => getField<DateTime>('added_on');
-  set addedOn(DateTime? value) => setField<DateTime>('added_on', value);
-
   bool? get archived => getField<bool>('archived');
   set archived(bool? value) => setField<bool>('archived', value);
 
   double? get rating => getField<double>('rating');
   set rating(double? value) => setField<double>('rating', value);
+
+  double? get plantCost => getField<double>('plant_cost');
+  set plantCost(double? value) => setField<double>('plant_cost', value);
+
+  DateTime? get addedOn => getField<DateTime>('added_on');
+  set addedOn(DateTime? value) => setField<DateTime>('added_on', value);
 }

@@ -13,10 +13,10 @@ import 'support_grow_better_model.dart';
 export 'support_grow_better_model.dart';
 
 class SupportGrowBetterWidget extends StatefulWidget {
-  const SupportGrowBetterWidget({Key? key}) : super(key: key);
+  const SupportGrowBetterWidget({super.key});
 
   @override
-  _SupportGrowBetterWidgetState createState() =>
+  State<SupportGrowBetterWidget> createState() =>
       _SupportGrowBetterWidgetState();
 }
 

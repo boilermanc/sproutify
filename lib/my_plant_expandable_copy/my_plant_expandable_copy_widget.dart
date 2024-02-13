@@ -4,8 +4,10 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/pages/components/add_plant_cost/add_plant_cost_widget.dart';
 import '/pages/components/bottom_plant_management/bottom_plant_management_widget.dart';
 import '/pages/components/cultivate_bottom/cultivate_bottom_widget.dart';
+import '/pages/components/no_plants/no_plants_widget.dart';
 import '/pages/components/review_component/review_component_widget.dart';
 import 'dart:async';
 import 'package:expandable/expandable.dart';
@@ -18,18 +20,10 @@ import 'my_plant_expandable_copy_model.dart';
 export 'my_plant_expandable_copy_model.dart';
 
 class MyPlantExpandableCopyWidget extends StatefulWidget {
-  const MyPlantExpandableCopyWidget({
-    Key? key,
-    required this.myPlantsID,
-    int? plantRating,
-  })  : this.plantRating = plantRating ?? 5,
-        super(key: key);
-
-  final int? myPlantsID;
-  final int plantRating;
+  const MyPlantExpandableCopyWidget({super.key});
 
   @override
-  _MyPlantExpandableCopyWidgetState createState() =>
+  State<MyPlantExpandableCopyWidget> createState() =>
       _MyPlantExpandableCopyWidgetState();
 }
 
@@ -46,8 +40,8 @@ class _MyPlantExpandableCopyWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() => _model.requestCompleter2 = null);
-      await _model.waitForRequestCompleted2(minWait: 200);
+      setState(() => _model.requestCompleter = null);
+      await _model.waitForRequestCompleted(minWait: 200);
     });
   }
 
@@ -92,7 +86,9 @@ class _MyPlantExpandableCopyWidgetState
               size: 30.0,
             ),
             onPressed: () async {
-              context.pop();
+              HapticFeedback.lightImpact();
+
+              context.pushNamed('plantCatalog');
             },
           ),
           title: Text(
@@ -116,7 +112,7 @@ class _MyPlantExpandableCopyWidgetState
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   FutureBuilder<List<UserplantdetailsRow>>(
-                    future: (_model.requestCompleter2 ??=
+                    future: (_model.requestCompleter ??=
                             Completer<List<UserplantdetailsRow>>()
                               ..complete(UserplantdetailsTable().queryRows(
                                 queryFn: (q) => q
@@ -127,7 +123,8 @@ class _MyPlantExpandableCopyWidgetState
                                     .eq(
                                       'user_id',
                                       currentUserUid,
-                                    ),
+                                    )
+                                    .order('user_plant_id'),
                               )))
                         .future,
                     builder: (context, snapshot) {
@@ -147,6 +144,9 @@ class _MyPlantExpandableCopyWidgetState
                       }
                       List<UserplantdetailsRow>
                           listViewUserplantdetailsRowList = snapshot.data!;
+                      if (listViewUserplantdetailsRowList.isEmpty) {
+                        return NoPlantsWidget();
+                      }
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         primary: false,
@@ -158,8 +158,7 @@ class _MyPlantExpandableCopyWidgetState
                               listViewUserplantdetailsRowList[listViewIndex];
                           return Builder(
                             builder: (context) {
-                              if (listViewUserplantdetailsRow.userId ==
-                                  listViewUserplantdetailsRow.userId) {
+                              if (listViewUserplantdetailsRow.plantId != null) {
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 0.0),
@@ -172,6 +171,7 @@ class _MyPlantExpandableCopyWidgetState
                                       width: double.infinity,
                                       color: Color(0xFFE4EFD0),
                                       child: ExpandableNotifier(
+                                        initialExpanded: false,
                                         child: ExpandablePanel(
                                           header: Padding(
                                             padding:
@@ -209,154 +209,101 @@ class _MyPlantExpandableCopyWidgetState
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 5.0),
-                                                  child: FutureBuilder<
-                                                      List<UserFavoritesRow>>(
-                                                    future: (_model
-                                                                .requestCompleter1 ??=
-                                                            Completer<
-                                                                List<
-                                                                    UserFavoritesRow>>()
-                                                              ..complete(
-                                                                  UserFavoritesTable()
-                                                                      .querySingleRow(
-                                                                queryFn: (q) =>
-                                                                    q.eq(
-                                                                  'plant_id',
-                                                                  widget
-                                                                      .myPlantsID,
-                                                                ),
-                                                              )))
-                                                        .future,
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
-                                                            ),
+                                                  child: Builder(
+                                                    builder: (context) {
+                                                      if (valueOrDefault<bool>(
+                                                        listViewUserplantdetailsRow
+                                                            .isFavorite,
+                                                        false,
+                                                      )) {
+                                                        return FlutterFlowIconButton(
+                                                          borderColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                          borderRadius: 20.0,
+                                                          borderWidth: 1.0,
+                                                          buttonSize: 40.0,
+                                                          icon: Icon(
+                                                            Icons
+                                                                .favorite_sharp,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
                                                           ),
+                                                          onPressed: () async {
+                                                            await UserFavoritesTable()
+                                                                .update(
+                                                              data: {
+                                                                'is_favorite':
+                                                                    false,
+                                                              },
+                                                              matchingRows:
+                                                                  (rows) => rows
+                                                                      .eq(
+                                                                        'user_id',
+                                                                        currentUserUid,
+                                                                      )
+                                                                      .eq(
+                                                                        'plant_id',
+                                                                        listViewUserplantdetailsRow
+                                                                            .plantId,
+                                                                      ),
+                                                            );
+                                                            setState(() => _model
+                                                                    .requestCompleter =
+                                                                null);
+                                                            await _model
+                                                                .waitForRequestCompleted();
+                                                          },
+                                                        );
+                                                      } else {
+                                                        return FlutterFlowIconButton(
+                                                          borderColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                          borderRadius: 20.0,
+                                                          borderWidth: 1.0,
+                                                          buttonSize: 40.0,
+                                                          icon: Icon(
+                                                            Icons
+                                                                .favorite_border,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                          onPressed: () async {
+                                                            await UserFavoritesTable()
+                                                                .update(
+                                                              data: {
+                                                                'is_favorite':
+                                                                    true,
+                                                              },
+                                                              matchingRows:
+                                                                  (rows) => rows
+                                                                      .eq(
+                                                                        'user_id',
+                                                                        currentUserUid,
+                                                                      )
+                                                                      .eq(
+                                                                        'plant_id',
+                                                                        listViewUserplantdetailsRow
+                                                                            .plantId,
+                                                                      ),
+                                                            );
+                                                            setState(() => _model
+                                                                    .requestCompleter =
+                                                                null);
+                                                            await _model
+                                                                .waitForRequestCompleted(
+                                                                    minWait:
+                                                                        500);
+                                                          },
                                                         );
                                                       }
-                                                      List<UserFavoritesRow>
-                                                          conditionalBuilderUserFavoritesRowList =
-                                                          snapshot.data!;
-                                                      final conditionalBuilderUserFavoritesRow =
-                                                          conditionalBuilderUserFavoritesRowList
-                                                                  .isNotEmpty
-                                                              ? conditionalBuilderUserFavoritesRowList
-                                                                  .first
-                                                              : null;
-                                                      return Builder(
-                                                        builder: (context) {
-                                                          if (valueOrDefault<
-                                                              bool>(
-                                                            listViewUserplantdetailsRow
-                                                                .isFavorite,
-                                                            false,
-                                                          )) {
-                                                            return FlutterFlowIconButton(
-                                                              borderColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                              borderRadius:
-                                                                  20.0,
-                                                              borderWidth: 1.0,
-                                                              buttonSize: 40.0,
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .favorite_sharp,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                size: 24.0,
-                                                              ),
-                                                              onPressed:
-                                                                  () async {
-                                                                await UserFavoritesTable()
-                                                                    .update(
-                                                                  data: {
-                                                                    'is_favorite':
-                                                                        false,
-                                                                  },
-                                                                  matchingRows:
-                                                                      (rows) => rows
-                                                                          .eq(
-                                                                            'user_id',
-                                                                            currentUserUid,
-                                                                          )
-                                                                          .eq(
-                                                                            'plant_id',
-                                                                            listViewUserplantdetailsRow.plantId,
-                                                                          ),
-                                                                );
-                                                                setState(() =>
-                                                                    _model.requestCompleter1 =
-                                                                        null);
-                                                                await _model
-                                                                    .waitForRequestCompleted1();
-                                                              },
-                                                            );
-                                                          } else {
-                                                            return FlutterFlowIconButton(
-                                                              borderColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                              borderRadius:
-                                                                  20.0,
-                                                              borderWidth: 1.0,
-                                                              buttonSize: 40.0,
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .favorite_border,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                size: 24.0,
-                                                              ),
-                                                              onPressed:
-                                                                  () async {
-                                                                await UserFavoritesTable()
-                                                                    .update(
-                                                                  data: {
-                                                                    'is_favorite':
-                                                                        true,
-                                                                  },
-                                                                  matchingRows:
-                                                                      (rows) => rows
-                                                                          .eq(
-                                                                            'user_id',
-                                                                            currentUserUid,
-                                                                          )
-                                                                          .eq(
-                                                                            'plant_id',
-                                                                            listViewUserplantdetailsRow.plantId,
-                                                                          ),
-                                                                );
-                                                                setState(() =>
-                                                                    _model.requestCompleter1 =
-                                                                        null);
-                                                                await _model
-                                                                    .waitForRequestCompleted1(
-                                                                        minWait:
-                                                                            500);
-                                                              },
-                                                            );
-                                                          }
-                                                        },
-                                                      );
                                                     },
                                                   ),
                                                 ),
@@ -796,6 +743,129 @@ class _MyPlantExpandableCopyWidgetState
                                                                 ],
                                                               ),
                                                             ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          5.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Text(
+                                                                    'Plant Cost:',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Readex Pro',
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            10.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        formatNumber(
+                                                                          listViewUserplantdetailsRow
+                                                                              .plantCost,
+                                                                          formatType:
+                                                                              FormatType.custom,
+                                                                          currency:
+                                                                              '\$',
+                                                                          format:
+                                                                              '#,##0.00',
+                                                                          locale:
+                                                                              '',
+                                                                        ),
+                                                                        '0.00',
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Readex Pro',
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child:
+                                                                        InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onTap:
+                                                                          () async {
+                                                                        await showModalBottomSheet(
+                                                                          isScrollControlled:
+                                                                              true,
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          enableDrag:
+                                                                              false,
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (context) {
+                                                                            return GestureDetector(
+                                                                              onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                              child: Padding(
+                                                                                padding: MediaQuery.viewInsetsOf(context),
+                                                                                child: AddPlantCostWidget(
+                                                                                  userPlantID: listViewUserplantdetailsRow.userPlantId!,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        ).then((value) =>
+                                                                            safeSetState(() {}));
+                                                                      },
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .settings_outlined,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                        size:
+                                                                            24.0,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -814,7 +884,6 @@ class _MyPlantExpandableCopyWidgetState
                                                                         0.0),
                                                             child: Container(
                                                               width: 100.0,
-                                                              height: 100.0,
                                                               decoration:
                                                                   BoxDecoration(),
                                                               child: Column(
@@ -940,7 +1009,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                           valueOrDefault<
                                                                               String>(
                                                                             listViewUserplantdetailsRow.shortDescription,
-                                                                            'description',
+                                                                            'short description',
                                                                           ),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
@@ -1203,6 +1272,25 @@ class _MyPlantExpandableCopyWidgetState
                                                                       ),
                                                                     ],
                                                                   ),
+                                                                ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        listViewUserplantdetailsRow
+                                                                            .userPlantId
+                                                                            ?.toString(),
+                                                                        'user_plant_id',
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium,
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),

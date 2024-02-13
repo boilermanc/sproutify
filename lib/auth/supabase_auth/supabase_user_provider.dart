@@ -5,8 +5,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class TowerGardenCommunitySupabaseUser extends BaseAuthUser {
-  TowerGardenCommunitySupabaseUser(this.user);
+class SproutifyMobileSupabaseUser extends BaseAuthUser {
+  SproutifyMobileSupabaseUser(this.user);
   User? user;
   bool get loggedIn => user != null;
 
@@ -56,7 +56,7 @@ class TowerGardenCommunitySupabaseUser extends BaseAuthUser {
 /// [SupaFlow.client.auth.onAuthStateChange] does not yield any values until the
 /// user is already authenticated. So we add a default null user to the stream,
 /// if we need to interact with the [currentUser] before logging in.
-Stream<BaseAuthUser> towerGardenCommunitySupabaseUserStream() {
+Stream<BaseAuthUser> sproutifyMobileSupabaseUserStream() {
   final supabaseAuthStream = SupaFlow.client.auth.onAuthStateChange.debounce(
       (authState) => authState.event == AuthChangeEvent.tokenRefreshed
           ? TimerStream(authState, Duration(seconds: 1))
@@ -66,7 +66,7 @@ Stream<BaseAuthUser> towerGardenCommunitySupabaseUserStream() {
           : supabaseAuthStream)
       .map<BaseAuthUser>(
     (authState) {
-      currentUser = TowerGardenCommunitySupabaseUser(authState?.session?.user);
+      currentUser = SproutifyMobileSupabaseUser(authState?.session?.user);
       return currentUser!;
     },
   );

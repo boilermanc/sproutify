@@ -104,8 +104,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
   ) async {
     try {
       final user = await signInFunc();
-      final authUser =
-          user == null ? null : TowerGardenCommunitySupabaseUser(user);
+      final authUser = user == null ? null : SproutifyMobileSupabaseUser(user);
 
       // Update currentUser here in case user info needs to be used immediately
       // after a user is signed in. This should be handled by the user stream,
@@ -118,7 +117,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
       return authUser;
     } on AuthException catch (e) {
       final errorMsg = e.message.contains('User already registered') ?? false
-          ? 'The email is already in use by a different account'
+          ? 'Error: The email is already in use by a different account'
           : 'Error: ${e.message!}';
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(

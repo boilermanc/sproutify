@@ -13,14 +13,14 @@ export 'plant_catagories_model.dart';
 
 class PlantCatagoriesWidget extends StatefulWidget {
   const PlantCatagoriesWidget({
-    Key? key,
-    required this.catagoryID,
-  }) : super(key: key);
+    super.key,
+    int? categoryID,
+  }) : this.categoryID = categoryID ?? 1;
 
-  final int? catagoryID;
+  final int categoryID;
 
   @override
-  _PlantCatagoriesWidgetState createState() => _PlantCatagoriesWidgetState();
+  State<PlantCatagoriesWidget> createState() => _PlantCatagoriesWidgetState();
 }
 
 class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
@@ -103,7 +103,7 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
               size: 30.0,
             ),
             onPressed: () async {
-              context.pop();
+              context.pushNamed('plantCatalog');
             },
           ),
           title: Text(
@@ -120,20 +120,18 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Flexible(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
                   child: FutureBuilder<List<ViewPlantDetailsByCategoryRow>>(
                     future: ViewPlantDetailsByCategoryTable().queryRows(
-                      queryFn: (q) => q
-                          .eq(
-                            'category_id',
-                            widget.catagoryID,
-                          )
-                          .order('plant_name'),
+                      queryFn: (q) => q.eq(
+                        'category_id',
+                        widget.categoryID,
+                      ),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -151,7 +149,7 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                         );
                       }
                       List<ViewPlantDetailsByCategoryRow>
-                          catagoryViewViewPlantDetailsByCategoryRowList =
+                          gridViewViewPlantDetailsByCategoryRowList =
                           snapshot.data!;
                       return GridView.builder(
                         padding: EdgeInsets.zero,
@@ -162,74 +160,79 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                           childAspectRatio: 1.0,
                         ),
                         scrollDirection: Axis.vertical,
-                        itemCount: catagoryViewViewPlantDetailsByCategoryRowList
-                            .length,
-                        itemBuilder: (context, catagoryViewIndex) {
-                          final catagoryViewViewPlantDetailsByCategoryRow =
-                              catagoryViewViewPlantDetailsByCategoryRowList[
-                                  catagoryViewIndex];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                5.0, 5.0, 5.0, 5.0),
+                        itemCount:
+                            gridViewViewPlantDetailsByCategoryRowList.length,
+                        itemBuilder: (context, gridViewIndex) {
+                          final gridViewViewPlantDetailsByCategoryRow =
+                              gridViewViewPlantDetailsByCategoryRowList[
+                                  gridViewIndex];
+                          return InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed(
+                                'plantDetail3',
+                                queryParameters: {
+                                  'plantName': serializeParam(
+                                    gridViewViewPlantDetailsByCategoryRow
+                                        .plantName,
+                                    ParamType.String,
+                                  ),
+                                  'plantID': serializeParam(
+                                    gridViewViewPlantDetailsByCategoryRow
+                                        .plantId,
+                                    ParamType.int,
+                                  ),
+                                  'isFavorite': serializeParam(
+                                    false,
+                                    ParamType.bool,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            },
                             child: Container(
-                              width: double.infinity,
+                              width: 100.0,
+                              height: double.infinity,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                               ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 5.0, 0.0, 5.0),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.network(
-                                          catagoryViewViewPlantDetailsByCategoryRow
-                                              .plantImage!,
-                                          width: 70.0,
-                                          height: 70.0,
-                                          fit: BoxFit.cover,
-                                        ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 5.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.network(
+                                        gridViewViewPlantDetailsByCategoryRow
+                                            .plantImage!,
+                                        width: 80.0,
+                                        height: 80.0,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                    Flexible(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 5.0, 0.0),
-                                              child: Text(
-                                                valueOrDefault<String>(
-                                                  catagoryViewViewPlantDetailsByCategoryRow
-                                                      .plantName,
-                                                  'Plant',
-                                                ),
-                                                textAlign: TextAlign.center,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                              ),
-                                            ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      valueOrDefault<String>(
+                                        gridViewViewPlantDetailsByCategoryRow
+                                            .plantName,
+                                        'plant',
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                        ],
-                                      ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
@@ -238,8 +241,8 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                     },
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

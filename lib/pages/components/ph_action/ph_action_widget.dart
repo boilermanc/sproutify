@@ -11,12 +11,12 @@ export 'ph_action_model.dart';
 
 class PhActionWidget extends StatefulWidget {
   const PhActionWidget({
-    Key? key,
+    super.key,
     required this.towerID,
     required this.phValue,
     required this.timestamp,
     this.historyID,
-  }) : super(key: key);
+  });
 
   final UsertowerdetailsRow? towerID;
   final UsertowerdetailsRow? phValue;
@@ -24,7 +24,7 @@ class PhActionWidget extends StatefulWidget {
   final int? historyID;
 
   @override
-  _PhActionWidgetState createState() => _PhActionWidgetState();
+  State<PhActionWidget> createState() => _PhActionWidgetState();
 }
 
 class _PhActionWidgetState extends State<PhActionWidget> {
@@ -113,6 +113,7 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          HapticFeedback.lightImpact();
                           Navigator.pop(context);
                         },
                         child: Icon(
@@ -152,6 +153,7 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    HapticFeedback.lightImpact();
                     await PhEchistoryTable().insert({
                       'tower_id': widget.towerID?.towerId,
                       'timestamp': supaSerialize<DateTime>(widget.timestamp),

@@ -9,10 +9,10 @@ import 'cultivate_bottom_model.dart';
 export 'cultivate_bottom_model.dart';
 
 class CultivateBottomWidget extends StatefulWidget {
-  const CultivateBottomWidget({Key? key}) : super(key: key);
+  const CultivateBottomWidget({super.key});
 
   @override
-  _CultivateBottomWidgetState createState() => _CultivateBottomWidgetState();
+  State<CultivateBottomWidget> createState() => _CultivateBottomWidgetState();
 }
 
 class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {

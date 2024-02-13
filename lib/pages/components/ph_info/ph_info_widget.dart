@@ -8,10 +8,10 @@ import 'ph_info_model.dart';
 export 'ph_info_model.dart';
 
 class PhInfoWidget extends StatefulWidget {
-  const PhInfoWidget({Key? key}) : super(key: key);
+  const PhInfoWidget({super.key});
 
   @override
-  _PhInfoWidgetState createState() => _PhInfoWidgetState();
+  State<PhInfoWidget> createState() => _PhInfoWidgetState();
 }
 
 class _PhInfoWidgetState extends State<PhInfoWidget> {

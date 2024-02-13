@@ -4,8 +4,10 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/pages/components/add_plant_cost/add_plant_cost_widget.dart';
 import '/pages/components/bottom_plant_management/bottom_plant_management_widget.dart';
 import '/pages/components/cultivate_bottom/cultivate_bottom_widget.dart';
+import '/pages/components/no_plants/no_plants_widget.dart';
 import '/pages/components/review_component/review_component_widget.dart';
 import 'dart:async';
 import 'my_plant_expandable_copy_widget.dart' show MyPlantExpandableCopyWidget;
@@ -21,8 +23,7 @@ class MyPlantExpandableCopyModel
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  Completer<List<UserplantdetailsRow>>? requestCompleter2;
-  Completer<List<UserFavoritesRow>>? requestCompleter1;
+  Completer<List<UserplantdetailsRow>>? requestCompleter;
 
   /// Initialization and disposal methods.
 
@@ -36,7 +37,7 @@ class MyPlantExpandableCopyModel
 
   /// Additional helper methods are added here.
 
-  Future waitForRequestCompleted2({
+  Future waitForRequestCompleted({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -44,22 +45,7 @@ class MyPlantExpandableCopyModel
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = requestCompleter2?.isCompleted ?? false;
-      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
-        break;
-      }
-    }
-  }
-
-  Future waitForRequestCompleted1({
-    double minWait = 0,
-    double maxWait = double.infinity,
-  }) async {
-    final stopwatch = Stopwatch()..start();
-    while (true) {
-      await Future.delayed(Duration(milliseconds: 50));
-      final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = requestCompleter1?.isCompleted ?? false;
+      final requestComplete = requestCompleter?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }
