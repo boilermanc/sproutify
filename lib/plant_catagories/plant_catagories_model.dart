@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
 import 'plant_catagories_widget.dart' show PlantCatagoriesWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +16,10 @@ class PlantCatagoriesModel extends FlutterFlowModel<PlantCatagoriesWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
   }

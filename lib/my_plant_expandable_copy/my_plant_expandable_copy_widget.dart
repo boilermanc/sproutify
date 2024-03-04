@@ -54,15 +54,6 @@ class _MyPlantExpandableCopyWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -233,6 +224,8 @@ class _MyPlantExpandableCopyWidgetState
                                                             size: 24.0,
                                                           ),
                                                           onPressed: () async {
+                                                            HapticFeedback
+                                                                .lightImpact();
                                                             await UserFavoritesTable()
                                                                 .update(
                                                               data: {
@@ -276,6 +269,8 @@ class _MyPlantExpandableCopyWidgetState
                                                             size: 24.0,
                                                           ),
                                                           onPressed: () async {
+                                                            HapticFeedback
+                                                                .lightImpact();
                                                             await UserFavoritesTable()
                                                                 .update(
                                                               data: {

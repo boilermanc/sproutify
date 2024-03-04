@@ -7,7 +7,6 @@ import 'dart:ui';
 import 'onboarding_flow_widget.dart' show OnboardingFlowWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -27,8 +26,10 @@ class OnboardingFlowModel extends FlutterFlowModel<OnboardingFlowWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
   }

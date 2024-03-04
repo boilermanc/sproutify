@@ -24,3 +24,23 @@ bool? showPlantSearchResults(
 ) {
   return textSearchIn.toLowerCase().contains(textSearchFor.toLowerCase());
 }
+
+bool? checkIsNewStatus(String jsonNotifications) {
+  if (jsonNotifications == null) {
+    // Handle the case where jsonNotifications is null if necessary
+    return false;
+  }
+
+  // Parse the non-null JSON string into a list of maps
+  // ignore: unused_local_variable
+  List<dynamic> notificationsList = jsonDecode(jsonNotifications);
+
+  // Iterate over each notification to check if 'is_new' is true
+  for (final Map<String, dynamic> notification in notificationsList) {
+    if (notification['is_new'] == true) {
+      return true; // Return true if any notification is new
+    }
+  }
+
+  return false; // Return false if no new notifications are found
+}

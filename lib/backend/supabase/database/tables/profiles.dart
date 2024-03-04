@@ -63,4 +63,12 @@ class ProfilesRow extends SupabaseDataRow {
 
   DateTime? get createdAt => getField<DateTime>('created_at');
   set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
+
+  String? get gardeningExperience => getField<String>('gardening_experience');
+  set gardeningExperience(String? value) =>
+      setField<String>('gardening_experience', value);
+
+  int? get mailerliteGroupId => getField<int>('mailerlite_group_id');
+  set mailerliteGroupId(int? value) =>
+      setField<int>('mailerlite_group_id', value);
 }

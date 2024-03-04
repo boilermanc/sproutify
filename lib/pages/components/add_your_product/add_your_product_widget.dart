@@ -168,7 +168,12 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                           child: TextFormField(
                             controller: _model.enterCostController ??=
                                 TextEditingController(
-                              text: listViewProductsRow?.price?.toString(),
+                              text: formatNumber(
+                                listViewProductsRow?.price,
+                                formatType: FormatType.decimal,
+                                decimalType: DecimalType.automatic,
+                                currency: '\$',
+                              ),
                             ),
                             focusNode: _model.enterCostFocusNode,
                             autofocus: true,
@@ -216,9 +221,6 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              prefixIcon: Icon(
-                                Icons.attach_money_sharp,
                               ),
                             ),
                             style: FlutterFlowTheme.of(context)
@@ -350,7 +352,7 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                         });
                         Navigator.pop(context);
                       },
-                      text: 'Add Your Product',
+                      text: 'Add Product',
                       options: FFButtonOptions(
                         height: 40.0,
                         padding: EdgeInsetsDirectional.fromSTEB(

@@ -8,7 +8,6 @@ import '/pages/components/notification_component2/notification_component2_widget
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +18,10 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
   }

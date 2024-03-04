@@ -16,4 +16,7 @@ class UsersRow extends SupabaseDataRow {
 
   int get userId => getField<int>('user_id')!;
   set userId(int value) => setField<int>('user_id', value);
+
+  bool? get isAdmin => getField<bool>('is_admin');
+  set isAdmin(bool? value) => setField<bool>('is_admin', value);
 }

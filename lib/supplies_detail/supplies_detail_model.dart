@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/components/add_your_product/add_your_product_widget.dart';
 import 'supplies_detail_widget.dart' show SuppliesDetailWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +16,10 @@ class SuppliesDetailModel extends FlutterFlowModel<SuppliesDetailWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
   }

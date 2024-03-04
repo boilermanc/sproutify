@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'my_stats_model.dart';
@@ -38,15 +37,6 @@ class _MyStatsWidgetState extends State<MyStatsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -55,7 +45,7 @@ class _MyStatsWidgetState extends State<MyStatsWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        backgroundColor: FlutterFlowTheme.of(context).alternate,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -74,7 +64,7 @@ class _MyStatsWidgetState extends State<MyStatsWidget> {
             },
           ),
           title: Text(
-            'Your Stats',
+            'My Stats',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
@@ -92,7 +82,7 @@ class _MyStatsWidgetState extends State<MyStatsWidget> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).alternate,
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -556,7 +546,6 @@ class _MyStatsWidgetState extends State<MyStatsWidget> {
                 ),
               ),
               Container(
-                height: 200.0,
                 decoration: BoxDecoration(),
                 child: SingleChildScrollView(
                   child: Column(

@@ -1,4 +1,5 @@
 import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -50,15 +51,6 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return Scaffold(
@@ -437,6 +429,20 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                     'id',
                                     currentUserUid,
                                   ),
+                                );
+                                await AddNewSubscriberInMailerLiteCall.call(
+                                  firstName: _model.firstNameController.text,
+                                  lastName:
+                                      (_model.lastNameFocusNode?.hasFocus ??
+                                              false)
+                                          .toString(),
+                                  postalCode: _model.postalCodeController.text,
+                                  email: listViewProfilesRow?.email,
+                                  experience:
+                                      listViewProfilesRow?.gardeningExperience,
+                                  groupID: listViewProfilesRow
+                                      ?.mailerliteGroupId
+                                      ?.toString(),
                                 );
 
                                 context.pushNamed('HomePage');

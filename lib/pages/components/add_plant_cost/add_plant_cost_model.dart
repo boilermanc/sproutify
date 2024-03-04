@@ -19,8 +19,10 @@ class AddPlantCostModel extends FlutterFlowModel<AddPlantCostWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     plantCostFocusNode?.dispose();
     plantCostController?.dispose();

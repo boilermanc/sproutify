@@ -24,8 +24,10 @@ class AddYourProductModel extends FlutterFlowModel<AddYourProductWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     enterCostFocusNode?.dispose();
     enterCostController?.dispose();

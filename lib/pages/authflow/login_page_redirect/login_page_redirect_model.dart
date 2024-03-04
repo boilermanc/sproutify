@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'login_page_redirect_widget.dart' show LoginPageRedirectWidget;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -25,10 +24,12 @@ class LoginPageRedirectModel extends FlutterFlowModel<LoginPageRedirectWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     passwordVisibility = false;
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     emailAddressFocusNode?.dispose();

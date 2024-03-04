@@ -9,7 +9,6 @@ import 'plant_catalog_widget.dart' show PlantCatalogWidget;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -26,8 +25,10 @@ class PlantCatalogModel extends FlutterFlowModel<PlantCatalogWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     searchPlantNameFocusNode?.dispose();

@@ -210,15 +210,6 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -278,39 +269,6 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                               size: 30.0,
                             ),
                             onPressed: () async {
-                              if (_model.isSelfSufficiencySelectedValue!) {
-                                await UserGardeningGoalsTable().insert({
-                                  'profile_id': currentUserUid,
-                                  'goal_id': 1,
-                                });
-                              }
-                              if (_model.isHealthAndNutritionSelectedValue!) {
-                                await UserGardeningGoalsTable().insert({
-                                  'profile_id': currentUserUid,
-                                  'goal_id': 2,
-                                });
-                              }
-                              if (_model
-                                  .isEnvironmentalSustainabilitySelectedValue!) {
-                                await UserGardeningGoalsTable().insert({
-                                  'profile_id': currentUserUid,
-                                  'goal_id': 3,
-                                });
-                              }
-                              if (_model
-                                  .isEducationalFamilyEngagementSelectedValue!) {
-                                await UserGardeningGoalsTable().insert({
-                                  'profile_id': currentUserUid,
-                                  'goal_id': 4,
-                                });
-                              }
-                              if (_model
-                                  .isTherapeuticRecreationalSelectedValue!) {
-                                await UserGardeningGoalsTable().insert({
-                                  'profile_id': currentUserUid,
-                                  'goal_id': 5,
-                                });
-                              }
                               await _model.collectInfoController?.nextPage(
                                 duration: Duration(milliseconds: 300),
                                 curve: Curves.ease,
@@ -1103,12 +1061,18 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      await UserGardeningExperienceTable()
-                                                          .insert({
-                                                        'level_id': 1,
-                                                        'profile_id':
-                                                            currentUserUid,
-                                                      });
+                                                      await ProfilesTable()
+                                                          .update(
+                                                        data: {
+                                                          'gardening_experience':
+                                                              'Beginner',
+                                                        },
+                                                        matchingRows: (rows) =>
+                                                            rows.eq(
+                                                          'id',
+                                                          widget.userID,
+                                                        ),
+                                                      );
                                                       await _model
                                                           .collectInfoController
                                                           ?.animateToPage(
@@ -1202,12 +1166,20 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      await UserGardeningExperienceTable()
-                                                          .insert({
-                                                        'level_id': 2,
-                                                        'profile_id':
-                                                            currentUserUid,
-                                                      });
+                                                      HapticFeedback
+                                                          .lightImpact();
+                                                      await ProfilesTable()
+                                                          .update(
+                                                        data: {
+                                                          'gardening_experience':
+                                                              'Novice',
+                                                        },
+                                                        matchingRows: (rows) =>
+                                                            rows.eq(
+                                                          'id',
+                                                          currentUserUid,
+                                                        ),
+                                                      );
                                                       await _model
                                                           .collectInfoController
                                                           ?.animateToPage(
@@ -1301,12 +1273,20 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      await UserGardeningExperienceTable()
-                                                          .insert({
-                                                        'level_id': 3,
-                                                        'profile_id':
-                                                            currentUserUid,
-                                                      });
+                                                      HapticFeedback
+                                                          .lightImpact();
+                                                      await ProfilesTable()
+                                                          .update(
+                                                        data: {
+                                                          'gardening_experience':
+                                                              'Intermediate',
+                                                        },
+                                                        matchingRows: (rows) =>
+                                                            rows.eq(
+                                                          'id',
+                                                          currentUserUid,
+                                                        ),
+                                                      );
                                                       await _model
                                                           .collectInfoController
                                                           ?.animateToPage(
@@ -1402,12 +1382,20 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      await UserGardeningExperienceTable()
-                                                          .insert({
-                                                        'level_id': 4,
-                                                        'profile_id':
-                                                            currentUserUid,
-                                                      });
+                                                      HapticFeedback
+                                                          .lightImpact();
+                                                      await ProfilesTable()
+                                                          .update(
+                                                        data: {
+                                                          'gardening_experience':
+                                                              'Advanced',
+                                                        },
+                                                        matchingRows: (rows) =>
+                                                            rows.eq(
+                                                          'id',
+                                                          currentUserUid,
+                                                        ),
+                                                      );
                                                       await _model
                                                           .collectInfoController
                                                           ?.animateToPage(
@@ -1503,12 +1491,20 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      await UserGardeningExperienceTable()
-                                                          .insert({
-                                                        'level_id': 5,
-                                                        'profile_id':
-                                                            currentUserUid,
-                                                      });
+                                                      HapticFeedback
+                                                          .lightImpact();
+                                                      await ProfilesTable()
+                                                          .update(
+                                                        data: {
+                                                          'gardening_experience':
+                                                              'Expert',
+                                                        },
+                                                        matchingRows: (rows) =>
+                                                            rows.eq(
+                                                          'id',
+                                                          currentUserUid,
+                                                        ),
+                                                      );
                                                       await _model
                                                           .collectInfoController
                                                           ?.animateToPage(
@@ -1608,47 +1604,11 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                 size: 30.0,
                               ),
                               onPressed: () async {
-                                if (_model.isHerbsValue!) {
-                                  await UserGardeningPlantPreferencesTable()
-                                      .insert({
-                                    'profile_id': currentUserUid,
-                                    'plant_type_id': 1,
-                                  });
-                                }
-                                if (_model.isLeafyGreensValue!) {
-                                  await UserGardeningPlantPreferencesTable()
-                                      .insert({
-                                    'profile_id': currentUserUid,
-                                    'plant_type_id': 2,
-                                  });
-                                }
-                                if (_model.isEdibleValue!) {
-                                  await UserGardeningPlantPreferencesTable()
-                                      .insert({
-                                    'profile_id': currentUserUid,
-                                    'plant_type_id': 3,
-                                  });
-                                }
-                                if (_model.isMedicianalValue!) {
-                                  await UserGardeningPlantPreferencesTable()
-                                      .insert({
-                                    'profile_id': currentUserUid,
-                                    'plant_type_id': 4,
-                                  });
-                                }
-                                if (_model.isVegetablesValue!) {
-                                  await UserGardeningPlantPreferencesTable()
-                                      .insert({
-                                    'profile_id': currentUserUid,
-                                    'plant_type_id': 5,
-                                  });
-                                }
-
                                 context.pushNamed(
                                   'decideOnTower',
                                   queryParameters: {
                                     'userID': serializeParam(
-                                      currentUserUid,
+                                      widget.userID,
                                       ParamType.String,
                                     ),
                                   }.withoutNulls,

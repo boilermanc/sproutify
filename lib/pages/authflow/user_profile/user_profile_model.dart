@@ -5,7 +5,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/pages/components/my_growing_goals/my_growing_goals_widget.dart';
 import '/pages/components/profile_picture/profile_picture_widget.dart';
+import '/pages/components/what_i_like_to_grow/what_i_like_to_grow_widget.dart';
 import 'user_profile_widget.dart' show UserProfileWidget;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +24,10 @@ class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
   }

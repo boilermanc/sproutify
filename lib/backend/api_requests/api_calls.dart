@@ -241,31 +241,6 @@ class CategoryCostPerUserCall {
           .toList();
 }
 
-class SproutifyNewUserCall {
-  static Future<ApiCallResponse> call({
-    String? email = '',
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "email": "${email}"
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'Sproutify New User',
-      apiUrl: 'https://hahav2.buildship.run/sproutify_new_user_email',
-      callType: ApiCallType.POST,
-      headers: {},
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
 class FAQSearchCall {
   static Future<ApiCallResponse> call({
     String? searchString = '',
@@ -358,6 +333,92 @@ class CoralChatCall {
         response,
         r'''$.text''',
       ));
+}
+
+class AddNewSubscriberInMailerLiteCall {
+  static Future<ApiCallResponse> call({
+    String? firstName = '',
+    String? lastName = '',
+    String? email = '',
+    String? experience = '',
+    String? postalCode = '',
+    String? groupID = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "email": "${email}",
+  "fields": {
+    "name": "${firstName}",
+    "last_name": "${lastName}",
+    "experience": "${experience}",
+    "z_i_p": "${postalCode}"
+  },
+  "groups": [
+    "113457793189545748",
+    "${groupID}"
+  ]
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Add New Subscriber In MailerLite',
+      apiUrl: 'https://connect.mailerlite.com/api/subscribers',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNGQzNjA2YWRhMzNlYWNhZjcwNjc5YmVlOTM1NDlmNDFhOTM1MGE5YmI2M2Q3MmU5ODBjZWYxMWQwMDdlY2Q4MmY4ODU4MjM2NzdjMDE3ODUiLCJpYXQiOjE3MDgwMTU1NDcuNTAwNDQ4LCJuYmYiOjE3MDgwMTU1NDcuNTAwNDUsImV4cCI6NDg2MzY4OTE0Ny40OTc1NDcsInN1YiI6Ijg0MDQzNCIsInNjb3BlcyI6W119.lQO8iLiR22DngoCWL_JTE-B-k9YdrL9oYhNx4xbc5HMx4XSg44OpgjkNoAEN2TbjHFx73Xm7B1m9nIBWOgnG5ML-t2NZtBZXHvgvqDOf-XrwEFcaxEzZOGRWm6-YdGhPY_700NVcdc5AkEweHmzrIrqKxcotSv_2-BWJvsxqPjJtypTzxMAQZa_395jxDSZ_6Vk3m1UcEidEWgdjgH51xrSNIcm48w8LwvDeWSObEUYpPm9H0AqgyZ3KHCiKwZrH6ZL4tTT2y_8Jx5j_4p_xj4Hf7iIGrdhTXpep6YIFXrLrGOIBUnUI1NLjkDjn0ookOOIWtda43GqyeUlCxrTE4BsZ9GfxRHy2O6aqa4F4Ip_IQ_fYsHRn5Zf3D_KmcQ-RhiYGiEsyvpBWtTfhV-Fe6sNNUXmHdrIS-qyS4YY-836_wG08qT7gVKeLwmJ8a2bh-Cv_CWG4j3ywmzNFAjUabqXaXW-ONROqbS1cPYAkZGkQQE6BYwp7Fy7yNwyubU615Xa0ebYxNI3Jq8kWoTWl71spQYDcjYqw4HjzaPQB9oozC3dSB7GcDhGTQUtXQH7fxMqmF5oGf44YQX9OWQ4OnfK58GdvfK-XNBCRHGTXPf7oqIKKi2QxvPPiS0bpZz2RvAG-G3LonY_i2gt4E6iN30BE0zie1eojnuzX3jtxjCo',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? email(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data.email''',
+      ));
+  static String? lastname(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data.fields.last_name''',
+      ));
+  static String? name(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data.fields.name''',
+      ));
+  static String? experience(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data.fields.experience''',
+      ));
+}
+
+class TomorrowIOWeatherCall {
+  static Future<ApiCallResponse> call({
+    String? zipcode = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Tomorrow IO Weather',
+      apiUrl:
+          'https://api.tomorrow.io/v4/weather/realtime?location=*${zipcode}*&units=imperial',
+      callType: ApiCallType.GET,
+      headers: {
+        'Accept': 'application/json',
+        'apikey': 'btIwdDjQM1nD2nRzm5vNzj2WO1zwQnS8',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 class ApiPagingParams {

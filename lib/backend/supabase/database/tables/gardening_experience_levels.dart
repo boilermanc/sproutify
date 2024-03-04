@@ -22,4 +22,8 @@ class GardeningExperienceLevelsRow extends SupabaseDataRow {
   String get levelDescription => getField<String>('level_description')!;
   set levelDescription(String value) =>
       setField<String>('level_description', value);
+
+  int? get mailerliteGroupId => getField<int>('mailerlite_group_id');
+  set mailerliteGroupId(int? value) =>
+      setField<int>('mailerlite_group_id', value);
 }

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -47,15 +48,6 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -108,12 +100,15 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
                   child: FutureBuilder<List<UserFavoritePlantsRow>>(
-                    future: UserFavoritePlantsTable().queryRows(
-                      queryFn: (q) => q.eq(
-                        'user_id',
-                        currentUserUid,
-                      ),
-                    ),
+                    future: (_model.requestCompleter ??=
+                            Completer<List<UserFavoritePlantsRow>>()
+                              ..complete(UserFavoritePlantsTable().queryRows(
+                                queryFn: (q) => q.eq(
+                                  'user_id',
+                                  currentUserUid,
+                                ),
+                              )))
+                        .future,
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -254,24 +249,94 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                           ],
                                         ),
                                       ),
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        elevation: 1.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40.0),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: Icon(
-                                            Icons.keyboard_arrow_right_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 10.0, 5.0),
+                                        child: Builder(
+                                          builder: (context) {
+                                            if (valueOrDefault<bool>(
+                                              listViewUserFavoritePlantsRow
+                                                  .isFavorite,
+                                              false,
+                                            )) {
+                                              return FlutterFlowIconButton(
+                                                borderColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                borderRadius: 20.0,
+                                                borderWidth: 1.0,
+                                                buttonSize: 40.0,
+                                                icon: Icon(
+                                                  Icons.favorite_sharp,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 24.0,
+                                                ),
+                                                onPressed: () async {
+                                                  HapticFeedback.lightImpact();
+                                                  await UserFavoritesTable()
+                                                      .update(
+                                                    data: {
+                                                      'is_favorite': false,
+                                                    },
+                                                    matchingRows: (rows) => rows
+                                                        .eq(
+                                                          'user_id',
+                                                          currentUserUid,
+                                                        )
+                                                        .eq(
+                                                          'plant_id',
+                                                          widget.myPlantID,
+                                                        ),
+                                                  );
+                                                  setState(() => _model
+                                                      .requestCompleter = null);
+                                                  await _model
+                                                      .waitForRequestCompleted();
+                                                },
+                                              );
+                                            } else {
+                                              return FlutterFlowIconButton(
+                                                borderColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                borderRadius: 20.0,
+                                                borderWidth: 1.0,
+                                                buttonSize: 40.0,
+                                                icon: Icon(
+                                                  Icons.favorite_border,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 24.0,
+                                                ),
+                                                onPressed: () async {
+                                                  HapticFeedback.lightImpact();
+                                                  await UserFavoritesTable()
+                                                      .update(
+                                                    data: {
+                                                      'is_favorite': true,
+                                                    },
+                                                    matchingRows: (rows) => rows
+                                                        .eq(
+                                                          'user_id',
+                                                          currentUserUid,
+                                                        )
+                                                        .eq(
+                                                          'plant_id',
+                                                          widget.myPlantID,
+                                                        ),
+                                                  );
+                                                  setState(() => _model
+                                                      .requestCompleter = null);
+                                                  await _model
+                                                      .waitForRequestCompleted(
+                                                          minWait: 500);
+                                                },
+                                              );
+                                            }
+                                          },
                                         ),
                                       ),
                                     ],

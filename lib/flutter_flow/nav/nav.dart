@@ -152,13 +152,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'Settings2AddProfile',
-          path: '/settings2AddProfile',
-          builder: (context, params) => Settings2AddProfileWidget(
-            userID: params.getParam('userID', ParamType.String),
-          ),
-        ),
-        FFRoute(
           name: 'submitForPests',
           path: '/submitForPests',
           builder: (context, params) => SubmitForPestsWidget(),
@@ -233,11 +226,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'whitefliesDetail',
           path: '/whitefliesDetail',
           builder: (context, params) => WhitefliesDetailWidget(),
-        ),
-        FFRoute(
-          name: 'wormsDetail',
-          path: '/wormsDetail',
-          builder: (context, params) => WormsDetailWidget(),
         ),
         FFRoute(
           name: 'gnatsDetail',
@@ -338,9 +326,36 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'chatTest',
-          path: '/chatTest',
-          builder: (context, params) => ChatTestWidget(),
+          name: 'coralChat',
+          path: '/coralChat',
+          builder: (context, params) => CoralChatWidget(),
+        ),
+        FFRoute(
+          name: 'wormsDetail2',
+          path: '/wormsDetail2',
+          builder: (context, params) => WormsDetail2Widget(),
+        ),
+        FFRoute(
+          name: 'onboardingQuestionsCopy',
+          path: '/onboardingQuestionsCopy',
+          builder: (context, params) => OnboardingQuestionsCopyWidget(
+            userID: params.getParam('userID', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'plantSelector',
+          path: '/plantSelector',
+          builder: (context, params) => PlantSelectorWidget(),
+        ),
+        FFRoute(
+          name: 'outdoorPlants',
+          path: '/outdoorPlants',
+          builder: (context, params) => OutdoorPlantsWidget(),
+        ),
+        FFRoute(
+          name: 'indoorPlants',
+          path: '/indoorPlants',
+          builder: (context, params) => IndoorPlantsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -514,6 +529,7 @@ class FFRoute {
           return null;
         },
         pageBuilder: (context, state) {
+          fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
           final page = ffParams.hasFutures
               ? FutureBuilder(
@@ -522,11 +538,15 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: Colors.transparent,
-                  child: Image.asset(
-                    'assets/images/sproutify_splash_screen.png',
-                    fit: BoxFit.cover,
+              ? Center(
+                  child: SizedBox(
+                    width: 50.0,
+                    height: 50.0,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        FlutterFlowTheme.of(context).primary,
+                      ),
+                    ),
                   ),
                 )
               : page;

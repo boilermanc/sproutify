@@ -5,7 +5,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/pages/components/my_growing_goals/my_growing_goals_widget.dart';
 import '/pages/components/profile_picture/profile_picture_widget.dart';
+import '/pages/components/what_i_like_to_grow/what_i_like_to_grow_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -35,7 +37,27 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = {
-    'buttonOnPageLoadAnimation': AnimationInfo(
+    'buttonOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 400.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 60.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'buttonOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         VisibilityEffect(duration: 400.ms),
@@ -79,15 +101,6 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -336,6 +349,120 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               'Update Your Postal Code',
                             ),
                             style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 10.0, 0.0),
+                            child: Text(
+                              'My Level',
+                              style: FlutterFlowTheme.of(context).labelMedium,
+                            ),
+                          ),
+                          Text(
+                            valueOrDefault<String>(
+                              listViewProfilesRow?.gardeningExperience,
+                              'experience level',
+                            ),
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 10.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                HapticFeedback.lightImpact();
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () => _model
+                                              .unfocusNode.canRequestFocus
+                                          ? FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode)
+                                          : FocusScope.of(context).unfocus(),
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: MyGrowingGoalsWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
+                              },
+                              child: Text(
+                                'My Goals',
+                                style: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              HapticFeedback.lightImpact();
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return GestureDetector(
+                                    onTap: () => _model
+                                            .unfocusNode.canRequestFocus
+                                        ? FocusScope.of(context)
+                                            .requestFocus(_model.unfocusNode)
+                                        : FocusScope.of(context).unfocus(),
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: WhatILikeToGrowWidget(),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+                            },
+                            child: Text(
+                              'Plant Preferances',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                  ),
+                            ),
                           ),
                         ],
                       ),
@@ -631,40 +758,85 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            GoRouter.of(context).prepareAuthEvent();
-                            await authManager.signOut();
-                            GoRouter.of(context).clearRedirectLocation();
-
-                            context.goNamedAuth('loginPage', context.mounted);
-                          },
-                          text: 'Log Out',
-                          options: FFButtonOptions(
-                            width: 150.0,
-                            height: 44.0,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                            elevation: 0.0,
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).lineColor,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(38.0),
+                                0.0, 16.0, 0.0, 0.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                GoRouter.of(context).prepareAuthEvent();
+                                await authManager.signOut();
+                                GoRouter.of(context).clearRedirectLocation();
+
+                                context.goNamedAuth(
+                                    'loginPage', context.mounted);
+                              },
+                              text: 'Delete Account',
+                              options: FFButtonOptions(
+                                width: 150.0,
+                                height: 44.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                textStyle:
+                                    FlutterFlowTheme.of(context).bodyMedium,
+                                elevation: 0.0,
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).lineColor,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(38.0),
+                              ),
+                            ).animateOnPageLoad(
+                                animationsMap['buttonOnPageLoadAnimation1']!),
                           ),
-                        ).animateOnPageLoad(
-                            animationsMap['buttonOnPageLoadAnimation']!),
-                      ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 0.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                GoRouter.of(context).prepareAuthEvent();
+                                await authManager.signOut();
+                                GoRouter.of(context).clearRedirectLocation();
+
+                                context.goNamedAuth(
+                                    'loginPage', context.mounted);
+                              },
+                              text: 'Log Out',
+                              options: FFButtonOptions(
+                                width: 150.0,
+                                height: 44.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                textStyle:
+                                    FlutterFlowTheme.of(context).bodyMedium,
+                                elevation: 0.0,
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).lineColor,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(38.0),
+                              ),
+                            ).animateOnPageLoad(
+                                animationsMap['buttonOnPageLoadAnimation2']!),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 );

@@ -18,26 +18,11 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {
-    prefs = await SharedPreferences.getInstance();
-    _safeInit(() {
-      _isplantFavorite =
-          prefs.getBool('ff_isplantFavorite') ?? _isplantFavorite;
-    });
-  }
+  Future initializePersistedState() async {}
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
-  }
-
-  late SharedPreferences prefs;
-
-  bool _isplantFavorite = false;
-  bool get isplantFavorite => _isplantFavorite;
-  set isplantFavorite(bool _value) {
-    _isplantFavorite = _value;
-    prefs.setBool('ff_isplantFavorite', _value);
   }
 
   MessageTypeStruct _message = MessageTypeStruct.fromSerializableMap(jsonDecode(
@@ -107,16 +92,22 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInPlantNamesForSearch(int _index, String _value) {
     _plantNamesForSearch.insert(_index, _value);
   }
-}
 
-void _safeInit(Function() initializeField) {
-  try {
-    initializeField();
-  } catch (_) {}
-}
+  bool _isNewNotification = false;
+  bool get isNewNotification => _isNewNotification;
+  set isNewNotification(bool _value) {
+    _isNewNotification = _value;
+  }
 
-Future _safeInitAsync(Function() initializeField) async {
-  try {
-    await initializeField();
-  } catch (_) {}
+  bool _wrongLogin = false;
+  bool get wrongLogin => _wrongLogin;
+  set wrongLogin(bool _value) {
+    _wrongLogin = _value;
+  }
+
+  bool _aiSearchResultDisplay = false;
+  bool get aiSearchResultDisplay => _aiSearchResultDisplay;
+  set aiSearchResultDisplay(bool _value) {
+    _aiSearchResultDisplay = _value;
+  }
 }

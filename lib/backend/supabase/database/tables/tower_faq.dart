@@ -28,4 +28,7 @@ class TowerFaqRow extends SupabaseDataRow {
 
   String? get links => getField<String>('links');
   set links(String? value) => setField<String>('links', value);
+
+  String? get tsvectorCol => getField<String>('tsvector_col');
+  set tsvectorCol(String? value) => setField<String>('tsvector_col', value);
 }

@@ -6,7 +6,6 @@ import '/pages/components/dont_have_tower/dont_have_tower_widget.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -165,15 +164,6 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -240,7 +230,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                             EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            context.pushNamed('towerCatalog');
+                            context.goNamed('towerCatalog');
                           },
                           text: 'Yes! I Do!',
                           options: FFButtonOptions(

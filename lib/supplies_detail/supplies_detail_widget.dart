@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/components/add_your_product/add_your_product_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'supplies_detail_model.dart';
@@ -43,15 +42,6 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -93,7 +83,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
         body: SafeArea(
           top: true,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -322,7 +312,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10.0, 0.0, 10.0, 0.0),
                                         child: Text(
-                                          'Add this product to your supplies list:',
+                                          'Add to my supplies.',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
@@ -373,7 +363,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 10.0),
                                       child: Text(
-                                        'Hmm, this looks like something I need!',
+                                        'Something you need?',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(

@@ -215,6 +215,8 @@ dynamic deserializeParam<T>(
       case ParamType.SupabaseRow:
         final data = json.decode(param) as Map<String, dynamic>;
         switch (T) {
+          case UserProfilesWithPlantPreferencesRow:
+            return UserProfilesWithPlantPreferencesRow(data);
           case MyTowersRow:
             return MyTowersRow(data);
           case UserplantsRow:
@@ -239,18 +241,28 @@ dynamic deserializeParam<T>(
             return AllUnreadNotificationsRow(data);
           case NotificationsRow:
             return NotificationsRow(data);
+          case HighlyRatedPicksRow:
+            return HighlyRatedPicksRow(data);
           case UserproductlistviewRow:
             return UserproductlistviewRow(data);
           case UserplantActionsRow:
             return UserplantActionsRow(data);
           case GardeningGoalsRow:
             return GardeningGoalsRow(data);
+          case IndoorOutdoorPlantsRow:
+            return IndoorOutdoorPlantsRow(data);
           case UserGardeningPlantPreferencesRow:
             return UserGardeningPlantPreferencesRow(data);
           case UserFavoritePlantsRow:
             return UserFavoritePlantsRow(data);
+          case IndoorPlantsRow:
+            return IndoorPlantsRow(data);
+          case PestContentRow:
+            return PestContentRow(data);
           case ProfilesRow:
             return ProfilesRow(data);
+          case PestmanagementcategoryRow:
+            return PestmanagementcategoryRow(data);
           case PlantsRow:
             return PlantsRow(data);
           case GardeningExperienceLevelsRow:
@@ -263,6 +275,8 @@ dynamic deserializeParam<T>(
             return ProductsSubcategoriesRow(data);
           case EcValuesRow:
             return EcValuesRow(data);
+          case QuickHarvestPlantsRow:
+            return QuickHarvestPlantsRow(data);
           case UsersRow:
             return UsersRow(data);
           case UserNotificationsReadRow:
@@ -279,12 +293,16 @@ dynamic deserializeParam<T>(
             return PlantRatingsRow(data);
           case ViewPlantDetailsByCategoryRow:
             return ViewPlantDetailsByCategoryRow(data);
+          case OutdoorPlantsRow:
+            return OutdoorPlantsRow(data);
           case PhValuesRow:
             return PhValuesRow(data);
           case PlantCatalogRow:
             return PlantCatalogRow(data);
           case UserplantdetailsRow:
             return UserplantdetailsRow(data);
+          case UserProfilesWithGoalsRow:
+            return UserProfilesWithGoalsRow(data);
           case UserproductsRow:
             return UserproductsRow(data);
           default:

@@ -20,8 +20,10 @@ class PlantDetail3Model extends FlutterFlowModel<PlantDetail3Widget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
   }

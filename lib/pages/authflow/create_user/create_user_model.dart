@@ -1,5 +1,4 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -15,6 +14,7 @@ class CreateUserModel extends FlutterFlowModel<CreateUserWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  final formKey = GlobalKey<FormState>();
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;
   TextEditingController? emailAddressController;
@@ -32,11 +32,13 @@ class CreateUserModel extends FlutterFlowModel<CreateUserWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     passwordVisibility = false;
     passwordConfirmVisibility = false;
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     emailAddressFocusNode?.dispose();
