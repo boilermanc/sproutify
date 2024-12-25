@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,8 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PlantSelectorModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -35,12 +38,11 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -66,7 +68,9 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
-                  fontSize: 22.0,
+                  fontSize: 24.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w600,
                 ),
           ),
           actions: [],
@@ -96,6 +100,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
                               FlutterFlowTheme.of(context).bodyLarge.override(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                         ),
@@ -125,6 +130,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -137,6 +143,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
                                     .override(
                                       fontFamily: 'Outfit',
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                     ),
                               ),
                               Icon(
@@ -174,6 +181,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -186,6 +194,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
                                     .override(
                                       fontFamily: 'Outfit',
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                     ),
                               ),
                               Icon(

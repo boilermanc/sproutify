@@ -34,54 +34,56 @@ String uploadedFileToString(FFUploadedFile uploadedFile) =>
 
 String? serializeParam(
   dynamic param,
-  ParamType paramType, [
+  ParamType paramType, {
   bool isList = false,
-]) {
+}) {
   try {
     if (param == null) {
       return null;
     }
     if (isList) {
       final serializedValues = (param as Iterable)
-          .map((p) => serializeParam(p, paramType, false))
+          .map((p) => serializeParam(p, paramType, isList: false))
           .where((p) => p != null)
           .map((p) => p!)
           .toList();
       return json.encode(serializedValues);
     }
+    String? data;
     switch (paramType) {
       case ParamType.int:
-        return param.toString();
+        data = param.toString();
       case ParamType.double:
-        return param.toString();
+        data = param.toString();
       case ParamType.String:
-        return param;
+        data = param;
       case ParamType.bool:
-        return param ? 'true' : 'false';
+        data = param ? 'true' : 'false';
       case ParamType.DateTime:
-        return (param as DateTime).millisecondsSinceEpoch.toString();
+        data = (param as DateTime).millisecondsSinceEpoch.toString();
       case ParamType.DateTimeRange:
-        return dateTimeRangeToString(param as DateTimeRange);
+        data = dateTimeRangeToString(param as DateTimeRange);
       case ParamType.LatLng:
-        return (param as LatLng).serialize();
+        data = (param as LatLng).serialize();
       case ParamType.Color:
-        return (param as Color).toCssString();
+        data = (param as Color).toCssString();
       case ParamType.FFPlace:
-        return placeToString(param as FFPlace);
+        data = placeToString(param as FFPlace);
       case ParamType.FFUploadedFile:
-        return uploadedFileToString(param as FFUploadedFile);
+        data = uploadedFileToString(param as FFUploadedFile);
       case ParamType.JSON:
-        return json.encode(param);
+        data = json.encode(param);
 
       case ParamType.DataStruct:
-        return param is BaseStruct ? param.serialize() : null;
+        data = param is BaseStruct ? param.serialize() : null;
 
       case ParamType.SupabaseRow:
         return json.encode((param as SupabaseDataRow).data);
 
       default:
-        return null;
+        data = null;
     }
+    return data;
   } catch (e) {
     print('Error serializing parameter: $e');
     return null;
@@ -153,6 +155,7 @@ enum ParamType {
   FFPlace,
   FFUploadedFile,
   JSON,
+
   DataStruct,
   SupabaseRow,
 }
@@ -215,96 +218,100 @@ dynamic deserializeParam<T>(
       case ParamType.SupabaseRow:
         final data = json.decode(param) as Map<String, dynamic>;
         switch (T) {
-          case UserProfilesWithPlantPreferencesRow:
-            return UserProfilesWithPlantPreferencesRow(data);
           case MyTowersRow:
             return MyTowersRow(data);
-          case UserplantsRow:
-            return UserplantsRow(data);
-          case GardeningInspirationalMessagesRow:
-            return GardeningInspirationalMessagesRow(data);
-          case UserGardeningExperienceRow:
-            return UserGardeningExperienceRow(data);
-          case PhEchistoryRow:
-            return PhEchistoryRow(data);
-          case PlantCategoryRow:
-            return PlantCategoryRow(data);
-          case VendorsRow:
-            return VendorsRow(data);
-          case ProductsRow:
-            return ProductsRow(data);
-          case UserGardeningGoalsRow:
-            return UserGardeningGoalsRow(data);
-          case TowerGardensRow:
-            return TowerGardensRow(data);
-          case AllUnreadNotificationsRow:
-            return AllUnreadNotificationsRow(data);
-          case NotificationsRow:
-            return NotificationsRow(data);
-          case HighlyRatedPicksRow:
-            return HighlyRatedPicksRow(data);
-          case UserproductlistviewRow:
-            return UserproductlistviewRow(data);
-          case UserplantActionsRow:
-            return UserplantActionsRow(data);
-          case GardeningGoalsRow:
-            return GardeningGoalsRow(data);
-          case IndoorOutdoorPlantsRow:
-            return IndoorOutdoorPlantsRow(data);
-          case UserGardeningPlantPreferencesRow:
-            return UserGardeningPlantPreferencesRow(data);
-          case UserFavoritePlantsRow:
-            return UserFavoritePlantsRow(data);
-          case IndoorPlantsRow:
-            return IndoorPlantsRow(data);
-          case PestContentRow:
-            return PestContentRow(data);
-          case ProfilesRow:
-            return ProfilesRow(data);
-          case PestmanagementcategoryRow:
-            return PestmanagementcategoryRow(data);
-          case PlantsRow:
-            return PlantsRow(data);
-          case GardeningExperienceLevelsRow:
-            return GardeningExperienceLevelsRow(data);
-          case TowerFaqRow:
-            return TowerFaqRow(data);
-          case PlantCategoryRelationRow:
-            return PlantCategoryRelationRow(data);
-          case ProductsSubcategoriesRow:
-            return ProductsSubcategoriesRow(data);
-          case EcValuesRow:
-            return EcValuesRow(data);
-          case QuickHarvestPlantsRow:
-            return QuickHarvestPlantsRow(data);
-          case UsersRow:
-            return UsersRow(data);
-          case UserNotificationsReadRow:
-            return UserNotificationsReadRow(data);
-          case CategoriesRow:
-            return CategoriesRow(data);
           case GardeningPlantTypesRow:
             return GardeningPlantTypesRow(data);
+          case UserplantActionsRow:
+            return UserplantActionsRow(data);
+          case PlantratingsRow:
+            return PlantratingsRow(data);
+          case VendorsRow:
+            return VendorsRow(data);
+          case PlantCategoryRelationRow:
+            return PlantCategoryRelationRow(data);
+          case UserGardeningGoalsRow:
+            return UserGardeningGoalsRow(data);
+          case TowerFaqRow:
+            return TowerFaqRow(data);
           case UsertowerdetailsRow:
             return UsertowerdetailsRow(data);
-          case UserFavoritesRow:
-            return UserFavoritesRow(data);
-          case PlantRatingsRow:
-            return PlantRatingsRow(data);
-          case ViewPlantDetailsByCategoryRow:
-            return ViewPlantDetailsByCategoryRow(data);
-          case OutdoorPlantsRow:
-            return OutdoorPlantsRow(data);
-          case PhValuesRow:
-            return PhValuesRow(data);
-          case PlantCatalogRow:
-            return PlantCatalogRow(data);
-          case UserplantdetailsRow:
-            return UserplantdetailsRow(data);
-          case UserProfilesWithGoalsRow:
-            return UserProfilesWithGoalsRow(data);
+          case UserproductlistviewRow:
+            return UserproductlistviewRow(data);
+          case UserProfilesWithPlantPreferencesRow:
+            return UserProfilesWithPlantPreferencesRow(data);
           case UserproductsRow:
             return UserproductsRow(data);
+          case IndoorPlantsRow:
+            return IndoorPlantsRow(data);
+          case UserFavoritePlantsRow:
+            return UserFavoritePlantsRow(data);
+          case ProfilesRow:
+            return ProfilesRow(data);
+          case ProductsWithVendorsRow:
+            return ProductsWithVendorsRow(data);
+          case AllUnreadNotificationsRow:
+            return AllUnreadNotificationsRow(data);
+          case PlantCategoryRow:
+            return PlantCategoryRow(data);
+          case UserGardeningPlantPreferencesRow:
+            return UserGardeningPlantPreferencesRow(data);
+          case GardeningGoalsRow:
+            return GardeningGoalsRow(data);
+          case PestContentRow:
+            return PestContentRow(data);
+          case UserplantdetailsRow:
+            return UserplantdetailsRow(data);
+          case PestmanagementcategoryRow:
+            return PestmanagementcategoryRow(data);
+          case HighlyRatedPicksRow:
+            return HighlyRatedPicksRow(data);
+          case PlantsRow:
+            return PlantsRow(data);
+          case ProductsRow:
+            return ProductsRow(data);
+          case UserProfilesWithGoalsRow:
+            return UserProfilesWithGoalsRow(data);
+          case UserplantsRow:
+            return UserplantsRow(data);
+          case PhValuesRow:
+            return PhValuesRow(data);
+          case OutdoorPlantsRow:
+            return OutdoorPlantsRow(data);
+          case PlantOverallRatingsRow:
+            return PlantOverallRatingsRow(data);
+          case TowerGardensRow:
+            return TowerGardensRow(data);
+          case GardeningExperienceLevelsRow:
+            return GardeningExperienceLevelsRow(data);
+          case PlantCatalogRow:
+            return PlantCatalogRow(data);
+          case PhEchistoryRow:
+            return PhEchistoryRow(data);
+          case UserNotificationsStatusRow:
+            return UserNotificationsStatusRow(data);
+          case EcValuesRow:
+            return EcValuesRow(data);
+          case ViewPlantDetailsByCategoryRow:
+            return ViewPlantDetailsByCategoryRow(data);
+          case UserGardeningExperienceRow:
+            return UserGardeningExperienceRow(data);
+          case UsersRow:
+            return UsersRow(data);
+          case QuickHarvestPlantsRow:
+            return QuickHarvestPlantsRow(data);
+          case UserFavoritesRow:
+            return UserFavoritesRow(data);
+          case ProductsSubcategoriesRow:
+            return ProductsSubcategoriesRow(data);
+          case IndoorOutdoorPlantsRow:
+            return IndoorOutdoorPlantsRow(data);
+          case CategoriesRow:
+            return CategoriesRow(data);
+          case GardeningInspirationalMessagesRow:
+            return GardeningInspirationalMessagesRow(data);
+          case NotificationsRow:
+            return NotificationsRow(data);
           default:
             return null;
         }

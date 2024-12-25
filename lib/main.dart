@@ -9,7 +9,7 @@ import 'auth/supabase_auth/supabase_user_provider.dart';
 import 'auth/supabase_auth/auth_util.dart';
 
 import '/backend/supabase/supabase.dart';
-import 'flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'flutter_flow/nav/nav.dart';
@@ -17,11 +17,10 @@ import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
   await SupaFlow.initialize();
-
-  await FlutterFlowTheme.initialize();
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -42,12 +41,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
-
-  late Stream<BaseAuthUser> userStream;
+  ThemeMode _themeMode = ThemeMode.system;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
+
+  late Stream<BaseAuthUser> userStream;
 
   @override
   void initState() {
@@ -56,17 +55,18 @@ class _MyAppState extends State<MyApp> {
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
     userStream = sproutifyMobileSupabaseUserStream()
-      ..listen((user) => _appStateNotifier.update(user));
+      ..listen((user) {
+        _appStateNotifier.update(user);
+      });
     jwtTokenStream.listen((_) {});
     Future.delayed(
-      Duration(milliseconds: 1000),
+      Duration(milliseconds: isWeb ? 0 : 3000),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
 
-  void setThemeMode(ThemeMode mode) => setState(() {
+  void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
       });
 
   @override
@@ -81,9 +81,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(
         brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
+        useMaterial3: false,
       ),
       themeMode: _themeMode,
       routerConfig: _router,
@@ -119,7 +117,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'HomePage': HomePageWidget(),
       'plantFavorites': PlantFavoritesWidget(),
       'pestSupport2': PestSupport2Widget(),
-      'myStats': MyStatsWidget(),
+      'myCosts': MyCostsWidget(),
       'mySupplies': MySuppliesWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -128,7 +126,7 @@ class _NavBarPageState extends State<NavBarPage> {
       body: _currentPage ?? tabs[_currentPageName],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (i) => setState(() {
+        onTap: (i) => safeSetState(() {
           _currentPage = null;
           _currentPageName = tabs.keys.toList()[i];
         }),

@@ -1,11 +1,13 @@
 import '/backend/supabase/supabase.dart';
+import '/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'indoor_plants_model.dart';
@@ -30,10 +32,11 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().plantSearchActive = false;
-      });
+      FFAppState().plantSearchActive = false;
+      safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -70,10 +73,12 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
           );
         }
         List<IndoorPlantsRow> indoorPlantsIndoorPlantsRowList = snapshot.data!;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -86,10 +91,10 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                   context: context,
                   builder: (context) {
                     return GestureDetector(
-                      onTap: () => _model.unfocusNode.canRequestFocus
-                          ? FocusScope.of(context)
-                              .requestFocus(_model.unfocusNode)
-                          : FocusScope.of(context).unfocus(),
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
                       child: Padding(
                         padding: MediaQuery.viewInsetsOf(context),
                         child: BottomPlantCatagoriesWidget(),
@@ -120,7 +125,8 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                   size: 30.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed('HomePage');
+                  HapticFeedback.lightImpact();
+                  context.safePop();
                 },
               ),
               title: Text(
@@ -129,27 +135,11 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                       fontFamily: 'Outfit',
                       color: Colors.white,
                       fontSize: 24.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w600,
                     ),
               ),
-              actions: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed('plantFavorites');
-                    },
-                    child: Icon(
-                      Icons.favorite_rounded,
-                      color: FlutterFlowTheme.of(context).accent4,
-                      size: 24.0,
-                    ),
-                  ),
-                ),
-              ],
+              actions: [],
               centerTitle: true,
               elevation: 2.0,
             ),
@@ -161,14 +151,12 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      padding: EdgeInsets.all(10.0),
                       child: Container(
-                        width: 388.0,
-                        height: 100.0,
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -176,68 +164,36 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [],
-                              ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 10.0, 0.0, 0.0),
+                                padding: EdgeInsets.all(10.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        context.pushNamed('plantSelector');
-                                      },
-                                      child: Text(
-                                        'Plant Selector',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiary,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 10.0, 0.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        context.pushNamed('plantSelector');
-                                      },
-                                      child: Text(
-                                        'These plants will grow well indoor.',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 18.0,
-                                            ),
+                                    Flexible(
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed('plantSelector');
+                                        },
+                                        child: Text(
+                                          'These plants will grow well indoor.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                fontSize: 18.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -256,6 +212,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                           builder: (context) {
                             final indoorPlants =
                                 indoorPlantsIndoorPlantsRowList.toList();
+
                             return GridView.builder(
                               padding: EdgeInsets.zero,
                               gridDelegate:
@@ -296,16 +253,27 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                                   },
                                   child: Container(
                                     width: 200.0,
+                                    height: 200.0,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(
+                                            0.0,
+                                            2.0,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Flexible(
+                                        Expanded(
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -313,20 +281,43 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.network(
-                                                      indoorPlantsItem
-                                                          .plantImage!,
-                                                      width: 80.0,
-                                                      height: 80.0,
-                                                      fit: BoxFit.contain,
+                                                Expanded(
+                                                  child: Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  0.0),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  0.0),
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  0.0),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  0.0),
+                                                        ),
+                                                        child: Image.network(
+                                                          indoorPlantsItem
+                                                              .plantImage!,
+                                                          width: 80.0,
+                                                          height: 80.0,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -337,19 +328,24 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                                                             .fromSTEB(0.0, 5.0,
                                                                 0.0, 0.0),
                                                     child: Text(
-                                                      indoorPlantsItem
-                                                          .plantName!,
+                                                      valueOrDefault<String>(
+                                                        indoorPlantsItem
+                                                            .plantName,
+                                                        ' Plant',
+                                                      ),
                                                       textAlign:
                                                           TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                fontSize: 12.0,
-                                                              ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Readex Pro',
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
                                                     ),
                                                   ),
                                                 ),

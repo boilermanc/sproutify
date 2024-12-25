@@ -22,30 +22,35 @@ class MessageTypeStruct extends BaseStruct {
   String? _type;
   String get type => _type ?? '';
   set type(String? val) => _type = val;
+
   bool hasType() => _type != null;
 
   // "role" field.
   String? _role;
   String get role => _role ?? '';
   set role(String? val) => _role = val;
+
   bool hasRole() => _role != null;
 
   // "message" field.
   String? _message;
   String get message => _message ?? '';
   set message(String? val) => _message = val;
+
   bool hasMessage() => _message != null;
 
   // "ImageData" field.
   String? _imageData;
   String get imageData => _imageData ?? '';
   set imageData(String? val) => _imageData = val;
+
   bool hasImageData() => _imageData != null;
 
   // "timestamp" field.
   DateTime? _timestamp;
   DateTime? get timestamp => _timestamp;
   set timestamp(DateTime? val) => _timestamp = val;
+
   bool hasTimestamp() => _timestamp != null;
 
   static MessageTypeStruct fromMap(Map<String, dynamic> data) =>

@@ -28,4 +28,7 @@ class TowerGardensRow extends SupabaseDataRow {
 
   String? get tgCorpImage => getField<String>('tg_corp_image');
   set tgCorpImage(String? value) => setField<String>('tg_corp_image', value);
+
+  bool get isActive => getField<bool>('is_active')!;
+  set isActive(bool value) => setField<bool>('is_active', value);
 }

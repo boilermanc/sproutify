@@ -5,6 +5,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
+import 'dart:ui';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -37,6 +39,8 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => PlantFavoritesModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -48,12 +52,11 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -75,10 +78,12 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
             },
           ),
           title: Text(
-            'Your Favorites',
+            'My Favorites',
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'Outfit',
                   color: FlutterFlowTheme.of(context).info,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w600,
                 ),
           ),
           actions: [],
@@ -103,7 +108,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                     future: (_model.requestCompleter ??=
                             Completer<List<UserFavoritePlantsRow>>()
                               ..complete(UserFavoritePlantsTable().queryRows(
-                                queryFn: (q) => q.eq(
+                                queryFn: (q) => q.eqOrNull(
                                   'user_id',
                                   currentUserUid,
                                 ),
@@ -126,6 +131,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                       }
                       List<UserFavoritePlantsRow>
                           listViewUserFavoritePlantsRowList = snapshot.data!;
+
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
@@ -146,7 +152,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                   'plantDetail3',
                                   queryParameters: {
                                     'plantID': serializeParam(
-                                      widget.myPlantID,
+                                      widget!.myPlantID,
                                       ParamType.int,
                                     ),
                                     'plantName': serializeParam(
@@ -170,7 +176,10 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                       blurRadius: 0.0,
                                       color: FlutterFlowTheme.of(context)
                                           .alternate,
-                                      offset: Offset(0.0, 1.0),
+                                      offset: Offset(
+                                        0.0,
+                                        1.0,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -183,8 +192,12 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 10.0, 0.0, 10.0),
                                         child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(40.0),
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(5.0),
+                                            bottomRight: Radius.circular(5.0),
+                                            topLeft: Radius.circular(5.0),
+                                            topRight: Radius.circular(5.0),
+                                          ),
                                           child: Image.network(
                                             listViewUserFavoritePlantsRow
                                                 .plantImage!,
@@ -212,7 +225,12 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyLarge,
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
                                               ),
                                             ),
                                             Padding(
@@ -239,7 +257,13 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelMedium,
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
                                                     ),
                                                   ),
@@ -281,16 +305,16 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                       'is_favorite': false,
                                                     },
                                                     matchingRows: (rows) => rows
-                                                        .eq(
+                                                        .eqOrNull(
                                                           'user_id',
                                                           currentUserUid,
                                                         )
-                                                        .eq(
+                                                        .eqOrNull(
                                                           'plant_id',
-                                                          widget.myPlantID,
+                                                          widget!.myPlantID,
                                                         ),
                                                   );
-                                                  setState(() => _model
+                                                  safeSetState(() => _model
                                                       .requestCompleter = null);
                                                   await _model
                                                       .waitForRequestCompleted();
@@ -319,16 +343,16 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                       'is_favorite': true,
                                                     },
                                                     matchingRows: (rows) => rows
-                                                        .eq(
+                                                        .eqOrNull(
                                                           'user_id',
                                                           currentUserUid,
                                                         )
-                                                        .eq(
+                                                        .eqOrNull(
                                                           'plant_id',
-                                                          widget.myPlantID,
+                                                          widget!.myPlantID,
                                                         ),
                                                   );
-                                                  setState(() => _model
+                                                  safeSetState(() => _model
                                                       .requestCompleter = null);
                                                   await _model
                                                       .waitForRequestCompleted(

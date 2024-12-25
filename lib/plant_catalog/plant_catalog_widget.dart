@@ -1,13 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
+import 'dart:ui';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'plant_catalog_model.dart';
@@ -32,12 +34,13 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().plantSearchActive = false;
-      });
+      FFAppState().plantSearchActive = false;
+      safeSetState(() {});
     });
 
-    _model.searchPlantNameController ??= TextEditingController();
+    _model.searchPlantNameTextController ??= TextEditingController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -53,7 +56,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
 
     return FutureBuilder<ApiCallResponse>(
       future: PlantCatalogSearchCall.call(
-        searchString: _model.searchPlantNameController.text,
+        searchString: _model.searchPlantNameTextController.text,
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -74,10 +77,12 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
           );
         }
         final plantCatalogPlantCatalogSearchResponse = snapshot.data!;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -90,10 +95,10 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                   context: context,
                   builder: (context) {
                     return GestureDetector(
-                      onTap: () => _model.unfocusNode.canRequestFocus
-                          ? FocusScope.of(context)
-                              .requestFocus(_model.unfocusNode)
-                          : FocusScope.of(context).unfocus(),
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
                       child: Padding(
                         padding: MediaQuery.viewInsetsOf(context),
                         child: BottomPlantCatagoriesWidget(),
@@ -133,6 +138,8 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                       fontFamily: 'Outfit',
                       color: Colors.white,
                       fontSize: 24.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w600,
                     ),
               ),
               actions: [
@@ -216,12 +223,16 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                             textFieldKey:
                                                 _model.searchPlantNameKey,
                                             textController: _model
-                                                .searchPlantNameController!,
+                                                .searchPlantNameTextController!,
                                             options: options.toList(),
                                             onSelected: onSelected,
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyMedium,
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      letterSpacing: 0.0,
+                                                    ),
                                             textHighlightStyle: TextStyle(),
                                             elevation: 4.0,
                                             optionBackgroundColor:
@@ -234,7 +245,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                           );
                                         },
                                         onSelected: (String selection) {
-                                          setState(() => _model
+                                          safeSetState(() => _model
                                                   .searchPlantNameSelectedOption =
                                               selection);
                                           FocusScope.of(context).unfocus();
@@ -248,7 +259,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                           _model.searchPlantNameFocusNode =
                                               focusNode;
 
-                                          _model.searchPlantNameController =
+                                          _model.searchPlantNameTextController =
                                               textEditingController;
                                           return TextFormField(
                                             key: _model.searchPlantNameKey,
@@ -258,20 +269,30 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                 onEditingComplete,
                                             onChanged: (_) =>
                                                 EasyDebounce.debounce(
-                                              '_model.searchPlantNameController',
+                                              '_model.searchPlantNameTextController',
                                               Duration(milliseconds: 500),
-                                              () => setState(() {}),
+                                              () => safeSetState(() {}),
                                             ),
-                                            autofocus: true,
+                                            autofocus: false,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelText: 'Search Plants...',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               hintStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: FlutterFlowTheme.of(
@@ -313,36 +334,41 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
+                                              suffixIcon: _model
+                                                      .searchPlantNameTextController!
+                                                      .text
+                                                      .isNotEmpty
+                                                  ? InkWell(
+                                                      onTap: () async {
+                                                        _model
+                                                            .searchPlantNameTextController
+                                                            ?.clear();
+                                                        safeSetState(() {});
+                                                      },
+                                                      child: Icon(
+                                                        Icons.clear,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiary,
+                                                        size: 30.0,
+                                                      ),
+                                                    )
+                                                  : null,
                                             ),
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
                                             validator: _model
-                                                .searchPlantNameControllerValidator
+                                                .searchPlantNameTextControllerValidator
                                                 .asValidator(context),
                                           );
                                         },
                                       ),
                                     ),
-                                  ),
-                                  FlutterFlowIconButton(
-                                    borderRadius: 0.0,
-                                    borderWidth: 1.0,
-                                    buttonSize: 40.0,
-                                    icon: Icon(
-                                      Icons.close,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      size: 18.0,
-                                    ),
-                                    onPressed: () async {
-                                      setState(() {
-                                        _model.searchPlantNameController
-                                            ?.clear();
-                                      });
-                                      setState(() {
-                                        FFAppState().plantSearchActive = false;
-                                      });
-                                    },
                                   ),
                                 ],
                               ),
@@ -362,16 +388,32 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                       onTap: () async {
                                         context.pushNamed('plantSelector');
                                       },
-                                      child: Text(
-                                        'Plant Selector',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                      child: Container(
+                                        width: 200.0,
+                                        height: 30.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .lineColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Text(
+                                            'View Recommendations',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .tertiary,
-                                            ),
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -391,6 +433,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                             final plantSearchName =
                                 plantCatalogPlantCatalogSearchResponse.jsonBody
                                     .toList();
+
                             return GridView.builder(
                               padding: EdgeInsets.zero,
                               gridDelegate:
@@ -411,6 +454,8 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    HapticFeedback.lightImpact();
+
                                     context.pushNamed(
                                       'plantDetail3',
                                       queryParameters: {
@@ -437,6 +482,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                   },
                                   child: Container(
                                     width: 200.0,
+                                    height: 200.0,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -446,22 +492,19 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Flexible(
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 5.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 0.0, 0.0),
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            8.0),
+                                                            0.0),
                                                     child: Image.network(
                                                       getJsonField(
                                                         plantSearchNameItem,
@@ -473,33 +516,33 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                                Flexible(
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 5.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      getJsonField(
-                                                        plantSearchNameItem,
-                                                        r'''$.plant_name''',
-                                                      ).toString(),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                fontSize: 12.0,
-                                                              ),
-                                                    ),
+                                              ),
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    getJsonField(
+                                                      plantSearchNameItem,
+                                                      r'''$.plant_name''',
+                                                    ).toString(),
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],

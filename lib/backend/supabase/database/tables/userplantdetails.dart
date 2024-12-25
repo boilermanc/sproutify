@@ -37,9 +37,8 @@ class UserplantdetailsRow extends SupabaseDataRow {
   String? get plantImage => getField<String>('plant_image');
   set plantImage(String? value) => setField<String>('plant_image', value);
 
-  DateTime? get entryTimestamp => getField<DateTime>('entry_timestamp');
-  set entryTimestamp(DateTime? value) =>
-      setField<DateTime>('entry_timestamp', value);
+  DateTime? get entryDate => getField<DateTime>('entry_date');
+  set entryDate(DateTime? value) => setField<DateTime>('entry_date', value);
 
   double? get plantCost => getField<double>('plant_cost');
   set plantCost(double? value) => setField<double>('plant_cost', value);

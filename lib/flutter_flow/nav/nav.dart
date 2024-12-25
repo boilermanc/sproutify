@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '/backend/schema/structs/index.dart';
 
 import '/backend/supabase/supabase.dart';
+
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
@@ -22,6 +23,8 @@ export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
+
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
@@ -80,6 +83,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
           appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
       routes: [
@@ -95,7 +99,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'HomePage')
               : HomePageWidget(
-                  cat02: params.getParam('cat02', ParamType.String),
+                  cat02: params.getParam(
+                    'cat02',
+                    ParamType.String,
+                  ),
                 ),
         ),
         FFRoute(
@@ -109,25 +116,37 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TowerCatalogWidget(),
         ),
         FFRoute(
-          name: 'nameTower',
-          path: '/nameTower',
-          builder: (context, params) => NameTowerWidget(
-            towerID: params.getParam('towerID', ParamType.int),
+          name: 'nameTowerNew',
+          path: '/nameTowerNew',
+          builder: (context, params) => NameTowerNewWidget(
+            towerID: params.getParam(
+              'towerID',
+              ParamType.int,
+            ),
           ),
         ),
         FFRoute(
-          name: 'indoorOutdoor',
-          path: '/indoorOutdoor',
-          builder: (context, params) => IndoorOutdoorWidget(
-            towerName: params.getParam('towerName', ParamType.String),
-            towerID: params.getParam('towerID', ParamType.int),
+          name: 'indoorOutdoorNew',
+          path: '/indoorOutdoorNew',
+          builder: (context, params) => IndoorOutdoorNewWidget(
+            towerName: params.getParam(
+              'towerName',
+              ParamType.String,
+            ),
+            towerID: params.getParam(
+              'towerID',
+              ParamType.int,
+            ),
           ),
         ),
         FFRoute(
           name: 'plantCatagories',
           path: '/plantCatagories',
           builder: (context, params) => PlantCatagoriesWidget(
-            categoryID: params.getParam('categoryID', ParamType.int),
+            categoryID: params.getParam(
+              'categoryID',
+              ParamType.int,
+            ),
           ),
         ),
         FFRoute(
@@ -136,7 +155,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'plantFavorites')
               : PlantFavoritesWidget(
-                  myPlantID: params.getParam('myPlantID', ParamType.int),
+                  myPlantID: params.getParam(
+                    'myPlantID',
+                    ParamType.int,
+                  ),
                 ),
         ),
         FFRoute(
@@ -148,7 +170,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'userProfile',
           path: '/userProfile',
           builder: (context, params) => UserProfileWidget(
-            userID: params.getParam('userID', ParamType.String),
+            userID: params.getParam(
+              'userID',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -181,9 +206,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'onboardingQuestions',
           path: '/onboardingQuestions',
-          builder: (context, params) => OnboardingQuestionsWidget(
-            userID: params.getParam('userID', ParamType.String),
-          ),
+          builder: (context, params) => OnboardingQuestionsWidget(),
         ),
         FFRoute(
           name: 'mainFAQ',
@@ -191,31 +214,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => MainFAQWidget(),
         ),
         FFRoute(
-          name: 'allMessages',
-          path: '/allMessages',
-          builder: (context, params) => AllMessagesWidget(),
-        ),
-        FFRoute(
           name: 'myTowersExpandable',
           path: '/myTowersExpandable',
           builder: (context, params) => MyTowersExpandableWidget(
-            userID: params.getParam('userID', ParamType.String),
+            userID: params.getParam(
+              'userID',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
-          name: 'createUser',
-          path: '/createUser',
-          builder: (context, params) => CreateUserWidget(),
+          name: 'createAnAccount',
+          path: '/createAnAccount',
+          builder: (context, params) => CreateAnAccountWidget(),
         ),
         FFRoute(
           name: 'myPlantExpandableCopy',
           path: '/myPlantExpandableCopy',
           builder: (context, params) => MyPlantExpandableCopyWidget(),
-        ),
-        FFRoute(
-          name: 'forgotPassword',
-          path: '/forgotPassword',
-          builder: (context, params) => ForgotPasswordWidget(),
         ),
         FFRoute(
           name: 'resetPassword',
@@ -246,23 +262,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'plantDetail3',
           path: '/plantDetail3',
           builder: (context, params) => PlantDetail3Widget(
-            plantName: params.getParam('plantName', ParamType.String),
-            plantID: params.getParam('plantID', ParamType.int),
-            isFavorite: params.getParam('isFavorite', ParamType.bool),
+            plantName: params.getParam(
+              'plantName',
+              ParamType.String,
+            ),
+            plantID: params.getParam(
+              'plantID',
+              ParamType.int,
+            ),
+            isFavorite: params.getParam(
+              'isFavorite',
+              ParamType.bool,
+            ),
           ),
         ),
         FFRoute(
           name: 'updateProfile',
           path: '/updateProfile',
           builder: (context, params) => UpdateProfileWidget(
-            userID: params.getParam('userID', ParamType.String),
+            userID: params.getParam(
+              'userID',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
           name: 'decideOnTower',
           path: '/decideOnTower',
           builder: (context, params) => DecideOnTowerWidget(
-            userID: params.getParam('userID', ParamType.String),
+            userID: params.getParam(
+              'userID',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -271,25 +302,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => LoginPageRedirectWidget(),
         ),
         FFRoute(
-          name: 'myStats',
-          path: '/myStats',
+          name: 'myCosts',
+          path: '/myCosts',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'myStats')
-              : MyStatsWidget(),
+              ? NavBarPage(initialPage: 'myCosts')
+              : MyCostsWidget(),
         ),
         FFRoute(
           name: 'productView',
           path: '/productView',
           builder: (context, params) => ProductViewWidget(
-            catagoryID: params.getParam('catagoryID', ParamType.int),
-            productID: params.getParam('productID', ParamType.int),
+            catagoryID: params.getParam(
+              'catagoryID',
+              ParamType.int,
+            ),
+            productID: params.getParam(
+              'productID',
+              ParamType.int,
+            ),
           ),
         ),
         FFRoute(
           name: 'suppliesDetail',
           path: '/suppliesDetail',
           builder: (context, params) => SuppliesDetailWidget(
-            productID: params.getParam('productID', ParamType.int),
+            productID: params.getParam(
+              'productID',
+              ParamType.int,
+            ),
+            productName: params.getParam(
+              'productName',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -303,14 +347,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'mySupplies')
               : MySuppliesWidget(
-                  userID: params.getParam('userID', ParamType.String),
+                  userID: params.getParam(
+                    'userID',
+                    ParamType.String,
+                  ),
                 ),
         ),
         FFRoute(
           name: 'Settings1AddProfile',
           path: '/settings1AddProfile',
           builder: (context, params) => Settings1AddProfileWidget(
-            userID: params.getParam('userID', ParamType.String),
+            userID: params.getParam(
+              'userID',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -322,7 +372,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'faqSearchResults',
           path: '/faqSearchResults',
           builder: (context, params) => FaqSearchResultsWidget(
-            searchTerm: params.getParam('searchTerm', ParamType.String),
+            searchTerm: params.getParam(
+              'searchTerm',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -339,7 +392,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'onboardingQuestionsCopy',
           path: '/onboardingQuestionsCopy',
           builder: (context, params) => OnboardingQuestionsCopyWidget(
-            userID: params.getParam('userID', ParamType.String),
+            userID: params.getParam(
+              'userID',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -350,12 +406,39 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'outdoorPlants',
           path: '/outdoorPlants',
+          requireAuth: true,
           builder: (context, params) => OutdoorPlantsWidget(),
         ),
         FFRoute(
           name: 'indoorPlants',
           path: '/indoorPlants',
+          requireAuth: true,
           builder: (context, params) => IndoorPlantsWidget(),
+        ),
+        FFRoute(
+          name: 'towerCatalogNew',
+          path: '/towerCatalogNew',
+          builder: (context, params) => TowerCatalogNewWidget(),
+        ),
+        FFRoute(
+          name: 'createNewPassword',
+          path: '/createNewPassword',
+          builder: (context, params) => CreateNewPasswordWidget(),
+        ),
+        FFRoute(
+          name: 'createNewPasswordInternal',
+          path: '/createNewPasswordInternal',
+          builder: (context, params) => CreateNewPasswordInternalWidget(),
+        ),
+        FFRoute(
+          name: 'chat_ai_Screen',
+          path: '/chatAiScreen',
+          builder: (context, params) => ChatAiScreenWidget(),
+        ),
+        FFRoute(
+          name: 'notificationsMain',
+          path: '/notificationsMain',
+          builder: (context, params) => NotificationsMainWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -432,7 +515,7 @@ extension _GoRouterStateExtensions on GoRouterState {
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(uri.queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -451,7 +534,7 @@ class FFParameters {
   // present is the special extra parameter reserved for the transition info.
   bool get isEmpty =>
       state.allParams.isEmpty ||
-      (state.extraMap.length == 1 &&
+      (state.allParams.length == 1 &&
           state.extraMap.containsKey(kTransitionInfoKey));
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
@@ -472,9 +555,10 @@ class FFParameters {
 
   dynamic getParam<T>(
     String paramName,
-    ParamType type, [
+    ParamType type, {
     bool isList = false,
-  ]) {
+    StructBuilder<T>? structBuilder,
+  }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
     }
@@ -491,6 +575,7 @@ class FFParameters {
       param,
       type,
       isList,
+      structBuilder: structBuilder,
     );
   }
 }
@@ -523,7 +608,7 @@ class FFRoute {
           }
 
           if (requireAuth && !appStateNotifier.loggedIn) {
-            appStateNotifier.setRedirectLocationIfUnset(state.location);
+            appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
             return '/loginPage';
           }
           return null;
@@ -538,17 +623,15 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
+              ? isWeb
+                  ? Container()
+                  : Container(
+                      color: Colors.transparent,
+                      child: Image.asset(
+                        'assets/images/splash_page.png',
+                        fit: BoxFit.contain,
                       ),
-                    ),
-                  ),
-                )
+                    )
               : page;
 
           final transitionInfo = state.transitionInfo;
@@ -602,7 +685,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;
@@ -612,4 +695,14 @@ class RootPageContext {
         value: RootPageContext(true, errorRoute),
         child: child,
       );
+}
+
+extension GoRouterLocationExtension on GoRouter {
+  String getCurrentLocation() {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
 }

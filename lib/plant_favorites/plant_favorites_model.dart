@@ -5,6 +5,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
+import 'dart:ui';
 import 'dart:async';
 import 'plant_favorites_widget.dart' show PlantFavoritesWidget;
 import 'package:flutter/material.dart';
@@ -17,23 +19,15 @@ import 'package:provider/provider.dart';
 class PlantFavoritesModel extends FlutterFlowModel<PlantFavoritesWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   Completer<List<UserFavoritePlantsRow>>? requestCompleter;
-
-  /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
-
+  /// Additional helper methods.
   Future waitForRequestCompleted({
     double minWait = 0,
     double maxWait = double.infinity,

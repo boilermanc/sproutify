@@ -1,9 +1,10 @@
 import '/backend/supabase/supabase.dart';
+import '/components/add_your_product/add_your_product_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/components/add_your_product/add_your_product_widget.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +15,11 @@ class SuppliesDetailWidget extends StatefulWidget {
   const SuppliesDetailWidget({
     super.key,
     required this.productID,
+    required this.productName,
   });
 
   final int? productID;
+  final String? productName;
 
   @override
   State<SuppliesDetailWidget> createState() => _SuppliesDetailWidgetState();
@@ -31,6 +34,8 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SuppliesDetailModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -42,12 +47,11 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -68,13 +72,31 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
               context.pop();
             },
           ),
-          title: Text(
-            'Products',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
-                  color: Colors.white,
-                  fontSize: 24.0,
+          title: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Flexible(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      valueOrDefault<String>(
+                        widget!.productName,
+                        'Product Name',
+                      ),
+                      style:
+                          FlutterFlowTheme.of(context).headlineMedium.override(
+                                fontFamily: 'Outfit',
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                    ),
+                  ],
                 ),
+              ),
+            ],
           ),
           actions: [],
           centerTitle: true,
@@ -97,11 +119,11 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
-              FutureBuilder<List<ProductsRow>>(
-                future: ProductsTable().querySingleRow(
-                  queryFn: (q) => q.eq(
+              FutureBuilder<List<ProductsWithVendorsRow>>(
+                future: ProductsWithVendorsTable().querySingleRow(
+                  queryFn: (q) => q.eqOrNull(
                     'productid',
-                    widget.productID,
+                    widget!.productID,
                   ),
                 ),
                 builder: (context, snapshot) {
@@ -119,10 +141,14 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                       ),
                     );
                   }
-                  List<ProductsRow> listViewProductsRowList = snapshot.data!;
-                  final listViewProductsRow = listViewProductsRowList.isNotEmpty
-                      ? listViewProductsRowList.first
-                      : null;
+                  List<ProductsWithVendorsRow>
+                      listViewProductsWithVendorsRowList = snapshot.data!;
+
+                  final listViewProductsWithVendorsRow =
+                      listViewProductsWithVendorsRowList.isNotEmpty
+                          ? listViewProductsWithVendorsRowList.first
+                          : null;
+
                   return ListView(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
@@ -149,7 +175,8 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
                                       child: Image.network(
-                                        listViewProductsRow!.imageurl!,
+                                        listViewProductsWithVendorsRow!
+                                            .imageurl!,
                                         width: 300.0,
                                         fit: BoxFit.cover,
                                       ),
@@ -170,13 +197,14 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                   20.0, 20.0, 0.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
-                                  listViewProductsRow?.productname,
+                                  listViewProductsWithVendorsRow?.productname,
                                   'product name',
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .headlineSmall
                                     .override(
                                       fontFamily: 'Outfit',
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
@@ -193,7 +221,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                   20.0, 20.0, 10.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
-                                  listViewProductsRow?.description,
+                                  listViewProductsWithVendorsRow?.description,
                                   'description',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -201,6 +229,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                     .override(
                                       fontFamily: 'Readex Pro',
                                       fontSize: 16.0,
+                                      letterSpacing: 0.0,
                                     ),
                               ),
                             ),
@@ -217,7 +246,8 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            if (listViewProductsRow?.vendorid != null)
+                            if (listViewProductsWithVendorsRow?.vendorid !=
+                                null)
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 10.0, 0.0, 0.0),
@@ -230,6 +260,8 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                           .bodyLarge
                                           .override(
                                             fontFamily: 'Readex Pro',
+                                            fontSize: 18.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
@@ -237,12 +269,16 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10.0, 0.0, 0.0, 0.0),
                                       child: Text(
-                                        listViewProductsRow!.vendorid!
-                                            .toString(),
+                                        valueOrDefault<String>(
+                                          listViewProductsWithVendorsRow
+                                              ?.vendorname,
+                                          ' Vendor',
+                                        ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
                                               fontFamily: 'Readex Pro',
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
                                             ),
                                       ),
@@ -276,18 +312,18 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                     context: context,
                                     builder: (context) {
                                       return GestureDetector(
-                                        onTap: () => _model
-                                                .unfocusNode.canRequestFocus
-                                            ? FocusScope.of(context)
-                                                .requestFocus(
-                                                    _model.unfocusNode)
-                                            : FocusScope.of(context).unfocus(),
+                                        onTap: () {
+                                          FocusScope.of(context).unfocus();
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
+                                        },
                                         child: Padding(
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
                                           child: AddYourProductWidget(
                                             productID:
-                                                listViewProductsRow!.productid,
+                                                listViewProductsWithVendorsRow!
+                                                    .productid!,
                                           ),
                                         ),
                                       );
@@ -295,15 +331,11 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                   ).then((value) => safeSetState(() {}));
                                 },
                                 child: Container(
+                                  width: 250.0,
                                   height: 55.0,
                                   decoration: BoxDecoration(
                                     color: Color(0xFFE4EFD0),
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(30.0),
-                                      bottomRight: Radius.circular(30.0),
-                                      topLeft: Radius.circular(30.0),
-                                      topRight: Radius.circular(30.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -312,11 +344,12 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10.0, 0.0, 10.0, 0.0),
                                         child: Text(
-                                          'Add to my supplies.',
+                                          'Add to my supplies',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
@@ -347,7 +380,9 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [],
                       ),
-                      if (listViewProductsRow?.tfflag == false)
+                      if (listViewProductsWithVendorsRow?.affiliatelink !=
+                              null &&
+                          listViewProductsWithVendorsRow?.affiliatelink != '')
                         Container(
                           decoration: BoxDecoration(),
                           child: Padding(
@@ -359,25 +394,13 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 10.0),
-                                      child: Text(
-                                        'Something you need?',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ),
                                     FFButtonWidget(
                                       onPressed: () async {
-                                        await launchURL(listViewProductsRow!
-                                            .affiliatelink!);
+                                        await launchURL(
+                                            listViewProductsWithVendorsRow!
+                                                .affiliatelink!);
                                       },
-                                      text: 'By Now',
+                                      text: 'Buy Now',
                                       options: FFButtonOptions(
                                         height: 40.0,
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -392,6 +415,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                             .override(
                                               fontFamily: 'Readex Pro',
                                               color: Colors.white,
+                                              letterSpacing: 0.0,
                                             ),
                                         elevation: 3.0,
                                         borderSide: BorderSide(

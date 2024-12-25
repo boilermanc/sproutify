@@ -19,4 +19,7 @@ class UsersRow extends SupabaseDataRow {
 
   bool? get isAdmin => getField<bool>('is_admin');
   set isAdmin(bool? value) => setField<bool>('is_admin', value);
+
+  String get role => getField<String>('role')!;
+  set role(String value) => setField<String>('role', value);
 }

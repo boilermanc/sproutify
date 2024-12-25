@@ -2,12 +2,74 @@ import 'dart:convert';
 import 'dart:typed_data';
 import '../schema/structs/index.dart';
 
+import 'package:flutter/foundation.dart';
+
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
+
+/// Start neightn main chat Group Code
+
+class NeightnMainChatGroup {
+  static String getBaseUrl() =>
+      'https://n8n.sproutify.app/webhook/2e4db4bf-0d1e-40b4-9d29-593adda20ad4';
+  static Map<String, String> headers = {
+    'Content-Type': 'application/json',
+  };
+  static SendFullPromptCall sendFullPromptCall = SendFullPromptCall();
+}
+
+class SendFullPromptCall {
+  Future<ApiCallResponse> call({
+    dynamic? promptJson,
+    String? userMessage = '',
+    String? userID = '',
+  }) async {
+    final baseUrl = NeightnMainChatGroup.getBaseUrl();
+
+    final prompt = _serializeJson(promptJson);
+    final ffApiRequestBody = '''
+{
+  "text": "\${${userMessage}}",
+  "userID": "${userID}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Send Full Prompt',
+      apiUrl: '${baseUrl}/chat',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? createdTimestamp(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.created''',
+      ));
+  String? role(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.choices[:].message.role''',
+      ));
+  String? content(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.choices[:].message.content''',
+      ));
+}
+
+/// End neightn main chat Group Code
 
 class UpsertRatingsCall {
   static Future<ApiCallResponse> call({
@@ -43,6 +105,7 @@ class UpsertRatingsCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -50,12 +113,7 @@ class UpsertRatingsCall {
 
 class FetchNewNotficationsCall {
   static Future<ApiCallResponse> call({
-    String? title = '',
-    String? description = '',
-    String? date = '',
     String? userID = '',
-    bool? isNew,
-    String? formattedTimeCreated = '',
   }) async {
     final ffApiRequestBody = '''
 {
@@ -64,13 +122,11 @@ class FetchNewNotficationsCall {
     return ApiManager.instance.makeApiCall(
       callName: 'fetchNewNotfications',
       apiUrl:
-          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/rpc/fetch_notifications_with_is_new',
+          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/rpc/check_if_new_notifications_exist',
       callType: ApiCallType.POST,
       headers: {
         'apikey':
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODc2NTMsImV4cCI6MjAxMzY2MzY1M30._EnLLfn0DqX5uC94ZegKtfvz4uZW2bzWQidjqaYUsOo',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5ODA4NzY1MywiZXhwIjoyMDEzNjYzNjUzfQ.2US-amcxP5WJ1li8GStRMqgYHHPqP6lUVhEtzRsZs7Q',
         'Content-Type': 'application/json',
       },
       params: {},
@@ -80,9 +136,15 @@ class FetchNewNotficationsCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
+
+  static dynamic notificationStatus(dynamic response) => getJsonField(
+        response,
+        r'''$''',
+      );
 }
 
 class TotalPlantCostPerUserCall {
@@ -112,6 +174,7 @@ class TotalPlantCostPerUserCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -151,6 +214,7 @@ class PerUserPlantCostPerCatagoryCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -176,6 +240,7 @@ class PlantCatalogSearchCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -208,6 +273,7 @@ class CategoryCostPerUserCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -262,6 +328,7 @@ class FAQSearchCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -294,6 +361,7 @@ class FAQIndexSearchCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -324,6 +392,7 @@ class CoralChatCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -375,6 +444,7 @@ class AddNewSubscriberInMailerLiteCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -416,6 +486,200 @@ class TomorrowIOWeatherCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetNotificationsCall {
+  static Future<ApiCallResponse> call({
+    String? userID = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "user_uuid": "${userID}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetNotifications',
+      apiUrl:
+          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/rpc/get_active_user_notifications',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODc2NTMsImV4cCI6MjAxMzY2MzY1M30._EnLLfn0DqX5uC94ZegKtfvz4uZW2bzWQidjqaYUsOo',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class ArchiveNotificationsCall {
+  static Future<ApiCallResponse> call({
+    String? userID = '',
+    String? notificationID = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "user_uuid": "${userID}",
+  "notification_id_arg": "${notificationID}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'ArchiveNotifications',
+      apiUrl:
+          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/rpc/archive_user_notification',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODc2NTMsImV4cCI6MjAxMzY2MzY1M30._EnLLfn0DqX5uC94ZegKtfvz4uZW2bzWQidjqaYUsOo',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetArchiveNotificationsCall {
+  static Future<ApiCallResponse> call({
+    String? userID = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "_user_id": "${userID}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetArchiveNotifications',
+      apiUrl:
+          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/rpc/get_archived_user_notifications',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODc2NTMsImV4cCI6MjAxMzY2MzY1M30._EnLLfn0DqX5uC94ZegKtfvz4uZW2bzWQidjqaYUsOo',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class DeleteNotficationsCall {
+  static Future<ApiCallResponse> call({
+    String? userID = '',
+    String? notificationID = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "notification_id_arg": "${notificationID}",
+  "user_uuid": "${userID}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'DeleteNotfications',
+      apiUrl:
+          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/rpc/delete_user_notification',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODc2NTMsImV4cCI6MjAxMzY2MzY1M30._EnLLfn0DqX5uC94ZegKtfvz4uZW2bzWQidjqaYUsOo',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class CohereTestAPICall {
+  static Future<ApiCallResponse> call({
+    String? message = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "model": "75cd83ef-8816-4019-81dc-45c5b4779782-ft",
+  "message": "${message}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'CohereTestAPI',
+      apiUrl: 'https://api.cohere.ai/v1/chat',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer rvaaPLWrGZbbx1Ogf3gX3DvVgCNJl1Xwjp8NodEZ',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class SendEmailWithResendCall {
+  static Future<ApiCallResponse> call({
+    String? emailAddress = '',
+    String? emailSubject = '',
+    String? htmlContent = '',
+    String? fromEmail = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "from": "${escapeStringForJson(fromEmail)}",
+  "to": "${escapeStringForJson(emailAddress)}",
+  "subject": "${escapeStringForJson(emailSubject)}",
+  "html": "${escapeStringForJson(htmlContent)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Send Email with Resend',
+      apiUrl: 'https://api.resend.com/emails',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer re_14nGZdWr_FKaDuhS93ZoywtVKeY1C7Jew',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -437,11 +701,18 @@ class ApiPagingParams {
       'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
 }
 
+String _toEncodable(dynamic item) {
+  return item;
+}
+
 String _serializeList(List? list) {
   list ??= <String>[];
   try {
-    return json.encode(list);
+    return json.encode(list, toEncodable: _toEncodable);
   } catch (_) {
+    if (kDebugMode) {
+      print("List serialization failed. Returning empty list.");
+    }
     return '[]';
   }
 }
@@ -449,8 +720,22 @@ String _serializeList(List? list) {
 String _serializeJson(dynamic jsonVar, [bool isList = false]) {
   jsonVar ??= (isList ? [] : {});
   try {
-    return json.encode(jsonVar);
+    return json.encode(jsonVar, toEncodable: _toEncodable);
   } catch (_) {
+    if (kDebugMode) {
+      print("Json serialization failed. Returning empty json.");
+    }
     return isList ? '[]' : '{}';
   }
+}
+
+String? escapeStringForJson(String? input) {
+  if (input == null) {
+    return null;
+  }
+  return input
+      .replaceAll('\\', '\\\\')
+      .replaceAll('"', '\\"')
+      .replaceAll('\n', '\\n')
+      .replaceAll('\t', '\\t');
 }

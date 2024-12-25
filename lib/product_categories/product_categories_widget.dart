@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,8 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ProductCategoriesModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -37,12 +40,11 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -69,6 +71,8 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                   fontFamily: 'Outfit',
                   color: Colors.white,
                   fontSize: 24.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w600,
                 ),
           ),
           actions: [],
@@ -84,18 +88,26 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
-                    child: Text(
-                      'maybe add detail info here?',
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                      child: Text(
+                        'Select A Category',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -122,6 +134,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                         }
                         List<CategoriesRow> listViewCategoriesRowList =
                             snapshot.data!;
+
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
@@ -152,14 +165,8 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                                 child: Container(
                                   height: 80.0,
                                   decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(20.0),
-                                      bottomRight: Radius.circular(20.0),
-                                      topLeft: Radius.circular(20.0),
-                                      topRight: Radius.circular(20.0),
-                                    ),
+                                    color: FlutterFlowTheme.of(context).accent4,
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -192,6 +199,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
@@ -200,45 +208,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                                               ),
                                               Row(
                                                 mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Flexible(
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          listViewCategoriesRow
-                                                              .categorydescription,
-                                                          'short description',
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontStyle:
-                                                                      FontStyle
-                                                                          .italic,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                                children: [],
                                               ),
                                             ],
                                           ),

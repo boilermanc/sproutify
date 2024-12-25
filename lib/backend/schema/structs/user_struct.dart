@@ -14,6 +14,7 @@ class UserStruct extends BaseStruct {
   bool? _isRegistered;
   bool get isRegistered => _isRegistered ?? false;
   set isRegistered(bool? val) => _isRegistered = val;
+
   bool hasIsRegistered() => _isRegistered != null;
 
   static UserStruct fromMap(Map<String, dynamic> data) => UserStruct(

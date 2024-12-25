@@ -32,6 +32,6 @@ class UserplantsRow extends SupabaseDataRow {
   double? get plantCost => getField<double>('plant_cost');
   set plantCost(double? value) => setField<double>('plant_cost', value);
 
-  DateTime? get addedOn => getField<DateTime>('added_on');
-  set addedOn(DateTime? value) => setField<DateTime>('added_on', value);
+  DateTime get addedOn => getField<DateTime>('added_on')!;
+  set addedOn(DateTime value) => setField<DateTime>('added_on', value);
 }

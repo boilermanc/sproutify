@@ -28,4 +28,7 @@ class MyTowersRow extends SupabaseDataRow {
 
   String? get indoorOutdoor => getField<String>('indoor_outdoor');
   set indoorOutdoor(String? value) => setField<String>('indoor_outdoor', value);
+
+  bool? get archive => getField<bool>('archive');
+  set archive(bool? value) => setField<bool>('archive', value);
 }

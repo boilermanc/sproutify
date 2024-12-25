@@ -1,9 +1,10 @@
 import '/backend/supabase/supabase.dart';
+import '/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,8 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PlantCatagoriesModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -42,12 +45,11 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -60,9 +62,10 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
               context: context,
               builder: (context) {
                 return GestureDetector(
-                  onTap: () => _model.unfocusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                      : FocusScope.of(context).unfocus(),
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
                   child: Padding(
                     padding: MediaQuery.viewInsetsOf(context),
                     child: BottomPlantCatagoriesWidget(),
@@ -97,11 +100,13 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
             },
           ),
           title: Text(
-            'Plant Catagories',
+            'Plant Categories',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
-                  fontSize: 22.0,
+                  fontSize: 24.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w600,
                 ),
           ),
           actions: [],
@@ -116,119 +121,131 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                  child: FutureBuilder<List<ViewPlantDetailsByCategoryRow>>(
-                    future: ViewPlantDetailsByCategoryTable().queryRows(
-                      queryFn: (q) => q.eq(
-                        'category_id',
-                        widget.categoryID,
-                      ),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      List<ViewPlantDetailsByCategoryRow>
-                          gridViewViewPlantDetailsByCategoryRowList =
-                          snapshot.data!;
-                      return GridView.builder(
-                        padding: EdgeInsets.zero,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 10.0,
-                          mainAxisSpacing: 10.0,
-                          childAspectRatio: 1.0,
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: FutureBuilder<List<ViewPlantDetailsByCategoryRow>>(
+                      future: ViewPlantDetailsByCategoryTable().queryRows(
+                        queryFn: (q) => q.eqOrNull(
+                          'category_id',
+                          widget!.categoryID,
                         ),
-                        scrollDirection: Axis.vertical,
-                        itemCount:
-                            gridViewViewPlantDetailsByCategoryRowList.length,
-                        itemBuilder: (context, gridViewIndex) {
-                          final gridViewViewPlantDetailsByCategoryRow =
-                              gridViewViewPlantDetailsByCategoryRowList[
-                                  gridViewIndex];
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed(
-                                'plantDetail3',
-                                queryParameters: {
-                                  'plantName': serializeParam(
-                                    gridViewViewPlantDetailsByCategoryRow
-                                        .plantName,
-                                    ParamType.String,
-                                  ),
-                                  'plantID': serializeParam(
-                                    gridViewViewPlantDetailsByCategoryRow
-                                        .plantId,
-                                    ParamType.int,
-                                  ),
-                                  'isFavorite': serializeParam(
-                                    false,
-                                    ParamType.bool,
-                                  ),
-                                }.withoutNulls,
-                              );
-                            },
-                            child: Container(
-                              width: 100.0,
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 5.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.network(
-                                        gridViewViewPlantDetailsByCategoryRow
-                                            .plantImage!,
-                                        width: 80.0,
-                                        height: 80.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        gridViewViewPlantDetailsByCategoryRow
-                                            .plantName,
-                                        'plant',
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ],
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                             ),
                           );
-                        },
-                      );
-                    },
+                        }
+                        List<ViewPlantDetailsByCategoryRow>
+                            gridViewViewPlantDetailsByCategoryRowList =
+                            snapshot.data!;
+
+                        return GridView.builder(
+                          padding: EdgeInsets.zero,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 10.0,
+                            childAspectRatio: 1.0,
+                          ),
+                          scrollDirection: Axis.vertical,
+                          itemCount:
+                              gridViewViewPlantDetailsByCategoryRowList.length,
+                          itemBuilder: (context, gridViewIndex) {
+                            final gridViewViewPlantDetailsByCategoryRow =
+                                gridViewViewPlantDetailsByCategoryRowList[
+                                    gridViewIndex];
+                            return InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed(
+                                  'plantDetail3',
+                                  queryParameters: {
+                                    'plantName': serializeParam(
+                                      gridViewViewPlantDetailsByCategoryRow
+                                          .plantName,
+                                      ParamType.String,
+                                    ),
+                                    'plantID': serializeParam(
+                                      gridViewViewPlantDetailsByCategoryRow
+                                          .plantId,
+                                      ParamType.int,
+                                    ),
+                                    'isFavorite': serializeParam(
+                                      false,
+                                      ParamType.bool,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              },
+                              child: Container(
+                                width: 200.0,
+                                height: 200.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 8.0, 0.0, 0.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(0.0),
+                                          bottomRight: Radius.circular(0.0),
+                                          topLeft: Radius.circular(0.0),
+                                          topRight: Radius.circular(0.0),
+                                        ),
+                                        child: Image.network(
+                                          gridViewViewPlantDetailsByCategoryRow
+                                              .plantImage!,
+                                          width: 80.0,
+                                          height: 80.0,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        valueOrDefault<String>(
+                                          gridViewViewPlantDetailsByCategoryRow
+                                              .plantName,
+                                          'plant',
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              fontSize: 12.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

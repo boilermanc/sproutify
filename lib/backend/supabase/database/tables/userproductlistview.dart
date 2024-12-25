@@ -44,4 +44,7 @@ class UserproductlistviewRow extends SupabaseDataRow {
   DateTime? get userpurchasedate => getField<DateTime>('userpurchasedate');
   set userpurchasedate(DateTime? value) =>
       setField<DateTime>('userpurchasedate', value);
+
+  bool? get archive => getField<bool>('archive');
+  set archive(bool? value) => setField<bool>('archive', value);
 }

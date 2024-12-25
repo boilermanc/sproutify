@@ -31,4 +31,7 @@ class NotificationsRow extends SupabaseDataRow {
       getField<String>('formatted_time_created');
   set formattedTimeCreated(String? value) =>
       setField<String>('formatted_time_created', value);
+
+  bool get status => getField<bool>('status')!;
+  set status(bool value) => setField<bool>('status', value);
 }

@@ -34,4 +34,7 @@ class UserproductsRow extends SupabaseDataRow {
   double? get userpurchasecost => getField<double>('userpurchasecost');
   set userpurchasecost(double? value) =>
       setField<double>('userpurchasecost', value);
+
+  bool? get archive => getField<bool>('archive');
+  set archive(bool? value) => setField<bool>('archive', value);
 }

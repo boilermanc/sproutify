@@ -36,6 +36,9 @@ class UsertowerdetailsRow extends SupabaseDataRow {
   String? get indoorOutdoor => getField<String>('indoor_outdoor');
   set indoorOutdoor(String? value) => setField<String>('indoor_outdoor', value);
 
+  bool? get archive => getField<bool>('archive');
+  set archive(bool? value) => setField<bool>('archive', value);
+
   String? get tgCorpImage => getField<String>('tg_corp_image');
   set tgCorpImage(String? value) => setField<String>('tg_corp_image', value);
 
