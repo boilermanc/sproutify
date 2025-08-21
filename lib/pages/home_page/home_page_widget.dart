@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,9 @@ class HomePageWidget extends StatefulWidget {
   });
 
   final String? cat02;
+
+  static String routeName = 'HomePage';
+  static String routePath = '/homePage';
 
   @override
   State<HomePageWidget> createState() => _HomePageWidgetState();
@@ -67,22 +71,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             _model.profile2244?.firstOrNull?.lastName,
             'Gardener',
           );
-          _model.daysDate4411 =
-              await GardeningInspirationalMessagesTable().queryRows(
-            queryFn: (q) => q.eqOrNull(
-              'message_date',
-              dateTimeFormat("yMd", getCurrentTimestamp),
-            ),
-          );
-          FFAppState().inspirationTitle = valueOrDefault<String>(
-            _model.daysDate4411?.firstOrNull?.title,
-            'Garden Inspiration',
-          );
-          FFAppState().inspirationBody = valueOrDefault<String>(
-            _model.daysDate4411?.firstOrNull?.body,
-            'Go forth and grow....',
-          );
-          safeSetState(() {});
         }),
       ]);
     });
@@ -132,11 +120,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                                fontFamily: 'Readex Pro',
+                                font: GoogleFonts.readexPro(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 fontSize: 18.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
                               ),
                         ),
                         Padding(
@@ -187,7 +183,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 HapticFeedback.lightImpact();
 
                                 context.pushNamed(
-                                  'userProfile',
+                                  UserProfileWidget.routeName,
                                   queryParameters: {
                                     'userID': serializeParam(
                                       currentUserUid,
@@ -216,9 +212,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ],
@@ -236,7 +249,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               onTap: () async {
                                 HapticFeedback.lightImpact();
 
-                                context.pushNamed('createNewPasswordInternal');
+                                context.pushNamed(
+                                    CreateNewPasswordInternalWidget.routeName);
 
                                 Navigator.pop(context);
                               },
@@ -258,9 +272,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ],
@@ -278,7 +309,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               onTap: () async {
                                 HapticFeedback.lightImpact();
 
-                                context.pushNamed('customerSupport');
+                                context
+                                    .pushNamed(CustomerSupportWidget.routeName);
 
                                 Navigator.pop(context);
                               },
@@ -300,9 +332,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ],
@@ -318,7 +367,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('customerSupport');
+                                context
+                                    .pushNamed(CustomerSupportWidget.routeName);
 
                                 Navigator.pop(context);
                               },
@@ -353,7 +403,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 HapticFeedback.lightImpact();
 
                                 context.pushNamed(
-                                  'mySupplies',
+                                  MySuppliesWidget.routeName,
                                   queryParameters: {
                                     'userID': serializeParam(
                                       '',
@@ -382,9 +432,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ],
@@ -402,7 +469,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               onTap: () async {
                                 HapticFeedback.lightImpact();
 
-                                context.pushNamed('chat_ai_Screen');
+                                context.pushNamed(MyCostsWidget.routeName);
 
                                 Navigator.pop(context);
                               },
@@ -420,13 +487,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                                   ),
                                   Text(
-                                    'Tower Buddy',
+                                    'My Costs',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ],
@@ -444,49 +528,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               onTap: () async {
                                 HapticFeedback.lightImpact();
 
-                                context.pushNamed('myCosts');
-
-                                Navigator.pop(context);
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 5.0, 0.0),
-                                    child: Icon(
-                                      Icons.bar_chart,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    'My Stats',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 10.0, 5.0),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                HapticFeedback.lightImpact();
-
-                                context.pushNamed('myCosts');
+                                context.pushNamed(MyCostsWidget.routeName);
 
                                 Navigator.pop(context);
                               },
@@ -524,7 +566,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 GoRouter.of(context).clearRedirectLocation();
 
                                 context.goNamedAuth(
-                                    'loginPage', context.mounted);
+                                    LoginPageWidget.routeName, context.mounted);
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -544,11 +586,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                           color: FlutterFlowTheme.of(context)
                                               .tertiary,
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ],
@@ -593,9 +652,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               Text(
                 'Grow Smarter',
                 style: FlutterFlowTheme.of(context).titleMedium.override(
-                      fontFamily: 'Readex Pro',
+                      font: GoogleFonts.readexPro(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                      ),
                       fontSize: 24.0,
                       letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).titleMedium.fontStyle,
                     ),
               ),
               Column(
@@ -634,7 +702,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                 );
 
-                                context.pushNamed('notificationsMain');
+                                context.pushNamed(
+                                    NotificationsMainWidget.routeName);
                               },
                               child: Icon(
                                 Icons.add_alert_outlined,
@@ -704,7 +773,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('plantCatalog');
+                                      context.pushNamed(
+                                          PlantCatalogWidget.routeName);
                                     },
                                     child: Container(
                                       width: 95.0,
@@ -754,11 +824,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
+                                                        font: GoogleFonts
+                                                            .readexPro(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                               ),
@@ -777,8 +860,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context
-                                            .pushNamed('myPlantExpandableCopy');
+                                        context.pushNamed(
+                                            MyPlantExpandableCopyWidget
+                                                .routeName);
                                       },
                                       child: Card(
                                         clipBehavior:
@@ -825,11 +909,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
+                                                        font: GoogleFonts
+                                                            .readexPro(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                               ),
@@ -846,7 +943,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       context.pushNamed(
-                                        'myTowersExpandable',
+                                        MyTowersExpandableWidget.routeName,
                                         queryParameters: {
                                           'userID': serializeParam(
                                             currentUserUid,
@@ -903,11 +1000,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
+                                                        font: GoogleFonts
+                                                            .readexPro(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                               ),
@@ -923,7 +1033,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('chat_ai_Screen');
+                                      context.pushNamed(
+                                          ChatAiScreenWidget.routeName);
                                     },
                                     child: Container(
                                       width: 90.0,
@@ -967,16 +1078,29 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               child: Text(
                                                 'Tower Buddy',
                                                 textAlign: TextAlign.center,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
                                               ),
                                             ),
                                           ],
@@ -996,78 +1120,151 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(5.0, 12.0, 5.0, 0.0),
-                child: Container(
-                  width: 390.0,
-                  height: 240.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE4EFD0),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(12.0),
-                      bottomRight: Radius.circular(12.0),
-                      topLeft: Radius.circular(12.0),
-                      topRight: Radius.circular(12.0),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20.0, 10.0, 0.0, 0.0),
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        FFAppState().inspirationTitle,
-                                        'Garden Inspiration',
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineSmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                child: StreamBuilder<List<GardeningInspirationalMessagesRow>>(
+                  stream: _model.dailyInspirationSupabaseStream ??= SupaFlow
+                      .client
+                      .from("gardening_inspirational_messages")
+                      .stream(primaryKey: ['id'])
+                      .eqOrNull(
+                        'message_date',
+                        supaSerialize<DateTime>(getCurrentTimestamp),
+                      )
+                      .map((list) => list
+                          .map(
+                              (item) => GardeningInspirationalMessagesRow(item))
+                          .toList()),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20.0, 15.0, 20.0, 0.0),
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        FFAppState().inspirationBody,
-                                        'Go forth and grow!',
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                          ),
+                        ),
+                      );
+                    }
+                    List<GardeningInspirationalMessagesRow>
+                        dailyInspirationGardeningInspirationalMessagesRowList =
+                        snapshot.data!;
+
+                    final dailyInspirationGardeningInspirationalMessagesRow =
+                        dailyInspirationGardeningInspirationalMessagesRowList
+                                .isNotEmpty
+                            ? dailyInspirationGardeningInspirationalMessagesRowList
+                                .first
+                            : null;
+
+                    return Container(
+                      width: 390.0,
+                      height: 240.0,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFE4EFD0),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12.0),
+                          bottomRight: Radius.circular(12.0),
+                          topLeft: Radius.circular(12.0),
+                          topRight: Radius.circular(12.0),
                         ),
                       ),
-                    ],
-                  ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Flexible(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 10.0, 0.0, 0.0),
+                                        child: Text(
+                                          valueOrDefault<String>(
+                                            dailyInspirationGardeningInspirationalMessagesRow
+                                                ?.title,
+                                            'Garden Inspiration',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineSmall
+                                              .override(
+                                                font: GoogleFonts.outfit(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineSmall
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Flexible(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 15.0, 20.0, 0.0),
+                                        child: Text(
+                                          valueOrDefault<String>(
+                                            dailyInspirationGardeningInspirationalMessagesRow
+                                                ?.body,
+                                            'Go forth and grow!',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.readexPro(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle: FontStyle.italic,
+                                                ),
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
               Align(
@@ -1092,34 +1289,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               children: [
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    context.pushNamed('mainFAQ');
-                                  },
-                                  text: 'Frequently Ask Questions',
-                                  options: FFButtonOptions(
-                                    height: 43.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 20.0, 0.0, 20.0),
@@ -1128,7 +1297,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       HapticFeedback.lightImpact();
 
                                       context.pushNamed(
-                                        'mySupplies',
+                                        MySuppliesWidget.routeName,
                                         queryParameters: {
                                           'userID': serializeParam(
                                             currentUserUid,
@@ -1150,10 +1319,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
                                             color: Colors.white,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
                                           ),
                                       elevation: 3.0,
                                       borderSide: BorderSide(
@@ -1161,14 +1340,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
+                                      hoverColor:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      hoverTextColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                     ),
                                   ),
                                 ),
                                 FFButtonWidget(
                                   onPressed: () async {
-                                    context.pushNamed('customerSupport');
+                                    context.pushNamed(
+                                        CustomerSupportWidget.routeName);
                                   },
-                                  text: 'Contact Us!',
+                                  text: 'Support',
                                   options: FFButtonOptions(
                                     height: 40.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1179,10 +1364,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
                                           color: Colors.white,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
                                         ),
                                     elevation: 3.0,
                                     borderSide: BorderSide(
@@ -1190,6 +1385,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(10.0),
+                                    hoverColor:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    hoverTextColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                   ),
                                 ),
                                 Padding(
@@ -1203,7 +1402,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           .clearRedirectLocation();
 
                                       context.goNamedAuth(
-                                          'loginPage', context.mounted);
+                                          LoginPageWidget.routeName,
+                                          context.mounted);
                                     },
                                     text: 'Log Out',
                                     options: FFButtonOptions(
@@ -1218,10 +1418,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
                                             color: Colors.white,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
                                           ),
                                       elevation: 3.0,
                                       borderSide: BorderSide(
@@ -1229,6 +1439,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
+                                      hoverColor:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      hoverTextColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                     ),
                                   ),
                                 ),

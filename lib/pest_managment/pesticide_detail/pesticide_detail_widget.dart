@@ -14,6 +14,9 @@ export 'pesticide_detail_model.dart';
 class PesticideDetailWidget extends StatefulWidget {
   const PesticideDetailWidget({super.key});
 
+  static String routeName = 'pesticideDetail';
+  static String routePath = '/pesticideDetail';
+
   @override
   State<PesticideDetailWidget> createState() => _PesticideDetailWidgetState();
 }
@@ -63,8 +66,13 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
         title: Text(
           'Pesticides',
           style: FlutterFlowTheme.of(context).bodyLarge.override(
-                fontFamily: 'Readex Pro',
+                font: GoogleFonts.readexPro(
+                  fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                ),
                 letterSpacing: 0.0,
+                fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
         actions: [],
@@ -84,8 +92,21 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 child: Text(
                   'Pesticides',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Outfit',
+                        font: GoogleFonts.outfit(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
                       ),
                 ),
               ),
@@ -106,11 +127,17 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 child: Text(
                   'Get Ahead Stay Ahead',
                   style: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Lexend Deca',
+                        font: GoogleFonts.lexendDeca(
+                          fontWeight: FontWeight.w500,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        ),
                         color: FlutterFlowTheme.of(context).primary,
                         fontSize: 16.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleSmall.fontStyle,
                       ),
                 ),
               ),
@@ -119,8 +146,18 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 child: Text(
                   'Dealing with aphids on produce can be a challenging task for gardeners and farmers. These tiny, sap-sucking insects can quickly infest plants, causing damage and reducing yields.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelLarge
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelLarge.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -136,9 +173,20 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontStyle,
+                        ),
                         fontSize: 18.0,
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
                       ),
                 ),
               ),
@@ -195,10 +243,27 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .displaySmall
                                         .override(
-                                          fontFamily: 'Outfit',
+                                          font: GoogleFonts.outfit(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .displaySmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .displaySmall
+                                                    .fontStyle,
+                                          ),
                                           color: Colors.black,
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmall
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -222,9 +287,26 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              font: GoogleFonts.readexPro(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color: Color(0x8A000000),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -247,11 +329,30 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                font: GoogleFonts.readexPro(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .tertiary,
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),

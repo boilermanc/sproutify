@@ -25,6 +25,6 @@ class GardeningInspirationalMessagesRow extends SupabaseDataRow {
   String get body => getField<String>('body')!;
   set body(String value) => setField<String>('body', value);
 
-  String? get messageDate => getField<String>('message_date');
-  set messageDate(String? value) => setField<String>('message_date', value);
+  DateTime? get messageDate => getField<DateTime>('message_date');
+  set messageDate(DateTime? value) => setField<DateTime>('message_date', value);
 }

@@ -18,12 +18,14 @@ class PhActionWidget extends StatefulWidget {
     required this.phValue,
     required this.timestamp,
     this.historyID,
+    required this.phCallBack,
   });
 
   final UsertowerdetailsRow? towerID;
   final UsertowerdetailsRow? phValue;
   final DateTime? timestamp;
   final int? historyID;
+  final Future Function()? phCallBack;
 
   @override
   State<PhActionWidget> createState() => _PhActionWidgetState();
@@ -88,10 +90,18 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                     Text(
                       'Set pH Value:',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
+                            font: GoogleFonts.readexPro(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
                             fontSize: 20.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
                           ),
                     ),
                     Padding(
@@ -103,10 +113,18 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                           '6.5',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
                               fontSize: 20.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -160,6 +178,7 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                         'timestamp': supaSerialize<DateTime>(widget!.timestamp),
                         'ph_value': _model.phAdjustmentValue,
                       });
+                      await widget.phCallBack?.call();
                       Navigator.pop(context);
                     },
                     text: 'Update pH',
@@ -172,9 +191,22 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
+                                font: GoogleFonts.readexPro(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
                                 color: Colors.white,
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
                               ),
                       elevation: 3.0,
                       borderSide: BorderSide(
@@ -182,6 +214,9 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
+                      hoverColor: FlutterFlowTheme.of(context).tertiary,
+                      hoverTextColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                   ),
                 ),
@@ -198,9 +233,17 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                         ),
                       ),

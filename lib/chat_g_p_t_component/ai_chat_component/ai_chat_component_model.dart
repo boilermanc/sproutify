@@ -5,6 +5,7 @@ import '/chat_g_p_t_component/writing_indicator/writing_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'ai_chat_component_widget.dart' show AiChatComponentWidget;

@@ -78,3 +78,10 @@ export '/chat_g_p_t_component/chat_ai_screen/chat_ai_screen_widget.dart'
     show ChatAiScreenWidget;
 export '/notifications/notifications_main/notifications_main_widget.dart'
     show NotificationsMainWidget;
+export '/onboarding/name_tower/name_tower_widget.dart' show NameTowerWidget;
+export '/onboarding/indoor_outdoor_tower/indoor_outdoor_tower_widget.dart'
+    show IndoorOutdoorTowerWidget;
+export '/onboarding/onboarding_questions_copy2/onboarding_questions_copy2_widget.dart'
+    show OnboardingQuestionsCopy2Widget;
+export '/plant_catalog_copy/plant_catalog_copy_widget.dart'
+    show PlantCatalogCopyWidget;

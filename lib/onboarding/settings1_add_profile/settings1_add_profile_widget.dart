@@ -1,11 +1,11 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +20,9 @@ class Settings1AddProfileWidget extends StatefulWidget {
   });
 
   final String? userID;
+
+  static String routeName = 'Settings1AddProfile';
+  static String routePath = '/settings1AddProfile';
 
   @override
   State<Settings1AddProfileWidget> createState() =>
@@ -63,9 +66,15 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
         title: Text(
           'Almost There...',
           style: FlutterFlowTheme.of(context).titleSmall.override(
-                fontFamily: 'Readex Pro',
+                font: GoogleFonts.readexPro(
+                  fontWeight:
+                      FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                ),
                 fontSize: 24.0,
                 letterSpacing: 0.0,
+                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
               ),
         ),
         actions: [],
@@ -81,7 +90,7 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
               Expanded(
                 child: Form(
                   key: _model.formKey,
-                  autovalidateMode: AutovalidateMode.disabled,
+                  autovalidateMode: AutovalidateMode.always,
                   child: FutureBuilder<List<ProfilesRow>>(
                     future: ProfilesTable().querySingleRow(
                       queryFn: (q) => q.eqOrNull(
@@ -129,10 +138,20 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .headlineMedium
                                         .override(
-                                          fontFamily: 'Outfit',
+                                          font: GoogleFonts.outfit(
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontStyle,
+                                          ),
                                           fontSize: 20.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -168,18 +187,62 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                                       fontSize: 18.0,
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
                                                     ),
                                             hintText: '* First Name',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                                       fontSize: 18.0,
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
                                                     ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
@@ -230,9 +293,28 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                font: GoogleFonts.readexPro(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 fontSize: 18.0,
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                           validator: _model
                                               .firstNameTextControllerValidator
@@ -263,18 +345,62 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                                       fontSize: 18.0,
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
                                                     ),
                                             hintText: 'Last Name',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                                       fontSize: 18.0,
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
                                                     ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
@@ -325,9 +451,28 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                font: GoogleFonts.readexPro(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 fontSize: 18.0,
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                           validator: _model
                                               .lastNameTextControllerValidator
@@ -362,18 +507,62 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                                       fontSize: 18.0,
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
                                                     ),
                                             hintText: 'Postal Code',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                                       fontSize: 18.0,
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
                                                     ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
@@ -424,9 +613,28 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                font: GoogleFonts.readexPro(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 fontSize: 18.0,
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                           maxLength: 5,
                                           maxLengthEnforcement:
@@ -436,6 +644,17 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                               .postalCodeTextControllerValidator
                                               .asValidator(context),
                                           inputFormatters: [
+                                            if (!isAndroid && !isiOS)
+                                              TextInputFormatter.withFunction(
+                                                  (oldValue, newValue) {
+                                                return TextEditingValue(
+                                                  selection: newValue.selection,
+                                                  text: newValue.text
+                                                      .toCapitalization(
+                                                          TextCapitalization
+                                                              .none),
+                                                );
+                                              }),
                                             FilteringTextInputFormatter.allow(
                                                 RegExp('[0-9]'))
                                           ],
@@ -447,126 +666,93 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 30.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    await ProfilesTable().update(
-                                      data: {
-                                        'first_name':
-                                            _model.firstNameTextController.text,
-                                        'last_name':
-                                            _model.lastNameTextController.text,
-                                        'postal_code': _model
-                                            .postalCodeTextController.text,
-                                      },
-                                      matchingRows: (rows) => rows.eqOrNull(
-                                        'id',
-                                        currentUserUid,
-                                      ),
-                                    );
-                                    await AddNewSubscriberInMailerLiteCall.call(
-                                      firstName:
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FFButtonWidget(
+                                onPressed: () async {
+                                  HapticFeedback.lightImpact();
+                                  await ProfilesTable().update(
+                                    data: {
+                                      'first_name':
                                           _model.firstNameTextController.text,
-                                      lastName:
-                                          (_model.lastNameFocusNode?.hasFocus ??
-                                                  false)
-                                              .toString(),
-                                      postalCode:
+                                      'last_name':
+                                          _model.lastNameTextController.text,
+                                      'postal_code':
                                           _model.postalCodeTextController.text,
-                                      email: listViewProfilesRow?.email,
-                                      experience: listViewProfilesRow
-                                          ?.gardeningExperience,
-                                      groupID: listViewProfilesRow
-                                          ?.mailerliteGroupId
-                                          ?.toString(),
-                                    );
+                                    },
+                                    matchingRows: (rows) => rows.eqOrNull(
+                                      'id',
+                                      currentUserUid,
+                                    ),
+                                  );
+                                  await AddNewSubscriberInMailerLiteCall.call(
+                                    firstName:
+                                        _model.firstNameTextController.text,
+                                    lastName:
+                                        (_model.lastNameFocusNode?.hasFocus ??
+                                                false)
+                                            .toString(),
+                                    postalCode:
+                                        _model.postalCodeTextController.text,
+                                    email: listViewProfilesRow?.email,
+                                    experience: listViewProfilesRow
+                                        ?.gardeningExperience,
+                                    groupID: listViewProfilesRow
+                                        ?.mailerliteGroupId
+                                        ?.toString(),
+                                  );
 
-                                    context.pushNamed(
-                                      'decideOnTower',
-                                      queryParameters: {
-                                        'userID': serializeParam(
-                                          currentUserUid,
-                                          ParamType.String,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  },
-                                  text: 'Submit',
-                                  options: FFButtonOptions(
-                                    height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 0.0, 16.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
-                                        ),
-                                    elevation: 0.0,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                FlutterFlowIconButton(
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  borderRadius: 20.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 40.0,
-                                  fillColor:
-                                      FlutterFlowTheme.of(context).warning,
-                                  icon: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 24.0,
-                                  ),
-                                  onPressed: () async {
-                                    await ProfilesTable().update(
-                                      data: {
-                                        'first_name':
-                                            _model.firstNameTextController.text,
-                                        'last_name':
-                                            _model.lastNameTextController.text,
-                                        'postal_code': _model
-                                            .postalCodeTextController.text,
-                                      },
-                                      matchingRows: (rows) => rows.eqOrNull(
-                                        'id',
+                                  context.pushNamed(
+                                    DecideOnTowerWidget.routeName,
+                                    queryParameters: {
+                                      'userID': serializeParam(
                                         currentUserUid,
+                                        ParamType.String,
                                       ),
-                                    );
-                                    await AddNewSubscriberInMailerLiteCall.call(
-                                      firstName:
-                                          _model.firstNameTextController.text,
-                                      lastName:
-                                          (_model.lastNameFocusNode?.hasFocus ??
-                                                  false)
-                                              .toString(),
-                                      postalCode:
-                                          _model.postalCodeTextController.text,
-                                      email: listViewProfilesRow?.email,
-                                      experience: listViewProfilesRow
-                                          ?.gardeningExperience,
-                                      groupID: listViewProfilesRow
-                                          ?.mailerliteGroupId
-                                          ?.toString(),
-                                    );
-
-                                    context.pushNamed('HomePage');
-                                  },
+                                    }.withoutNulls,
+                                  );
+                                },
+                                text: 'Submit',
+                                options: FFButtonOptions(
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        font: GoogleFonts.readexPro(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                  elevation: 0.0,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  hoverColor:
+                                      FlutterFlowTheme.of(context).tertiary,
+                                  hoverTextColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       );

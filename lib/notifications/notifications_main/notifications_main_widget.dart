@@ -14,6 +14,9 @@ export 'notifications_main_model.dart';
 class NotificationsMainWidget extends StatefulWidget {
   const NotificationsMainWidget({super.key});
 
+  static String routeName = 'notificationsMain';
+  static String routePath = '/notificationsMain';
+
   @override
   State<NotificationsMainWidget> createState() =>
       _NotificationsMainWidgetState();
@@ -69,11 +72,17 @@ class _NotificationsMainWidgetState extends State<NotificationsMainWidget> {
           title: Text(
             'Notifications',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
+                  font: GoogleFonts.outfit(
+                    fontWeight: FontWeight.w600,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                  ),
                   color: Colors.white,
                   fontSize: 24.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
           actions: [],

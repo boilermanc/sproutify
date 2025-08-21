@@ -13,6 +13,9 @@ export 'beneficials_detail_model.dart';
 class BeneficialsDetailWidget extends StatefulWidget {
   const BeneficialsDetailWidget({super.key});
 
+  static String routeName = 'beneficialsDetail';
+  static String routePath = '/beneficialsDetail';
+
   @override
   State<BeneficialsDetailWidget> createState() =>
       _BeneficialsDetailWidgetState();
@@ -63,8 +66,13 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
         title: Text(
           'Beneficials',
           style: FlutterFlowTheme.of(context).bodyLarge.override(
-                fontFamily: 'Readex Pro',
+                font: GoogleFonts.readexPro(
+                  fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                ),
                 letterSpacing: 0.0,
+                fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
         actions: [],
@@ -84,8 +92,21 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 child: Text(
                   'Beneficials',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Outfit',
+                        font: GoogleFonts.outfit(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
                       ),
                 ),
               ),
@@ -106,11 +127,17 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 child: Text(
                   'Ally with Nature\'s Protectors',
                   style: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Lexend Deca',
+                        font: GoogleFonts.lexendDeca(
+                          fontWeight: FontWeight.w500,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        ),
                         color: FlutterFlowTheme.of(context).primary,
                         fontSize: 16.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleSmall.fontStyle,
                       ),
                 ),
               ),
@@ -119,8 +146,18 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 child: Text(
                   'Beneficial insects are crucial for a healthy garden. They keep harmful pests at bay and aid in pollination. Ladybugs, bees, and lacewings, for instance, naturally control aphids and other pests. Encouraging these friendly insects with diverse plants can significantly reduce your reliance on pesticides and promote a robust garden ecosystem.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelLarge
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelLarge.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -136,9 +173,20 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontStyle,
+                        ),
                         fontSize: 18.0,
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
                       ),
                 ),
               ),
@@ -195,10 +243,27 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .displaySmall
                                         .override(
-                                          fontFamily: 'Outfit',
+                                          font: GoogleFonts.outfit(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .displaySmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .displaySmall
+                                                    .fontStyle,
+                                          ),
                                           color: Colors.black,
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmall
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -221,9 +286,26 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              font: GoogleFonts.readexPro(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color: Color(0x8A000000),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ),

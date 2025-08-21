@@ -1,5 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/components/no_favorites/no_favorites_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -7,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'dart:ui';
+import '/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -24,6 +26,9 @@ class PlantFavoritesWidget extends StatefulWidget {
   });
 
   final int? myPlantID;
+
+  static String routeName = 'plantFavorites';
+  static String routePath = '/plantFavorites';
 
   @override
   State<PlantFavoritesWidget> createState() => _PlantFavoritesWidgetState();
@@ -74,16 +79,22 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
               size: 30.0,
             ),
             onPressed: () async {
-              context.pushNamed('myPlantExpandableCopy');
+              context.pushNamed(MyPlantExpandableCopyWidget.routeName);
             },
           ),
           title: Text(
             'My Favorites',
             style: FlutterFlowTheme.of(context).headlineSmall.override(
-                  fontFamily: 'Outfit',
+                  font: GoogleFonts.outfit(
+                    fontWeight: FontWeight.w600,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                  ),
                   color: FlutterFlowTheme.of(context).info,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                 ),
           ),
           actions: [],
@@ -132,6 +143,12 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                       List<UserFavoritePlantsRow>
                           listViewUserFavoritePlantsRowList = snapshot.data!;
 
+                      if (listViewUserFavoritePlantsRowList.isEmpty) {
+                        return Center(
+                          child: NoFavoritesWidget(),
+                        );
+                      }
+
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
@@ -149,7 +166,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 context.pushNamed(
-                                  'plantDetail3',
+                                  PlantDetail3Widget.routeName,
                                   queryParameters: {
                                     'plantID': serializeParam(
                                       widget!.myPlantID,
@@ -223,14 +240,35 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                       .plantName,
                                                   'Plant',
                                                 ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyLarge
+                                                    .override(
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .fontStyle,
+                                                    ),
                                               ),
                                             ),
                                             Padding(
@@ -259,10 +297,27 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                                     context)
                                                                 .labelMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),

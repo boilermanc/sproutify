@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -15,6 +16,9 @@ export 'onboarding_flow_model.dart';
 
 class OnboardingFlowWidget extends StatefulWidget {
   const OnboardingFlowWidget({super.key});
+
+  static String routeName = 'onboardingFlow';
+  static String routePath = '/onboardingFlow';
 
   @override
   State<OnboardingFlowWidget> createState() => _OnboardingFlowWidgetState();
@@ -370,8 +374,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
-      child: WillPopScope(
-        onWillPop: () async => false,
+      child: PopScope(
+        canPop: false,
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -403,8 +407,17 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                               style: FlutterFlowTheme.of(context)
                                   .headlineMedium
                                   .override(
-                                    fontFamily: 'Outfit',
+                                    font: GoogleFonts.outfit(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
                                   ),
                             ).animateOnPageLoad(
                                 animationsMap['textOnPageLoadAnimation1']!),
@@ -416,9 +429,22 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
                                       fontSize: 18.0,
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
                                     ),
                               ).animateOnPageLoad(
                                   animationsMap['textOnPageLoadAnimation2']!),
@@ -432,6 +458,10 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                   borderRadius: 30.0,
                                   borderWidth: 1.0,
                                   buttonSize: 60.0,
+                                  hoverColor:
+                                      FlutterFlowTheme.of(context).tertiary,
+                                  hoverIconColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   icon: Icon(
                                     Icons.navigate_next_rounded,
                                     color: FlutterFlowTheme.of(context)
@@ -471,12 +501,21 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Sproutify:Home for Tower Garden',
+                            'Sproutify Home for Tower Garden',
                             style: FlutterFlowTheme.of(context)
                                 .headlineMedium
                                 .override(
-                                  fontFamily: 'Outfit',
+                                  font: GoogleFonts.outfit(
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontStyle,
                                 ),
                           ).animateOnPageLoad(
                               animationsMap['textOnPageLoadAnimation3']!),
@@ -484,13 +523,26 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Text(
-                              'A user-friendly app to help you plan, care, and grow fresh produce effortlessly',
+                              'A user-friendly app to help you plan, care, and grow fresh produce at home.',
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     fontSize: 18.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                             ).animateOnPageLoad(
                                 animationsMap['textOnPageLoadAnimation4']!),
@@ -504,6 +556,10 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                 borderRadius: 30.0,
                                 borderWidth: 1.0,
                                 buttonSize: 60.0,
+                                hoverColor:
+                                    FlutterFlowTheme.of(context).tertiary,
+                                hoverIconColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                                 icon: Icon(
                                   Icons.navigate_next_rounded,
                                   color: FlutterFlowTheme.of(context)
@@ -546,8 +602,17 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                             style: FlutterFlowTheme.of(context)
                                 .headlineMedium
                                 .override(
-                                  fontFamily: 'Outfit',
+                                  font: GoogleFonts.outfit(
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontStyle,
                                 ),
                           ).animateOnPageLoad(
                               animationsMap['textOnPageLoadAnimation5']!),
@@ -555,13 +620,26 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Text(
-                              'Setup your system, add your plants, track your variables, and find the resources you need all in one convenient app.',
+                              'Setup your system, add your plants, track your expenses, and find the resources you need all in one convenient app.',
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     fontSize: 18.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                             ).animateOnPageLoad(
                                 animationsMap['textOnPageLoadAnimation6']!),
@@ -575,6 +653,10 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                 borderRadius: 30.0,
                                 borderWidth: 1.0,
                                 buttonSize: 60.0,
+                                hoverColor:
+                                    FlutterFlowTheme.of(context).tertiary,
+                                hoverIconColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                                 icon: Icon(
                                   Icons.navigate_next_rounded,
                                   color: FlutterFlowTheme.of(context)
@@ -648,9 +730,17 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                               style: FlutterFlowTheme.of(context)
                                   .headlineMedium
                                   .override(
-                                    fontFamily: 'Outfit',
+                                    font: GoogleFonts.outfit(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
                                   ),
                             ).animateOnPageLoad(
                                 animationsMap['textOnPageLoadAnimation7']!),
@@ -662,12 +752,20 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 18.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
                                     ),
                               ).animateOnPageLoad(
                                   animationsMap['textOnPageLoadAnimation8']!),
@@ -677,7 +775,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                   0.0, 44.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  context.goNamed('createAnAccount');
+                                  context
+                                      .goNamed(CreateAnAccountWidget.routeName);
                                 },
                                 text: 'Get Started',
                                 options: FFButtonOptions(
@@ -691,11 +790,20 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        font: GoogleFonts.readexPro(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
                                         color: Colors.white,
                                         fontSize: 18.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
                                       ),
                                   elevation: 2.0,
                                   borderSide: BorderSide(

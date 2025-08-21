@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +21,9 @@ class ProductViewWidget extends StatefulWidget {
 
   final int? catagoryID;
   final int? productID;
+
+  static String routeName = 'productView';
+  static String routePath = '/productView';
 
   @override
   State<ProductViewWidget> createState() => _ProductViewWidgetState();
@@ -76,11 +80,17 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
           title: Text(
             'Supplies',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
+                  font: GoogleFonts.outfit(
+                    fontWeight: FontWeight.w600,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                  ),
                   color: Colors.white,
                   fontSize: 24.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
           actions: [],
@@ -147,7 +157,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                                     HapticFeedback.lightImpact();
 
                                     context.pushNamed(
-                                      'suppliesDetail',
+                                      SuppliesDetailWidget.routeName,
                                       queryParameters: {
                                         'productID': serializeParam(
                                           listViewProductsRow.productid,
@@ -227,14 +237,26 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
+                                                                font: GoogleFonts
+                                                                    .readexPro(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
                                                                 fontSize: 16.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),

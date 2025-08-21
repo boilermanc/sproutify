@@ -5,8 +5,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class SproutifyMobileSupabaseUser extends BaseAuthUser {
-  SproutifyMobileSupabaseUser(this.user);
+class SproutifyHomeSupabaseUser extends BaseAuthUser {
+  SproutifyHomeSupabaseUser(this.user);
   User? user;
   bool get loggedIn => user != null;
 
@@ -66,7 +66,7 @@ class SproutifyMobileSupabaseUser extends BaseAuthUser {
 /// [SupaFlow.client.auth.onAuthStateChange] does not yield any values until the
 /// user is already authenticated. So we add a default null user to the stream,
 /// if we need to interact with the [currentUser] before logging in.
-Stream<BaseAuthUser> sproutifyMobileSupabaseUserStream() {
+Stream<BaseAuthUser> sproutifyHomeSupabaseUserStream() {
   final supabaseAuthStream = SupaFlow.client.auth.onAuthStateChange.debounce(
       (authState) => authState.event == AuthChangeEvent.tokenRefreshed
           ? TimerStream(authState, Duration(seconds: 1))
@@ -76,7 +76,7 @@ Stream<BaseAuthUser> sproutifyMobileSupabaseUserStream() {
           : supabaseAuthStream)
       .map<BaseAuthUser>(
     (authState) {
-      currentUser = SproutifyMobileSupabaseUser(authState?.session?.user);
+      currentUser = SproutifyHomeSupabaseUser(authState?.session?.user);
       return currentUser!;
     },
   );

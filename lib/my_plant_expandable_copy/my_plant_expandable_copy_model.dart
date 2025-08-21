@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'dart:async';
 import 'my_plant_expandable_copy_widget.dart' show MyPlantExpandableCopyWidget;
 import 'package:expandable/expandable.dart';
@@ -30,9 +31,9 @@ class MyPlantExpandableCopyModel
 
   ///  State fields for stateful widgets in this page.
 
+  Completer<List<UserplantdetailsRow>>? requestCompleter;
   // Stores action output result for [Backend Call - Query Rows] action in myPlantExpandableCopy widget.
   List<UserplantdetailsRow>? userPlantsQuery7733;
-  Completer<List<UserplantdetailsRow>>? requestCompleter;
   DateTime? datePicked;
 
   @override

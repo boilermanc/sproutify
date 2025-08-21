@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -66,8 +67,20 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
                   child: AutoSizeText(
                 'Tower Buddy Is Active!',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Outfit',
+                      font: GoogleFonts.outfit(
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
                       letterSpacing: 0.0,
+                      fontWeight: FlutterFlowTheme.of(context)
+                          .headlineMedium
+                          .fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                       lineHeight: 1.5,
                     ),
               )),
@@ -78,8 +91,18 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
                   'I\'m your personal Tower Garden assistant. Ask me anything about growing your plants, maintaining your tower, or getting the most from your Tower Garden!',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelLarge
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelLarge.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 )),
               ),

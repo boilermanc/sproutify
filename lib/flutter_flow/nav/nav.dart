@@ -11,13 +11,14 @@ import '/backend/supabase/supabase.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/lat_lng.dart';
 import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -94,8 +95,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
+          name: HomePageWidget.routeName,
+          path: HomePageWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'HomePage')
               : HomePageWidget(
@@ -106,18 +107,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
         ),
         FFRoute(
-          name: 'loginPage',
-          path: '/loginPage',
+          name: LoginPageWidget.routeName,
+          path: LoginPageWidget.routePath,
           builder: (context, params) => LoginPageWidget(),
         ),
         FFRoute(
-          name: 'towerCatalog',
-          path: '/towerCatalog',
+          name: TowerCatalogWidget.routeName,
+          path: TowerCatalogWidget.routePath,
           builder: (context, params) => TowerCatalogWidget(),
         ),
         FFRoute(
-          name: 'nameTowerNew',
-          path: '/nameTowerNew',
+          name: NameTowerNewWidget.routeName,
+          path: NameTowerNewWidget.routePath,
           builder: (context, params) => NameTowerNewWidget(
             towerID: params.getParam(
               'towerID',
@@ -126,8 +127,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'indoorOutdoorNew',
-          path: '/indoorOutdoorNew',
+          name: IndoorOutdoorNewWidget.routeName,
+          path: IndoorOutdoorNewWidget.routePath,
           builder: (context, params) => IndoorOutdoorNewWidget(
             towerName: params.getParam(
               'towerName',
@@ -140,8 +141,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'plantCatagories',
-          path: '/plantCatagories',
+          name: PlantCatagoriesWidget.routeName,
+          path: PlantCatagoriesWidget.routePath,
           builder: (context, params) => PlantCatagoriesWidget(
             categoryID: params.getParam(
               'categoryID',
@@ -150,8 +151,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'plantFavorites',
-          path: '/plantFavorites',
+          name: PlantFavoritesWidget.routeName,
+          path: PlantFavoritesWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'plantFavorites')
               : PlantFavoritesWidget(
@@ -162,13 +163,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
         ),
         FFRoute(
-          name: 'onboardingFlow',
-          path: '/onboardingFlow',
+          name: OnboardingFlowWidget.routeName,
+          path: OnboardingFlowWidget.routePath,
           builder: (context, params) => OnboardingFlowWidget(),
         ),
         FFRoute(
-          name: 'userProfile',
-          path: '/userProfile',
+          name: UserProfileWidget.routeName,
+          path: UserProfileWidget.routePath,
           builder: (context, params) => UserProfileWidget(
             userID: params.getParam(
               'userID',
@@ -177,45 +178,45 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'submitForPests',
-          path: '/submitForPests',
+          name: SubmitForPestsWidget.routeName,
+          path: SubmitForPestsWidget.routePath,
           builder: (context, params) => SubmitForPestsWidget(),
         ),
         FFRoute(
-          name: 'supportGrowBetter',
-          path: '/supportGrowBetter',
+          name: SupportGrowBetterWidget.routeName,
+          path: SupportGrowBetterWidget.routePath,
           builder: (context, params) => SupportGrowBetterWidget(),
         ),
         FFRoute(
-          name: 'pestSupport2',
-          path: '/pestSupport2',
+          name: PestSupport2Widget.routeName,
+          path: PestSupport2Widget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'pestSupport2')
               : PestSupport2Widget(),
         ),
         FFRoute(
-          name: 'aphidsDetail',
-          path: '/aphidsDetail',
+          name: AphidsDetailWidget.routeName,
+          path: AphidsDetailWidget.routePath,
           builder: (context, params) => AphidsDetailWidget(),
         ),
         FFRoute(
-          name: 'customerSupport',
-          path: '/customerSupport',
+          name: CustomerSupportWidget.routeName,
+          path: CustomerSupportWidget.routePath,
           builder: (context, params) => CustomerSupportWidget(),
         ),
         FFRoute(
-          name: 'onboardingQuestions',
-          path: '/onboardingQuestions',
+          name: OnboardingQuestionsWidget.routeName,
+          path: OnboardingQuestionsWidget.routePath,
           builder: (context, params) => OnboardingQuestionsWidget(),
         ),
         FFRoute(
-          name: 'mainFAQ',
-          path: '/mainFAQ',
+          name: MainFAQWidget.routeName,
+          path: MainFAQWidget.routePath,
           builder: (context, params) => MainFAQWidget(),
         ),
         FFRoute(
-          name: 'myTowersExpandable',
-          path: '/myTowersExpandable',
+          name: MyTowersExpandableWidget.routeName,
+          path: MyTowersExpandableWidget.routePath,
           builder: (context, params) => MyTowersExpandableWidget(
             userID: params.getParam(
               'userID',
@@ -224,43 +225,43 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'createAnAccount',
-          path: '/createAnAccount',
+          name: CreateAnAccountWidget.routeName,
+          path: CreateAnAccountWidget.routePath,
           builder: (context, params) => CreateAnAccountWidget(),
         ),
         FFRoute(
-          name: 'myPlantExpandableCopy',
-          path: '/myPlantExpandableCopy',
+          name: MyPlantExpandableCopyWidget.routeName,
+          path: MyPlantExpandableCopyWidget.routePath,
           builder: (context, params) => MyPlantExpandableCopyWidget(),
         ),
         FFRoute(
-          name: 'resetPassword',
-          path: '/resetPassword',
+          name: ResetPasswordWidget.routeName,
+          path: ResetPasswordWidget.routePath,
           builder: (context, params) => ResetPasswordWidget(),
         ),
         FFRoute(
-          name: 'whitefliesDetail',
-          path: '/whitefliesDetail',
+          name: WhitefliesDetailWidget.routeName,
+          path: WhitefliesDetailWidget.routePath,
           builder: (context, params) => WhitefliesDetailWidget(),
         ),
         FFRoute(
-          name: 'gnatsDetail',
-          path: '/gnatsDetail',
+          name: GnatsDetailWidget.routeName,
+          path: GnatsDetailWidget.routePath,
           builder: (context, params) => GnatsDetailWidget(),
         ),
         FFRoute(
-          name: 'pesticideDetail',
-          path: '/pesticideDetail',
+          name: PesticideDetailWidget.routeName,
+          path: PesticideDetailWidget.routePath,
           builder: (context, params) => PesticideDetailWidget(),
         ),
         FFRoute(
-          name: 'beneficialsDetail',
-          path: '/beneficialsDetail',
+          name: BeneficialsDetailWidget.routeName,
+          path: BeneficialsDetailWidget.routePath,
           builder: (context, params) => BeneficialsDetailWidget(),
         ),
         FFRoute(
-          name: 'plantDetail3',
-          path: '/plantDetail3',
+          name: PlantDetail3Widget.routeName,
+          path: PlantDetail3Widget.routePath,
           builder: (context, params) => PlantDetail3Widget(
             plantName: params.getParam(
               'plantName',
@@ -277,8 +278,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'updateProfile',
-          path: '/updateProfile',
+          name: UpdateProfileWidget.routeName,
+          path: UpdateProfileWidget.routePath,
           builder: (context, params) => UpdateProfileWidget(
             userID: params.getParam(
               'userID',
@@ -287,8 +288,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'decideOnTower',
-          path: '/decideOnTower',
+          name: DecideOnTowerWidget.routeName,
+          path: DecideOnTowerWidget.routePath,
           builder: (context, params) => DecideOnTowerWidget(
             userID: params.getParam(
               'userID',
@@ -297,20 +298,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'loginPageRedirect',
-          path: '/loginPageRedirect',
+          name: LoginPageRedirectWidget.routeName,
+          path: LoginPageRedirectWidget.routePath,
           builder: (context, params) => LoginPageRedirectWidget(),
         ),
         FFRoute(
-          name: 'myCosts',
-          path: '/myCosts',
+          name: MyCostsWidget.routeName,
+          path: MyCostsWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'myCosts')
               : MyCostsWidget(),
         ),
         FFRoute(
-          name: 'productView',
-          path: '/productView',
+          name: ProductViewWidget.routeName,
+          path: ProductViewWidget.routePath,
           builder: (context, params) => ProductViewWidget(
             catagoryID: params.getParam(
               'catagoryID',
@@ -323,8 +324,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'suppliesDetail',
-          path: '/suppliesDetail',
+          name: SuppliesDetailWidget.routeName,
+          path: SuppliesDetailWidget.routePath,
           builder: (context, params) => SuppliesDetailWidget(
             productID: params.getParam(
               'productID',
@@ -337,13 +338,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'productCategories',
-          path: '/productCategories',
+          name: ProductCategoriesWidget.routeName,
+          path: ProductCategoriesWidget.routePath,
           builder: (context, params) => ProductCategoriesWidget(),
         ),
         FFRoute(
-          name: 'mySupplies',
-          path: '/mySupplies',
+          name: MySuppliesWidget.routeName,
+          path: MySuppliesWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'mySupplies')
               : MySuppliesWidget(
@@ -354,8 +355,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
         ),
         FFRoute(
-          name: 'Settings1AddProfile',
-          path: '/settings1AddProfile',
+          name: Settings1AddProfileWidget.routeName,
+          path: Settings1AddProfileWidget.routePath,
           builder: (context, params) => Settings1AddProfileWidget(
             userID: params.getParam(
               'userID',
@@ -364,13 +365,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'plantCatalog',
-          path: '/plantCatalog',
+          name: PlantCatalogWidget.routeName,
+          path: PlantCatalogWidget.routePath,
           builder: (context, params) => PlantCatalogWidget(),
         ),
         FFRoute(
-          name: 'faqSearchResults',
-          path: '/faqSearchResults',
+          name: FaqSearchResultsWidget.routeName,
+          path: FaqSearchResultsWidget.routePath,
           builder: (context, params) => FaqSearchResultsWidget(
             searchTerm: params.getParam(
               'searchTerm',
@@ -379,18 +380,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'coralChat',
-          path: '/coralChat',
+          name: CoralChatWidget.routeName,
+          path: CoralChatWidget.routePath,
           builder: (context, params) => CoralChatWidget(),
         ),
         FFRoute(
-          name: 'wormsDetail2',
-          path: '/wormsDetail2',
+          name: WormsDetail2Widget.routeName,
+          path: WormsDetail2Widget.routePath,
           builder: (context, params) => WormsDetail2Widget(),
         ),
         FFRoute(
-          name: 'onboardingQuestionsCopy',
-          path: '/onboardingQuestionsCopy',
+          name: OnboardingQuestionsCopyWidget.routeName,
+          path: OnboardingQuestionsCopyWidget.routePath,
           builder: (context, params) => OnboardingQuestionsCopyWidget(
             userID: params.getParam(
               'userID',
@@ -399,46 +400,80 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'plantSelector',
-          path: '/plantSelector',
+          name: PlantSelectorWidget.routeName,
+          path: PlantSelectorWidget.routePath,
           builder: (context, params) => PlantSelectorWidget(),
         ),
         FFRoute(
-          name: 'outdoorPlants',
-          path: '/outdoorPlants',
+          name: OutdoorPlantsWidget.routeName,
+          path: OutdoorPlantsWidget.routePath,
           requireAuth: true,
           builder: (context, params) => OutdoorPlantsWidget(),
         ),
         FFRoute(
-          name: 'indoorPlants',
-          path: '/indoorPlants',
+          name: IndoorPlantsWidget.routeName,
+          path: IndoorPlantsWidget.routePath,
           requireAuth: true,
           builder: (context, params) => IndoorPlantsWidget(),
         ),
         FFRoute(
-          name: 'towerCatalogNew',
-          path: '/towerCatalogNew',
+          name: TowerCatalogNewWidget.routeName,
+          path: TowerCatalogNewWidget.routePath,
           builder: (context, params) => TowerCatalogNewWidget(),
         ),
         FFRoute(
-          name: 'createNewPassword',
-          path: '/createNewPassword',
+          name: CreateNewPasswordWidget.routeName,
+          path: CreateNewPasswordWidget.routePath,
           builder: (context, params) => CreateNewPasswordWidget(),
         ),
         FFRoute(
-          name: 'createNewPasswordInternal',
-          path: '/createNewPasswordInternal',
+          name: CreateNewPasswordInternalWidget.routeName,
+          path: CreateNewPasswordInternalWidget.routePath,
           builder: (context, params) => CreateNewPasswordInternalWidget(),
         ),
         FFRoute(
-          name: 'chat_ai_Screen',
-          path: '/chatAiScreen',
+          name: ChatAiScreenWidget.routeName,
+          path: ChatAiScreenWidget.routePath,
           builder: (context, params) => ChatAiScreenWidget(),
         ),
         FFRoute(
-          name: 'notificationsMain',
-          path: '/notificationsMain',
+          name: NotificationsMainWidget.routeName,
+          path: NotificationsMainWidget.routePath,
           builder: (context, params) => NotificationsMainWidget(),
+        ),
+        FFRoute(
+          name: NameTowerWidget.routeName,
+          path: NameTowerWidget.routePath,
+          builder: (context, params) => NameTowerWidget(
+            towerID: params.getParam(
+              'towerID',
+              ParamType.int,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: IndoorOutdoorTowerWidget.routeName,
+          path: IndoorOutdoorTowerWidget.routePath,
+          builder: (context, params) => IndoorOutdoorTowerWidget(
+            towerName: params.getParam(
+              'towerName',
+              ParamType.String,
+            ),
+            towerID: params.getParam(
+              'towerID',
+              ParamType.int,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: OnboardingQuestionsCopy2Widget.routeName,
+          path: OnboardingQuestionsCopy2Widget.routePath,
+          builder: (context, params) => OnboardingQuestionsCopy2Widget(),
+        ),
+        FFRoute(
+          name: PlantCatalogCopyWidget.routeName,
+          path: PlantCatalogCopyWidget.routePath,
+          builder: (context, params) => PlantCatalogCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

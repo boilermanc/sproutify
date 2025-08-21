@@ -5,6 +5,7 @@ import '/chat_g_p_t_component/writing_indicator/writing_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -233,8 +234,13 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
-                                                                                fontFamily: 'Readex Pro',
+                                                                                font: GoogleFonts.readexPro(
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
                                                                                 letterSpacing: 0.0,
+                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 lineHeight: 1.5,
                                                                               ),
                                                                         )),
@@ -282,10 +288,15 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                               Text(
                                                                             'Response copied to clipboard.',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
                                                                                   color: FlutterFlowTheme.of(context).info,
                                                                                   fontSize: 12.0,
                                                                                   letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
                                                                           ),
                                                                           duration:
@@ -324,8 +335,13 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                               child: Text(
                                                                                 'Copy response',
                                                                                 style: FlutterFlowTheme.of(context).labelSmall.override(
-                                                                                      fontFamily: 'Readex Pro',
+                                                                                      font: GoogleFonts.readexPro(
+                                                                                        fontWeight: FlutterFlowTheme.of(context).labelSmall.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
+                                                                                      ),
                                                                                       letterSpacing: 0.0,
+                                                                                      fontWeight: FlutterFlowTheme.of(context).labelSmall.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
                                                                                     ),
                                                                               ),
                                                                             ),
@@ -420,10 +436,21 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                             context)
                                                                         .bodyMedium
                                                                         .override(
-                                                                          fontFamily:
-                                                                              'Readex Pro',
+                                                                          font:
+                                                                              GoogleFonts.readexPro(
+                                                                            fontWeight:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                          ),
                                                                           letterSpacing:
                                                                               0.0,
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
                                                                         ),
                                                                   ),
                                                                 ],
@@ -498,15 +525,41 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                           hintText: 'Type something...',
                           hintStyle:
                               FlutterFlowTheme.of(context).labelLarge.override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontStyle,
                                   ),
                           errorStyle:
                               FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     color: FlutterFlowTheme.of(context).error,
                                     fontSize: 12.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -540,8 +593,21 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                               16.0, 24.0, 70.0, 24.0),
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily: 'Readex Pro',
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .fontStyle,
                             ),
                         maxLines: 8,
                         minLines: 1,
@@ -549,6 +615,17 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                         cursorColor: FlutterFlowTheme.of(context).primary,
                         validator: _model.chatInputFieldTextControllerValidator
                             .asValidator(context),
+                        inputFormatters: [
+                          if (!isAndroid && !isiOS)
+                            TextInputFormatter.withFunction(
+                                (oldValue, newValue) {
+                              return TextEditingValue(
+                                selection: newValue.selection,
+                                text: newValue.text.toCapitalization(
+                                    TextCapitalization.sentences),
+                              );
+                            }),
+                        ],
                       ),
                     ),
                     Align(
@@ -602,10 +679,25 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        font: GoogleFonts.readexPro(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
                                         color:
                                             FlutterFlowTheme.of(context).info,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
                                       ),
                                 ),
                                 duration: Duration(milliseconds: 4000),
@@ -618,7 +710,10 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                           }
 
                           await Future.delayed(
-                              const Duration(milliseconds: 800));
+                            Duration(
+                              milliseconds: 800,
+                            ),
+                          );
                           await _model.listViewController?.animateTo(
                             _model.listViewController!.position.maxScrollExtent,
                             duration: Duration(milliseconds: 100),

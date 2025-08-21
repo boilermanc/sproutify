@@ -1,6 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/my_growing_goals/my_growing_goals_widget.dart';
+import '/components/manage_goals_widget.dart';
 import '/components/profile_picture/profile_picture_widget.dart';
 import '/components/what_i_like_to_grow/what_i_like_to_grow_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'dart:ui';
+import '/index.dart';
 import 'user_profile_widget.dart' show UserProfileWidget;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

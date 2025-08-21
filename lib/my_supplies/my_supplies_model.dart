@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'dart:async';
 import 'my_supplies_widget.dart' show MySuppliesWidget;
 import 'package:expandable/expandable.dart';

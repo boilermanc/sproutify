@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'login_page_widget.dart' show LoginPageWidget;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class LoginPageModel extends FlutterFlowModel<LoginPageWidget> {
   String? _emailAddressTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'Email is required';
+      return 'Field is required';
     }
 
     if (!RegExp(kTextValidatorEmailRegex).hasMatch(val)) {

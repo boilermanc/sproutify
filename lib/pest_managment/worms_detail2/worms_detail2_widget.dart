@@ -13,6 +13,9 @@ export 'worms_detail2_model.dart';
 class WormsDetail2Widget extends StatefulWidget {
   const WormsDetail2Widget({super.key});
 
+  static String routeName = 'wormsDetail2';
+  static String routePath = '/wormsDetail2';
+
   @override
   State<WormsDetail2Widget> createState() => _WormsDetail2WidgetState();
 }
@@ -62,8 +65,13 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
         title: Text(
           'Caterpillars and Worms',
           style: FlutterFlowTheme.of(context).bodyLarge.override(
-                fontFamily: 'Readex Pro',
+                font: GoogleFonts.readexPro(
+                  fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                ),
                 letterSpacing: 0.0,
+                fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
         actions: [],
@@ -83,8 +91,21 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 child: Text(
                   'Caterpillars and Worms',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Outfit',
+                        font: GoogleFonts.outfit(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
                       ),
                 ),
               ),
@@ -106,11 +127,17 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                   'Keeping Your Garden Free from Caterpillars and Worms',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Lexend Deca',
+                        font: GoogleFonts.lexendDeca(
+                          fontWeight: FontWeight.w500,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        ),
                         color: FlutterFlowTheme.of(context).primary,
                         fontSize: 16.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleSmall.fontStyle,
                       ),
                 ),
               ),
@@ -119,8 +146,18 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 child: Text(
                   'Caterpillars and worms can turn lush gardens into their personal feasting grounds if left unchecked. These voracious eaters chew through leaves, stems, and fruits, causing extensive damage. Regular monitoring and prompt removal of these pests are essential. Introducing beneficial insects that prey on them or applying organic deterrents can help preserve your garden\'s bounty without resorting to harsh chemicals.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelLarge
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelLarge.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -136,9 +173,20 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontStyle,
+                        ),
                         fontSize: 18.0,
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
                       ),
                 ),
               ),
@@ -195,10 +243,27 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                                     style: FlutterFlowTheme.of(context)
                                         .displaySmall
                                         .override(
-                                          fontFamily: 'Outfit',
+                                          font: GoogleFonts.outfit(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .displaySmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .displaySmall
+                                                    .fontStyle,
+                                          ),
                                           color: Colors.black,
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmall
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -221,9 +286,26 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              font: GoogleFonts.readexPro(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color: Color(0x8A000000),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ),

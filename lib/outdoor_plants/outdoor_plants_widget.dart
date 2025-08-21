@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,9 @@ export 'outdoor_plants_model.dart';
 
 class OutdoorPlantsWidget extends StatefulWidget {
   const OutdoorPlantsWidget({super.key});
+
+  static String routeName = 'outdoorPlants';
+  static String routePath = '/outdoorPlants';
 
   @override
   State<OutdoorPlantsWidget> createState() => _OutdoorPlantsWidgetState();
@@ -133,11 +137,18 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
               title: Text(
                 'Outdoor Plants',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Outfit',
+                      font: GoogleFonts.outfit(
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
                       color: Colors.white,
                       fontSize: 24.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
               ),
               actions: [],
@@ -182,20 +193,33 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context.pushNamed('plantSelector');
+                                            context.pushNamed(
+                                                PlantSelectorWidget.routeName);
                                           },
                                           child: Text(
                                             'These plants will grow well outdoor.',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Readex Pro',
+                                                  font: GoogleFonts.readexPro(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primaryText,
                                                   fontSize: 18.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                           ),
                                         ),
@@ -239,7 +263,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     context.pushNamed(
-                                      'plantDetail3',
+                                      PlantDetail3Widget.routeName,
                                       queryParameters: {
                                         'plantName': serializeParam(
                                           outdoorPlantsItem.plantName,
@@ -323,9 +347,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                                 Flexible(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 5.0,
-                                                                0.0, 0.0),
+                                                        EdgeInsets.all(7.0),
                                                     child: Text(
                                                       valueOrDefault<String>(
                                                         outdoorPlantsItem
@@ -338,12 +360,26 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
+                                                            font: GoogleFonts
+                                                                .readexPro(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
                                                             fontSize: 12.0,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
                                                           ),
                                                     ),
                                                   ),

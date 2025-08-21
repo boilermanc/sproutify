@@ -15,6 +15,8 @@ class EcActionModel extends FlutterFlowModel<EcActionWidget> {
 
   // State field(s) for ecAdjustment widget.
   double? ecAdjustmentValue;
+  // Stores action output result for [Backend Call - Insert Row] action in updateECButton widget.
+  PhEchistoryRow? phECHistory9911;
 
   @override
   void initState(BuildContext context) {}

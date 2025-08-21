@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Sproutify</string>
+	<string>Sproutify Home</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>SproutifyMobile</string>
+	<string>SproutifyHome</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
@@ -36,10 +36,10 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>sproutifymobile.com</string>
+        <string>sproutifyhome.com</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>sproutifymobile</string>
+        <string>sproutifyhome</string>
         </array>
         </dict>
     </array>
@@ -56,6 +56,7 @@
     <string>In order to take a picture or video, this app requires permission to access the camera.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>In order to upload data, this app requires permission to access the photo library.</string>
+
 
 
 

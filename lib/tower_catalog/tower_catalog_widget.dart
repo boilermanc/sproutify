@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,9 @@ export 'tower_catalog_model.dart';
 
 class TowerCatalogWidget extends StatefulWidget {
   const TowerCatalogWidget({super.key});
+
+  static String routeName = 'towerCatalog';
+  static String routePath = '/towerCatalog';
 
   @override
   State<TowerCatalogWidget> createState() => _TowerCatalogWidgetState();
@@ -44,22 +48,57 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
-      child: WillPopScope(
-        onWillPop: () async => false,
+      child: PopScope(
+        canPop: false,
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primary,
             automaticallyImplyLeading: false,
-            title: Text(
-              'Select Your Tower',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Outfit',
-                    color: Colors.white,
-                    fontSize: 24.0,
-                    letterSpacing: 0.0,
+            title: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Select Your Tower',
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        font: GoogleFonts.outfit(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
+                        ),
+                        color: Colors.white,
+                        fontSize: 24.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
+                ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.lightImpact();
+
+                    context.pushNamed(HomePageWidget.routeName);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    size: 24.0,
                   ),
+                ),
+              ],
             ),
             actions: [],
             centerTitle: false,
@@ -140,7 +179,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                         HapticFeedback.lightImpact();
 
                                         context.pushNamed(
-                                          'nameTowerNew',
+                                          NameTowerWidget.routeName,
                                           queryParameters: {
                                             'towerID': serializeParam(
                                               listViewTowerGardensRow.id,
@@ -212,8 +251,14 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                                                         context)
                                                                     .bodyMedium
                                                                     .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
+                                                                      font: GoogleFonts
+                                                                          .readexPro(
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
                                                                       fontSize:
                                                                           18.0,
                                                                       letterSpacing:
@@ -221,6 +266,10 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
                                                                     ),
                                                               ),
                                                             ),
@@ -237,7 +286,8 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                                               .transparent,
                                                           onTap: () async {
                                                             context.pushNamed(
-                                                              'nameTowerNew',
+                                                              NameTowerNewWidget
+                                                                  .routeName,
                                                               queryParameters: {
                                                                 'towerID':
                                                                     serializeParam(
@@ -282,14 +332,26 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
+                                                                font: GoogleFonts
+                                                                    .readexPro(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
                                                                 fontSize: 16.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -310,12 +372,26 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
-                                                            fontFamily:
-                                                                'Readex Pro',
+                                                            font: GoogleFonts
+                                                                .readexPro(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
                                                             fontSize: 16.0,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
                                                           ),
                                                     ),
                                                   ],

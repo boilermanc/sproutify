@@ -236,6 +236,8 @@ dynamic deserializeParam<T>(
             return TowerFaqRow(data);
           case UsertowerdetailsRow:
             return UsertowerdetailsRow(data);
+          case GardeningInspirationalMessagesBackupRow:
+            return GardeningInspirationalMessagesBackupRow(data);
           case UserproductlistviewRow:
             return UserproductlistviewRow(data);
           case UserProfilesWithPlantPreferencesRow:
@@ -286,6 +288,8 @@ dynamic deserializeParam<T>(
             return GardeningExperienceLevelsRow(data);
           case PlantCatalogRow:
             return PlantCatalogRow(data);
+          case FavoriteToggleSignalRow:
+            return FavoriteToggleSignalRow(data);
           case PhEchistoryRow:
             return PhEchistoryRow(data);
           case UserNotificationsStatusRow:

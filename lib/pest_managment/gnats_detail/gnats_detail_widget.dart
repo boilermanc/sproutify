@@ -13,6 +13,9 @@ export 'gnats_detail_model.dart';
 class GnatsDetailWidget extends StatefulWidget {
   const GnatsDetailWidget({super.key});
 
+  static String routeName = 'gnatsDetail';
+  static String routePath = '/gnatsDetail';
+
   @override
   State<GnatsDetailWidget> createState() => _GnatsDetailWidgetState();
 }
@@ -62,8 +65,13 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
         title: Text(
           'Gnats',
           style: FlutterFlowTheme.of(context).bodyLarge.override(
-                fontFamily: 'Readex Pro',
+                font: GoogleFonts.readexPro(
+                  fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                ),
                 letterSpacing: 0.0,
+                fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
         actions: [],
@@ -83,8 +91,21 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 child: Text(
                   'Gnats',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Outfit',
+                        font: GoogleFonts.outfit(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
                       ),
                 ),
               ),
@@ -105,11 +126,17 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 child: Text(
                   'Outsmarting Fungus Gnats',
                   style: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Lexend Deca',
+                        font: GoogleFonts.lexendDeca(
+                          fontWeight: FontWeight.w500,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        ),
                         color: FlutterFlowTheme.of(context).primary,
                         fontSize: 16.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleSmall.fontStyle,
                       ),
                 ),
               ),
@@ -118,8 +145,18 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 child: Text(
                   'Fungus gnats may be small, but their impact on your garden can be significant. These dark, tiny insects thrive in moist soil conditions, feeding on fungi and decaying organic matter. While adult gnats are mostly a nuisance, their larvae can damage tender plant roots, leading to stunted growth and yellowing leaves. Keeping soil well-drained and dry between watering is your first line of defense against these pesky invaders.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelLarge
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelLarge.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -135,9 +172,20 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontStyle,
+                        ),
                         fontSize: 18.0,
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
                       ),
                 ),
               ),
@@ -194,10 +242,27 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .displaySmall
                                         .override(
-                                          fontFamily: 'Outfit',
+                                          font: GoogleFonts.outfit(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .displaySmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .displaySmall
+                                                    .fontStyle,
+                                          ),
                                           color: Colors.black,
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmall
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -220,9 +285,26 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              font: GoogleFonts.readexPro(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color: Color(0x8A000000),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ),

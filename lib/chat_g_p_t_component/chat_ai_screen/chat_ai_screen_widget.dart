@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,9 @@ export 'chat_ai_screen_model.dart';
 
 class ChatAiScreenWidget extends StatefulWidget {
   const ChatAiScreenWidget({super.key});
+
+  static String routeName = 'chat_ai_Screen';
+  static String routePath = '/chatAiScreen';
 
   @override
   State<ChatAiScreenWidget> createState() => _ChatAiScreenWidgetState();
@@ -79,10 +83,17 @@ class _ChatAiScreenWidgetState extends State<ChatAiScreenWidget> {
               Text(
                 'Tower Buddy',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Outfit',
+                      font: GoogleFonts.outfit(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
                       color: FlutterFlowTheme.of(context).primaryBackground,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.bold,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
               ),
               FlutterFlowIconButton(
@@ -95,7 +106,7 @@ class _ChatAiScreenWidgetState extends State<ChatAiScreenWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed('chat_ai_Screen');
+                  context.pushNamed(ChatAiScreenWidget.routeName);
                 },
               ),
             ],

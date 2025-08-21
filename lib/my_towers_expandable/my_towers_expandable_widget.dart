@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'dart:async';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,9 @@ class MyTowersExpandableWidget extends StatefulWidget {
   });
 
   final String? userID;
+
+  static String routeName = 'myTowersExpandable';
+  static String routePath = '/myTowersExpandable';
 
   @override
   State<MyTowersExpandableWidget> createState() =>
@@ -99,7 +103,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
               FFAppState().profileIsSet = true;
               safeSetState(() {});
 
-              context.pushNamed('towerCatalogNew');
+              context.pushNamed(TowerCatalogNewWidget.routeName);
             },
             backgroundColor: FlutterFlowTheme.of(context).primary,
             elevation: 8.0,
@@ -124,17 +128,23 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
               size: 30.0,
             ),
             onPressed: () async {
-              context.pushNamed('HomePage');
+              context.pushNamed(HomePageWidget.routeName);
             },
           ),
           title: Text(
             'My Towers',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
+                  font: GoogleFonts.outfit(
+                    fontWeight: FontWeight.w600,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                  ),
                   color: Colors.white,
                   fontSize: 24.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
           actions: [],
@@ -225,10 +235,31 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .displaySmall
                                                 .override(
-                                                  fontFamily: 'Outfit',
+                                                  font: GoogleFonts.outfit(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .displaySmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .displaySmall
+                                                            .fontStyle,
+                                                  ),
                                                   color: Colors.black,
                                                   fontSize: 24.0,
                                                   letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .displaySmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .displaySmall
+                                                          .fontStyle,
                                                 ),
                                           ),
                                         ],
@@ -259,13 +290,26 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
+                                                        font: GoogleFonts
+                                                            .readexPro(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             Color(0x8A000000),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                               ),
@@ -324,14 +368,19 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               context)
                                                                           .bodyMedium
                                                                           .override(
-                                                                            fontFamily:
-                                                                                'Readex Pro',
+                                                                            font:
+                                                                                GoogleFonts.readexPro(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
                                                                             fontSize:
                                                                                 16.0,
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
                                                                                 FontWeight.bold,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                     ),
                                                                   ),
@@ -361,14 +410,19 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               context)
                                                                           .bodyMedium
                                                                           .override(
-                                                                            fontFamily:
-                                                                                'Readex Pro',
+                                                                            font:
+                                                                                GoogleFonts.readexPro(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
                                                                             fontSize:
                                                                                 16.0,
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
                                                                                 FontWeight.bold,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                     ),
                                                                   ),
@@ -392,14 +446,19 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               context)
                                                                           .bodyMedium
                                                                           .override(
-                                                                            fontFamily:
-                                                                                'Readex Pro',
+                                                                            font:
+                                                                                GoogleFonts.readexPro(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
                                                                             fontSize:
                                                                                 16.0,
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
                                                                                 FontWeight.bold,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                     ),
                                                                   ),
@@ -421,14 +480,19 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               context)
                                                                           .bodyMedium
                                                                           .override(
-                                                                            fontFamily:
-                                                                                'Readex Pro',
+                                                                            font:
+                                                                                GoogleFonts.readexPro(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
                                                                             fontSize:
                                                                                 16.0,
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
                                                                                 FontWeight.bold,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                     ),
                                                                   ),
@@ -459,10 +523,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
-                                                                              fontFamily: 'Readex Pro',
+                                                                              font: GoogleFonts.readexPro(
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                              ),
                                                                               fontSize: 18.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.bold,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                             ),
                                                                       ),
                                                                     ),
@@ -506,6 +574,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     towerID: listViewUsertowerdetailsRow,
                                                                                     timestamp: getCurrentTimestamp,
                                                                                     phValue: listViewUsertowerdetailsRow,
+                                                                                    phCallBack: () async {
+                                                                                      safeSetState(() => _model.requestCompleter = null);
+                                                                                      await _model.waitForRequestCompleted();
+                                                                                    },
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -661,11 +733,15 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                             ),
                                                                                             textAlign: TextAlign.center,
                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                  fontFamily: 'Readex Pro',
+                                                                                                  font: GoogleFonts.readexPro(
+                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                  ),
                                                                                                   color: FlutterFlowTheme.of(context).info,
                                                                                                   fontSize: 20.0,
                                                                                                   letterSpacing: 0.0,
                                                                                                   fontWeight: FontWeight.bold,
+                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                 ),
                                                                                           ),
                                                                                         ),
@@ -695,10 +771,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                           'Instructions',
                                                                                         ),
                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Readex Pro',
+                                                                                              font: GoogleFonts.readexPro(
+                                                                                                fontWeight: FontWeight.w600,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
                                                                                               fontSize: 12.0,
                                                                                               letterSpacing: 0.0,
                                                                                               fontWeight: FontWeight.w600,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                             ),
                                                                                       ),
                                                                                     ),
@@ -793,10 +873,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                       child: Text(
                                                                                         'To get started, click on the gear icon above and enter your first pH value!',
                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Readex Pro',
+                                                                                              font: GoogleFonts.readexPro(
+                                                                                                fontWeight: FontWeight.w600,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
                                                                                               fontSize: 12.0,
                                                                                               letterSpacing: 0.0,
                                                                                               fontWeight: FontWeight.w600,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                             ),
                                                                                       ),
                                                                                     ),
@@ -848,14 +932,23 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                           context)
                                                                       .bodyMedium
                                                                       .override(
-                                                                        fontFamily:
-                                                                            'Readex Pro',
+                                                                        font: GoogleFonts
+                                                                            .readexPro(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
+                                                                        ),
                                                                         fontSize:
                                                                             18.0,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         fontWeight:
                                                                             FontWeight.bold,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
                                                                       ),
                                                                 ),
                                                               ),
@@ -908,6 +1001,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 child: EcActionWidget(
                                                                                   towerID: listViewUsertowerdetailsRow,
                                                                                   timestamp: getCurrentTimestamp,
+                                                                                  updateCallback: () async {
+                                                                                    safeSetState(() => _model.requestCompleter = null);
+                                                                                    await _model.waitForRequestCompleted();
+                                                                                  },
                                                                                 ),
                                                                               ),
                                                                             );
@@ -1048,11 +1145,15 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     ),
                                                                                     textAlign: TextAlign.center,
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Readex Pro',
+                                                                                          font: GoogleFonts.readexPro(
+                                                                                            fontWeight: FontWeight.bold,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                          ),
                                                                                           color: FlutterFlowTheme.of(context).info,
                                                                                           fontSize: 20.0,
                                                                                           letterSpacing: 0.0,
                                                                                           fontWeight: FontWeight.bold,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
                                                                                   ),
                                                                                 ),
@@ -1078,10 +1179,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     'ec review',
                                                                                   ),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Readex Pro',
+                                                                                        font: GoogleFonts.readexPro(
+                                                                                          fontWeight: FontWeight.w600,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                        ),
                                                                                         fontSize: 12.0,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                       ),
                                                                                 ),
                                                                               ),
@@ -1173,10 +1278,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                       child: Text(
                                                                                         'To get started, click on the gear icon above and enter your first EC value!',
                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Readex Pro',
+                                                                                              font: GoogleFonts.readexPro(
+                                                                                                fontWeight: FontWeight.w600,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
                                                                                               fontSize: 12.0,
                                                                                               letterSpacing: 0.0,
                                                                                               fontWeight: FontWeight.w600,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                             ),
                                                                                       ),
                                                                                     ),
@@ -1190,8 +1299,8 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     decoration: BoxDecoration(),
                                                                                     child: ClipRRect(
                                                                                       borderRadius: BorderRadius.circular(8.0),
-                                                                                      child: Image.asset(
-                                                                                        'assets/images/contemplated_image.png',
+                                                                                      child: Image.network(
+                                                                                        listViewUsertowerdetailsRow.ecReviewImageUrl!,
                                                                                         width: 75.0,
                                                                                         height: 100.0,
                                                                                         fit: BoxFit.cover,
@@ -1253,9 +1362,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                       await _model
                                                           .waitForRequestCompleted();
                                                       await Future.delayed(
-                                                          const Duration(
-                                                              milliseconds:
-                                                                  1000));
+                                                        Duration(
+                                                          milliseconds: 1000,
+                                                        ),
+                                                      );
                                                       _model.isTowerActive1199 =
                                                           await MyTowersTable()
                                                               .queryRows(
@@ -1355,8 +1465,16 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
+                                                                    font: GoogleFonts
+                                                                        .readexPro(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     fontSize:
                                                                         16.0,
                                                                     letterSpacing:
@@ -1364,6 +1482,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ],

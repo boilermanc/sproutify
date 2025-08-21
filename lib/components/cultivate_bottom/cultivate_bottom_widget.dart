@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -98,9 +99,26 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .headlineLarge
                                         .override(
-                                          fontFamily: 'Outfit',
+                                          font: GoogleFonts.outfit(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineLarge
+                                                    .fontStyle,
+                                          ),
                                           fontSize: 24.0,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineLarge
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineLarge
+                                                  .fontStyle,
                                         ),
                                   ),
                                   FlutterFlowIconButton(
@@ -133,9 +151,17 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                       child: Text(
                         '1. I harvested a plant I grew myself!',
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily: 'Readex Pro',
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -145,7 +171,10 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                     child: Text(
                       'Choose this option if your plant reached full growth and you\'ve collected your homegrown produce.\n',
                       style: FlutterFlowTheme.of(context).labelLarge.override(
-                            fontFamily: 'Readex Pro',
+                            font: GoogleFonts.readexPro(
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.italic,
+                            ),
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
                             fontStyle: FontStyle.italic,
@@ -159,9 +188,17 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                       child: Text(
                         '2. The plant had a pest issue. I threw it away.',
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily: 'Readex Pro',
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -171,7 +208,10 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                     child: Text(
                       'Select this if pests invaded your plant and you decided it was best to discard it.\n',
                       style: FlutterFlowTheme.of(context).labelLarge.override(
-                            fontFamily: 'Readex Pro',
+                            font: GoogleFonts.readexPro(
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.italic,
+                            ),
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
                             fontStyle: FontStyle.italic,
@@ -185,9 +225,17 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                       child: Text(
                         '3. The plant did not grow well. I threw it away.',
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily: 'Readex Pro',
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -197,7 +245,10 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                     child: Text(
                       'Use this option if your plant didn\'t thrive and you\'ve removed it from your garden.\n',
                       style: FlutterFlowTheme.of(context).labelLarge.override(
-                            fontFamily: 'Readex Pro',
+                            font: GoogleFonts.readexPro(
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.italic,
+                            ),
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
                             fontStyle: FontStyle.italic,

@@ -18,12 +18,14 @@ class EcActionWidget extends StatefulWidget {
     required this.timestamp,
     this.historyID,
     double? ecValue,
+    required this.updateCallback,
   }) : this.ecValue = ecValue ?? 1.2;
 
   final UsertowerdetailsRow? towerID;
   final DateTime? timestamp;
   final int? historyID;
   final double ecValue;
+  final Future Function()? updateCallback;
 
   @override
   State<EcActionWidget> createState() => _EcActionWidgetState();
@@ -88,10 +90,18 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                     Text(
                       'Set EC Value:',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
+                            font: GoogleFonts.readexPro(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
                             fontSize: 20.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
                           ),
                     ),
                     Padding(
@@ -103,10 +113,18 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                           '1.2',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
                               fontSize: 20.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -157,12 +175,15 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       HapticFeedback.lightImpact();
-                      await PhEchistoryTable().insert({
+                      _model.phECHistory9911 = await PhEchistoryTable().insert({
                         'tower_id': widget!.towerID?.towerId,
                         'timestamp': supaSerialize<DateTime>(widget!.timestamp),
                         'ec_value': _model.ecAdjustmentValue,
                       });
+                      await widget.updateCallback?.call();
                       Navigator.pop(context);
+
+                      safeSetState(() {});
                     },
                     text: 'Update EC',
                     options: FFButtonOptions(
@@ -174,9 +195,22 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
+                                font: GoogleFonts.readexPro(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
                                 color: Colors.white,
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
                               ),
                       elevation: 3.0,
                       borderSide: BorderSide(
@@ -184,6 +218,9 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
+                      hoverColor: FlutterFlowTheme.of(context).tertiary,
+                      hoverTextColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                   ),
                 ),
@@ -200,9 +237,17 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                             'Enter an EC value from 1.1 to 2.2 using the slider.',
                             style:
                                 FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                           ),
                         ),
@@ -223,9 +268,17 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                             'If your EC level is outside of 1.1 to 2,2 it is critical that you mitigate the issue.',
                             style:
                                 FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                           ),
                         ),

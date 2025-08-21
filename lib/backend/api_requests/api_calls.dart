@@ -15,7 +15,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
 class NeightnMainChatGroup {
   static String getBaseUrl() =>
-      'https://n8n.sproutify.app/webhook/2e4db4bf-0d1e-40b4-9d29-593adda20ad4';
+      'https://n8n.sproutify.app/webhook/a9aae518-ec85-4b0d-b2cb-5e6f64c5783d';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
   };
@@ -33,8 +33,9 @@ class SendFullPromptCall {
     final prompt = _serializeJson(promptJson);
     final ffApiRequestBody = '''
 {
-  "text": "\${${userMessage}}",
-  "userID": "${userID}"
+  "chatInput": "\${${userMessage}}",
+  "userID": "${userID}",
+  "sessionId": "${userID}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Send Full Prompt',
@@ -244,6 +245,25 @@ class PlantCatalogSearchCall {
       alwaysAllowBody: false,
     );
   }
+
+  static List<String>? plantName(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].plant_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? plantID(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].plant_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 class CategoryCostPerUserCall {

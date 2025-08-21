@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'plant_detail3_widget.dart' show PlantDetail3Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

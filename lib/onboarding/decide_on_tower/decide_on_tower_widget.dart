@@ -6,8 +6,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,9 @@ class DecideOnTowerWidget extends StatefulWidget {
   });
 
   final String? userID;
+
+  static String routeName = 'decideOnTower';
+  static String routePath = '/decideOnTower';
 
   @override
   State<DecideOnTowerWidget> createState() => _DecideOnTowerWidgetState();
@@ -174,8 +179,8 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
-      child: WillPopScope(
-        onWillPop: () async => false,
+      child: PopScope(
+        canPop: false,
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -226,9 +231,17 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                         style: FlutterFlowTheme.of(context)
                             .headlineMedium
                             .override(
-                              fontFamily: 'Outfit',
+                              font: GoogleFonts.outfit(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .fontStyle,
                             ),
                       ).animateOnPageLoad(
                           animationsMap['textOnPageLoadAnimation1']!),
@@ -242,10 +255,18 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall
                                 .override(
-                                  fontFamily: 'Outfit',
+                                  font: GoogleFonts.outfit(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .fontStyle,
+                                  ),
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .fontStyle,
                                 ),
                           ).animateOnPageLoad(
                               animationsMap['textOnPageLoadAnimation2']!),
@@ -256,7 +277,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                             EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            context.goNamed('towerCatalog');
+                            context.goNamed(TowerCatalogWidget.routeName);
                           },
                           text: 'Yes! I Do!',
                           icon: Icon(
@@ -274,10 +295,23 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
                                   color: Colors.white,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
                                 ),
                             elevation: 2.0,
                             borderSide: BorderSide(
@@ -285,6 +319,9 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(10.0),
+                            hoverColor: FlutterFlowTheme.of(context).tertiary,
+                            hoverTextColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                         ).animateOnPageLoad(
                             animationsMap['buttonOnPageLoadAnimation1']!),
@@ -326,10 +363,23 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
                                   color: Colors.white,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
                                 ),
                             elevation: 2.0,
                             borderSide: BorderSide(
@@ -337,9 +387,78 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(10.0),
+                            hoverColor: FlutterFlowTheme.of(context).tertiary,
+                            hoverTextColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                         ).animateOnPageLoad(
                             animationsMap['buttonOnPageLoadAnimation2']!),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 10.0, 10.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  HapticFeedback.lightImpact();
+
+                                  context.pushNamed(
+                                    HomePageWidget.routeName,
+                                    queryParameters: {
+                                      'cat02': serializeParam(
+                                        '0',
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Skip',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.readexPro(
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 24.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),

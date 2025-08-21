@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +24,9 @@ class IndoorOutdoorNewWidget extends StatefulWidget {
 
   final String? towerName;
   final int? towerID;
+
+  static String routeName = 'indoorOutdoorNew';
+  static String routePath = '/indoorOutdoorNew';
 
   @override
   State<IndoorOutdoorNewWidget> createState() => _IndoorOutdoorNewWidgetState();
@@ -50,15 +54,13 @@ class _IndoorOutdoorNewWidgetState extends State<IndoorOutdoorNewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
-      child: WillPopScope(
-        onWillPop: () async => false,
+      child: PopScope(
+        canPop: false,
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -76,17 +78,24 @@ class _IndoorOutdoorNewWidgetState extends State<IndoorOutdoorNewWidget> {
                 size: 30.0,
               ),
               onPressed: () async {
+                HapticFeedback.lightImpact();
                 context.pop();
               },
             ),
             title: Text(
               'Location',
               style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Outfit',
+                    font: GoogleFonts.outfit(
+                      fontWeight: FontWeight.w600,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                    ),
                     color: Colors.white,
                     fontSize: 24.0,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.w600,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
             ),
             actions: [],
@@ -113,10 +122,18 @@ class _IndoorOutdoorNewWidgetState extends State<IndoorOutdoorNewWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   fontSize: 22.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -150,15 +167,41 @@ class _IndoorOutdoorNewWidgetState extends State<IndoorOutdoorNewWidget> {
                             textStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
+                                  ),
                                   fontSize: 24.0,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
                                 ),
                             selectedTextStyle:
                                 FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       fontSize: 24.0,
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                             buttonPosition: RadioButtonPosition.left,
                             direction: Axis.vertical,
@@ -173,123 +216,85 @@ class _IndoorOutdoorNewWidgetState extends State<IndoorOutdoorNewWidget> {
                         ),
                       ),
                     ),
-                    Stack(
-                      children: [
-                        if (FFAppState().profileIsSet == false)
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 30.0, 0.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                HapticFeedback.lightImpact();
-                                await MyTowersTable().insert({
-                                  'tower_garden_id': widget!.towerID,
-                                  'indoor_outdoor': _model.insideOutsideValue,
-                                  'tower_name': widget!.towerName,
-                                  'user_id': currentUserUid,
-                                });
-
-                                context.pushNamed(
-                                  'Settings1AddProfile',
-                                  queryParameters: {
-                                    'userID': serializeParam(
-                                      currentUserUid,
-                                      ParamType.String,
-                                    ),
-                                  }.withoutNulls,
-                                );
-                              },
-                              text: 'Next...',
-                              options: FFButtonOptions(
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          HapticFeedback.lightImpact();
+                          await MyTowersTable().insert({
+                            'tower_garden_id': widget!.towerID,
+                            'indoor_outdoor': _model.insideOutsideValue,
+                            'tower_name': widget!.towerName,
+                            'user_id': currentUserUid,
+                          });
+                          FFAppState().isTowerActive = true;
+                          safeSetState(() {});
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Tower added!',
+                                style: TextStyle(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  fontSize: 18.0,
                                 ),
-                                borderRadius: BorderRadius.circular(8.0),
                               ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).success,
                             ),
-                          ),
-                        if (FFAppState().profileIsSet == true)
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 30.0, 0.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                HapticFeedback.lightImpact();
-                                await MyTowersTable().insert({
-                                  'tower_garden_id': widget!.towerID,
-                                  'indoor_outdoor': _model.insideOutsideValue,
-                                  'tower_name': widget!.towerName,
-                                  'user_id': currentUserUid,
-                                });
-                                FFAppState().isTowerActive = true;
-                                safeSetState(() {});
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Tower added!',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        fontSize: 18.0,
-                                      ),
+                          );
+
+                          context.pushNamed(
+                            MyTowersExpandableWidget.routeName,
+                            queryParameters: {
+                              'userID': serializeParam(
+                                currentUserUid,
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                          );
+                        },
+                        text: 'Next...',
+                        options: FFButtonOptions(
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
                                     ),
-                                    duration: Duration(milliseconds: 4000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).success,
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
                                   ),
-                                );
-
-                                context.pushNamed(
-                                  'myTowersExpandable',
-                                  queryParameters: {
-                                    'userID': serializeParam(
-                                      currentUserUid,
-                                      ParamType.String,
-                                    ),
-                                  }.withoutNulls,
-                                );
-                              },
-                              text: 'Next...',
-                              options: FFButtonOptions(
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: Colors.white,
-                                      fontSize: 18.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
                           ),
-                      ],
+                          borderRadius: BorderRadius.circular(8.0),
+                          hoverColor: FlutterFlowTheme.of(context).tertiary,
+                          hoverTextColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                      ),
                     ),
                   ],
                 ),

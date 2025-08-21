@@ -16,10 +16,10 @@ import 'package:provider/provider.dart';
 class ProfilePictureModel extends FlutterFlowModel<ProfilePictureWidget> {
   ///  State fields for stateful widgets in this component.
 
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
+  bool isDataUploading_uploadData0vm = false;
+  FFUploadedFile uploadedLocalFile_uploadData0vm =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
+  String uploadedFileUrl_uploadData0vm = '';
 
   @override
   void initState(BuildContext context) {}

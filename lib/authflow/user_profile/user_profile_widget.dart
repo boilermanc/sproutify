@@ -1,6 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/my_growing_goals/my_growing_goals_widget.dart';
+import '/components/manage_goals_widget.dart';
 import '/components/profile_picture/profile_picture_widget.dart';
 import '/components/what_i_like_to_grow/what_i_like_to_grow_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'dart:ui';
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -27,6 +28,9 @@ class UserProfileWidget extends StatefulWidget {
   });
 
   final String? userID;
+
+  static String routeName = 'userProfile';
+  static String routePath = '/userProfile';
 
   @override
   State<UserProfileWidget> createState() => _UserProfileWidgetState();
@@ -290,6 +294,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       buttonSize: 40.0,
                                       fillColor:
                                           FlutterFlowTheme.of(context).warning,
+                                      hoverColor:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      hoverIconColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                       icon: Icon(
                                         Icons.chevron_left,
                                         color: FlutterFlowTheme.of(context)
@@ -299,7 +308,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       onPressed: () async {
                                         HapticFeedback.lightImpact();
 
-                                        context.pushNamed('HomePage');
+                                        context.pushNamed(
+                                            HomePageWidget.routeName);
                                       },
                                     ),
                                   ),
@@ -320,8 +330,21 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                           style: FlutterFlowTheme.of(context)
                               .headlineLarge
                               .override(
-                                fontFamily: 'Outfit',
+                                font: GoogleFonts.outfit(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
+                                ),
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .fontStyle,
                               ),
                         ),
                       ),
@@ -335,9 +358,22 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                           ),
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                         ),
                       ),
@@ -355,10 +391,18 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
                                     ),
                               ),
                             ),
@@ -367,9 +411,22 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                             ),
                           ],
@@ -389,10 +446,18 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
                                     ),
                               ),
                             ),
@@ -401,9 +466,22 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                             ),
                           ],
@@ -440,7 +518,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                         child: Padding(
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
-                                          child: MyGrowingGoalsWidget(),
+                                          child: ManageGoalsWidget(),
                                         ),
                                       );
                                     },
@@ -461,11 +539,21 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
                                             color: FlutterFlowTheme.of(context)
                                                 .tertiary,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -518,11 +606,21 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             color: FlutterFlowTheme.of(context)
                                                 .tertiary,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -539,9 +637,22 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                           'Your Account',
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     fontSize: 18.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                         ),
                       ),
@@ -557,7 +668,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                             HapticFeedback.lightImpact();
 
                             context.pushNamed(
-                              'updateProfile',
+                              UpdateProfileWidget.routeName,
                               queryParameters: {
                                 'userID': serializeParam(
                                   currentUserUid,
@@ -604,8 +715,25 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -637,7 +765,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                           onTap: () async {
                             HapticFeedback.lightImpact();
 
-                            context.pushNamed('createNewPasswordInternal');
+                            context.pushNamed(
+                                CreateNewPasswordInternalWidget.routeName);
                           },
                           child: Container(
                             width: double.infinity,
@@ -677,8 +806,25 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -691,89 +837,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          context.pushNamed('customerSupport');
-                                        },
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 18.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 12.0, 16.0, 0.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            HapticFeedback.lightImpact();
-
-                            context.pushNamed('customerSupport');
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            height: 60.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 3.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(
-                                    0.0,
-                                    1.0,
-                                  ),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(8.0),
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(12.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Icon(
-                                    Icons.help_outline_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Support',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0.9, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          context.pushNamed('customerSupport');
+                                          context.pushNamed(
+                                              CustomerSupportWidget.routeName);
                                         },
                                         child: Icon(
                                           Icons.arrow_forward_ios,
@@ -841,8 +906,25 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -888,8 +970,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   await authManager.signOut();
                                   GoRouter.of(context).clearRedirectLocation();
 
-                                  context.goNamedAuth(
-                                      'loginPage', context.mounted);
+                                  context.goNamedAuth(LoginPageWidget.routeName,
+                                      context.mounted);
                                 },
                                 text: 'Delete Account',
                                 options: FFButtonOptions(
@@ -904,9 +986,24 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        font: GoogleFonts.readexPro(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
                                         fontSize: 18.0,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
                                   elevation: 0.0,
                                   borderSide: BorderSide(
@@ -915,6 +1012,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(10.0),
+                                  hoverColor:
+                                      FlutterFlowTheme.of(context).tertiary,
+                                  hoverTextColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                 ),
                               ).animateOnPageLoad(
                                   animationsMap['buttonOnPageLoadAnimation1']!),
@@ -931,8 +1032,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   await authManager.signOut();
                                   GoRouter.of(context).clearRedirectLocation();
 
-                                  context.goNamedAuth(
-                                      'loginPage', context.mounted);
+                                  context.goNamedAuth(LoginPageWidget.routeName,
+                                      context.mounted);
                                 },
                                 text: 'Log Out',
                                 options: FFButtonOptions(
@@ -947,9 +1048,24 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        font: GoogleFonts.readexPro(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
                                         fontSize: 18.0,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
                                   elevation: 0.0,
                                   borderSide: BorderSide(
@@ -958,6 +1074,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(10.0),
+                                  hoverColor:
+                                      FlutterFlowTheme.of(context).tertiary,
+                                  hoverTextColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                 ),
                               ).animateOnPageLoad(
                                   animationsMap['buttonOnPageLoadAnimation2']!),

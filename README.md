@@ -1,4 +1,4 @@
-# SproutifyMobile
+# SproutifyHome
 
 A new Flutter project.
 

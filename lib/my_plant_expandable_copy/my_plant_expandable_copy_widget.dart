@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'dart:async';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/foundation.dart';
@@ -25,6 +26,9 @@ export 'my_plant_expandable_copy_model.dart';
 
 class MyPlantExpandableCopyWidget extends StatefulWidget {
   const MyPlantExpandableCopyWidget({super.key});
+
+  static String routeName = 'myPlantExpandableCopy';
+  static String routePath = '/myPlantExpandableCopy';
 
   @override
   State<MyPlantExpandableCopyWidget> createState() =>
@@ -47,7 +51,11 @@ class _MyPlantExpandableCopyWidgetState
       await actions.unsubscribe(
         'userplants',
       );
-      await Future.delayed(const Duration(milliseconds: 1000));
+      await Future.delayed(
+        Duration(
+          milliseconds: 1000,
+        ),
+      );
       await actions.subscribe(
         'userplants',
         () async {
@@ -91,7 +99,7 @@ class _MyPlantExpandableCopyWidgetState
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            context.pushNamed('plantCatalog');
+            context.pushNamed(PlantCatalogWidget.routeName);
           },
           backgroundColor: FlutterFlowTheme.of(context).primary,
           elevation: 8.0,
@@ -117,17 +125,23 @@ class _MyPlantExpandableCopyWidgetState
             onPressed: () async {
               HapticFeedback.lightImpact();
 
-              context.pushNamed('HomePage');
+              context.pushNamed(HomePageWidget.routeName);
             },
           ),
           title: Text(
             'My Plants',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
+                  font: GoogleFonts.outfit(
+                    fontWeight: FontWeight.w600,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                  ),
                   color: Colors.white,
                   fontSize: 24.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
           actions: [],
@@ -264,8 +278,17 @@ class _MyPlantExpandableCopyWidgetState
                                                                   .of(context)
                                                               .displaySmall
                                                               .override(
-                                                                fontFamily:
-                                                                    'Outfit',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .outfit(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .displaySmall
+                                                                      .fontStyle,
+                                                                ),
                                                                 color: Colors
                                                                     .black,
                                                                 fontSize: 24.0,
@@ -274,6 +297,10 @@ class _MyPlantExpandableCopyWidgetState
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .displaySmall
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -424,13 +451,25 @@ class _MyPlantExpandableCopyWidgetState
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),
@@ -452,13 +491,25 @@ class _MyPlantExpandableCopyWidgetState
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),
@@ -560,9 +611,14 @@ class _MyPlantExpandableCopyWidgetState
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).primary,
                                                                             textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                  ),
                                                                                   color: Colors.white,
                                                                                   letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                                 ),
                                                                             elevation:
                                                                                 3.0,
@@ -625,8 +681,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                               Text(
                                                                             'What does this mean?',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -696,10 +757,14 @@ class _MyPlantExpandableCopyWidgetState
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
-                                                                                fontFamily: 'Readex Pro',
+                                                                                font: GoogleFonts.readexPro(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
                                                                                 fontSize: 18.0,
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.bold,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
                                                                         ),
                                                                         Padding(
@@ -715,10 +780,14 @@ class _MyPlantExpandableCopyWidgetState
                                                                               '5',
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
                                                                                   fontSize: 18.0,
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -747,9 +816,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                               Text(
                                                                             'Rate This Plant:',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -815,10 +888,14 @@ class _MyPlantExpandableCopyWidgetState
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
-                                                                                fontFamily: 'Readex Pro',
+                                                                                font: GoogleFonts.readexPro(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
                                                                                 fontSize: 14.0,
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.bold,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
                                                                         ),
                                                                         Padding(
@@ -834,9 +911,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                               ' Date Planted',
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -872,6 +953,10 @@ class _MyPlantExpandableCopyWidgetState
                                                                                     _datePickedDate.month,
                                                                                     _datePickedDate.day,
                                                                                   );
+                                                                                });
+                                                                              } else if (_model.datePicked != null) {
+                                                                                safeSetState(() {
+                                                                                  _model.datePicked = getCurrentTimestamp;
                                                                                 });
                                                                               }
                                                                               await UserplantsTable().update(
@@ -912,10 +997,14 @@ class _MyPlantExpandableCopyWidgetState
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
-                                                                                fontFamily: 'Readex Pro',
+                                                                                font: GoogleFonts.readexPro(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
                                                                                 fontSize: 14.0,
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.bold,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
                                                                         ),
                                                                         Padding(
@@ -937,9 +1026,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                               '0.00',
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -1138,10 +1231,14 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 'short description',
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
+                                                                                    font: GoogleFonts.readexPro(
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
                                                                                     fontSize: 16.0,
                                                                                     letterSpacing: 0.0,
                                                                                     fontWeight: FontWeight.w500,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1162,9 +1259,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                           Text(
                                                                             'Growing Season: ',
                                                                             style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w600,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                           Padding(
@@ -1180,8 +1281,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 'growing season',
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
+                                                                                    font: GoogleFonts.readexPro(
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
                                                                                     letterSpacing: 0.0,
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1204,9 +1310,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                             textAlign:
                                                                                 TextAlign.start,
                                                                             style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w600,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                           Flexible(
@@ -1219,8 +1329,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                                   'harvest method',
                                                                                 ),
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
+                                                                                      font: GoogleFonts.readexPro(
+                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                      ),
                                                                                       letterSpacing: 0.0,
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                     ),
                                                                               ),
                                                                             ),
@@ -1242,9 +1357,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                           Text(
                                                                             'First Harvest:',
                                                                             style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w600,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                           Padding(
@@ -1260,8 +1379,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 'first harvest',
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
+                                                                                    font: GoogleFonts.readexPro(
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
                                                                                     letterSpacing: 0.0,
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1282,9 +1406,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                           Text(
                                                                             'Final Harvest:',
                                                                             style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w600,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                           Padding(
@@ -1300,8 +1428,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 'final harvest',
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
+                                                                                    font: GoogleFonts.readexPro(
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
                                                                                     letterSpacing: 0.0,
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1322,9 +1455,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                           Text(
                                                                             'Best Placement:',
                                                                             style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w600,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                           Padding(
@@ -1340,8 +1477,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 'best placement',
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
+                                                                                    font: GoogleFonts.readexPro(
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
                                                                                     letterSpacing: 0.0,
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1362,9 +1504,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                           Text(
                                                                             'Indoor or Outdoor:',
                                                                             style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                  fontFamily: 'Readex Pro',
+                                                                                  font: GoogleFonts.readexPro(
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                  ),
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.w600,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                           Padding(
@@ -1380,8 +1526,13 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 'location',
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
+                                                                                    font: GoogleFonts.readexPro(
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
                                                                                     letterSpacing: 0.0,
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1435,8 +1586,29 @@ class _MyPlantExpandableCopyWidgetState
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Readex Pro',
+                                                  font: GoogleFonts.readexPro(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                           ),
                                         ],

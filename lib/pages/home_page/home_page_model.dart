@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -20,8 +21,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ApiCallResponse? apiResultoqk;
   // Stores action output result for [Backend Call - Query Rows] action in HomePage widget.
   List<ProfilesRow>? profile2244;
-  // Stores action output result for [Backend Call - Query Rows] action in HomePage widget.
-  List<GardeningInspirationalMessagesRow>? daysDate4411;
+  Stream<List<GardeningInspirationalMessagesRow>>?
+      dailyInspirationSupabaseStream;
 
   @override
   void initState(BuildContext context) {}

@@ -1,6 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -71,11 +73,17 @@ class _NoPlantsWidgetState extends State<NoPlantsWidget> {
                 Text(
                   'Oh no! You have no plants!',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FontWeight.bold,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
                         color: FlutterFlowTheme.of(context).secondary,
                         fontSize: 20.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
                 Divider(
@@ -89,10 +97,18 @@ class _NoPlantsWidgetState extends State<NoPlantsWidget> {
                     child: Text(
                       'You have not added any plants yet, please go to the Plant Catalog to add them.',
                       style: FlutterFlowTheme.of(context).labelMedium.override(
-                            fontFamily: 'Readex Pro',
+                            font: GoogleFonts.readexPro(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontStyle,
+                            ),
                             fontSize: 16.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .fontStyle,
                           ),
                     ),
                   ),
@@ -105,7 +121,7 @@ class _NoPlantsWidgetState extends State<NoPlantsWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed('plantCatalog');
+                      context.pushNamed(PlantCatalogWidget.routeName);
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
@@ -121,7 +137,7 @@ class _NoPlantsWidgetState extends State<NoPlantsWidget> {
                             onTap: () async {
                               HapticFeedback.lightImpact();
 
-                              context.pushNamed('plantCatalog');
+                              context.pushNamed(PlantCatalogWidget.routeName);
                             },
                             child: Container(
                               width: 150.0,
@@ -137,12 +153,21 @@ class _NoPlantsWidgetState extends State<NoPlantsWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        font: GoogleFonts.readexPro(
+                                          fontWeight: FontWeight.bold,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
                                         color: FlutterFlowTheme.of(context)
                                             .tertiary,
                                         fontSize: 16.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
                                 ),
                               ),

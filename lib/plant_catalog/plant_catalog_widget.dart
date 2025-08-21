@@ -1,4 +1,6 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/supabase/supabase.dart';
 import '/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -6,6 +8,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
+import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -17,6 +21,9 @@ export 'plant_catalog_model.dart';
 
 class PlantCatalogWidget extends StatefulWidget {
   const PlantCatalogWidget({super.key});
+
+  static String routeName = 'plantCatalog';
+  static String routePath = '/plantCatalog';
 
   @override
   State<PlantCatalogWidget> createState() => _PlantCatalogWidgetState();
@@ -55,9 +62,11 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
-      future: PlantCatalogSearchCall.call(
-        searchString: _model.searchPlantNameTextController.text,
-      ),
+      future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
+            ..complete(PlantCatalogSearchCall.call(
+              searchString: _model.searchPlantNameTextController.text,
+            )))
+          .future,
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -129,17 +138,24 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                   size: 30.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed('HomePage');
+                  context.pushNamed(HomePageWidget.routeName);
                 },
               ),
               title: Text(
                 'Plant Catalog',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Outfit',
+                      font: GoogleFonts.outfit(
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
                       color: Colors.white,
                       fontSize: 24.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
               ),
               actions: [
@@ -151,7 +167,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed('plantFavorites');
+                      context.pushNamed(PlantFavoritesWidget.routeName);
                     },
                     child: Icon(
                       Icons.favorite_rounded,
@@ -206,9 +222,8 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                 .jsonBody,
                                             r'''$.plant_name''',
                                             true,
-                                          ) as List)
-                                              .map<String>((s) => s.toString())
-                                              .toList()!
+                                          ) as List?)!
+                                              .cast<String>()
                                               .where((option) {
                                             final lowercaseOption =
                                                 option.toLowerCase();
@@ -230,8 +245,30 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      font:
+                                                          GoogleFonts.readexPro(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
                                                     ),
                                             textHighlightStyle: TextStyle(),
                                             elevation: 4.0,
@@ -277,22 +314,62 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelText: 'Search Plants...',
-                                              labelStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              hintStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              labelStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelMedium
+                                                  .override(
+                                                    font: GoogleFonts.readexPro(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                  ),
+                                              hintStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelMedium
+                                                  .override(
+                                                    font: GoogleFonts.readexPro(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                  ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: FlutterFlowTheme.of(
@@ -359,8 +436,29 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Readex Pro',
+                                                  font: GoogleFonts.readexPro(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                             validator: _model
                                                 .searchPlantNameTextControllerValidator
@@ -386,7 +484,8 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed('plantSelector');
+                                        context.pushNamed(
+                                            PlantSelectorWidget.routeName);
                                       },
                                       child: Container(
                                         width: 200.0,
@@ -405,12 +504,24 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Readex Pro',
+                                                  font: GoogleFonts.readexPro(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .tertiary,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                           ),
                                         ),
@@ -448,106 +559,291 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                               itemBuilder: (context, plantSearchNameIndex) {
                                 final plantSearchNameItem =
                                     plantSearchName[plantSearchNameIndex];
-                                return InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    HapticFeedback.lightImpact();
+                                return Stack(
+                                  children: [
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        HapticFeedback.lightImpact();
 
-                                    context.pushNamed(
-                                      'plantDetail3',
-                                      queryParameters: {
-                                        'plantName': serializeParam(
-                                          getJsonField(
-                                            plantSearchNameItem,
-                                            r'''$.plant_name''',
-                                          ).toString(),
-                                          ParamType.String,
+                                        context.pushNamed(
+                                          PlantDetail3Widget.routeName,
+                                          queryParameters: {
+                                            'plantName': serializeParam(
+                                              getJsonField(
+                                                plantSearchNameItem,
+                                                r'''$.plant_name''',
+                                              ).toString(),
+                                              ParamType.String,
+                                            ),
+                                            'plantID': serializeParam(
+                                              getJsonField(
+                                                plantSearchNameItem,
+                                                r'''$.plant_id''',
+                                              ),
+                                              ParamType.int,
+                                            ),
+                                            'isFavorite': serializeParam(
+                                              false,
+                                              ParamType.bool,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 200.0,
+                                        height: 200.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                         ),
-                                        'plantID': serializeParam(
-                                          getJsonField(
-                                            plantSearchNameItem,
-                                            r'''$.plant_id''',
-                                          ),
-                                          ParamType.int,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0.0),
+                                                        child: Image.network(
+                                                          getJsonField(
+                                                            plantSearchNameItem,
+                                                            r'''$.plant_image''',
+                                                          ).toString(),
+                                                          width: 80.0,
+                                                          height: 80.0,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.all(5.0),
+                                                      child: Text(
+                                                        getJsonField(
+                                                          plantSearchNameItem,
+                                                          r'''$.plant_name''',
+                                                        ).toString(),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .readexPro(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                              fontSize: 12.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        'isFavorite': serializeParam(
-                                          false,
-                                          ParamType.bool,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 200.0,
-                                    height: 200.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      ),
                                     ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 8.0, 0.0, 0.0),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            0.0),
-                                                    child: Image.network(
-                                                      getJsonField(
-                                                        plantSearchNameItem,
-                                                        r'''$.plant_image''',
-                                                      ).toString(),
-                                                      width: 80.0,
-                                                      height: 80.0,
-                                                      fit: BoxFit.contain,
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(1.0, -1.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 5.0, 0.0, 0.0),
+                                        child: FutureBuilder<
+                                            List<UserFavoritesRow>>(
+                                          future: UserFavoritesTable()
+                                              .querySingleRow(
+                                            queryFn: (q) => q
+                                                .eqOrNull(
+                                                  'user_id',
+                                                  currentUserUid,
+                                                )
+                                                .eqOrNull(
+                                                  'plant_id',
+                                                  getJsonField(
+                                                    plantSearchNameItem,
+                                                    r'''$.plant_id''',
+                                                  ),
+                                                ),
+                                          ),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Flexible(
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 8.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    getJsonField(
-                                                      plantSearchNameItem,
-                                                      r'''$.plant_name''',
-                                                    ).toString(),
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
+                                              );
+                                            }
+                                            List<UserFavoritesRow>
+                                                containerUserFavoritesRowList =
+                                                snapshot.data!;
+
+                                            final containerUserFavoritesRow =
+                                                containerUserFavoritesRowList
+                                                        .isNotEmpty
+                                                    ? containerUserFavoritesRowList
+                                                        .first
+                                                    : null;
+
+                                            return Container(
+                                              width: 30.0,
+                                              height: 30.0,
+                                              decoration: BoxDecoration(),
+                                              child: Stack(
+                                                children: [
+                                                  if (containerUserFavoritesRow
+                                                          ?.isFavorite ==
+                                                      true)
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        HapticFeedback
+                                                            .lightImpact();
+                                                        await FavoriteToggleSignalTable()
+                                                            .insert({
+                                                          'user_id':
+                                                              currentUserUid,
+                                                          'plant_id':
+                                                              getJsonField(
+                                                            plantSearchNameItem,
+                                                            r'''$.plant_id''',
+                                                          ),
+                                                        });
+                                                        safeSetState(() => _model
+                                                                .apiRequestCompleter =
+                                                            null);
+                                                        await _model
+                                                            .waitForApiRequestCompleted();
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
                                                         ),
-                                                  ),
-                                                ),
+                                                        child: Icon(
+                                                          Icons.favorite_sharp,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 20.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  if (containerUserFavoritesRow
+                                                          ?.isFavorite !=
+                                                      true)
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        HapticFeedback
+                                                            .lightImpact();
+                                                        await FavoriteToggleSignalTable()
+                                                            .insert({
+                                                          'user_id':
+                                                              currentUserUid,
+                                                          'plant_id':
+                                                              getJsonField(
+                                                            plantSearchNameItem,
+                                                            r'''$.plant_id''',
+                                                          ),
+                                                        });
+                                                        safeSetState(() => _model
+                                                                .apiRequestCompleter =
+                                                            null);
+                                                        await _model
+                                                            .waitForApiRequestCompleted();
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                        ),
+                                                        child: Icon(
+                                                          Icons
+                                                              .favorite_border_sharp,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          size: 20.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            );
+                                          },
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 );
                               },
                             );

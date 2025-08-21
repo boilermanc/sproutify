@@ -123,10 +123,20 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
                                           fontSize: 20.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -148,9 +158,26 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             fontSize: 16.0,
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -181,8 +208,21 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -240,7 +280,7 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                                       ),
                                       child: Image.network(
                                         valueOrDefault<String>(
-                                          _model.uploadedFileUrl,
+                                          _model.uploadedFileUrl_uploadData0vm,
                                           'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tower-garden-community-l9w4j2/assets/cpng3hq99m1r/Tower_Garden_Clip_100x100.png',
                                         ),
                                         fit: BoxFit.cover,
@@ -274,8 +314,8 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                               if (selectedMedia != null &&
                                   selectedMedia.every((m) => validateFileFormat(
                                       m.storagePath, context))) {
-                                safeSetState(
-                                    () => _model.isDataUploading = true);
+                                safeSetState(() => _model
+                                    .isDataUploading_uploadData0vm = true);
                                 var selectedUploadedFiles = <FFUploadedFile>[];
 
                                 var downloadUrls = <String>[];
@@ -296,16 +336,17 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                                     selectedFiles: selectedMedia,
                                   );
                                 } finally {
-                                  _model.isDataUploading = false;
+                                  _model.isDataUploading_uploadData0vm = false;
                                 }
                                 if (selectedUploadedFiles.length ==
                                         selectedMedia.length &&
                                     downloadUrls.length ==
                                         selectedMedia.length) {
                                   safeSetState(() {
-                                    _model.uploadedLocalFile =
+                                    _model.uploadedLocalFile_uploadData0vm =
                                         selectedUploadedFiles.first;
-                                    _model.uploadedFileUrl = downloadUrls.first;
+                                    _model.uploadedFileUrl_uploadData0vm =
+                                        downloadUrls.first;
                                   });
                                 } else {
                                   safeSetState(() {});
@@ -315,7 +356,8 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
 
                               await ProfilesTable().update(
                                 data: {
-                                  'avatar_url': _model.uploadedFileUrl,
+                                  'avatar_url':
+                                      _model.uploadedFileUrl_uploadData0vm,
                                 },
                                 matchingRows: (rows) => rows.eqOrNull(
                                   'id',
@@ -334,9 +376,22 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
                                     color: Colors.white,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
                                   ),
                               elevation: 3.0,
                               borderSide: BorderSide(
