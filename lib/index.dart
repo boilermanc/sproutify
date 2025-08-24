@@ -85,3 +85,5 @@ export '/onboarding/onboarding_questions_copy2/onboarding_questions_copy2_widget
     show OnboardingQuestionsCopy2Widget;
 export '/plant_catalog_copy/plant_catalog_copy_widget.dart'
     show PlantCatalogCopyWidget;
+export '/authflow/sproutify_purchase_page/sproutify_purchase_page_widget.dart'
+    show SproutifyPurchasePageWidget;

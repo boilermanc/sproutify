@@ -474,6 +474,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PlantCatalogCopyWidget.routeName,
           path: PlantCatalogCopyWidget.routePath,
           builder: (context, params) => PlantCatalogCopyWidget(),
+        ),
+        FFRoute(
+          name: SproutifyPurchasePageWidget.routeName,
+          path: SproutifyPurchasePageWidget.routePath,
+          builder: (context, params) => SproutifyPurchasePageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
