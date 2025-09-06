@@ -828,7 +828,7 @@ class _LoginPageRedirectWidgetState extends State<LoginPageRedirectWidget> {
                                                         'https://www.sweetwaterurbanfarms.com/');
                                                   },
                                                   child: Text(
-                                                    'Sweetwater Urban Farms',
+                                                    'Sweetwater Technology LLC',
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)

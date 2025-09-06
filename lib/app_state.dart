@@ -146,4 +146,16 @@ class FFAppState extends ChangeNotifier {
   set isTowerActive(bool value) {
     _isTowerActive = value;
   }
+
+  int _farmSpacerCapacity = 0;
+  int get farmSpacerCapacity => _farmSpacerCapacity;
+  set farmSpacerCapacity(int value) {
+    _farmSpacerCapacity = value;
+  }
+
+  double _ecValue = 0.0;
+  double get ecValue => _ecValue;
+  set ecValue(double value) {
+    _ecValue = value;
+  }
 }

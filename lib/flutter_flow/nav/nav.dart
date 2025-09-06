@@ -380,11 +380,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: CoralChatWidget.routeName,
-          path: CoralChatWidget.routePath,
-          builder: (context, params) => CoralChatWidget(),
-        ),
-        FFRoute(
           name: WormsDetail2Widget.routeName,
           path: WormsDetail2Widget.routePath,
           builder: (context, params) => WormsDetail2Widget(),

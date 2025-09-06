@@ -59,8 +59,6 @@ export '/onboarding/settings1_add_profile/settings1_add_profile_widget.dart'
 export '/plant_catalog/plant_catalog_widget.dart' show PlantCatalogWidget;
 export '/faq/faq_search_results/faq_search_results_widget.dart'
     show FaqSearchResultsWidget;
-export '/cohere_chat_component/coral_chat/coral_chat_widget.dart'
-    show CoralChatWidget;
 export '/pest_managment/worms_detail2/worms_detail2_widget.dart'
     show WormsDetail2Widget;
 export '/onboarding/onboarding_questions_copy/onboarding_questions_copy_widget.dart'

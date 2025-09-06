@@ -88,7 +88,7 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 0.0),
                 child: SelectionArea(
                     child: AutoSizeText(
-                  'I\'m your personal Tower Garden assistant. Ask me anything about growing your plants, maintaining your tower, or getting the most from your Tower Garden!',
+                  'I\'m your personal garden assistant. Ask me anything about growing your plants, maintaining your tower, or getting the most from your growing experience!',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).labelLarge.override(
                         font: GoogleFonts.readexPro(

@@ -223,6 +223,8 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                             r'''$.plant_name''',
                                             true,
                                           ) as List?)!
+                                              .map<String>((e) => e.toString())
+                                              .toList()
                                               .cast<String>()
                                               .where((option) {
                                             final lowercaseOption =
@@ -550,8 +552,8 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
-                                crossAxisSpacing: 10.0,
-                                mainAxisSpacing: 10.0,
+                                crossAxisSpacing: 7.0,
+                                mainAxisSpacing: 7.0,
                                 childAspectRatio: 1.0,
                               ),
                               scrollDirection: Axis.vertical,

@@ -765,7 +765,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                         'https://www.sweetwaterurbanfarms.com/');
                                                   },
                                                   child: Text(
-                                                    'Sweetwater Urban Farms',
+                                                    'Sweetwater Technlogy LLC',
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)

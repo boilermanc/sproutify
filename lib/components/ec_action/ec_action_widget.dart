@@ -154,11 +154,11 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                         child: Slider(
                           activeColor: FlutterFlowTheme.of(context).primary,
                           inactiveColor: FlutterFlowTheme.of(context).alternate,
-                          min: 1.1,
-                          max: 2.2,
+                          min: 0.6,
+                          max: 3.2,
                           value: _model.ecAdjustmentValue ??= 1.2,
                           label: _model.ecAdjustmentValue?.toStringAsFixed(1),
-                          divisions: 11,
+                          divisions: 13,
                           onChanged: (newValue) {
                             newValue =
                                 double.parse(newValue.toStringAsFixed(1));

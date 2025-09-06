@@ -679,7 +679,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                           },
                                                                           child:
                                                                               Text(
-                                                                            'What does this mean?',
+                                                                            'What is cultivate?',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   font: GoogleFonts.readexPro(
                                                                                     fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,

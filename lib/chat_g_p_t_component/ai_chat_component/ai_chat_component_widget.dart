@@ -518,8 +518,9 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                       child: TextFormField(
                         controller: _model.chatInputFieldTextController,
                         focusNode: _model.chatInputFieldFocusNode,
-                        autofocus: true,
+                        autofocus: false,
                         textCapitalization: TextCapitalization.sentences,
+                        textInputAction: TextInputAction.send,
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Type something...',

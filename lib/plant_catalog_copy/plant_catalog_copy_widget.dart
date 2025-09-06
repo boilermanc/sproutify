@@ -223,6 +223,8 @@ class _PlantCatalogCopyWidgetState extends State<PlantCatalogCopyWidget> {
                                             r'''$.plant_name''',
                                             true,
                                           ) as List?)!
+                                              .map<String>((e) => e.toString())
+                                              .toList()
                                               .cast<String>()
                                               .where((option) {
                                             final lowercaseOption =
@@ -526,6 +528,32 @@ class _PlantCatalogCopyWidgetState extends State<PlantCatalogCopyWidget> {
                                           ),
                                         ),
                                       ),
+                                    ),
+                                    Text(
+                                      'Hello World',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                     ),
                                   ],
                                 ),
