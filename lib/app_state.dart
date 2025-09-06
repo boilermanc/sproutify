@@ -18,11 +18,70 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Load persisted state
+    _firstName = prefs.getString('firstName') ?? '';
+    _lastName = prefs.getString('lastName') ?? '';
+    _inspirationTitle = prefs.getString('inspirationTitle') ?? '';
+    _inspirationBody = prefs.getString('inspirationBody') ?? '';
+    _profileIsSet = prefs.getBool('profileIsSet') ?? false;
+    _isTowerActive = prefs.getBool('isTowerActive') ?? false;
+    _plantSearchActive = prefs.getBool('plantSearchActive') ?? false;
+    _isNewNotification = prefs.getBool('isNewNotification') ?? false;
+    _wrongLogin = prefs.getBool('wrongLogin') ?? false;
+    _aiSearchResultDisplay = prefs.getBool('aiSearchResultDisplay') ?? false;
+    _isTowerActive = prefs.getBool('isTowerActive') ?? false;
+    
+    // Load plant names list
+    final plantNamesJson = prefs.getString('plantNamesForSearch');
+    if (plantNamesJson != null) {
+      try {
+        final List<dynamic> decoded = jsonDecode(plantNamesJson);
+        _plantNamesForSearch = decoded.cast<String>();
+      } catch (e) {
+        _plantNamesForSearch = [];
+      }
+    }
+    
+    // Load user struct if available
+    final userJson = prefs.getString('user');
+    if (userJson != null) {
+      try {
+        _user = UserStruct.fromSerializableMap(jsonDecode(userJson));
+      } catch (e) {
+        _user = UserStruct();
+      }
+    }
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
+    _persistState();
+  }
+
+  Future<void> _persistState() async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Persist all state variables
+    await prefs.setString('firstName', _firstName);
+    await prefs.setString('lastName', _lastName);
+    await prefs.setString('inspirationTitle', _inspirationTitle);
+    await prefs.setString('inspirationBody', _inspirationBody);
+    await prefs.setBool('profileIsSet', _profileIsSet);
+    await prefs.setBool('isTowerActive', _isTowerActive);
+    await prefs.setBool('plantSearchActive', _plantSearchActive);
+    await prefs.setBool('isNewNotification', _isNewNotification);
+    await prefs.setBool('wrongLogin', _wrongLogin);
+    await prefs.setBool('aiSearchResultDisplay', _aiSearchResultDisplay);
+    
+    // Persist plant names list
+    await prefs.setString('plantNamesForSearch', jsonEncode(_plantNamesForSearch));
+    
+    // Persist user struct
+    await prefs.setString('user', jsonEncode(_user.toSerializableMap()));
   }
 
   MessageTypeStruct _message = MessageTypeStruct.fromSerializableMap(jsonDecode(
