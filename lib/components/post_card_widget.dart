@@ -58,10 +58,12 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       if (profile.isNotEmpty) {
         final userProfile = profile.first;
         setState(() {
-          _username = userProfile.username ??
-              '${userProfile.firstName ?? ''} ${userProfile.lastName ?? ''}'.trim();
-          if (_username!.isEmpty) {
-            _username = userProfile.email?.split('@').first ?? 'User';
+          // Use same display name logic as CommunityService
+          if (userProfile.username != null && userProfile.username!.isNotEmpty) {
+            _username = userProfile.username;
+          } else {
+            final name = '${userProfile.firstName ?? ''} ${userProfile.lastName ?? ''}'.trim();
+            _username = name.isNotEmpty ? name : (userProfile.email?.split('@').first ?? 'User');
           }
           _profilePhotoUrl = userProfile.avatarUrl;
           _isLoadingProfile = false;
@@ -156,6 +158,18 @@ class _PostCardWidgetState extends State<PostCardWidget> {
 
   Future<void> _toggleLike() async {
     if (_isLiking) return;
+    
+    if (widget.post.id.isEmpty) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Invalid post ID. Please try again.'),
+            backgroundColor: FlutterFlowTheme.of(context).error,
+          ),
+        );
+      }
+      return;
+    }
 
     setState(() {
       _isLiking = true;
@@ -180,12 +194,16 @@ class _PostCardWidgetState extends State<PostCardWidget> {
         _isLiking = false;
       });
       
-      // Show error message
+      // Show error message with actual error details
       if (mounted) {
+        final errorMessage = e.toString().contains('Exception:')
+            ? e.toString().split('Exception:').last.trim()
+            : 'Failed to update like. Please try again.';
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to update like. Please try again.'),
+            content: Text(errorMessage),
             backgroundColor: FlutterFlowTheme.of(context).error,
+            duration: Duration(seconds: 4),
           ),
         );
       }
@@ -230,6 +248,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
             Padding(
               padding: EdgeInsets.all(12.0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Profile photo or initials
                   Container(
@@ -278,6 +297,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         if (_isLoadingProfile)
                           Container(
@@ -290,6 +310,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                           )
                         else
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Expanded(
                                 child: Row(
@@ -305,6 +326,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                               ),
                                               letterSpacing: 0.0,
                                             ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                     if (widget.post.isFeatured)
@@ -357,11 +380,14 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                 ),
                               ),
                               if (_userGamification != null)
-                                XpLevelDisplayWidget(
-                                  level: _userGamification!['current_level'] as int? ?? 1,
-                                  totalXp: _userGamification!['total_xp'] as int? ?? 0,
-                                  showProgressBar: false,
-                                  compact: true,
+                                Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: XpLevelDisplayWidget(
+                                    level: _userGamification!['current_level'] as int? ?? 1,
+                                    totalXp: _userGamification!['total_xp'] as int? ?? 0,
+                                    showProgressBar: false,
+                                    compact: true,
+                                  ),
                                 ),
                             ],
                           ),
@@ -379,6 +405,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                       ],
                     ),
                   ),
+                  SizedBox(width: 8.0),
                   // Follow button
                   if (!_isLoadingProfile)
                     InkWell(

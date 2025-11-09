@@ -33,6 +33,9 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
   List<CommunityPost> _posts = [];
   bool _isLoading = true;
   int _selectedTab = 0; // 0 = For You, 1 = Recent, 2 = Following, 3 = Popular, 4 = Featured
+  
+  // User gamification state
+  Map<String, dynamic>? _userGamification;
 
   @override
   void setState(VoidCallback callback) {
@@ -47,8 +50,20 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       safeSetState(() {});
+      _loadUserGamification();
       _loadPosts();
     });
+  }
+  
+  Future<void> _loadUserGamification() async {
+    try {
+      final gamification = await CommunityService.getUserGamification();
+      setState(() {
+        _userGamification = gamification;
+      });
+    } catch (e) {
+      print('Error loading user gamification: $e');
+    }
   }
 
   @override
@@ -97,6 +112,64 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
       });
       _loadPosts();
     }
+  }
+  
+  Widget _buildUserProfileRow(BuildContext context) {
+    final theme = FlutterFlowTheme.of(context);
+    final currentLevel = _userGamification?['current_level'] as int? ?? 1;
+    final totalXp = _userGamification?['total_xp'] as int? ?? 0;
+    final totalBadgesEarned = _userGamification?['badges_earned'] as int? ?? 0;
+    
+    if (_userGamification == null) {
+      return SizedBox.shrink();
+    }
+    
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        color: theme.primaryBackground,
+        border: Border(
+          bottom: BorderSide(
+            color: theme.alternate,
+            width: 1.0,
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildStatItem(context, 'Level', currentLevel.toString()),
+          _buildStatItem(context, 'XP', totalXp.toString()),
+          _buildStatItem(context, 'Badges', totalBadgesEarned.toString()),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildStatItem(BuildContext context, String label, String value) {
+    final theme = FlutterFlowTheme.of(context);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          value,
+          style: theme.titleLarge.override(
+            fontFamily: GoogleFonts.readexPro().fontFamily,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.0,
+          ),
+        ),
+        SizedBox(height: 4.0),
+        Text(
+          label,
+          style: theme.bodySmall.override(
+            fontFamily: GoogleFonts.readexPro().fontFamily,
+            letterSpacing: 0.0,
+            color: theme.secondaryText,
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -242,6 +315,8 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              // User Profile Row (Name, Avatar, Stats)
+              _buildUserProfileRow(context),
               // Tab Switcher
               Container(
                 decoration: BoxDecoration(

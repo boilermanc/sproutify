@@ -268,35 +268,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                 letterSpacing: 0.0,
               ),
         ),
-        actions: [
-          if (_selectedFile != null && !_isUploading && !_isPosting)
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
-              child: FFButtonWidget(
-                onPressed: _createPost,
-                text: 'Post',
-                options: FFButtonOptions(
-                  height: 40.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
-                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).secondary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        font: GoogleFonts.readexPro(
-                          fontWeight: FontWeight.w600,
-                        ),
-                        color: Colors.white,
-                        letterSpacing: 0.0,
-                      ),
-                  elevation: 3.0,
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ),
-        ],
+        actions: [],
         centerTitle: false,
         elevation: 2.0,
       ),
@@ -601,7 +573,37 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                       ],
                     ),
                   ),
-                SizedBox(height: 24.0),
+                // Post button
+                if (_selectedFile != null && !_isUploading && !_isPosting)
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 24.0),
+                    child: FFButtonWidget(
+                      onPressed: _createPost,
+                      text: 'Post',
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 50.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FontWeight.w600,
+                              ),
+                              color: Colors.white,
+                              letterSpacing: 0.0,
+                            ),
+                        elevation: 3.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                  )
+                else
+                  SizedBox(height: 24.0),
               ],
             ),
           ),

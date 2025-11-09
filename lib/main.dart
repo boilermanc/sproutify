@@ -136,15 +136,45 @@ class NavBarPage extends StatefulWidget {
 }
 
 /// This is the private State class that goes with NavBarPage.
-class _NavBarPageState extends State<NavBarPage> {
+class _NavBarPageState extends State<NavBarPage> with SingleTickerProviderStateMixin {
   String _currentPageName = 'HomePage';
   late Widget? _currentPage;
+  late AnimationController _navAnimationController;
+  late Animation<Offset> _navSlideAnimation;
 
   @override
   void initState() {
     super.initState();
     _currentPageName = widget.initialPage ?? _currentPageName;
     _currentPage = widget.page;
+    
+    // Initialize animation controller
+    _navAnimationController = AnimationController(
+      duration: Duration(milliseconds: 600),
+      vsync: this,
+    );
+    
+    // Create slide animation from bottom
+    _navSlideAnimation = Tween<Offset>(
+      begin: Offset(0.0, 1.0), // Start from below
+      end: Offset(0.0, 0.0),   // End at normal position
+    ).animate(CurvedAnimation(
+      parent: _navAnimationController,
+      curve: Curves.easeOut,
+    ));
+    
+    // Start animation after a short delay
+    Future.delayed(Duration(milliseconds: 300), () {
+      if (mounted) {
+        _navAnimationController.forward();
+      }
+    });
+  }
+  
+  @override
+  void dispose() {
+    _navAnimationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -161,7 +191,9 @@ class _NavBarPageState extends State<NavBarPage> {
     return Scaffold(
       resizeToAvoidBottomInset: !widget.disableResizeToAvoidBottomInset,
       body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: SlideTransition(
+        position: _navSlideAnimation,
+        child: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) => safeSetState(() {
           _currentPage = null;
@@ -215,6 +247,7 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: 'Community',
           )
         ],
+        ),
       ),
     );
   }

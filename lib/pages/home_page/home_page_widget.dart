@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -34,11 +35,34 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  
+  // Inspiration box animation state
+  bool _showInspirationBox = true;
+  bool _isAnimating = false;
+  Timer? _inspirationTimer;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+    
+    // Start timer to hide inspiration box after 5 seconds
+    _inspirationTimer = Timer(Duration(seconds: 5), () {
+      if (mounted) {
+        setState(() {
+          _isAnimating = true;
+        });
+        // After animation completes, hide the box
+        Future.delayed(Duration(milliseconds: 500), () {
+          if (mounted) {
+            setState(() {
+              _showInspirationBox = false;
+              _isAnimating = false;
+            });
+          }
+        });
+      }
+    });
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -80,6 +104,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   void dispose() {
+    _inspirationTimer?.cancel();
     _model.dispose();
 
     super.dispose();
@@ -1118,9 +1143,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5.0, 12.0, 5.0, 0.0),
-                child: StreamBuilder<List<GardeningInspirationalMessagesRow>>(
+              if (_showInspirationBox)
+                AnimatedSlide(
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                  offset: _isAnimating ? Offset(0.0, -1.0) : Offset(0.0, 0.0),
+                  child: AnimatedOpacity(
+                    duration: Duration(milliseconds: 500),
+                    opacity: _isAnimating ? 0.0 : 1.0,
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(5.0, 12.0, 5.0, 0.0),
+                      child: StreamBuilder<List<GardeningInspirationalMessagesRow>>(
                   stream: _model.dailyInspirationSupabaseStream ??= SupaFlow
                       .client
                       .from("gardening_inspirational_messages")
@@ -1265,8 +1298,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     );
                   },
+                      ),
+                    ),
+                  ),
                 ),
-              ),
               Align(
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(

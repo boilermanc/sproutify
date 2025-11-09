@@ -1,6 +1,9 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/services/community_service.dart';
 import '/components/badge_card_widget.dart';
+import '/backend/supabase/supabase.dart';
+import '/auth/supabase_auth/auth_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,6 +27,9 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
   String _error = '';
   String _filter = 'all'; // 'all', 'earned', 'locked'
   late TabController _tabController;
+  String? _userDisplayName;
+  String? _userAvatarUrl;
+  bool _isLoadingProfile = true;
 
   @override
   void initState() {
@@ -47,7 +53,60 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
         _loadBadges();
       }
     });
+    _loadUserProfile();
     _loadBadges();
+  }
+
+  Future<void> _loadUserProfile() async {
+    try {
+      final profileUserId = widget.userId ?? currentUserUid;
+      if (profileUserId.isEmpty) {
+        setState(() {
+          _userDisplayName = 'User';
+          _isLoadingProfile = false;
+        });
+        return;
+      }
+
+      final profile = await ProfilesTable().querySingleRow(
+        queryFn: (q) => q.eq('id', profileUserId),
+      );
+
+      if (profile.isNotEmpty) {
+        final userProfile = profile.first;
+        setState(() {
+          // Use same display name logic as CommunityService
+          if (userProfile.username != null && userProfile.username!.isNotEmpty) {
+            _userDisplayName = userProfile.username;
+          } else {
+            final name = '${userProfile.firstName ?? ''} ${userProfile.lastName ?? ''}'.trim();
+            _userDisplayName = name.isNotEmpty ? name : (userProfile.email?.split('@').first ?? 'User');
+          }
+          _userAvatarUrl = userProfile.avatarUrl;
+          _isLoadingProfile = false;
+        });
+      } else {
+        setState(() {
+          _userDisplayName = 'User';
+          _isLoadingProfile = false;
+        });
+      }
+    } catch (e) {
+      print('Error loading user profile: $e');
+      setState(() {
+        _userDisplayName = 'User';
+        _isLoadingProfile = false;
+      });
+    }
+  }
+
+  String _getInitials(String? name) {
+    if (name == null || name.isEmpty) return 'U';
+    final parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+    }
+    return name[0].toUpperCase();
   }
 
   @override
@@ -96,9 +155,11 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
       ),
       child: Column(
         children: [
-          // User Stats Header
+          // User Profile Header with Name and Avatar
+          _buildUserProfileHeader(context),
+          // User Stats Row (Level, XP, Badges)
           if (_badgeData != null && _badgeData!['user_stats'] != null)
-            _buildUserStatsHeader(context, _badgeData!['user_stats']),
+            _buildUserStatsRow(context, _badgeData!['user_stats']),
           // Tab Bar
           TabBar(
             controller: _tabController,
@@ -150,22 +211,9 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
     );
   }
 
-  Widget _buildUserStatsHeader(
-      BuildContext context, Map<String, dynamic> stats) {
+  Widget _buildUserProfileHeader(BuildContext context) {
     final theme = FlutterFlowTheme.of(context);
-    final totalXp = stats['total_xp'] as int? ?? 0;
-    final currentLevel = stats['current_level'] as int? ?? 1;
-    final totalBadgesEarned = stats['total_badges_earned'] as int? ?? 0;
-
-    // Calculate XP for next level
-    // Level formula: Level = FLOOR(SQRT(total_xp / 100)) + 1
-    // So XP needed for level N: (N-1)^2 * 100
-    final xpForCurrentLevel = ((currentLevel - 1) * (currentLevel - 1) * 100);
-    final xpForNextLevel = (currentLevel * currentLevel * 100);
-    final xpProgress = totalXp - xpForCurrentLevel;
-    final xpNeeded = xpForNextLevel - xpForCurrentLevel;
-    final xpPercentage = xpNeeded > 0 ? (xpProgress / xpNeeded) : 0.0;
-
+    
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -177,52 +225,94 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
           ),
         ),
       ),
-      child: Column(
+      child: Row(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildStatItem(context, 'Level', currentLevel.toString()),
-              _buildStatItem(context, 'XP', totalXp.toString()),
-              _buildStatItem(
-                  context, 'Badges', totalBadgesEarned.toString()),
-            ],
+          // Avatar
+          Container(
+            width: 60.0,
+            height: 60.0,
+            decoration: BoxDecoration(
+              color: theme.primary,
+              shape: BoxShape.circle,
+            ),
+            child: _userAvatarUrl != null && _userAvatarUrl!.isNotEmpty
+                ? ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: _userAvatarUrl!,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Center(
+                        child: Text(
+                          _getInitials(_userDisplayName),
+                          style: theme.bodyLarge.override(
+                            fontFamily: GoogleFonts.readexPro().fontFamily,
+                            color: theme.primaryBackground,
+                            letterSpacing: 0.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                      _getInitials(_userDisplayName),
+                      style: theme.bodyLarge.override(
+                        fontFamily: GoogleFonts.readexPro().fontFamily,
+                        color: theme.primaryBackground,
+                        letterSpacing: 0.0,
+                      ),
+                    ),
+                  ),
           ),
-          const SizedBox(height: 12),
-          // XP Progress Bar
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Level $currentLevel',
-                    style: theme.bodySmall.override(
+          const SizedBox(width: 16),
+          // Name
+          Expanded(
+            child: _isLoadingProfile
+                ? Container(
+                    width: 120.0,
+                    height: 20.0,
+                    decoration: BoxDecoration(
+                      color: theme.alternate,
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                  )
+                : Text(
+                    _userDisplayName ?? 'User',
+                    style: theme.headlineSmall.override(
                       fontFamily: GoogleFonts.readexPro().fontFamily,
                       fontWeight: FontWeight.w600,
-                      letterSpacing: 0,
+                      letterSpacing: 0.0,
                     ),
                   ),
-                  Text(
-                    '${xpProgress.toStringAsFixed(0)} / $xpNeeded XP',
-                    style: theme.bodySmall.override(
-                      fontFamily: GoogleFonts.readexPro().fontFamily,
-                      letterSpacing: 0,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              LinearProgressIndicator(
-                value: xpPercentage.clamp(0.0, 1.0),
-                backgroundColor: theme.alternate,
-                valueColor: AlwaysStoppedAnimation<Color>(theme.primary),
-                minHeight: 8,
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ],
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUserStatsRow(
+      BuildContext context, Map<String, dynamic> stats) {
+    final theme = FlutterFlowTheme.of(context);
+    final totalXp = stats['total_xp'] as int? ?? 0;
+    final currentLevel = stats['current_level'] as int? ?? 1;
+    final totalBadgesEarned = stats['total_badges_earned'] as int? ?? 0;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: theme.primaryBackground,
+        border: Border(
+          bottom: BorderSide(
+            color: theme.alternate,
+            width: 1,
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildStatItem(context, 'Level', currentLevel.toString()),
+          _buildStatItem(context, 'XP', totalXp.toString()),
+          _buildStatItem(context, 'Badges', totalBadgesEarned.toString()),
         ],
       ),
     );
