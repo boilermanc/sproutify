@@ -2,7 +2,6 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'notification_component_model.dart';
 export 'notification_component_model.dart';
 
@@ -182,29 +180,44 @@ class _NotificationComponentWidgetState
                                       final newNotificationsItem =
                                           newNotifications[
                                               newNotificationsIndex];
+                                      final notificationType = getJsonField(
+                                        newNotificationsItem,
+                                        r'''$.type''',
+                                      )?.toString() ?? '';
+                                      final isBadgeEarned = notificationType == 'badge_earned';
+                                      
                                       return Padding(
                                         padding: EdgeInsets.all(8.0),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
+                                            color: isBadgeEarned
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primaryBackground
+                                                : FlutterFlowTheme.of(context)
+                                                    .primaryBackground,
                                             boxShadow: [
                                               BoxShadow(
-                                                blurRadius: 4.0,
-                                                color: Color(0x33000000),
+                                                blurRadius: isBadgeEarned ? 6.0 : 4.0,
+                                                color: isBadgeEarned
+                                                    ? FlutterFlowTheme.of(context)
+                                                        .primary
+                                                        .withOpacity(0.3)
+                                                    : Color(0x33000000),
                                                 offset: Offset(
                                                   0.0,
-                                                  2.0,
+                                                  isBadgeEarned ? 3.0 : 2.0,
                                                 ),
                                               )
                                             ],
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                              color: isBadgeEarned
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
                                                       .alternate,
-                                              width: 1.0,
+                                              width: isBadgeEarned ? 2.0 : 1.0,
                                             ),
                                           ),
                                           child: Container(
@@ -233,51 +246,79 @@ class _NotificationComponentWidgetState
                                                                 .spaceBetween,
                                                         children: [
                                                           Flexible(
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  getJsonField(
-                                                                    newNotificationsItem,
-                                                                    r'''$.title''',
-                                                                  )?.toString(),
-                                                                  'Title',
-                                                                ),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      font: GoogleFonts
-                                                                          .readexPro(
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
+                                                            child: Row(
+                                                              children: [
+                                                                if (isBadgeEarned)
+                                                                  Padding(
+                                                                    padding:
+                                                                        EdgeInsetsDirectional
+                                                                            .fromSTEB(
+                                                                                10.0,
+                                                                                0.0,
+                                                                                8.0,
+                                                                                0.0),
+                                                                    child: Icon(
+                                                                      Icons.emoji_events,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                      size: 24,
+                                                                    ),
+                                                                  ),
+                                                                Expanded(
+                                                                  child: Padding(
+                                                                    padding:
+                                                                        EdgeInsetsDirectional
+                                                                            .fromSTEB(
+                                                                                isBadgeEarned ? 0.0 : 10.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                    child: Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        getJsonField(
+                                                                          newNotificationsItem,
+                                                                          r'''$.title''',
+                                                                        )?.toString(),
+                                                                        'Title',
                                                                       ),
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
-                                                                          .fontStyle,
+                                                                          .override(
+                                                                            font: GoogleFonts
+                                                                                .readexPro(
+                                                                              fontWeight:
+                                                                                  FontWeight.w600,
+                                                                              fontStyle: FlutterFlowTheme.of(context)
+                                                                                  .bodyMedium
+                                                                                  .fontStyle,
+                                                                            ),
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight
+                                                                                    .w600,
+                                                                            color: isBadgeEarned
+                                                                                ? FlutterFlowTheme.of(context)
+                                                                                    .primary
+                                                                                : FlutterFlowTheme.of(context)
+                                                                                    .primaryText,
+                                                                            fontStyle: FlutterFlowTheme.of(
+                                                                                    context)
+                                                                                .bodyMedium
+                                                                                .fontStyle,
+                                                                          ),
                                                                     ),
-                                                              ),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                           Align(
@@ -472,7 +513,13 @@ class _NotificationComponentWidgetState
                                                   padding: EdgeInsets.all(5.0),
                                                   child: Container(
                                                     decoration: BoxDecoration(
-                                                      color: Color(0xFFEEF4ED),
+                                                      color: isBadgeEarned
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                              .withOpacity(0.05)
+                                                          : Color(0xFFEEF4ED),
+                                                      borderRadius: BorderRadius.circular(8),
                                                     ),
                                                     child: Padding(
                                                       padding:
@@ -513,8 +560,11 @@ class _NotificationComponentWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
-                                                                      color: Color(
-                                                                          0x8A000000),
+                                                                      color: isBadgeEarned
+                                                                          ? FlutterFlowTheme.of(context)
+                                                                              .primaryText
+                                                                          : Color(
+                                                                              0x8A000000),
                                                                       fontSize:
                                                                           16.0,
                                                                       letterSpacing:

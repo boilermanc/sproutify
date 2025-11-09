@@ -24,7 +24,7 @@ class NeightnMainChatGroup {
 
 class SendFullPromptCall {
   Future<ApiCallResponse> call({
-    dynamic? promptJson,
+    dynamic promptJson,
     String? userMessage = '',
     String? userID = '',
   }) async {

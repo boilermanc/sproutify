@@ -355,6 +355,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
         ),
         FFRoute(
+          name: CommunityFeedWidget.routeName,
+          path: CommunityFeedWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'community')
+              : CommunityFeedWidget(),
+        ),
+        FFRoute(
+          name: BadgesPage.routeName,
+          path: BadgesPage.routePath,
+          builder: (context, params) => BadgesPage(
+            userId: params.getParam(
+              'userId',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
           name: Settings1AddProfileWidget.routeName,
           path: Settings1AddProfileWidget.routePath,
           builder: (context, params) => Settings1AddProfileWidget(

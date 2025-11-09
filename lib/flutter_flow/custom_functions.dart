@@ -26,13 +26,6 @@ bool? showPlantSearchResults(
 }
 
 bool? checkIsNewStatus(String jsonNotifications) {
-  if (jsonNotifications == null) {
-    // Handle the case where jsonNotifications is null if necessary
-    return false;
-  }
-
-  // Parse the non-null JSON string into a list of maps
-  // ignore: unused_local_variable
   List<dynamic> notificationsList = jsonDecode(jsonNotifications);
 
   // Iterate over each notification to check if 'is_new' is true

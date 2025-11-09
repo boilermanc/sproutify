@@ -87,3 +87,5 @@ export '/plant_catalog_copy/plant_catalog_copy_widget.dart'
     show PlantCatalogCopyWidget;
 export '/authflow/sproutify_purchase_page/sproutify_purchase_page_widget.dart'
     show SproutifyPurchasePageWidget;
+export '/components/community_feed_widget.dart' show CommunityFeedWidget;
+export '/pages/badges_page.dart' show BadgesPage;

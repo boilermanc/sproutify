@@ -154,7 +154,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'plantFavorites': PlantFavoritesWidget(),
       'pestSupport2': PestSupport2Widget(),
       'myCosts': MyCostsWidget(),
-      'mySupplies': MySuppliesWidget(),
+      'community': CommunityFeedWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -208,11 +208,11 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.format_list_numbered_sharp,
+              Icons.people_outline,
               size: 24.0,
             ),
-            label: 'Home',
-            tooltip: '',
+            label: 'Community',
+            tooltip: 'Community',
           )
         ],
       ),
