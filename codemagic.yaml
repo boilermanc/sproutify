@@ -4,7 +4,7 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m1
     integrations:
-      # This name must exactly match the App Store Connect integration name shown in Codemagic
+      # The name here must match your actual App Store Connect integration name
       app_store_connect: "Sproutify CodeMagic"
     environment:
       flutter: stable
@@ -48,8 +48,7 @@ workflows:
           success: true
           failure: true
       app_store_connect:
-        auth:
-          integration: "Sproutify CodeMagic"
+        auth: integration
         submit_to_testflight: true
         
         # Beta groups to distribute to (optional)
