@@ -6,6 +6,7 @@ import '/components/post_card_widget.dart';
 import '/models/index.dart';
 import '/services/community_service.dart';
 import '/auth/supabase_auth/auth_util.dart';
+import '/pages/badges_page.dart';
 import '/index.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -124,24 +125,37 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
       return SizedBox.shrink();
     }
     
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        color: theme.primaryBackground,
-        border: Border(
-          bottom: BorderSide(
-            color: theme.alternate,
-            width: 1.0,
+    return InkWell(
+      onTap: () async {
+        HapticFeedback.lightImpact();
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BadgesPage(),
+          ),
+        );
+        // Refresh gamification data when returning from badges page
+        _loadUserGamification();
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        decoration: BoxDecoration(
+          color: theme.primaryBackground,
+          border: Border(
+            bottom: BorderSide(
+              color: theme.alternate,
+              width: 1.0,
+            ),
           ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildStatItem(context, 'Level', currentLevel.toString()),
-          _buildStatItem(context, 'XP', totalXp.toString()),
-          _buildStatItem(context, 'Badges', totalBadgesEarned.toString()),
-        ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildStatItem(context, 'Level', currentLevel.toString()),
+            _buildStatItem(context, 'XP', totalXp.toString()),
+            _buildStatItem(context, 'Badges', totalBadgesEarned.toString()),
+          ],
+        ),
       ),
     );
   }
@@ -197,7 +211,12 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
             ),
             onPressed: () async {
               HapticFeedback.lightImpact();
-              context.pop();
+              // Navigate to HomePage tab instead of popping
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.goNamed('HomePage');
+              }
             },
           ),
           title: Text(
@@ -210,7 +229,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
                   color: Colors.white,
-                  fontSize: 22.0,
+                  fontSize: 24.0,
                   letterSpacing: 0.0,
                   fontWeight:
                       FlutterFlowTheme.of(context).headlineMedium.fontWeight,
@@ -219,26 +238,6 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                 ),
           ),
           actions: [
-            FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30.0,
-              borderWidth: 1.0,
-              buttonSize: 60.0,
-              icon: Icon(
-                Icons.emoji_events,
-                color: Colors.white,
-                size: 30.0,
-              ),
-              onPressed: () async {
-                HapticFeedback.lightImpact();
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BadgesPage(),
-                  ),
-                );
-              },
-            ),
             FlutterFlowIconButton(
               borderColor: Colors.transparent,
               borderRadius: 30.0,
@@ -255,31 +254,6 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                 showDialog(
                   context: context,
                   builder: (context) => UserSearchDialog(),
-                );
-              },
-            ),
-            FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30.0,
-              borderWidth: 1.0,
-              buttonSize: 60.0,
-              icon: Icon(
-                Icons.add_photo_alternate,
-                color: Colors.white,
-                size: 30.0,
-              ),
-              onPressed: () async {
-                HapticFeedback.lightImpact();
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreatePostWidget(
-                      onPostCreated: () {
-                        // Refresh the feed after creating a post
-                        _loadPosts();
-                      },
-                    ),
-                  ),
                 );
               },
             ),
@@ -803,11 +777,15 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
                                   leading: CircleAvatar(
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).primary,
-                                    backgroundImage: user['avatar_url'] != null
+                                    backgroundImage: user['avatar_url'] != null &&
+                                            (user['avatar_url'] as String)
+                                                .isNotEmpty
                                         ? NetworkImage(
                                             user['avatar_url'] as String)
                                         : null,
-                                    child: user['avatar_url'] == null
+                                    child: user['avatar_url'] == null ||
+                                            (user['avatar_url'] as String)
+                                                .isEmpty
                                         ? Text(
                                             _getInitials(user['display_name']
                                                 as String?),

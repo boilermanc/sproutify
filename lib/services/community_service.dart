@@ -3,11 +3,40 @@ import '/backend/supabase/storage/storage.dart';
 import '/flutter_flow/upload_data.dart';
 import '/models/index.dart';
 import '/auth/supabase_auth/auth_util.dart';
+import 'dart:async';
 
 /// Service class for community-related operations
 class CommunityService {
   static const String _bucketName = 'community-posts';
   static const int _defaultPostLimit = 20;
+  static const int _maxRetries = 2; // Reduced retries for faster failure
+  static const Duration _retryDelay = Duration(milliseconds: 500); // Faster retry
+
+  /// Helper method to retry a function with exponential backoff
+  static Future<T> _retryWithBackoff<T>(
+    Future<T> Function() fn, {
+    int maxRetries = _maxRetries,
+    Duration initialDelay = _retryDelay,
+  }) async {
+    int attempt = 0;
+    Exception? lastException;
+    while (attempt < maxRetries) {
+      try {
+        return await fn();
+      } catch (e) {
+        lastException = e is Exception ? e : Exception(e.toString());
+        attempt++;
+        if (attempt >= maxRetries) {
+          break;
+        }
+        // Wait before retrying - only delay after first attempt fails
+        if (attempt > 0) {
+          await Future.delayed(initialDelay * attempt);
+        }
+      }
+    }
+    throw lastException ?? Exception('Max retries exceeded');
+  }
 
   /// Fetch recent posts from the community
   /// 
@@ -17,13 +46,15 @@ class CommunityService {
     int limit = _defaultPostLimit,
   }) async {
     try {
-      final response = await SupaFlow.client
-          .from('community_posts')
-          .select()
-          .eq('is_approved', true)
-          .eq('is_hidden', false)
-          .order('created_at', ascending: false)
-          .limit(limit);
+      final response = await _retryWithBackoff(() async {
+        return await SupaFlow.client
+            .from('community_posts')
+            .select()
+            .eq('is_approved', true)
+            .eq('is_hidden', false)
+            .order('created_at', ascending: false)
+            .limit(limit);
+      });
 
       final List<dynamic> posts = response as List<dynamic>;
       return posts
@@ -31,7 +62,14 @@ class CommunityService {
               Map<String, dynamic>.from(post as Map)))
           .toList();
     } catch (e) {
-      print('Error fetching recent posts: $e');
+      // Handle network errors gracefully
+      if (e.toString().contains('HandshakeException') ||
+          e.toString().contains('SocketException') ||
+          e.toString().contains('Connection')) {
+        print('Network error fetching recent posts (this may be temporary): $e');
+      } else {
+        print('Error fetching recent posts: $e');
+      }
       return [];
     }
   }
@@ -709,7 +747,20 @@ class CommunityService {
         return null;
       }
 
-      return Map<String, dynamic>.from(response as Map);
+      final gamification = Map<String, dynamic>.from(response as Map);
+      
+      // Calculate actual badge count from user_badges table
+      final badgeResponse = await SupaFlow.client
+          .from('user_badges')
+          .select('id')
+          .eq('user_id', profileUserId);
+      
+      final actualBadgeCount = (badgeResponse as List).length;
+      
+      // Override the stored count with the actual count
+      gamification['badges_earned'] = actualBadgeCount;
+
+      return gamification;
     } catch (e) {
       print('Error fetching user gamification: $e');
       return null;

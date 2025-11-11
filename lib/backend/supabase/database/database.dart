@@ -37,7 +37,7 @@ export 'tables/userplants.dart';
 export 'tables/ph_values.dart';
 export 'tables/outdoor_plants.dart';
 export 'tables/plant_overall_ratings.dart';
-export 'tables/tower_gardens.dart';
+export 'tables/tower_brands.dart';
 export 'tables/gardening_experience_levels.dart';
 export 'tables/plant_catalog.dart';
 export 'tables/favorite_toggle_signal.dart';

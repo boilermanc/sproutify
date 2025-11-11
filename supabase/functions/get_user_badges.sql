@@ -54,11 +54,15 @@ BEGIN
 
   user_stats AS (
     SELECT
-      COALESCE(total_xp, 0) as total_xp,
-      COALESCE(current_level, 1) as current_level,
-      COALESCE(badges_earned, 0) as total_badges_earned
-    FROM user_gamification
-    WHERE user_id = p_user_id
+      COALESCE(ug.total_xp, 0) as total_xp,
+      COALESCE(ug.current_level, 1) as current_level,
+      (
+        SELECT COUNT(*)::INTEGER
+        FROM user_badges
+        WHERE user_id = p_user_id
+      ) as total_badges_earned
+    FROM (SELECT 1) dummy
+    LEFT JOIN user_gamification ug ON ug.user_id = p_user_id
   )
 
   SELECT JSONB_BUILD_OBJECT(

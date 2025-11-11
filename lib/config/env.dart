@@ -13,9 +13,23 @@ class Env {
   );
 
   // RevenueCat Configuration
+  // iOS App Store API Key (starts with 'appl_')
+  static const String revenueCatIosApiKey = String.fromEnvironment(
+    'REVENUE_CAT_IOS_API_KEY',
+    defaultValue: '',
+  );
+  
+  // Android Play Store API Key (starts with 'goog_')
+  static const String revenueCatAndroidApiKey = String.fromEnvironment(
+    'REVENUE_CAT_ANDROID_API_KEY',
+    defaultValue: '',
+  );
+  
+  // Legacy support - use iOS key if provided, otherwise empty
+  @Deprecated('Use revenueCatIosApiKey and revenueCatAndroidApiKey instead')
   static const String revenueCatApiKey = String.fromEnvironment(
     'REVENUE_CAT_API_KEY',
-    defaultValue: 'appl_szgNwIyKqHcKLtwDsoMEvuwPtOi',
+    defaultValue: '',
   );
 
   // External API URLs

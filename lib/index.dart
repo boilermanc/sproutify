@@ -2,6 +2,8 @@
 export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
 export '/authflow/login_page/login_page_widget.dart' show LoginPageWidget;
 export '/tower_catalog/tower_catalog_widget.dart' show TowerCatalogWidget;
+export '/onboarding/port_count_input/port_count_input_widget.dart'
+    show PortCountInputWidget;
 export '/onboarding/name_tower_new/name_tower_new_widget.dart'
     show NameTowerNewWidget;
 export '/onboarding/indoor_outdoor_new/indoor_outdoor_new_widget.dart'

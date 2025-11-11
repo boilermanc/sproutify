@@ -167,9 +167,13 @@ class _NotificationComponentWidgetState
 
                               return Builder(
                                 builder: (context) {
-                                  final newNotifications =
-                                      newViewGetNotificationsResponse.jsonBody
-                                          .toList();
+                                  // Handle both List and Map responses
+                                  final jsonBody = newViewGetNotificationsResponse.jsonBody;
+                                  final newNotifications = jsonBody is List
+                                      ? jsonBody
+                                      : jsonBody is Map
+                                          ? jsonBody.values.toList()
+                                          : <dynamic>[];
 
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
@@ -640,10 +644,13 @@ class _NotificationComponentWidgetState
 
                               return Builder(
                                 builder: (context) {
-                                  final archivedNotifications =
-                                      archivedViewGetArchiveNotificationsResponse
-                                          .jsonBody
-                                          .toList();
+                                  // Handle both List and Map responses
+                                  final jsonBody = archivedViewGetArchiveNotificationsResponse.jsonBody;
+                                  final archivedNotifications = jsonBody is List
+                                      ? jsonBody
+                                      : jsonBody is Map
+                                          ? jsonBody.values.toList()
+                                          : <dynamic>[];
 
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,

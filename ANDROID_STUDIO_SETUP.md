@@ -118,6 +118,73 @@ This guide will help you set up the Sproutify Flutter project in Android Studio 
   - For physical device: Check USB debugging is enabled, try different USB cable/port
   - Run `flutter devices` in terminal to see available devices
 
+### Issue: Emulator stuck with "SensorsMultiHal" errors / "system_server not running"
+**Symptoms**: Emulator shows repeated errors like:
+```
+SensorsMultiHal E  Dropping 1 events after blockingWrite failed (is system_server running?)
+```
+
+**Solutions** (try in order):
+
+1. **Cold Boot the Emulator** (Most Common Fix):
+   - Close the emulator completely
+   - Open **Tools → Device Manager** (or **AVD Manager**)
+   - Find your emulator in the list
+   - Click the **▼ dropdown arrow** next to the emulator
+   - Select **Cold Boot Now**
+   - Wait for the emulator to fully boot (may take 1-2 minutes)
+
+2. **Wipe Emulator Data**:
+   - Close the emulator
+   - In **Device Manager**, click the **▼ dropdown** next to your emulator
+   - Select **Wipe Data**
+   - Confirm the action
+   - Start the emulator again
+
+3. **Restart Emulator**:
+   - Close the emulator window completely
+   - Wait 10-15 seconds
+   - Start it again from Device Manager
+
+4. **Check for Multiple Emulator Instances**:
+   - Open Task Manager (Windows) and look for multiple `qemu-system-x86_64.exe` or `emulator.exe` processes
+   - End all emulator-related processes
+   - Start a fresh emulator instance
+
+5. **Update Emulator and System Images**:
+   - Open **Tools → SDK Manager**
+   - Go to **SDK Tools** tab
+   - Check **Android Emulator** and update if available
+   - Go to **SDK Platforms** tab
+   - Update your system image (e.g., Android 14/API 35)
+   - Restart Android Studio
+
+6. **Create a New Emulator** (if above doesn't work):
+   - In **Device Manager**, click **Create Device**
+   - Select a device (e.g., Pixel 5)
+   - Select a system image (API 35 recommended)
+   - Click **Finish**
+   - Try the new emulator
+
+7. **Check System Resources**:
+   - Ensure you have enough RAM (emulator needs at least 2GB free)
+   - Close other resource-intensive applications
+   - In Device Manager, edit your emulator and reduce RAM allocation if needed
+
+8. **Command Line Alternative**:
+   ```powershell
+   # List running emulators
+   adb devices
+   
+   # Kill all emulator processes
+   taskkill /F /IM qemu-system-x86_64.exe
+   taskkill /F /IM emulator.exe
+   
+   # Start emulator with cold boot
+   emulator -avd YOUR_AVD_NAME -no-snapshot-load
+   ```
+   (Replace `YOUR_AVD_NAME` with your actual AVD name - find it in Device Manager)
+
 ## Additional Notes
 
 - The project uses **compileSdkVersion 35** and **targetSdkVersion 35**

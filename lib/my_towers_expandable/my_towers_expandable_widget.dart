@@ -69,6 +69,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
         safeSetState(() {});
       }
 
+      // Always reset the completer to force fresh data on page load
       safeSetState(() => _model.requestCompleter = null);
       await _model.waitForRequestCompleted();
     });
@@ -86,6 +87,12 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+
+    // Reset completer when widget is rebuilt to ensure fresh data
+    // This will refresh the list when navigating back to this page
+    if (_model.requestCompleter != null && _model.requestCompleter!.isCompleted) {
+      _model.requestCompleter = null;
+    }
 
     return GestureDetector(
       onTap: () {
@@ -715,15 +722,23 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     ),
                                                                                     child: Stack(
                                                                                       children: [
-                                                                                        ClipRRect(
-                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                          child: Image.network(
-                                                                                            listViewUsertowerdetailsRow.phImageUrl!,
-                                                                                            width: 300.0,
-                                                                                            height: 200.0,
-                                                                                            fit: BoxFit.cover,
+                                                                                        if (listViewUsertowerdetailsRow.phImageUrl != null &&
+                                                                                            listViewUsertowerdetailsRow.phImageUrl!.isNotEmpty)
+                                                                                          ClipRRect(
+                                                                                            borderRadius: BorderRadius.circular(8.0),
+                                                                                            child: Image.network(
+                                                                                              listViewUsertowerdetailsRow.phImageUrl!,
+                                                                                              width: 300.0,
+                                                                                              height: 200.0,
+                                                                                              fit: BoxFit.cover,
+                                                                                              errorBuilder: (context, error, stackTrace) {
+                                                                                                return SizedBox(
+                                                                                                  width: 300.0,
+                                                                                                  height: 200.0,
+                                                                                                );
+                                                                                              },
+                                                                                            ),
                                                                                           ),
-                                                                                        ),
                                                                                         Align(
                                                                                           alignment: AlignmentDirectional(0.0, 0.0),
                                                                                           child: Text(
@@ -790,15 +805,27 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     width: 75.0,
                                                                                     height: 125.0,
                                                                                     decoration: BoxDecoration(),
-                                                                                    child: ClipRRect(
-                                                                                      borderRadius: BorderRadius.circular(8.0),
-                                                                                      child: Image.network(
-                                                                                        listViewUsertowerdetailsRow.reviewImageUrl!,
-                                                                                        width: 75.0,
-                                                                                        height: 100.0,
-                                                                                        fit: BoxFit.cover,
-                                                                                      ),
-                                                                                    ),
+                                                                                    child: (listViewUsertowerdetailsRow.reviewImageUrl != null &&
+                                                                                            listViewUsertowerdetailsRow.reviewImageUrl!.isNotEmpty)
+                                                                                        ? ClipRRect(
+                                                                                            borderRadius: BorderRadius.circular(8.0),
+                                                                                            child: Image.network(
+                                                                                              listViewUsertowerdetailsRow.reviewImageUrl!,
+                                                                                              width: 75.0,
+                                                                                              height: 100.0,
+                                                                                              fit: BoxFit.cover,
+                                                                                              errorBuilder: (context, error, stackTrace) {
+                                                                                                return SizedBox(
+                                                                                                  width: 75.0,
+                                                                                                  height: 100.0,
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          )
+                                                                                        : SizedBox(
+                                                                                            width: 75.0,
+                                                                                            height: 100.0,
+                                                                                          ),
                                                                                   ),
                                                                                 ),
                                                                               ],
@@ -1197,15 +1224,27 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 width: 75.0,
                                                                                 height: 125.0,
                                                                                 decoration: BoxDecoration(),
-                                                                                child: ClipRRect(
-                                                                                  borderRadius: BorderRadius.circular(8.0),
-                                                                                  child: Image.network(
-                                                                                    listViewUsertowerdetailsRow.ecReviewImageUrl!,
-                                                                                    width: 75.0,
-                                                                                    height: 100.0,
-                                                                                    fit: BoxFit.cover,
-                                                                                  ),
-                                                                                ),
+                                                                                child: (listViewUsertowerdetailsRow.ecReviewImageUrl != null &&
+                                                                                        listViewUsertowerdetailsRow.ecReviewImageUrl!.isNotEmpty)
+                                                                                    ? ClipRRect(
+                                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                                        child: Image.network(
+                                                                                          listViewUsertowerdetailsRow.ecReviewImageUrl!,
+                                                                                          width: 75.0,
+                                                                                          height: 100.0,
+                                                                                          fit: BoxFit.cover,
+                                                                                          errorBuilder: (context, error, stackTrace) {
+                                                                                            return SizedBox(
+                                                                                              width: 75.0,
+                                                                                              height: 100.0,
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      )
+                                                                                    : SizedBox(
+                                                                                        width: 75.0,
+                                                                                        height: 100.0,
+                                                                                      ),
                                                                               ),
                                                                             ),
                                                                           ],
@@ -1297,15 +1336,27 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     width: 75.0,
                                                                                     height: 125.0,
                                                                                     decoration: BoxDecoration(),
-                                                                                    child: ClipRRect(
-                                                                                      borderRadius: BorderRadius.circular(8.0),
-                                                                                      child: Image.network(
-                                                                                        listViewUsertowerdetailsRow.ecReviewImageUrl!,
-                                                                                        width: 75.0,
-                                                                                        height: 100.0,
-                                                                                        fit: BoxFit.cover,
-                                                                                      ),
-                                                                                    ),
+                                                                                    child: (listViewUsertowerdetailsRow.ecReviewImageUrl != null &&
+                                                                                            listViewUsertowerdetailsRow.ecReviewImageUrl!.isNotEmpty)
+                                                                                        ? ClipRRect(
+                                                                                            borderRadius: BorderRadius.circular(8.0),
+                                                                                            child: Image.network(
+                                                                                              listViewUsertowerdetailsRow.ecReviewImageUrl!,
+                                                                                              width: 75.0,
+                                                                                              height: 100.0,
+                                                                                              fit: BoxFit.cover,
+                                                                                              errorBuilder: (context, error, stackTrace) {
+                                                                                                return SizedBox(
+                                                                                                  width: 75.0,
+                                                                                                  height: 100.0,
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          )
+                                                                                        : SizedBox(
+                                                                                            width: 75.0,
+                                                                                            height: 100.0,
+                                                                                          ),
                                                                                   ),
                                                                                 ),
                                                                               ],
@@ -1356,16 +1407,20 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                               .towerId,
                                                         ),
                                                       );
-                                                      safeSetState(() => _model
-                                                              .requestCompleter =
-                                                          null);
-                                                      await _model
-                                                          .waitForRequestCompleted();
+                                                      // Reset completer and force rebuild to refresh the list
+                                                      safeSetState(() {
+                                                        _model.requestCompleter = null;
+                                                      });
+                                                      // Wait a moment for the trigger to refresh the materialized view
                                                       await Future.delayed(
                                                         Duration(
-                                                          milliseconds: 1000,
+                                                          milliseconds: 500,
                                                         ),
                                                       );
+                                                      // Force a rebuild to pick up the new future
+                                                      safeSetState(() {});
+                                                      await _model
+                                                          .waitForRequestCompleted();
                                                       _model.isTowerActive1199 =
                                                           await MyTowersTable()
                                                               .queryRows(

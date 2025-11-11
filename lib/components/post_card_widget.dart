@@ -3,6 +3,7 @@ import '/models/index.dart';
 import '/services/community_service.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/xp_level_display_widget.dart';
+import '/auth/supabase_auth/auth_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -406,8 +407,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                     ),
                   ),
                   SizedBox(width: 8.0),
-                  // Follow button
-                  if (!_isLoadingProfile)
+                  // Follow button - only show if not your own post
+                  if (!_isLoadingProfile && currentUserUid != widget.post.userId)
                     InkWell(
                       onTap: _toggleFollow,
                       child: Container(
@@ -455,40 +456,42 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               ),
             ),
             // Post Image
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                topRight: Radius.circular(8.0),
-              ),
-              child: CachedNetworkImage(
-                imageUrl: widget.post.photoUrl,
-                width: double.infinity,
-                height: 300.0,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => Container(
-                  width: double.infinity,
-                  height: 300.0,
-                  color: FlutterFlowTheme.of(context).alternate,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
+            widget.post.photoUrl.isNotEmpty
+                ? ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8.0),
+                      topRight: Radius.circular(8.0),
+                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.post.photoUrl,
+                      width: double.infinity,
+                      height: 300.0,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Container(
+                        width: double.infinity,
+                        height: 300.0,
+                        color: FlutterFlowTheme.of(context).alternate,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        width: double.infinity,
+                        height: 300.0,
+                        color: FlutterFlowTheme.of(context).alternate,
+                        child: Icon(
+                          Icons.image_not_supported,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 48.0,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  width: double.infinity,
-                  height: 300.0,
-                  color: FlutterFlowTheme.of(context).alternate,
-                  child: Icon(
-                    Icons.image_not_supported,
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    size: 48.0,
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : SizedBox.shrink(),
             // Caption and Actions
             Padding(
               padding: EdgeInsets.all(12.0),

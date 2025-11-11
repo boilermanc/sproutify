@@ -1,0 +1,41 @@
+warning: in the working copy of 'ANDROID_STUDIO_SETUP.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'supabase/functions/get_personalized_feed.sql', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'supabase/functions/get_user_badges.sql', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'supabase/functions/toggle_post_like.sql', LF will be replaced by CRLF the next time Git touches it
+ ANDROID_STUDIO_SETUP.md                            |  67 [32m++++[m
+ android/app/src/main/AndroidManifest.xml           |   3 [32m+[m[31m-[m
+ build.bat                                          |   8 [32m+[m[31m-[m
+ build.sh                                           |   8 [32m+[m[31m-[m
+ env.template                                       |   8 [32m+[m[31m-[m
+ lib/authflow/user_profile/user_profile_widget.dart | 327 [32m+++++++++++[m[31m------[m
+ lib/backend/api_requests/api_calls.dart            |  10 [32m+[m[31m-[m
+ lib/backend/supabase/database/database.dart        |   2 [32m+[m[31m-[m
+ .../supabase/database/tables/my_towers.dart        |   7 [32m+[m[31m-[m
+ .../supabase/database/tables/usertowerdetails.dart |   4 [32m+[m[31m-[m
+ lib/components/badge_collection_widget.dart        |  74 [32m++[m[31m--[m
+ lib/components/community_feed_embedded.dart        | 390 [32m++++++++++++++++[m[31m-----[m
+ lib/components/community_feed_widget.dart          | 108 [32m+++[m[31m---[m
+ lib/components/manage_goals_widget.dart            |   6 [32m+[m[31m-[m
+ .../my_growing_goals/my_growing_goals_widget.dart  | 115 [32m+++[m[31m---[m
+ lib/components/post_card_widget.dart               |  71 [32m++[m[31m--[m
+ lib/config/env.dart                                |  16 [32m+[m[31m-[m
+ .../faq_search_results_widget.dart                 |   9 [32m+[m[31m-[m
+ lib/flutter_flow/nav/nav.dart                      |  42 [32m+++[m
+ lib/flutter_flow/nav/serialization_util.dart       |   4 [32m+[m[31m-[m
+ lib/index.dart                                     |   2 [32m+[m
+ lib/main.dart                                      |  12 [32m+[m[31m-[m
+ lib/my_costs/my_costs_widget.dart                  |  10 [32m+[m[31m-[m
+ .../my_towers_expandable_widget.dart               | 137 [32m+++++[m[31m---[m
+ .../notification_component_widget.dart             |  21 [32m+[m[31m-[m
+ .../indoor_outdoor_new_widget.dart                 |   8 [32m+[m[31m-[m
+ .../indoor_outdoor_tower_widget.dart               |   7 [32m+[m[31m-[m
+ .../name_tower_new/name_tower_new_widget.dart      |  12 [32m+[m
+ lib/pages/home_page/home_page_widget.dart          | 330 [32m++++++++++++[m[31m-----[m
+ lib/plant_catalog/plant_catalog_widget.dart        | 291 [32m+++++++[m[31m--------[m
+ lib/services/community_service.dart                |  69 [32m+++[m[31m-[m
+ lib/tower_catalog/tower_catalog_widget.dart        | 352 [32m+++++[m[31m--------------[m
+ .../tower_catalog_new_widget.dart                  | 143 [32m+++[m[31m-----[m
+ supabase/functions/get_personalized_feed.sql       |  11 [32m+[m[31m-[m
+ supabase/functions/get_user_badges.sql             |  14 [32m+[m[31m-[m
+ supabase/functions/toggle_post_like.sql            |   7 [32m+[m[31m-[m
+ 36 files changed, 1638 insertions(+), 1067 deletions(-)

@@ -53,7 +53,12 @@ BEGIN
     SELECT
       cp.id,
       cp.user_id,
-      COALESCE(p.display_name, p.email, 'Anonymous') as username,
+      COALESCE(
+        p.username,
+        NULLIF(TRIM(COALESCE(p.first_name, '') || ' ' || COALESCE(p.last_name, '')), ''),
+        p.email,
+        'Anonymous'
+      ) as username,
       ucp.profile_photo_url,
       cp.photo_url,
       cp.photo_aspect_ratio,
@@ -93,7 +98,7 @@ BEGIN
       ) as plant_tags_json,
 
       -- Get tower name
-      mt.name as tower_name,
+      mt.tower_name as tower_name,
 
       -- Get hashtags as JSON
       (
@@ -151,7 +156,7 @@ BEGIN
     FROM community_posts cp
     LEFT JOIN profiles p ON cp.user_id = p.id
     LEFT JOIN user_community_profiles ucp ON cp.user_id = ucp.user_id
-    LEFT JOIN my_towers mt ON cp.tower_id = mt.id
+    LEFT JOIN my_towers mt ON cp.tower_id = mt.tower_id
 
     WHERE
       cp.is_approved = true

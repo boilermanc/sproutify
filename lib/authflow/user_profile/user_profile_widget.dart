@@ -118,19 +118,35 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SingleChildScrollView(
-          primary: false,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        body: SafeArea(
+          top: true,
+          child: SingleChildScrollView(
+            primary: false,
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
               FutureBuilder<List<ProfilesRow>>(
-                future: ProfilesTable().querySingleRow(
-                  queryFn: (q) => q.eqOrNull(
-                    'id',
-                    currentUserUid,
-                  ),
-                ),
+                future: () async {
+                  final userId = widget.userID ?? currentUserUid;
+                  if (userId.isEmpty) {
+                    print('Error: No user ID provided');
+                    return <ProfilesRow>[];
+                  }
+                  print('Loading profile for user ID: $userId');
+                  try {
+                    final result = await ProfilesTable().querySingleRow(
+                      queryFn: (q) => q.eq('id', userId),
+                    );
+                    print('Profile query result: ${result.length} profiles found');
+                    return result;
+                  } catch (e) {
+                    print('Error querying profile: $e');
+                    rethrow;
+                  }
+                }(),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
@@ -146,11 +162,101 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       ),
                     );
                   }
-                  List<ProfilesRow> listViewProfilesRowList = snapshot.data!;
+                  
+                  // Handle error state
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.error_outline,
+                              size: 48.0,
+                              color: FlutterFlowTheme.of(context).error,
+                            ),
+                            SizedBox(height: 16.0),
+                            Text(
+                              'Error loading profile',
+                              style: FlutterFlowTheme.of(context).headlineSmall,
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              '${snapshot.error}',
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                  
+                  List<ProfilesRow> listViewProfilesRowList = snapshot.data ?? [];
 
                   final listViewProfilesRow = listViewProfilesRowList.isNotEmpty
                       ? listViewProfilesRowList.first
                       : null;
+                  
+                  // Handle case where profile doesn't exist
+                  if (listViewProfilesRow == null) {
+                    final userId = widget.userID ?? currentUserUid;
+                    return Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.person_off,
+                              size: 48.0,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                            ),
+                            SizedBox(height: 16.0),
+                            Text(
+                              'Profile not found',
+                              style: FlutterFlowTheme.of(context).headlineSmall,
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              'No profile exists for user ID:\n$userId',
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 16.0),
+                            FFButtonWidget(
+                              onPressed: () async {
+                                context.pushNamed(UpdateProfileWidget.routeName);
+                              },
+                              text: 'Create Profile',
+                              options: FFButtonOptions(
+                                height: 40.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 24.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                    ),
+                                elevation: 3.0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
 
                   return ListView(
                     padding: EdgeInsets.zero,
@@ -191,88 +297,84 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       child: Align(
                                         alignment:
                                             AlignmentDirectional(0.0, 0.0),
-                                        child: Stack(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.all(4.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(50.0),
-                                                child: CachedNetworkImage(
-                                                  fadeInDuration: Duration(
-                                                      milliseconds: 500),
-                                                  fadeOutDuration: Duration(
-                                                      milliseconds: 500),
-                                                  imageUrl:
-                                                      valueOrDefault<String>(
-                                                    listViewProfilesRow
-                                                        ?.avatarUrl,
-                                                    'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tower-garden-community-l9w4j2/assets/cpng3hq99m1r/Tower_Garden_Clip_100x100.png',
-                                                  ),
-                                                  width: 100.0,
-                                                  height: 100.0,
-                                                  fit: BoxFit.cover,
-                                                ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(4.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                            child: CachedNetworkImage(
+                                              fadeInDuration: Duration(
+                                                  milliseconds: 500),
+                                              fadeOutDuration: Duration(
+                                                  milliseconds: 500),
+                                              imageUrl:
+                                                  valueOrDefault<String>(
+                                                listViewProfilesRow
+                                                    ?.avatarUrl,
+                                                'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tower-garden-community-l9w4j2/assets/cpng3hq99m1r/Tower_Garden_Clip_100x100.png',
                                               ),
+                                              width: 100.0,
+                                              height: 100.0,
+                                              fit: BoxFit.cover,
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  1.9, 1.5),
-                                              child: FlutterFlowIconButton(
-                                                borderColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                borderRadius: 20.0,
-                                                borderWidth: 1.0,
-                                                buttonSize: 40.0,
-                                                fillColor: Color(0xFFB3DAAE),
-                                                icon: Icon(
-                                                  Icons.add,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  size: 24.0,
-                                                ),
-                                                onPressed: () async {
-                                                  HapticFeedback.lightImpact();
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Color(0xFFB3DAAE),
-                                                    barrierColor:
-                                                        Color(0xFFB3DAAE),
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return GestureDetector(
-                                                        onTap: () {
-                                                          FocusScope.of(context)
-                                                              .unfocus();
-                                                          FocusManager.instance
-                                                              .primaryFocus
-                                                              ?.unfocus();
-                                                        },
-                                                        child: Padding(
-                                                          padding: MediaQuery
-                                                              .viewInsetsOf(
-                                                                  context),
-                                                          child:
-                                                              ProfilePictureWidget(
-                                                            userID:
-                                                                currentUserUid,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 84.0,
+                                  bottom: 6.0,
+                                  child: FlutterFlowIconButton(
+                                    borderColor:
+                                        FlutterFlowTheme.of(context)
+                                            .primary,
+                                    borderRadius: 20.0,
+                                    borderWidth: 1.0,
+                                    buttonSize: 40.0,
+                                    fillColor: Color(0xFFB3DAAE),
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: FlutterFlowTheme.of(
+                                              context)
+                                          .primaryText,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: () async {
+                                      HapticFeedback.lightImpact();
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor:
+                                            Color(0xFFB3DAAE),
+                                        barrierColor:
+                                            Color(0xFFB3DAAE),
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              FocusScope.of(context)
+                                                  .unfocus();
+                                              FocusManager.instance
+                                                  .primaryFocus
+                                                  ?.unfocus();
+                                            },
+                                            child: Padding(
+                                              padding: MediaQuery
+                                                  .viewInsetsOf(
+                                                      context),
+                                              child:
+                                                  ProfilePictureWidget(
+                                                userID:
+                                                    currentUserUid,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) =>
+                                          safeSetState(() {}));
+                                    },
                                   ),
                                 ),
                               ],
@@ -282,10 +384,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   0.0, 20.0, 0.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        15.0, 0.0, 0.0, 0.0),
+                                        0.0, 0.0, 15.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor:
                                           FlutterFlowTheme.of(context).primary,
@@ -307,9 +410,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       ),
                                       onPressed: () async {
                                         HapticFeedback.lightImpact();
-
-                                        context.pushNamed(
-                                            HomePageWidget.routeName);
+                                        if (Navigator.canPop(context)) {
+                                          Navigator.pop(context);
+                                        } else {
+                                          context.goNamed(HomePageWidget.routeName);
+                                        }
                                       },
                                     ),
                                   ),
@@ -407,7 +512,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               ),
                             ),
                             Text(
-                              listViewProfilesRow!.postalCode!,
+                              valueOrDefault<String>(
+                                listViewProfilesRow?.postalCode,
+                                'Not set',
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -462,7 +570,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               ),
                             ),
                             Text(
-                              listViewProfilesRow!.gardeningExperience!,
+                              valueOrDefault<String>(
+                                listViewProfilesRow?.gardeningExperience,
+                                'Not set',
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -509,16 +620,18 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     enableDrag: false,
                                     context: context,
                                     builder: (context) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          FocusScope.of(context).unfocus();
-                                          FocusManager.instance.primaryFocus
-                                              ?.unfocus();
-                                        },
-                                        child: Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: ManageGoalsWidget(),
+                                      return SafeArea(
+                                        top: true,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(context),
+                                            child: ManageGoalsWidget(),
+                                          ),
                                         ),
                                       );
                                     },
@@ -1090,6 +1203,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                 },
               ),
             ],
+              ),
+            ),
           ),
         ),
       ),

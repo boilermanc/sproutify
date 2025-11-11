@@ -225,10 +225,16 @@ class PlantCatalogSearchCall {
   static Future<ApiCallResponse> call({
     String? searchString = '',
   }) async {
+    // Build the API URL - if searchString is empty, get all plants
+    // Otherwise, filter by plant_name
+    final searchStringParam = (searchString?.isEmpty ?? true) 
+        ? '' 
+        : 'plant_name=ilike.*${Uri.encodeComponent(searchString!)}*&';
+    final apiUrl = 'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/plants?${searchStringParam}select=*&order=plant_name.asc';
+    
     return ApiManager.instance.makeApiCall(
       callName: 'plantCatalogSearch',
-      apiUrl:
-          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/plants?plant_name=ilike.*${searchString}*&select=*&order=plant_name.asc',
+      apiUrl: apiUrl,
       callType: ApiCallType.GET,
       headers: {
         'apikey':

@@ -69,7 +69,7 @@ class _ManageGoalsWidgetState extends State<ManageGoalsWidget> {
           color: FlutterFlowTheme.of(context).secondaryBackground,
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 46.0, 16.0, 16.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +106,9 @@ class _ManageGoalsWidgetState extends State<ManageGoalsWidget> {
                     ),
                     onPressed: () async {
                       HapticFeedback.lightImpact();
-                      Navigator.pop(context);
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                 ].divide(SizedBox(width: 12.0)),

@@ -20,10 +20,14 @@ class IndoorOutdoorTowerWidget extends StatefulWidget {
     super.key,
     required this.towerName,
     required this.towerID,
+    required this.portCount,
+    this.customBrandName,
   });
 
   final String? towerName;
   final int? towerID;
+  final int? portCount;
+  final String? customBrandName;
 
   static String routeName = 'indoorOutdoorTower';
   static String routePath = '/indoorOutdoorTower';
@@ -224,10 +228,11 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
                         onPressed: () async {
                           HapticFeedback.lightImpact();
                           await MyTowersTable().insert({
-                            'tower_garden_id': widget!.towerID,
+                            'tower_brand_id': widget!.towerID,
                             'indoor_outdoor': _model.insideOutsideValue,
                             'tower_name': widget!.towerName,
                             'user_id': currentUserUid,
+                            'port_count': widget!.portCount,
                           });
 
                           context.pushNamed(

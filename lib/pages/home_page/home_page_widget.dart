@@ -2,8 +2,10 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/community_feed_embedded.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:async';
 import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'dart:async';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -31,7 +33,8 @@ class HomePageWidget extends StatefulWidget {
   State<HomePageWidget> createState() => _HomePageWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
+class _HomePageWidgetState extends State<HomePageWidget>
+    with TickerProviderStateMixin {
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -39,34 +42,110 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   // Inspiration box animation state
   bool _showInspirationBox = true;
   bool _isAnimating = false;
-  Timer? _inspirationTimer;
+  double _inspirationDragOffset = 0.0;
+  
+  // Animation map for card animations
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
     
-    // Start timer to hide inspiration box after 5 seconds
-    _inspirationTimer = Timer(Duration(seconds: 5), () {
-      if (mounted) {
-        setState(() {
-          _isAnimating = true;
-        });
-        // After animation completes, hide the box
-        Future.delayed(Duration(milliseconds: 500), () {
-          if (mounted) {
-            setState(() {
-              _showInspirationBox = false;
-              _isAnimating = false;
-            });
-          }
-        });
-      }
+    // Setup animations for the four cards with staggered delays
+    animationsMap.addAll({
+      'plantCatalogCardAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'myPlantsCardAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 100.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 100.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'myTowersCardAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 200.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'towerBuddyCardAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 300.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 300.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
     });
+    
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
 
-    // On page load action.
+    // On page load action - defer data loading to avoid blocking initial render
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.wait([
+      // Add a small delay to let the UI render first
+      await Future.delayed(Duration(milliseconds: 100));
+      
+      // Load data asynchronously without blocking UI
+      unawaited(Future.wait([
         Future(() async {
           _model.apiResultoqk = await FetchNewNotficationsCall.call(
             userID: currentUserUid,
@@ -96,7 +175,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             'Gardener',
           );
         }),
-      ]);
+      ]));
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -104,7 +183,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   void dispose() {
-    _inspirationTimer?.cancel();
     _model.dispose();
 
     super.dispose();
@@ -772,7 +850,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
@@ -785,14 +863,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 5.0, 0.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                  child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
@@ -801,9 +878,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       context.pushNamed(
                                           PlantCatalogWidget.routeName);
                                     },
-                                    child: Container(
-                                      width: 95.0,
-                                      decoration: BoxDecoration(),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2.0, 0.0, 2.0, 0.0),
                                       child: Card(
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
@@ -875,20 +952,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    width: 90.0,
-                                    decoration: BoxDecoration(),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        context.pushNamed(
-                                            MyPlantExpandableCopyWidget
-                                                .routeName);
-                                      },
+                                  ).animateOnPageLoad(
+                                      animationsMap['plantCatalogCardAnimation']!),
+                                ),
+                                Expanded(
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                          MyPlantExpandableCopyWidget
+                                              .routeName);
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2.0, 0.0, 2.0, 0.0),
                                       child: Card(
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
@@ -960,8 +1040,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
+                                  ).animateOnPageLoad(
+                                      animationsMap['myPlantsCardAnimation']!),
+                                ),
+                                Expanded(
+                                  child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
@@ -977,9 +1060,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         }.withoutNulls,
                                       );
                                     },
-                                    child: Container(
-                                      width: 90.0,
-                                      decoration: BoxDecoration(),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2.0, 0.0, 2.0, 0.0),
                                       child: Card(
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
@@ -1051,8 +1134,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
+                                  ).animateOnPageLoad(
+                                      animationsMap['myTowersCardAnimation']!),
+                                ),
+                                Expanded(
+                                  child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
@@ -1061,9 +1147,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       context.pushNamed(
                                           ChatAiScreenWidget.routeName);
                                     },
-                                    child: Container(
-                                      width: 90.0,
-                                      decoration: BoxDecoration(),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2.0, 0.0, 2.0, 0.0),
                                       child: Card(
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
@@ -1132,9 +1218,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
+                                  ).animateOnPageLoad(
+                                      animationsMap['towerBuddyCardAnimation']!),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -1144,16 +1231,47 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
               ),
               if (_showInspirationBox)
-                AnimatedSlide(
-                  duration: Duration(milliseconds: 500),
-                  curve: Curves.easeInOut,
-                  offset: _isAnimating ? Offset(0.0, -1.0) : Offset(0.0, 0.0),
-                  child: AnimatedOpacity(
-                    duration: Duration(milliseconds: 500),
-                    opacity: _isAnimating ? 0.0 : 1.0,
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5.0, 12.0, 5.0, 0.0),
-                      child: StreamBuilder<List<GardeningInspirationalMessagesRow>>(
+                GestureDetector(
+                  onVerticalDragUpdate: (details) {
+                    if (details.delta.dy < 0) { // Dragging up
+                      setState(() {
+                        _inspirationDragOffset += details.delta.dy;
+                        if (_inspirationDragOffset < -100) {
+                          // Threshold reached, hide the box
+                          _isAnimating = true;
+                        }
+                      });
+                    }
+                  },
+                  onVerticalDragEnd: (details) {
+                    if (_inspirationDragOffset < -100) {
+                      // Hide the box
+                      Future.delayed(Duration(milliseconds: 500), () {
+                        if (mounted) {
+                          setState(() {
+                            _showInspirationBox = false;
+                            _isAnimating = false;
+                            _inspirationDragOffset = 0.0;
+                          });
+                        }
+                      });
+                    } else {
+                      // Reset position
+                      setState(() {
+                        _inspirationDragOffset = 0.0;
+                      });
+                    }
+                  },
+                  child: AnimatedSlide(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                    offset: Offset(0.0, _inspirationDragOffset / 240.0),
+                    child: AnimatedOpacity(
+                      duration: Duration(milliseconds: 300),
+                      opacity: _isAnimating ? 0.0 : (1.0 + _inspirationDragOffset / 240.0).clamp(0.0, 1.0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5.0, 12.0, 5.0, 0.0),
+                        child: StreamBuilder<List<GardeningInspirationalMessagesRow>>(
                   stream: _model.dailyInspirationSupabaseStream ??= SupaFlow
                       .client
                       .from("gardening_inspirational_messages")
@@ -1162,24 +1280,44 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         'message_date',
                         supaSerialize<DateTime>(getCurrentTimestamp),
                       )
-                      .map((list) => list
-                          .map(
-                              (item) => GardeningInspirationalMessagesRow(item))
-                          .toList()),
+                      .map((data) {
+                        try {
+                          // Handle both List and Map responses (defensive programming)
+                          List<dynamic> items;
+                          if (data is List) {
+                            items = data;
+                          } else if (data is Map) {
+                            // If it's a single item, wrap it in a list
+                            items = [data];
+                          } else {
+                            return <GardeningInspirationalMessagesRow>[];
+                          }
+                          
+                          return items
+                              .map((item) {
+                                try {
+                                  return GardeningInspirationalMessagesRow(item);
+                                } catch (e) {
+                                  print('Error creating GardeningInspirationalMessagesRow: $e');
+                                  return null;
+                                }
+                              })
+                              .whereType<GardeningInspirationalMessagesRow>()
+                              .toList();
+                        } catch (e) {
+                          print('Error processing stream data: $e, type: ${data.runtimeType}');
+                          return <GardeningInspirationalMessagesRow>[];
+                        }
+                      }),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
+                    if (snapshot.hasError) {
+                      // Hide the inspiration box on error
+                      return SizedBox.shrink();
+                    }
                     if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        ),
-                      );
+                      // Hide the inspiration box when loading to avoid showing spinner behind modals
+                      return SizedBox.shrink();
                     }
                     List<GardeningInspirationalMessagesRow>
                         dailyInspirationGardeningInspirationalMessagesRowList =
@@ -1204,9 +1342,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           topRight: Radius.circular(12.0),
                         ),
                       ),
-                      child: Row(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
+                          // Drag handle with arrow icon
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.keyboard_arrow_up,
+                                  color: FlutterFlowTheme.of(context).secondaryText.withOpacity(0.6),
+                                  size: 24.0,
+                                ),
+                              ],
+                            ),
+                          ),
                           Expanded(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -1298,6 +1451,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     );
                   },
+                        ),
                       ),
                     ),
                   ),

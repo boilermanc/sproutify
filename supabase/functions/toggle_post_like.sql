@@ -26,7 +26,12 @@ BEGIN
   WHERE id = p_post_id;
 
   -- Get liker username
-  SELECT COALESCE(display_name, email, 'Someone') INTO v_liker_username
+  SELECT COALESCE(
+    username,
+    NULLIF(TRIM(COALESCE(first_name, '') || ' ' || COALESCE(last_name, '')), ''),
+    email,
+    'Someone'
+  ) INTO v_liker_username
   FROM profiles
   WHERE id = p_user_id;
 

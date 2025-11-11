@@ -731,9 +731,13 @@ class _MyCostsWidgetState extends State<MyCostsWidget> {
 
                         return Builder(
                           builder: (context) {
-                            final categoryList =
-                                listViewCategoryCostPerUserResponse.jsonBody
-                                    .toList();
+                            // Handle both List and Map responses
+                            final jsonBody = listViewCategoryCostPerUserResponse.jsonBody;
+                            final categoryList = jsonBody is List
+                                ? jsonBody
+                                : jsonBody is Map
+                                    ? jsonBody.values.toList()
+                                    : <dynamic>[];
 
                             return ListView.builder(
                               padding: EdgeInsets.zero,

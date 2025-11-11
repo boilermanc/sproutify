@@ -147,8 +147,13 @@ class _FaqSearchResultsWidgetState extends State<FaqSearchResultsWidget> {
 
                     return Builder(
                       builder: (context) {
-                        final searchResults =
-                            listViewFAQIndexSearchResponse.jsonBody.toList();
+                        // Handle both List and Map responses
+                        final jsonBody = listViewFAQIndexSearchResponse.jsonBody;
+                        final searchResults = jsonBody is List
+                            ? jsonBody
+                            : jsonBody is Map
+                                ? [jsonBody] // Wrap single item in list
+                                : <dynamic>[]; // Return empty list if neither
 
                         return ListView.builder(
                           padding: EdgeInsets.zero,

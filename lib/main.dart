@@ -11,7 +11,6 @@ import 'auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 import 'flutter_flow/revenue_cat_util.dart' as revenue_cat;
@@ -27,9 +26,16 @@ void main() async {
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
 
+  // Initialize RevenueCat with platform-specific API keys
+  final iosKey = Env.revenueCatIosApiKey.isNotEmpty 
+      ? Env.revenueCatIosApiKey 
+      : Env.revenueCatApiKey; // Fallback to legacy key if needed
+  final androidKey = Env.revenueCatAndroidApiKey;
+  
   await revenue_cat.initialize(
-    Env.revenueCatApiKey,
-    "",
+    iosKey,
+    androidKey,
+    debugLogEnabled: Env.enableDebugLogging,
     loadDataAfterLaunch: true,
   );
 

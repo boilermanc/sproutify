@@ -46,71 +46,73 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).primaryBackground,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Container(
-            width: 320.0,
-            height: 370.0,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 30.0, 0.0, 20.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'My Goals',
-                        style: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .override(
-                              font: GoogleFonts.outfit(
+    return SafeArea(
+      top: true,
+      child: Align(
+        alignment: AlignmentDirectional(0.0, 0.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).primaryBackground,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Container(
+              width: 320.0,
+              height: 370.0,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 20.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'My Goals',
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
+                                font: GoogleFonts.outfit(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontStyle,
+                                ),
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FlutterFlowTheme.of(context)
                                     .headlineMedium
                                     .fontStyle,
                               ),
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .headlineMedium
-                                  .fontStyle,
-                            ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                        child: FlutterFlowIconButton(
-                          borderRadius: 8.0,
-                          buttonSize: 40.0,
-                          fillColor: FlutterFlowTheme.of(context).primary,
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: FlutterFlowTheme.of(context).info,
-                            size: 24.0,
-                          ),
-                          onPressed: () async {
-                            HapticFeedback.lightImpact();
-                            Navigator.pop(context);
-                          },
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                          child: FlutterFlowIconButton(
+                            borderRadius: 8.0,
+                            buttonSize: 40.0,
+                            fillColor: FlutterFlowTheme.of(context).primary,
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: FlutterFlowTheme.of(context).info,
+                              size: 24.0,
+                            ),
+                            onPressed: () async {
+                              HapticFeedback.lightImpact();
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
                 Container(
                   width: 308.0,
                   height: 200.0,
@@ -210,6 +212,7 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
             ),
           ),
         ),
+      ),
       ),
     );
   }

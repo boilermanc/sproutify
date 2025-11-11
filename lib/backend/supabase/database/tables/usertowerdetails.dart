@@ -30,8 +30,8 @@ class UsertowerdetailsRow extends SupabaseDataRow {
   String? get towerType => getField<String>('tower_type');
   set towerType(String? value) => setField<String>('tower_type', value);
 
-  double? get ports => getField<double>('ports');
-  set ports(double? value) => setField<double>('ports', value);
+  int? get ports => getField<int>('ports');
+  set ports(int? value) => setField<int>('ports', value);
 
   String? get indoorOutdoor => getField<String>('indoor_outdoor');
   set indoorOutdoor(String? value) => setField<String>('indoor_outdoor', value);

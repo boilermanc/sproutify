@@ -1,10 +1,12 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/services/community_service.dart';
 import '/components/badge_card_widget.dart';
+import '/components/badge_category_detail_widget.dart';
 import '/backend/supabase/supabase.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// Widget for displaying user's badge collection organized by category
@@ -402,32 +404,60 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Category Header
-              Padding(
-                padding: EdgeInsets.only(bottom: 12, top: index > 0 ? 24 : 0),
-                child: Row(
-                  children: [
-                    Text(
-                      _formatCategoryName(category),
-                      style: FlutterFlowTheme.of(context).titleMedium.override(
-                            fontFamily: GoogleFonts.readexPro().fontFamily,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0,
-                          ),
+              // Category Header (Clickable)
+              InkWell(
+                onTap: () async {
+                  HapticFeedback.lightImpact();
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BadgeCategoryDetailWidget(
+                        categoryName: category,
+                        badges: categoryBadges,
+                        categoryInfo: categoryInfo != null
+                            ? Map<String, dynamic>.from(categoryInfo as Map)
+                            : null,
+                      ),
                     ),
-                    if (categoryInfo != null)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Text(
-                          '(${categoryInfo['earned']}/${categoryInfo['total']})',
-                          style: FlutterFlowTheme.of(context).bodySmall.override(
-                                fontFamily: GoogleFonts.readexPro().fontFamily,
-                                letterSpacing: 0,
-                                color: FlutterFlowTheme.of(context).secondaryText,
+                  );
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 12, top: index > 0 ? 24 : 0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Text(
+                              _formatCategoryName(category),
+                              style: FlutterFlowTheme.of(context).titleMedium.override(
+                                    fontFamily: GoogleFonts.readexPro().fontFamily,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0,
+                                  ),
+                            ),
+                            if (categoryInfo != null)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: Text(
+                                  '(${categoryInfo['earned']}/${categoryInfo['total']})',
+                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                        fontFamily: GoogleFonts.readexPro().fontFamily,
+                                        letterSpacing: 0,
+                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                      ),
+                                ),
                               ),
+                          ],
                         ),
                       ),
-                  ],
+                      Icon(
+                        Icons.chevron_right,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 24,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               // Badge Grid

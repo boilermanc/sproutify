@@ -15,9 +15,13 @@ class NameTowerNewWidget extends StatefulWidget {
   const NameTowerNewWidget({
     super.key,
     required this.towerID,
+    required this.portCount,
+    this.customBrandName,
   });
 
   final int? towerID;
+  final int? portCount;
+  final String? customBrandName;
 
   static String routeName = 'nameTowerNew';
   static String routePath = '/nameTowerNew';
@@ -307,6 +311,14 @@ class _NameTowerNewWidgetState extends State<NameTowerNewWidget> {
                               'towerID': serializeParam(
                                 widget!.towerID,
                                 ParamType.int,
+                              ),
+                              'portCount': serializeParam(
+                                widget!.portCount,
+                                ParamType.int,
+                              ),
+                              'customBrandName': serializeParam(
+                                widget!.customBrandName,
+                                ParamType.String,
                               ),
                             }.withoutNulls,
                           );

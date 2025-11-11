@@ -1,15 +1,13 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
+import '/backend/supabase/database/tables/plants.dart';
 import '/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
-import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -33,6 +31,12 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
   late PlantCatalogModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  
+  // Cache for all plants and favorites
+  List<PlantsRow>? _allPlants;
+  Map<int, bool>? _favoritesMap;
+  bool _isLoading = true;
+  VoidCallback? _searchListener;
 
   @override
   void initState() {
@@ -46,12 +50,62 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
     });
 
     _model.searchPlantNameTextController ??= TextEditingController();
+    
+    // Add listener to search controller to filter in memory
+    _searchListener = () {
+      safeSetState(() {}); // Trigger rebuild to update filtered list
+    };
+    _model.searchPlantNameTextController?.addListener(_searchListener!);
+
+    // Load all plants and favorites once
+    _loadData();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+  }
+  
+  Future<void> _loadData() async {
+    setState(() {
+      _isLoading = true;
+    });
+    
+    try {
+      // Load plants and favorites in parallel
+      final results = await Future.wait([
+        PlantsTable().queryRows(
+          queryFn: (q) => q, // Load all plants without filtering
+        ),
+        UserFavoritesTable().queryRows(
+          queryFn: (q) => q.eqOrNull('user_id', currentUserUid),
+        ),
+      ]);
+      
+      final plantsList = results[0] as List<PlantsRow>;
+      final favoritesList = results[1] as List<UserFavoritesRow>;
+      
+      // Create a map of plant_id -> favorite status for quick lookup
+      final favoritesMap = <int, bool>{};
+      for (final favorite in favoritesList) {
+        favoritesMap[favorite.plantId] = favorite.isFavorite ?? false;
+      }
+      
+      setState(() {
+        _allPlants = plantsList;
+        _favoritesMap = favoritesMap;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
   void dispose() {
+    // Remove listener to avoid memory leaks
+    if (_searchListener != null) {
+      _model.searchPlantNameTextController?.removeListener(_searchListener!);
+    }
     _model.dispose();
 
     super.dispose();
@@ -61,38 +115,41 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return FutureBuilder<ApiCallResponse>(
-      future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
-            ..complete(PlantCatalogSearchCall.call(
-              searchString: _model.searchPlantNameTextController.text,
-            )))
-          .future,
-      builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
-        if (!snapshot.hasData) {
-          return Scaffold(
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            body: Center(
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    FlutterFlowTheme.of(context).primary,
-                  ),
-                ),
+    // Show loading indicator while data is being loaded
+    if (_isLoading || _allPlants == null || _favoritesMap == null) {
+      return Scaffold(
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: Center(
+          child: SizedBox(
+            width: 50.0,
+            height: 50.0,
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                FlutterFlowTheme.of(context).primary,
               ),
             ),
-          );
-        }
-        final plantCatalogPlantCatalogSearchResponse = snapshot.data!;
+          ),
+        ),
+      );
+    }
 
-        return GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-          child: Scaffold(
+    // Get the current search string and filter plants in memory
+    final searchString = _model.searchPlantNameTextController?.text ?? '';
+    final plantsList = searchString.isEmpty
+        ? _allPlants!
+        : _allPlants!.where((plant) {
+            final plantName = plant.plantName.toLowerCase();
+            return plantName.contains(searchString.toLowerCase());
+          }).toList();
+    
+    final favoritesMap = _favoritesMap!;
+
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             floatingActionButton: FloatingActionButton(
@@ -217,13 +274,8 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                             return const Iterable<
                                                 String>.empty();
                                           }
-                                          return (getJsonField(
-                                            plantCatalogPlantCatalogSearchResponse
-                                                .jsonBody,
-                                            r'''$.plant_name''',
-                                            true,
-                                          ) as List?)!
-                                              .cast<String>()
+                                          return plantsList
+                                              .map((plant) => plant.plantName)
                                               .where((option) {
                                             final lowercaseOption =
                                                 option.toLowerCase();
@@ -539,27 +591,20 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                       child: Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                        child: Builder(
-                          builder: (context) {
-                            final plantSearchName =
-                                plantCatalogPlantCatalogSearchResponse.jsonBody
-                                    .toList();
-
-                            return GridView.builder(
-                              padding: EdgeInsets.zero,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 10.0,
-                                mainAxisSpacing: 10.0,
-                                childAspectRatio: 1.0,
-                              ),
-                              scrollDirection: Axis.vertical,
-                              itemCount: plantSearchName.length,
-                              itemBuilder: (context, plantSearchNameIndex) {
-                                final plantSearchNameItem =
-                                    plantSearchName[plantSearchNameIndex];
-                                return Stack(
+                        child: GridView.builder(
+                          padding: EdgeInsets.zero,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 10.0,
+                            childAspectRatio: 1.0,
+                          ),
+                          scrollDirection: Axis.vertical,
+                          itemCount: plantsList.length,
+                          itemBuilder: (context, plantIndex) {
+                            final plant = plantsList[plantIndex];
+                            return Stack(
                                   children: [
                                     InkWell(
                                       splashColor: Colors.transparent,
@@ -573,17 +618,11 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                           PlantDetail3Widget.routeName,
                                           queryParameters: {
                                             'plantName': serializeParam(
-                                              getJsonField(
-                                                plantSearchNameItem,
-                                                r'''$.plant_name''',
-                                              ).toString(),
+                                              plant.plantName,
                                               ParamType.String,
                                             ),
                                             'plantID': serializeParam(
-                                              getJsonField(
-                                                plantSearchNameItem,
-                                                r'''$.plant_id''',
-                                              ),
+                                              plant.plantId,
                                               ParamType.int,
                                             ),
                                             'isFavorite': serializeParam(
@@ -623,13 +662,13 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                             BorderRadius
                                                                 .circular(0.0),
                                                         child: Image.network(
-                                                          getJsonField(
-                                                            plantSearchNameItem,
-                                                            r'''$.plant_image''',
-                                                          ).toString(),
+                                                          plant.plantImage ?? '',
                                                           width: 80.0,
                                                           height: 80.0,
                                                           fit: BoxFit.contain,
+                                                          errorBuilder: (context, error, stackTrace) {
+                                                            return Icon(Icons.image_not_supported, size: 80.0);
+                                                          },
                                                         ),
                                                       ),
                                                     ),
@@ -639,10 +678,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                       padding:
                                                           EdgeInsets.all(5.0),
                                                       child: Text(
-                                                        getJsonField(
-                                                          plantSearchNameItem,
-                                                          r'''$.plant_name''',
-                                                        ).toString(),
+                                                        plant.plantName,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: FlutterFlowTheme
@@ -687,63 +723,18 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 5.0, 0.0, 0.0),
-                                        child: FutureBuilder<
-                                            List<UserFavoritesRow>>(
-                                          future: UserFavoritesTable()
-                                              .querySingleRow(
-                                            queryFn: (q) => q
-                                                .eqOrNull(
-                                                  'user_id',
-                                                  currentUserUid,
-                                                )
-                                                .eqOrNull(
-                                                  'plant_id',
-                                                  getJsonField(
-                                                    plantSearchNameItem,
-                                                    r'''$.plant_id''',
-                                                  ),
-                                                ),
-                                          ),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            List<UserFavoritesRow>
-                                                containerUserFavoritesRowList =
-                                                snapshot.data!;
-
-                                            final containerUserFavoritesRow =
-                                                containerUserFavoritesRowList
-                                                        .isNotEmpty
-                                                    ? containerUserFavoritesRowList
-                                                        .first
-                                                    : null;
-
+                                        child: Builder(
+                                          builder: (context) {
+                                            // Use cached favorites map instead of querying
+                                            final isFavorite = favoritesMap[plant.plantId] ?? false;
+                                            
                                             return Container(
                                               width: 30.0,
                                               height: 30.0,
                                               decoration: BoxDecoration(),
                                               child: Stack(
                                                 children: [
-                                                  if (containerUserFavoritesRow
-                                                          ?.isFavorite ==
-                                                      true)
+                                                  if (isFavorite)
                                                     InkWell(
                                                       splashColor:
                                                           Colors.transparent,
@@ -761,16 +752,12 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                           'user_id':
                                                               currentUserUid,
                                                           'plant_id':
-                                                              getJsonField(
-                                                            plantSearchNameItem,
-                                                            r'''$.plant_id''',
-                                                          ),
+                                                              plant.plantId,
                                                         });
-                                                        safeSetState(() => _model
-                                                                .apiRequestCompleter =
-                                                            null);
-                                                        await _model
-                                                            .waitForApiRequestCompleted();
+                                                        // Update state map
+                                                        setState(() {
+                                                          _favoritesMap![plant.plantId] = false;
+                                                        });
                                                       },
                                                       child: Container(
                                                         decoration:
@@ -788,9 +775,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                         ),
                                                       ),
                                                     ),
-                                                  if (containerUserFavoritesRow
-                                                          ?.isFavorite !=
-                                                      true)
+                                                  if (!isFavorite)
                                                     InkWell(
                                                       splashColor:
                                                           Colors.transparent,
@@ -808,16 +793,12 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                           'user_id':
                                                               currentUserUid,
                                                           'plant_id':
-                                                              getJsonField(
-                                                            plantSearchNameItem,
-                                                            r'''$.plant_id''',
-                                                          ),
+                                                              plant.plantId,
                                                         });
-                                                        safeSetState(() => _model
-                                                                .apiRequestCompleter =
-                                                            null);
-                                                        await _model
-                                                            .waitForApiRequestCompleted();
+                                                        // Update state map
+                                                        setState(() {
+                                                          _favoritesMap![plant.plantId] = true;
+                                                        });
                                                       },
                                                       child: Container(
                                                         decoration:
@@ -846,18 +827,14 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                   ],
                                 );
                               },
-                            );
-                          },
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
-    );
+          );
   }
 }

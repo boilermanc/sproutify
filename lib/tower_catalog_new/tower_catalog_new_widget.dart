@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
+import '/onboarding/port_count_input/port_count_input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -103,12 +104,11 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).tertiary,
                     ),
-                    child: FutureBuilder<List<TowerGardensRow>>(
-                      future: TowerGardensTable().queryRows(
-                        queryFn: (q) => q.eqOrNull(
-                          'is_active',
-                          true,
-                        ),
+                    child: FutureBuilder<List<TowerBrandsRow>>(
+                      future: TowerBrandsTable().queryRows(
+                        queryFn: (q) => q
+                            .eqOrNull('is_active', true)
+                            .order('display_order', ascending: true),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -125,16 +125,16 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                             ),
                           );
                         }
-                        List<TowerGardensRow> listViewTowerGardensRowList =
+                        List<TowerBrandsRow> listViewTowerBrandsRowList =
                             snapshot.data!;
 
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
-                          itemCount: listViewTowerGardensRowList.length,
+                          itemCount: listViewTowerBrandsRowList.length,
                           itemBuilder: (context, listViewIndex) {
-                            final listViewTowerGardensRow =
-                                listViewTowerGardensRowList[listViewIndex];
+                            final listViewTowerBrandsRow =
+                                listViewTowerBrandsRowList[listViewIndex];
                             return Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   5.0, 0.0, 5.0, 10.0),
@@ -147,11 +147,19 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                                   HapticFeedback.lightImpact();
 
                                   context.pushNamed(
-                                    NameTowerNewWidget.routeName,
+                                    PortCountInputWidget.routeName,
                                     queryParameters: {
-                                      'towerID': serializeParam(
-                                        listViewTowerGardensRow.id,
+                                      'towerBrandID': serializeParam(
+                                        listViewTowerBrandsRow.id,
                                         ParamType.int,
+                                      ),
+                                      'brandName': serializeParam(
+                                        listViewTowerBrandsRow.brandName,
+                                        ParamType.String,
+                                      ),
+                                      'allowCustomName': serializeParam(
+                                        listViewTowerBrandsRow.allowCustomName,
+                                        ParamType.bool,
                                       ),
                                     }.withoutNulls,
                                   );
@@ -227,8 +235,8 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                                                                         0.0,
                                                                         0.0),
                                                             child: Text(
-                                                              listViewTowerGardensRow
-                                                                  .towerGarden!,
+                                                              listViewTowerBrandsRow
+                                                                  .brandName ?? 'Tower',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -269,15 +277,29 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
+                                                          HapticFeedback.lightImpact();
+
                                                           context.pushNamed(
-                                                            NameTowerNewWidget
+                                                            PortCountInputWidget
                                                                 .routeName,
                                                             queryParameters: {
-                                                              'towerID':
+                                                              'towerBrandID':
                                                                   serializeParam(
-                                                                listViewTowerGardensRow
+                                                                listViewTowerBrandsRow
                                                                     .id,
                                                                 ParamType.int,
+                                                              ),
+                                                              'brandName':
+                                                                  serializeParam(
+                                                                listViewTowerBrandsRow
+                                                                    .brandName,
+                                                                ParamType.String,
+                                                              ),
+                                                              'allowCustomName':
+                                                                  serializeParam(
+                                                                listViewTowerBrandsRow
+                                                                    .allowCustomName,
+                                                                ParamType.bool,
                                                               ),
                                                             }.withoutNulls,
                                                           );
@@ -293,91 +315,6 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                                                     ],
                                                   ),
                                                 ),
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  20.0,
-                                                                  0.0,
-                                                                  5.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        'Ports:',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .readexPro(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                              fontSize: 16.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    valueOrDefault<String>(
-                                                      formatNumber(
-                                                        listViewTowerGardensRow
-                                                            .ports,
-                                                        formatType:
-                                                            FormatType.custom,
-                                                        format: '0',
-                                                        locale: '',
-                                                      ),
-                                                      '0',
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .readexPro(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          fontSize: 16.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
-                                                ],
                                               ),
                                             ],
                                           ),

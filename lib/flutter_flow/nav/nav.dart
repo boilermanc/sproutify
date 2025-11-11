@@ -117,12 +117,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TowerCatalogWidget(),
         ),
         FFRoute(
+          name: PortCountInputWidget.routeName,
+          path: PortCountInputWidget.routePath,
+          builder: (context, params) => PortCountInputWidget(
+            towerBrandID: params.getParam(
+              'towerBrandID',
+              ParamType.int,
+            ),
+            brandName: params.getParam(
+              'brandName',
+              ParamType.String,
+            ),
+            allowCustomName: params.getParam(
+              'allowCustomName',
+              ParamType.bool,
+            ),
+          ),
+        ),
+        FFRoute(
           name: NameTowerNewWidget.routeName,
           path: NameTowerNewWidget.routePath,
           builder: (context, params) => NameTowerNewWidget(
             towerID: params.getParam(
               'towerID',
               ParamType.int,
+            ),
+            portCount: params.getParam(
+              'portCount',
+              ParamType.int,
+            ),
+            customBrandName: params.getParam(
+              'customBrandName',
+              ParamType.String,
             ),
           ),
         ),
@@ -137,6 +163,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             towerID: params.getParam(
               'towerID',
               ParamType.int,
+            ),
+            portCount: params.getParam(
+              'portCount',
+              ParamType.int,
+            ),
+            customBrandName: params.getParam(
+              'customBrandName',
+              ParamType.String,
             ),
           ),
         ),
@@ -479,6 +513,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             towerID: params.getParam(
               'towerID',
               ParamType.int,
+            ),
+            portCount: params.getParam(
+              'portCount',
+              ParamType.int,
+            ),
+            customBrandName: params.getParam(
+              'customBrandName',
+              ParamType.String,
             ),
           ),
         ),

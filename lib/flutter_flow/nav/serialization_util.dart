@@ -282,8 +282,8 @@ dynamic deserializeParam<T>(
             return OutdoorPlantsRow(data);
           case PlantOverallRatingsRow:
             return PlantOverallRatingsRow(data);
-          case TowerGardensRow:
-            return TowerGardensRow(data);
+          case TowerBrandsRow:
+            return TowerBrandsRow(data);
           case GardeningExperienceLevelsRow:
             return GardeningExperienceLevelsRow(data);
           case PlantCatalogRow:

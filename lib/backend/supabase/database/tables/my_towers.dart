@@ -20,11 +20,14 @@ class MyTowersRow extends SupabaseDataRow {
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
 
-  int? get towerGardenId => getField<int>('tower_garden_id');
-  set towerGardenId(int? value) => setField<int>('tower_garden_id', value);
+  int? get towerBrandId => getField<int>('tower_brand_id');
+  set towerBrandId(int? value) => setField<int>('tower_brand_id', value);
 
   String get towerName => getField<String>('tower_name')!;
   set towerName(String value) => setField<String>('tower_name', value);
+
+  int get portCount => getField<int>('port_count')!;
+  set portCount(int value) => setField<int>('port_count', value);
 
   String? get indoorOutdoor => getField<String>('indoor_outdoor');
   set indoorOutdoor(String? value) => setField<String>('indoor_outdoor', value);
