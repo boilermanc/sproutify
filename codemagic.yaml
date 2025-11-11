@@ -3,6 +3,10 @@ workflows:
     name: iOS TestFlight Build
     max_build_duration: 120
     instance_type: mac_mini_m1
+    integrations:
+      # This name must match the App Store Connect integration name you set up in Codemagic UI
+      # When you configure App Store Connect in Codemagic, name it "codemagic" or change this to match
+      app_store_connect: codemagic
     environment:
       flutter: stable
       xcode: latest
