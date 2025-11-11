@@ -14,6 +14,7 @@ workflows:
       # This section tells CodeMagic to use your API key for signing
       ios_signing:
         distribution_type: APP_STORE_CONNECT
+        bundle_identifier: $(BUNDLE_ID)
         certificate_private_key: $(CERTIFICATE_PRIVATE_KEY)
 
       # This section loads your secret variables
