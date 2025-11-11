@@ -1,15 +1,12 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/no_preferences/no_preferences_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'what_i_like_to_grow_model.dart';
 export 'what_i_like_to_grow_model.dart';
 
@@ -44,6 +41,81 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
     super.dispose();
   }
 
+  Widget _buildPreferenceCheckbox(
+    BuildContext context,
+    String label,
+    bool value,
+    Function(bool) onChanged,
+  ) {
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.circular(8.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).alternate,
+            width: 2.0,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 8.0, 12.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  label,
+                  style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FontWeight.w800,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                        ),
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w800,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                      ),
+                ),
+              ),
+              Theme(
+                data: ThemeData(
+                  checkboxTheme: CheckboxThemeData(
+                    visualDensity: VisualDensity.compact,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                  ),
+                  unselectedWidgetColor:
+                      FlutterFlowTheme.of(context).secondaryText,
+                ),
+                child: Checkbox(
+                  value: value,
+                  onChanged: (newValue) async {
+                    HapticFeedback.lightImpact();
+                    if (newValue != null) {
+                      await onChanged(newValue);
+                    }
+                  },
+                  side: BorderSide(
+                    width: 2,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                  ),
+                  activeColor: FlutterFlowTheme.of(context).primary,
+                  checkColor: FlutterFlowTheme.of(context).info,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -57,7 +129,9 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
           padding: EdgeInsets.all(12.0),
           child: Container(
             width: 300.0,
-            height: 366.0,
+            constraints: BoxConstraints(
+              maxHeight: 550.0,
+            ),
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.circular(10.0),
@@ -112,113 +186,204 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Container(
-                    width: 308.0,
-                    height: 250.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: FutureBuilder<
-                          List<UserProfilesWithPlantPreferencesRow>>(
-                        future:
-                            UserProfilesWithPlantPreferencesTable().queryRows(
-                          queryFn: (q) => q.eqOrNull(
-                            'profile_id',
-                            currentUserUid,
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Container(
+                      width: 308.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: FutureBuilder<
+                            List<UserGardeningPlantPreferencesRow>>(
+                          future:
+                              UserGardeningPlantPreferencesTable().queryRows(
+                            queryFn: (q) => q.eqOrNull(
+                              'profile_id',
+                              currentUserUid,
+                            ),
                           ),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData && snapshot.data != null) {
+                              // Initialize checkbox states based on current preferences
+                              final preferences = snapshot.data!;
+                              _model.isHerbsValue =
+                                  preferences.any((p) => p.plantTypeId == 1);
+                              _model.isLeafyGreensValue =
+                                  preferences.any((p) => p.plantTypeId == 2);
+                              _model.isEdibleValue =
+                                  preferences.any((p) => p.plantTypeId == 3);
+                              _model.isMedicinalValue =
+                                  preferences.any((p) => p.plantTypeId == 4);
+                              _model.isVegetablesValue =
+                                  preferences.any((p) => p.plantTypeId == 5);
+                            } else if (!snapshot.hasData) {
+                              // Show loading indicator
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }
-                          List<UserProfilesWithPlantPreferencesRow>
-                              listViewUserProfilesWithPlantPreferencesRowList =
-                              snapshot.data!;
-
-                          if (listViewUserProfilesWithPlantPreferencesRowList
-                              .isEmpty) {
-                            return NoPreferencesWidget();
-                          }
-
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            scrollDirection: Axis.vertical,
-                            itemCount:
-                                listViewUserProfilesWithPlantPreferencesRowList
-                                    .length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewUserProfilesWithPlantPreferencesRow =
-                                  listViewUserProfilesWithPlantPreferencesRowList[
-                                      listViewIndex];
-                              return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 10.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Flexible(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 20.0),
-                                        child: Text(
-                                          valueOrDefault<String>(
-                                            listViewUserProfilesWithPlantPreferencesRow
-                                                .plantPreferences,
-                                            'Plant Preferences',
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                font: GoogleFonts.readexPro(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               );
-                            },
-                          );
-                        },
+                            }
+
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                _buildPreferenceCheckbox(
+                                  context,
+                                  'Herbs',
+                                  _model.isHerbsValue ?? false,
+                                  (value) async {
+                                    safeSetState(() {
+                                      _model.isHerbsValue = value;
+                                    });
+                                    if (value) {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .insert({
+                                        'profile_id': currentUserUid,
+                                        'plant_type_id': 1,
+                                      });
+                                    } else {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .delete(
+                                        matchingRows: (rows) => rows
+                                            .eqOrNull(
+                                              'profile_id',
+                                              currentUserUid,
+                                            )
+                                            .eqOrNull('plant_type_id', 1),
+                                      );
+                                    }
+                                    safeSetState(() {});
+                                  },
+                                ),
+                                _buildPreferenceCheckbox(
+                                  context,
+                                  'Leafy Greens',
+                                  _model.isLeafyGreensValue ?? false,
+                                  (value) async {
+                                    safeSetState(() {
+                                      _model.isLeafyGreensValue = value;
+                                    });
+                                    if (value) {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .insert({
+                                        'profile_id': currentUserUid,
+                                        'plant_type_id': 2,
+                                      });
+                                    } else {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .delete(
+                                        matchingRows: (rows) => rows
+                                            .eqOrNull(
+                                              'profile_id',
+                                              currentUserUid,
+                                            )
+                                            .eqOrNull('plant_type_id', 2),
+                                      );
+                                    }
+                                    safeSetState(() {});
+                                  },
+                                ),
+                                _buildPreferenceCheckbox(
+                                  context,
+                                  'Edible',
+                                  _model.isEdibleValue ?? false,
+                                  (value) async {
+                                    safeSetState(() {
+                                      _model.isEdibleValue = value;
+                                    });
+                                    if (value) {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .insert({
+                                        'profile_id': currentUserUid,
+                                        'plant_type_id': 3,
+                                      });
+                                    } else {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .delete(
+                                        matchingRows: (rows) => rows
+                                            .eqOrNull(
+                                              'profile_id',
+                                              currentUserUid,
+                                            )
+                                            .eqOrNull('plant_type_id', 3),
+                                      );
+                                    }
+                                    safeSetState(() {});
+                                  },
+                                ),
+                                _buildPreferenceCheckbox(
+                                  context,
+                                  'Medicinal',
+                                  _model.isMedicinalValue ?? false,
+                                  (value) async {
+                                    safeSetState(() {
+                                      _model.isMedicinalValue = value;
+                                    });
+                                    if (value) {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .insert({
+                                        'profile_id': currentUserUid,
+                                        'plant_type_id': 4,
+                                      });
+                                    } else {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .delete(
+                                        matchingRows: (rows) => rows
+                                            .eqOrNull(
+                                              'profile_id',
+                                              currentUserUid,
+                                            )
+                                            .eqOrNull('plant_type_id', 4),
+                                      );
+                                    }
+                                    safeSetState(() {});
+                                  },
+                                ),
+                                _buildPreferenceCheckbox(
+                                  context,
+                                  'Vegetables',
+                                  _model.isVegetablesValue ?? false,
+                                  (value) async {
+                                    safeSetState(() {
+                                      _model.isVegetablesValue = value;
+                                    });
+                                    if (value) {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .insert({
+                                        'profile_id': currentUserUid,
+                                        'plant_type_id': 5,
+                                      });
+                                    } else {
+                                      await UserGardeningPlantPreferencesTable()
+                                          .delete(
+                                        matchingRows: (rows) => rows
+                                            .eqOrNull(
+                                              'profile_id',
+                                              currentUserUid,
+                                            )
+                                            .eqOrNull('plant_type_id', 5),
+                                      );
+                                    }
+                                    safeSetState(() {});
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [],
                   ),
                 ),
               ],
