@@ -10,10 +10,16 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
+      
+      # This section tells CodeMagic to use your API key for signing
+      ios_signing:
+        distribution_type: APP_STORE_CONNECT
+        certificate_private_key: $(CERTIFICATE_PRIVATE_KEY)
+
+      # This section loads your secret variables
       groups:
-        # Add these environment variable groups in Codemagic UI:
-        # - app_secrets (for your app's environment variables)
         - app_secrets
+        - ios_signing
       vars:
         # App configuration
         APP_ID: com.sproutify.sproutifymobile
