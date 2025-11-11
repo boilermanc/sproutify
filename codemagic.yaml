@@ -4,18 +4,15 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m1
     integrations:
-      # This name must match the App Store Connect integration name you set up in Codemagic UI
-      # When you configure App Store Connect in Codemagic, name it "codemagic" or change this to match
-      app_store_connect: codemagic
+      # This name must exactly match the App Store Connect integration name shown in Codemagic
+      app_store_connect: "Sproutify CodeMagic"
     environment:
       flutter: stable
       xcode: latest
       cocoapods: default
       groups:
         # Add these environment variable groups in Codemagic UI:
-        # - app_store_credentials (for App Store Connect API key)
         # - app_secrets (for your app's environment variables)
-        - app_store_credentials
         - app_secrets
       vars:
         # App configuration
@@ -46,17 +43,13 @@ workflows:
     publishing:
       email:
         recipients:
-          - user@example.com  # Change to your email
+          - clint@sproutify.app
         notify:
           success: true
-          failure: false
+          failure: true
       app_store_connect:
-        # App Store Connect API key credentials
-        # Set these in Codemagic UI under "App Store Connect" integration
-        auth: integration
-        
-        # Submit to TestFlight automatically (optional)
-        # Set to false if you want to manually submit from App Store Connect
+        auth:
+          integration: "Sproutify CodeMagic"
         submit_to_testflight: true
         
         # Beta groups to distribute to (optional)
