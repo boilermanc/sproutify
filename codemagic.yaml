@@ -30,17 +30,8 @@ workflows:
     scripts:
       - name: Set up code signing
         script: |
-          # Fetch signing files from App Store Connect
-          app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --create
-      - name: Add certificates to keychain
-        script: |
-          # Add certificates to keychain
+          # Use the certificates and profiles already uploaded to Codemagic
           keychain add-certificates
-      - name: Set up code signing settings on Xcode project
-        script: |
-          # Configure Xcode project to use fetched profiles
           xcode-project use-profiles
       - name: Get Flutter dependencies
         script: |
