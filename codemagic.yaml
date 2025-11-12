@@ -19,7 +19,6 @@ workflows:
       # This section loads your secret variables
       groups:
         - app_secrets
-        - ios_signing
       vars:
         # App configuration
         APP_ID: com.sproutify.sproutifymobile
