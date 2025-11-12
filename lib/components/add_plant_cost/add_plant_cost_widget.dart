@@ -251,7 +251,9 @@ class _AddPlantCostWidgetState extends State<AddPlantCostWidget> {
                                             required isFocused,
                                             maxLength}) =>
                                         null,
-                                    keyboardType: TextInputType.number,
+                                    keyboardType:
+                                        TextInputType.numberWithOptions(
+                                            decimal: true),
                                     validator: _model
                                         .plantCostTextControllerValidator
                                         .asValidator(context),
@@ -279,7 +281,7 @@ class _AddPlantCostWidgetState extends State<AddPlantCostWidget> {
                                     matchingRows: (rows) => rows
                                         .eqOrNull(
                                           'user_plant_id',
-                                          listViewUserplantsRow?.userPlantId,
+                                          widget.userPlantID,
                                         )
                                         .eqOrNull(
                                           'user_id',

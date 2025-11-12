@@ -670,7 +670,9 @@ class _MyPlantExpandableCopyWidgetState
                                                                                   },
                                                                                   child: Padding(
                                                                                     padding: MediaQuery.viewInsetsOf(context),
-                                                                                    child: CultivateBottomWidget(),
+                                                                                    child: CultivateBottomWidget(
+                                                                                      userPlantID: listViewUserplantdetailsRow.userPlantId!,
+                                                                                    ),
                                                                                   ),
                                                                                 );
                                                                               },
@@ -1073,7 +1075,9 @@ class _MyPlantExpandableCopyWidgetState
                                                                                     ),
                                                                                   );
                                                                                 },
-                                                                              ).then((value) => safeSetState(() {}));
+                                                                              ).then((value) => safeSetState(() {
+                                                                                _model.requestCompleter = null;
+                                                                              }));
                                                                             },
                                                                             child:
                                                                                 Icon(

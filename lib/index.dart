@@ -51,6 +51,7 @@ export '/onboarding/decide_on_tower/decide_on_tower_widget.dart'
 export '/authflow/login_page_redirect/login_page_redirect_widget.dart'
     show LoginPageRedirectWidget;
 export '/my_costs/my_costs_widget.dart' show MyCostsWidget;
+export '/pages/harvest_scorecard/harvest_scorecard_widget.dart' show HarvestScorecardWidget;
 export '/product_view/product_view_widget.dart' show ProductViewWidget;
 export '/supplies_detail/supplies_detail_widget.dart' show SuppliesDetailWidget;
 export '/product_categories/product_categories_widget.dart'

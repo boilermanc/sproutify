@@ -19,6 +19,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
 
 import '/index.dart';
+import '/pages/harvest_scorecard/harvest_scorecard_widget.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -342,6 +343,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'myCosts')
               : MyCostsWidget(),
+        ),
+        FFRoute(
+          name: HarvestScorecardWidget.routeName,
+          path: HarvestScorecardWidget.routePath,
+          builder: (context, params) => HarvestScorecardWidget(),
         ),
         FFRoute(
           name: ProductViewWidget.routeName,
