@@ -823,7 +823,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                                         'https://www.sweetwaterurbanfarms.com/');
                                                   },
                                                   child: Text(
-                                                    'Sweetwater Urban Farms',
+                                                    'Sweetwater Technologies',
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)

@@ -2048,7 +2048,7 @@ class _SproutifyPurchasePageWidgetState
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Powered By Sweetwater Urban Farms',
+                              'Powered By Sweetwater Technologies',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
