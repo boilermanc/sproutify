@@ -39,13 +39,18 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install && cd ..
-      - name: Build iOS IPA
+      - name: Build iOS archive
         script: |
-          flutter build ipa --release \
+          flutter build ipa --release --no-codesign \
             --dart-define=SUPABASE_URL="$SUPABASE_URL" \
             --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY" \
             --dart-define=REVENUE_CAT_IOS_API_KEY="${REVENUE_CAT_IOS_API_KEY:-}" \
             --dart-define=N8N_WEBHOOK_URL="$N8N_WEBHOOK_URL"
+      - name: Package IPA with code signing
+        script: |
+          xcode-project build-ipa \
+            --workspace ios/Runner.xcworkspace \
+            --scheme Runner
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
