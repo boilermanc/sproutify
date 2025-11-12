@@ -71,15 +71,21 @@ class _AddPlantCostWidgetState extends State<AddPlantCostWidget> {
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: FutureBuilder<List<UserplantsRow>>(
-              future:
-                  (_model.requestCompleter ??= Completer<List<UserplantsRow>>()
-                        ..complete(UserplantsTable().querySingleRow(
-                          queryFn: (q) => q.eqOrNull(
-                            'user_id',
-                            currentUserUid,
-                          ),
-                        )))
-                      .future,
+              future: _model.requestCompleter?.future ?? 
+                  (() {
+                    _model.requestCompleter = Completer<List<UserplantsRow>>();
+                    UserplantsTable().querySingleRow(
+                      queryFn: (q) => q.eqOrNull(
+                        'user_id',
+                        currentUserUid,
+                      ),
+                    ).then((result) {
+                      if (!_model.requestCompleter!.isCompleted) {
+                        _model.requestCompleter!.complete(result);
+                      }
+                    });
+                    return _model.requestCompleter!.future;
+                  })(),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
                 if (!snapshot.hasData) {

@@ -44,69 +44,78 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
   Widget build(BuildContext context) {
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
-      child: Padding(
-        padding: EdgeInsets.all(12.0),
-        child: InkWell(
-          splashColor: Colors.transparent,
-          focusColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          onTap: () async {
-            await launchURL('https://platform.openai.com');
-          },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.forum_outlined,
-                color: FlutterFlowTheme.of(context).primary,
-                size: 90.0,
-              ),
-              SelectionArea(
-                  child: AutoSizeText(
-                'Tower Buddy Is Active!',
-                style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      font: GoogleFonts.outfit(
-                        fontWeight: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontWeight,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontStyle,
-                      ),
-                      letterSpacing: 0.0,
-                      fontWeight: FlutterFlowTheme.of(context)
-                          .headlineMedium
-                          .fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                      lineHeight: 1.5,
-                    ),
-              )),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 0.0),
-                child: SelectionArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(12.0),
+          child: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              await launchURL('https://platform.openai.com');
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.forum_outlined,
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 90.0,
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
+                  child: SelectionArea(
                     child: AutoSizeText(
-                  'I\'m your personal Tower Garden assistant. Ask me anything about growing your plants, maintaining your tower, or getting the most from your Tower Garden!',
-                  textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).labelLarge.override(
-                        font: GoogleFonts.readexPro(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .labelLarge
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                        ),
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).labelLarge.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                      ),
-                )),
-              ),
-            ],
+                      'Sage Is Active!',
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).headlineMedium.override(
+                            font: GoogleFonts.outfit(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .fontWeight,
+                            fontStyle:
+                                FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                            lineHeight: 1.5,
+                          ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 0.0),
+                  child: SelectionArea(
+                    child: AutoSizeText(
+                      'I\'m your personal Tower Garden assistant. Ask me anything about growing your plants, maintaining your tower, or getting the most from your Tower Garden!',
+                      textAlign: TextAlign.center,
+                      maxLines: 5,
+                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                            font: GoogleFonts.readexPro(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .fontWeight,
+                              fontStyle:
+                                  FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight:
+                                FlutterFlowTheme.of(context).labelLarge.fontWeight,
+                            fontStyle:
+                                FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                          ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

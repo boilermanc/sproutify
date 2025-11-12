@@ -131,10 +131,18 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget> {
                 );
               }
 
-              final userPlantIds = userPlantsSnapshot.data!
-                  .where((p) => p.userPlantId != null)
-                  .map((p) => p.userPlantId!)
-                  .toList();
+              final userPlantIds = <int>[];
+              try {
+                final plants = userPlantsSnapshot.data ?? <UserplantdetailsRow>[];
+                for (final p in plants) {
+                  final plantId = p.getField<int>('user_plant_id');
+                  if (plantId != null) {
+                    userPlantIds.add(plantId);
+                  }
+                }
+              } catch (e) {
+                print('Error extracting user plant IDs: $e');
+              }
 
               return FutureBuilder<List<UserplantActionsRow>>(
                 future: _actionsFuture,
@@ -150,21 +158,50 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget> {
                   }
 
                   // Filter actions to only include those for current user's plants
-                  final allActions = snapshot.data!;
+                  // Use try-catch to safely handle any null check errors
+                  List<UserplantActionsRow> allActions;
+                  try {
+                    allActions = snapshot.data ?? <UserplantActionsRow>[];
+                  } catch (e) {
+                    print('Error accessing snapshot data: $e');
+                    allActions = <UserplantActionsRow>[];
+                  }
                   
                   // Create a set of all user plant IDs for faster lookup
                   final userPlantIdsSet = userPlantIds.toSet();
                   
                   // Filter actions to only those belonging to user's plants
                   // This includes archived plants since we query all userplants
-                  final actions = allActions
-                      .where((a) => userPlantIdsSet.contains(a.userPlantId))
-                      .toList();
+                  // Also filter out any actions with null userPlantId or actionType
+                  final actions = <UserplantActionsRow>[];
+                  try {
+                    for (final a in allActions) {
+                      // Use getField to safely check for null values without throwing
+                      final plantId = a.getField<int>('user_plant_id');
+                      final actionType = a.getField<String>('action_type');
+                      if (plantId != null && 
+                          actionType != null && 
+                          userPlantIdsSet.contains(plantId)) {
+                        actions.add(a);
+                      }
+                    }
+                  } catch (e) {
+                    print('Error filtering actions: $e');
+                  }
                   
                   // Check for unmatched actions (for debugging)
-                  final unmatchedActions = allActions
-                      .where((a) => !userPlantIdsSet.contains(a.userPlantId))
-                      .toList();
+                  final unmatchedActions = <UserplantActionsRow>[];
+                  try {
+                    for (final a in allActions) {
+                      // Use getField to safely check for null values without throwing
+                      final plantId = a.getField<int>('user_plant_id');
+                      if (plantId != null && !userPlantIdsSet.contains(plantId)) {
+                        unmatchedActions.add(a);
+                      }
+                    }
+                  } catch (e) {
+                    print('Error checking unmatched actions: $e');
+                  }
                   if (unmatchedActions.isNotEmpty) {
                     print('WARNING: Found ${unmatchedActions.length} actions with user_plant_ids not in user plants list');
                     print('This might indicate archived plants are not being included in the query');
@@ -175,20 +212,52 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget> {
               print('User Plant IDs: $userPlantIds');
               print('Total all actions: ${allActions.length}');
               print('Total filtered actions: ${actions.length}');
-              print('All action types: ${actions.map((a) => '${a.actionType} (plant_id: ${a.userPlantId})').toList()}');
-              print('Good harvests count: ${actions.where((a) => a.actionType == 'Harvested_Good').length}');
+              try {
+                print('All action types: ${actions.map((a) {
+                  final actionType = a.getField<String>('action_type') ?? 'Unknown';
+                  final plantId = a.getField<int>('user_plant_id') ?? 0;
+                  return '$actionType (plant_id: $plantId)';
+                }).toList()}');
+                print('Good harvests count: ${actions.where((a) {
+                  final actionType = a.getField<String>('action_type');
+                  return actionType == 'Harvested_Good';
+                }).length}');
+              } catch (e) {
+                print('Error in debug print: $e');
+              }
               print('==============================');
               
               // Calculate statistics
               // Handle both old format ("Harvested") and new format ("Harvested_Good", "Harvested_Waste")
               // Old "Harvested" actions are counted as good harvests for backwards compatibility
-              int goodHarvests = actions.where((a) => 
-                a.actionType == 'Harvested_Good' || a.actionType == 'Harvested'
-              ).length;
-              int wasteHarvests = actions.where((a) => a.actionType == 'Harvested_Waste').length;
-              int pestIssues = actions.where((a) => a.actionType == 'Pest').length;
-              // "Waste" means didn't grow well (not harvested waste)
-              int didntGrow = actions.where((a) => a.actionType == 'Waste').length;
+              int goodHarvests = 0;
+              int wasteHarvests = 0;
+              int pestIssues = 0;
+              int didntGrow = 0;
+              
+              try {
+                for (final a in actions) {
+                  final actionType = a.getField<String>('action_type');
+                  print('DEBUG: Processing action with type: "$actionType"');
+                  if (actionType == 'Harvested_Good' || actionType == 'Harvested') {
+                    print('  -> Counted as good harvest');
+                    goodHarvests++;
+                  } else if (actionType == 'Harvested_Waste') {
+                    print('  -> Counted as waste harvest');
+                    wasteHarvests++;
+                  } else if (actionType == 'Pest') {
+                    print('  -> Counted as pest issue');
+                    pestIssues++;
+                  } else if (actionType == 'Waste') {
+                    print('  -> Counted as didn\'t grow');
+                    didntGrow++;
+                  } else {
+                    print('  -> NOT COUNTED (unknown type)');
+                  }
+                }
+              } catch (e) {
+                print('Error calculating statistics: $e');
+              }
               
               // int totalHarvests = goodHarvests + wasteHarvests; // Unused for now
               int totalWaste = wasteHarvests + pestIssues + didntGrow;
@@ -198,7 +267,9 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget> {
                   ? (goodHarvests / totalPlants * 100) 
                   : 0.0;
 
-              return SingleChildScrollView(
+              // Wrap widget building in try-catch to handle any null check errors
+              try {
+                return SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -603,6 +674,35 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget> {
                   ],
                 ),
               );
+              } catch (e, stackTrace) {
+                print('Error building harvest scorecard widget: $e');
+                print('Stack trace: $stackTrace');
+                return Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.error_outline,
+                          size: 48.0,
+                          color: FlutterFlowTheme.of(context).error,
+                        ),
+                        SizedBox(height: 16.0),
+                        Text(
+                          'Error loading harvest scorecard',
+                          style: FlutterFlowTheme.of(context).headlineSmall,
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Please try refreshing',
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
                 },
               );
             },

@@ -31,7 +31,7 @@ Version 2.6.4
   - Plant Catalog
   - My Plants
   - My Towers
-  - Tower Buddy (AI Assistant)
+  - Sage (AI Assistant)
 - Daily gardening inspiration
 - Notification center
 - Quick action buttons
@@ -42,7 +42,7 @@ Version 2.6.4
 - Support access
 - Statistics
 - Supply management
-- Tower Buddy
+- Sage
 - Notification center
 
 ### Bottom Navigation
@@ -188,7 +188,7 @@ Access detailed guides for:
 - Tutorial guides
 - Community resources
 
-### Tower Buddy AI
+### Sage AI
 - Growing assistance
 - Problem diagnosis
 - Care recommendations

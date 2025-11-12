@@ -1378,7 +1378,7 @@ Welcome to our community of tower growers! This is a space to celebrate your suc
 - Harass or bully other users
 
 ## 🚨 For Help & Support:
-If you're experiencing issues with your tower or plants, please use our AI Assistant (Tower Buddy) or contact support directly. The community feed is for celebrating success, not troubleshooting.
+If you're experiencing issues with your tower or plants, please use our AI Assistant (Sage) or contact support directly. The community feed is for celebrating success, not troubleshooting.
 
 Thank you for helping keep Sproutify a positive, inspiring community!
 ```

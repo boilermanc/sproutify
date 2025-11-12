@@ -74,7 +74,7 @@ class _CoralChatWidgetState extends State<CoralChatWidget> {
             },
           ),
           title: Text(
-            'Tower Buddy AI',
+            'Sage',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.outfit(
                     fontWeight:
@@ -132,7 +132,7 @@ class _CoralChatWidgetState extends State<CoralChatWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   20.0, 10.0, 7.0, 0.0),
                               child: Text(
-                                'Hi! I\'m Tower Buddy!',
+                                'Hi! I\'m Sage!',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

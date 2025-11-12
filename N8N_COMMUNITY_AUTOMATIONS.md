@@ -446,7 +446,7 @@ CREATE TABLE user_streaks (
    ├─ Most engaged posts
    └─ Badge leaderboard
 
-3. Analyze with ChatGPT (using existing Tower Buddy setup)
+3. Analyze with ChatGPT (using existing Sage setup)
    ├─ Send aggregated data to OpenAI
    ├─ Prompt: "Generate a friendly weekly community summary highlighting:
    │  - Most popular plants this week
@@ -739,10 +739,10 @@ CREATE TABLE user_streaks (
 
 ## Integration Examples
 
-### n8n + ChatGPT (Tower Buddy Integration)
+### n8n + ChatGPT (Sage Integration)
 ```
 Workflow: Enhanced AI Responses
-├─ User asks Tower Buddy a question
+├─ User asks Sage a question
 ├─ Before responding, check community posts
 ├─ Query: Posts with same plant/issue
 ├─ Include community examples in context

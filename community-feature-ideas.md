@@ -332,7 +332,7 @@ Add "Community" as a top-level card on Home page that opens full showcase
 - ❌ Inappropriate images or language
 
 **For help and troubleshooting:**
-Use Tower Buddy AI assistant or contact support directly.
+Use Sage AI assistant or contact support directly.
 
 ---
 

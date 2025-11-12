@@ -15,14 +15,14 @@ class UserplantActionsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => UserplantActionsTable();
 
-  int get actionId => getField<int>('action_id')!;
-  set actionId(int value) => setField<int>('action_id', value);
+  int? get actionId => getField<int>('action_id');
+  set actionId(int? value) => setField<int>('action_id', value);
 
-  int get userPlantId => getField<int>('user_plant_id')!;
-  set userPlantId(int value) => setField<int>('user_plant_id', value);
+  int? get userPlantId => getField<int>('user_plant_id');
+  set userPlantId(int? value) => setField<int>('user_plant_id', value);
 
-  String get actionType => getField<String>('action_type')!;
-  set actionType(String value) => setField<String>('action_type', value);
+  String? get actionType => getField<String>('action_type');
+  set actionType(String? value) => setField<String>('action_type', value);
 
   DateTime? get actionDate => getField<DateTime>('action_date');
   set actionDate(DateTime? value) => setField<DateTime>('action_date', value);

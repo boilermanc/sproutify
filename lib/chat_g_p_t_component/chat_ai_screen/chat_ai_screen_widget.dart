@@ -81,7 +81,7 @@ class _ChatAiScreenWidgetState extends State<ChatAiScreenWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Tower Buddy',
+                'Sage',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       font: GoogleFonts.outfit(
                         fontWeight: FontWeight.bold,

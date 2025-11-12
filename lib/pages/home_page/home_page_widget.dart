@@ -39,12 +39,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  
+
   // Inspiration box animation state
   bool _showInspirationBox = true;
   bool _isAnimating = false;
   double _inspirationDragOffset = 0.0;
-  
+
   // Animation map for card animations
   final animationsMap = <String, AnimationInfo>{};
 
@@ -52,7 +52,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
-    
+
     // Setup animations for the four cards with staggered delays
     animationsMap.addAll({
       'plantCatalogCardAnimation': AnimationInfo(
@@ -112,7 +112,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
           ),
         ],
       ),
-      'towerBuddyCardAnimation': AnimationInfo(
+      'sageCardAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
           FadeEffect(
@@ -132,7 +132,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         ],
       ),
     });
-    
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -144,7 +144,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       // Add a small delay to let the UI render first
       await Future.delayed(Duration(milliseconds: 100));
-      
+
       // Load data asynchronously without blocking UI
       unawaited(Future.wait([
         Future(() async {
@@ -632,7 +632,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               onTap: () async {
                                 HapticFeedback.lightImpact();
 
-                                context.pushNamed(HarvestScorecardWidget.routeName);
+                                context.pushNamed(
+                                    HarvestScorecardWidget.routeName);
 
                                 Navigator.pop(context);
                               },
@@ -925,8 +926,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 5.0, 0.0, 5.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
                                   child: InkWell(
@@ -1012,8 +1012,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         ),
                                       ),
                                     ),
-                                  ).animateOnPageLoad(
-                                      animationsMap['plantCatalogCardAnimation']!),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'plantCatalogCardAnimation']!),
                                 ),
                                 Expanded(
                                   child: InkWell(
@@ -1247,7 +1247,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                             Flexible(
                                               child: Text(
-                                                'Tower Buddy',
+                                                'Sage',
                                                 textAlign: TextAlign.center,
                                                 style: FlutterFlowTheme.of(
                                                         context)
@@ -1279,7 +1279,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ).animateOnPageLoad(
-                                      animationsMap['towerBuddyCardAnimation']!),
+                                      animationsMap['sageCardAnimation']!),
                                 ),
                               ],
                             ),
@@ -1293,7 +1293,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
               if (_showInspirationBox)
                 GestureDetector(
                   onVerticalDragUpdate: (details) {
-                    if (details.delta.dy < 0) { // Dragging up
+                    if (details.delta.dy < 0) {
+                      // Dragging up
                       setState(() {
                         _inspirationDragOffset += details.delta.dy;
                         if (_inspirationDragOffset < -100) {
@@ -1328,189 +1329,214 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     offset: Offset(0.0, _inspirationDragOffset / 240.0),
                     child: AnimatedOpacity(
                       duration: Duration(milliseconds: 300),
-                      opacity: _isAnimating ? 0.0 : (1.0 + _inspirationDragOffset / 240.0).clamp(0.0, 1.0),
+                      opacity: _isAnimating
+                          ? 0.0
+                          : (1.0 + _inspirationDragOffset / 240.0)
+                              .clamp(0.0, 1.0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5.0, 12.0, 5.0, 0.0),
-                        child: StreamBuilder<List<GardeningInspirationalMessagesRow>>(
-                  stream: _model.dailyInspirationSupabaseStream ??= SupaFlow
-                      .client
-                      .from("gardening_inspirational_messages")
-                      .stream(primaryKey: ['id'])
-                      .eqOrNull(
-                        'message_date',
-                        supaSerialize<DateTime>(getCurrentTimestamp),
-                      )
-                      .map((data) {
-                        try {
-                          // Handle both List and Map responses (defensive programming)
-                          List<dynamic> items;
-                          if (data is List) {
-                            items = data;
-                          } else if (data is Map) {
-                            // If it's a single item, wrap it in a list
-                            items = [data];
-                          } else {
-                            return <GardeningInspirationalMessagesRow>[];
-                          }
-                          
-                          return items
-                              .map((item) {
-                                try {
-                                  return GardeningInspirationalMessagesRow(item);
-                                } catch (e) {
-                                  print('Error creating GardeningInspirationalMessagesRow: $e');
-                                  return null;
-                                }
-                              })
-                              .whereType<GardeningInspirationalMessagesRow>()
-                              .toList();
-                        } catch (e) {
-                          print('Error processing stream data: $e, type: ${data.runtimeType}');
-                          return <GardeningInspirationalMessagesRow>[];
-                        }
-                      }),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (snapshot.hasError) {
-                      // Hide the inspiration box on error
-                      return SizedBox.shrink();
-                    }
-                    if (!snapshot.hasData) {
-                      // Hide the inspiration box when loading to avoid showing spinner behind modals
-                      return SizedBox.shrink();
-                    }
-                    List<GardeningInspirationalMessagesRow>
-                        dailyInspirationGardeningInspirationalMessagesRowList =
-                        snapshot.data!;
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(5.0, 12.0, 5.0, 0.0),
+                        child: StreamBuilder<
+                            List<GardeningInspirationalMessagesRow>>(
+                          stream: _model.dailyInspirationSupabaseStream ??=
+                              SupaFlow.client
+                                  .from("gardening_inspirational_messages")
+                                  .stream(primaryKey: ['id'])
+                                  .eqOrNull(
+                                    'message_date',
+                                    supaSerialize<DateTime>(
+                                        getCurrentTimestamp),
+                                  )
+                                  .map((data) {
+                                    try {
+                                      // Handle both List and Map responses (defensive programming)
+                                      List<dynamic> items;
+                                      if (data is List) {
+                                        items = data;
+                                      } else if (data is Map) {
+                                        // If it's a single item, wrap it in a list
+                                        items = [data];
+                                      } else {
+                                        return <GardeningInspirationalMessagesRow>[];
+                                      }
 
-                    final dailyInspirationGardeningInspirationalMessagesRow =
-                        dailyInspirationGardeningInspirationalMessagesRowList
-                                .isNotEmpty
-                            ? dailyInspirationGardeningInspirationalMessagesRowList
-                                .first
-                            : null;
+                                      return items
+                                          .map((item) {
+                                            try {
+                                              return GardeningInspirationalMessagesRow(
+                                                  item);
+                                            } catch (e) {
+                                              print(
+                                                  'Error creating GardeningInspirationalMessagesRow: $e');
+                                              return null;
+                                            }
+                                          })
+                                          .whereType<
+                                              GardeningInspirationalMessagesRow>()
+                                          .toList();
+                                    } catch (e) {
+                                      print(
+                                          'Error processing stream data: $e, type: ${data.runtimeType}');
+                                      return <GardeningInspirationalMessagesRow>[];
+                                    }
+                                  }),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (snapshot.hasError) {
+                              // Hide the inspiration box on error
+                              return SizedBox.shrink();
+                            }
+                            if (!snapshot.hasData) {
+                              // Hide the inspiration box when loading to avoid showing spinner behind modals
+                              return SizedBox.shrink();
+                            }
+                            List<GardeningInspirationalMessagesRow>
+                                dailyInspirationGardeningInspirationalMessagesRowList =
+                                snapshot.data!;
 
-                    return Container(
-                      width: 390.0,
-                      height: 240.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFE4EFD0),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(12.0),
-                          bottomRight: Radius.circular(12.0),
-                          topLeft: Radius.circular(12.0),
-                          topRight: Radius.circular(12.0),
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          // Drag handle with arrow icon
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.keyboard_arrow_up,
-                                  color: FlutterFlowTheme.of(context).secondaryText.withOpacity(0.6),
-                                  size: 24.0,
+                            final dailyInspirationGardeningInspirationalMessagesRow =
+                                dailyInspirationGardeningInspirationalMessagesRowList
+                                        .isNotEmpty
+                                    ? dailyInspirationGardeningInspirationalMessagesRowList
+                                        .first
+                                    : null;
+
+                            return Container(
+                              width: 390.0,
+                              height: 240.0,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFE4EFD0),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(12.0),
+                                  bottomRight: Radius.circular(12.0),
+                                  topLeft: Radius.circular(12.0),
+                                  topRight: Radius.circular(12.0),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Flexible(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 10.0, 0.0, 0.0),
-                                        child: Text(
-                                          valueOrDefault<String>(
-                                            dailyInspirationGardeningInspirationalMessagesRow
-                                                ?.title,
-                                            'Garden Inspiration',
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                                font: GoogleFonts.outfit(
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineSmall
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineSmall
-                                                          .fontStyle,
-                                                ),
-                                                letterSpacing: 0.0,
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontStyle,
-                                              ),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  // Drag handle with arrow icon
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 4.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.keyboard_arrow_up,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText
+                                              .withOpacity(0.6),
+                                          size: 24.0,
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Flexible(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 15.0, 20.0, 0.0),
-                                        child: Text(
-                                          valueOrDefault<String>(
-                                            dailyInspirationGardeningInspirationalMessagesRow
-                                                ?.body,
-                                            'Go forth and grow!',
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                font: GoogleFonts.readexPro(
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle: FontStyle.italic,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Flexible(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        20.0, 10.0, 0.0, 0.0),
+                                                child: Text(
+                                                  valueOrDefault<String>(
+                                                    dailyInspirationGardeningInspirationalMessagesRow
+                                                        ?.title,
+                                                    'Garden Inspiration',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .headlineSmall
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.outfit(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineSmall
+                                                                .fontStyle,
+                                                      ),
                                                 ),
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle: FontStyle.italic,
                                               ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Flexible(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        20.0, 15.0, 20.0, 0.0),
+                                                child: Text(
+                                                  valueOrDefault<String>(
+                                                    dailyInspirationGardeningInspirationalMessagesRow
+                                                        ?.body,
+                                                    'Go forth and grow!',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts
+                                                            .readexPro(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                        ),
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
