@@ -88,6 +88,13 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
         favoritesMap[favorite.plantId] = favorite.isFavorite ?? false;
       }
       
+      // Sort plants alphabetically by plant name
+      plantsList.sort((a, b) {
+        final nameA = (a.plantName ?? '').toLowerCase();
+        final nameB = (b.plantName ?? '').toLowerCase();
+        return nameA.compareTo(nameB);
+      });
+      
       setState(() {
         _allPlants = plantsList;
         _favoritesMap = favoritesMap;
@@ -135,12 +142,20 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
 
     // Get the current search string and filter plants in memory
     final searchString = _model.searchPlantNameTextController?.text ?? '';
-    final plantsList = searchString.isEmpty
+    final filteredPlants = searchString.isEmpty
         ? _allPlants!
         : _allPlants!.where((plant) {
             final plantName = plant.plantName.toLowerCase();
             return plantName.contains(searchString.toLowerCase());
           }).toList();
+    
+    // Ensure filtered list is also sorted alphabetically
+    final plantsList = List<PlantsRow>.from(filteredPlants);
+    plantsList.sort((a, b) {
+      final nameA = (a.plantName ?? '').toLowerCase();
+      final nameB = (b.plantName ?? '').toLowerCase();
+      return nameA.compareTo(nameB);
+    });
     
     final favoritesMap = _favoritesMap!;
 
