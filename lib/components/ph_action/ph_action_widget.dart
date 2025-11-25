@@ -22,7 +22,7 @@ class PhActionWidget extends StatefulWidget {
   });
 
   final UsertowerdetailsRow? towerID;
-  final UsertowerdetailsRow? phValue;
+  final double? phValue;
   final DateTime? timestamp;
   final int? historyID;
   final Future Function()? phCallBack;
@@ -156,7 +156,7 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                           inactiveColor: FlutterFlowTheme.of(context).alternate,
                           min: 5.0,
                           max: 8.0,
-                          value: _model.phAdjustmentValue ??= 5.0,
+                          value: _model.phAdjustmentValue ??= (widget.phValue ?? 6.5),
                           label: _model.phAdjustmentValue?.toString(),
                           divisions: 6,
                           onChanged: (newValue) {
@@ -173,13 +173,27 @@ class _PhActionWidgetState extends State<PhActionWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       HapticFeedback.lightImpact();
+
+                      // Insert the new pH value
                       await PhEchistoryTable().insert({
                         'tower_id': widget!.towerID?.towerId,
                         'timestamp': supaSerialize<DateTime>(widget!.timestamp),
                         'ph_value': _model.phAdjustmentValue,
                       });
-                      await widget.phCallBack?.call();
+
+                      // Refresh the materialized view to update latest values
+                      await SupaFlow.client.rpc('refresh_usertowerdetails');
+
+                      // Close dialog first for better UX
                       Navigator.pop(context);
+
+                      // Wait longer for materialized view to fully refresh
+                      await Future.delayed(Duration(milliseconds: 1000));
+
+                      // Trigger UI refresh
+                      await widget.phCallBack?.call();
+
+                      safeSetState(() {});
                     },
                     text: 'Update pH',
                     options: FFButtonOptions(

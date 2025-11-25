@@ -181,6 +181,39 @@ class TotalPlantCostPerUserCall {
   }
 }
 
+class TotalSupplyCostPerUserCall {
+  static Future<ApiCallResponse> call({
+    String? userID = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "_user_id": "${userID}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Total Supply Cost Per User',
+      apiUrl:
+          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/rpc/get_supply_costs',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODc2NTMsImV4cCI6MjAxMzY2MzY1M30._EnLLfn0DqX5uC94ZegKtfvz4uZW2bzWQidjqaYUsOo',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5ODA4NzY1MywiZXhwIjoyMDEzNjYzNjUzfQ.2US-amcxP5WJ1li8GStRMqgYHHPqP6lUVhEtzRsZs7Q',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class PerUserPlantCostPerCatagoryCall {
   static Future<ApiCallResponse> call({
     String? userID = '',

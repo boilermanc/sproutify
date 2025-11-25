@@ -2,6 +2,7 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/community_feed_embedded.dart';
+import '/components/trial_banner_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -9,6 +10,7 @@ import 'dart:async';
 import 'dart:ui';
 import '/index.dart';
 import '/pages/harvest_scorecard/harvest_scorecard_widget.dart';
+import '/pages/subscription_page/subscription_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -176,6 +178,53 @@ class _HomePageWidgetState extends State<HomePageWidget>
             'Gardener',
           );
         }),
+        Future(() async {
+          // Load trial status
+          print('DEBUG: Starting trial status load for user: $currentUserUid');
+
+          if (currentUserUid == null || currentUserUid.isEmpty) {
+            print('DEBUG: currentUserUid is null or empty!');
+            return;
+          }
+
+          try {
+            print('DEBUG: Calling RPC check_and_update_trial_status...');
+            final trialData = await SupaFlow.client.rpc(
+              'check_and_update_trial_status',
+              params: {'user_uuid': currentUserUid},
+            );
+
+            print('DEBUG: RPC returned successfully');
+            print('DEBUG: Trial data type: ${trialData.runtimeType}');
+            print('DEBUG: Trial data: $trialData');
+
+            if (trialData != null) {
+              if (trialData is List && trialData.isNotEmpty) {
+                final data = trialData.first;
+                print('DEBUG: First row data: $data');
+                print(
+                    'DEBUG: Parsed - status: ${data['status']}, days: ${data['days_remaining']}, dismissed: ${data['is_banner_dismissed']}');
+
+                _model.trialStatus = data['status'];
+                _model.trialDaysRemaining = data['days_remaining'];
+                _model.isTrialBannerDismissed = data['is_banner_dismissed'];
+
+                print('DEBUG: Model updated successfully');
+                safeSetState(() {});
+              } else {
+                print(
+                    'DEBUG: Trial data is not a List or is empty: ${trialData.runtimeType}');
+              }
+            } else {
+              print('DEBUG: Trial data is null');
+            }
+          } catch (e, stackTrace) {
+            print('ERROR: Trial status check failed: $e');
+            print('ERROR: Stack trace: $stackTrace');
+            _model.trialErrorMessage = 'Error: $e';
+            safeSetState(() {});
+          }
+        }),
       ]));
     });
 
@@ -313,6 +362,66 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                   Text(
                                     'Profile',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 0.0, 10.0, 5.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                HapticFeedback.lightImpact();
+
+                                context.pushNamed(
+                                    SubscriptionPageWidget.routeName);
+
+                                Navigator.pop(context);
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 5.0, 0.0),
+                                    child: Icon(
+                                      Icons.card_membership,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Manage Subscription',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -901,656 +1010,748 @@ class _HomePageWidgetState extends State<HomePageWidget>
           centerTitle: false,
           elevation: 2.0,
         ),
-        body: SingleChildScrollView(
-          primary: false,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 110.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 5.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                          PlantCatalogWidget.routeName);
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2.0, 0.0, 2.0, 0.0),
-                                      child: Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 4.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        2.0, 0.0, 2.0, 0.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: Image.asset(
-                                                    'assets/images/plant_catalog_one.png',
-                                                    width: 66.0,
-                                                    height: 85.0,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
+        body: Column(
+          children: [
+            // Trial banner
+            if (_model.trialDaysRemaining != null &&
+                !(_model.isTrialBannerDismissed ?? false))
+              TrialBannerWidget(
+                daysRemaining: _model.trialDaysRemaining!,
+                onDismiss: () async {
+                  await SupaFlow.client.rpc(
+                    'dismiss_trial_banner',
+                    params: {'user_uuid': currentUserUid},
+                  );
+                  _model.isTrialBannerDismissed = true;
+                  safeSetState(() {});
+                },
+                onSubscribe: () {
+                  context.pushNamed('SubscriptionPage');
+                },
+              ),
+            // Existing content
+            Expanded(
+              child: SingleChildScrollView(
+                primary: false,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 110.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5.0, 0.0, 5.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Expanded(
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                                PlantCatalogWidget.routeName);
+                                          },
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    2.0, 0.0, 2.0, 0.0),
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              elevation: 4.0,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
                                               ),
-                                            ),
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 5.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Plant Catalog',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .readexPro(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2.0,
+                                                                  0.0,
+                                                                  2.0,
+                                                                  0.0),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.asset(
+                                                          'assets/images/plant_catalog_one.png',
+                                                          width: 66.0,
+                                                          height: 85.0,
+                                                          fit: BoxFit.cover,
                                                         ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  5.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Plant Catalog',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyMedium
-                                                                .fontStyle,
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
                                                       ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'plantCatalogCardAnimation']!),
-                                ),
-                                Expanded(
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                          MyPlantExpandableCopyWidget
-                                              .routeName);
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2.0, 0.0, 2.0, 0.0),
-                                      child: Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 4.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        2.0, 0.0, 2.0, 0.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: Image.asset(
-                                                    'assets/images/my_plants_icon1_(2).png',
-                                                    width: 66.0,
-                                                    height: 85.0,
-                                                    fit: BoxFit.cover,
+                                                    ),
                                                   ),
-                                                ),
+                                                ],
                                               ),
                                             ),
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 5.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'My Plants',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .readexPro(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ).animateOnPageLoad(
-                                      animationsMap['myPlantsCardAnimation']!),
-                                ),
-                                Expanded(
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        MyTowersExpandableWidget.routeName,
-                                        queryParameters: {
-                                          'userID': serializeParam(
-                                            currentUserUid,
-                                            ParamType.String,
                                           ),
-                                        }.withoutNulls,
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2.0, 0.0, 2.0, 0.0),
-                                      child: Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 4.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        2.0, 0.0, 2.0, 0.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: Image.asset(
-                                                    'assets/images/my_system_icon.png',
-                                                    width: 66.0,
-                                                    height: 85.0,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'plantCatalogCardAnimation']!),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                                MyPlantExpandableCopyWidget
+                                                    .routeName);
+                                          },
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    2.0, 0.0, 2.0, 0.0),
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              elevation: 4.0,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
                                               ),
-                                            ),
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 5.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'My Towers',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .readexPro(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2.0,
+                                                                  0.0,
+                                                                  2.0,
+                                                                  0.0),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.asset(
+                                                          'assets/images/my_plants_icon1_(2).png',
+                                                          width: 66.0,
+                                                          height: 85.0,
+                                                          fit: BoxFit.cover,
                                                         ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
                                                       ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ).animateOnPageLoad(
-                                      animationsMap['myTowersCardAnimation']!),
-                                ),
-                                Expanded(
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                          ChatAiScreenWidget.routeName);
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2.0, 0.0, 2.0, 0.0),
-                                      child: Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 4.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Flexible(
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          2.0, 0.0, 2.0, 0.0),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      'assets/images/808ad29b-6fc7-48df-b1e6-827fd6400312.jpg',
-                                                      fit: BoxFit.contain,
                                                     ),
                                                   ),
-                                                ),
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Text(
-                                                'Sage',
-                                                textAlign: TextAlign.center,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font:
-                                                          GoogleFonts.readexPro(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  5.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'My Plants',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyMedium
-                                                                .fontStyle,
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
                                                       ),
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
                                                     ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'myPlantsCardAnimation']!),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                              MyTowersExpandableWidget
+                                                  .routeName,
+                                              queryParameters: {
+                                                'userID': serializeParam(
+                                                  currentUserUid,
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                            );
+                                          },
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    2.0, 0.0, 2.0, 0.0),
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              elevation: 4.0,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2.0,
+                                                                  0.0,
+                                                                  2.0,
+                                                                  0.0),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.asset(
+                                                          'assets/images/my_system_icon.png',
+                                                          width: 66.0,
+                                                          height: 85.0,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  5.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'My Towers',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'myTowersCardAnimation']!),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                                ChatAiScreenWidget.routeName);
+                                          },
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    2.0, 0.0, 2.0, 0.0),
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              elevation: 4.0,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Flexible(
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    2.0,
+                                                                    0.0,
+                                                                    2.0,
+                                                                    0.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/808ad29b-6fc7-48df-b1e6-827fd6400312.jpg',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      'Sage',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .readexPro(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'sageCardAnimation']!),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    if (_showInspirationBox)
+                      GestureDetector(
+                        onVerticalDragUpdate: (details) {
+                          if (details.delta.dy < 0) {
+                            // Dragging up
+                            setState(() {
+                              _inspirationDragOffset += details.delta.dy;
+                              if (_inspirationDragOffset < -100) {
+                                // Threshold reached, hide the box
+                                _isAnimating = true;
+                              }
+                            });
+                          }
+                        },
+                        onVerticalDragEnd: (details) {
+                          if (_inspirationDragOffset < -100) {
+                            // Hide the box
+                            Future.delayed(Duration(milliseconds: 500), () {
+                              if (mounted) {
+                                setState(() {
+                                  _showInspirationBox = false;
+                                  _isAnimating = false;
+                                  _inspirationDragOffset = 0.0;
+                                });
+                              }
+                            });
+                          } else {
+                            // Reset position
+                            setState(() {
+                              _inspirationDragOffset = 0.0;
+                            });
+                          }
+                        },
+                        child: AnimatedSlide(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeOut,
+                          offset: Offset(0.0, _inspirationDragOffset / 240.0),
+                          child: AnimatedOpacity(
+                            duration: Duration(milliseconds: 300),
+                            opacity: _isAnimating
+                                ? 0.0
+                                : (1.0 + _inspirationDragOffset / 240.0)
+                                    .clamp(0.0, 1.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  5.0, 12.0, 5.0, 0.0),
+                              child: StreamBuilder<
+                                  List<GardeningInspirationalMessagesRow>>(
+                                stream: _model
+                                        .dailyInspirationSupabaseStream ??=
+                                    SupaFlow.client
+                                        .from(
+                                            "gardening_inspirational_messages")
+                                        .stream(primaryKey: ['id'])
+                                        .eqOrNull(
+                                          'message_date',
+                                          supaSerialize<DateTime>(
+                                              getCurrentTimestamp),
+                                        )
+                                        .map((data) {
+                                          try {
+                                            // Handle both List and Map responses (defensive programming)
+                                            List<dynamic> items;
+                                            if (data is List) {
+                                              items = data;
+                                            } else if (data is Map) {
+                                              // If it's a single item, wrap it in a list
+                                              items = [data];
+                                            } else {
+                                              return <GardeningInspirationalMessagesRow>[];
+                                            }
+
+                                            return items
+                                                .map((item) {
+                                                  try {
+                                                    return GardeningInspirationalMessagesRow(
+                                                        item);
+                                                  } catch (e) {
+                                                    print(
+                                                        'Error creating GardeningInspirationalMessagesRow: $e');
+                                                    return null;
+                                                  }
+                                                })
+                                                .whereType<
+                                                    GardeningInspirationalMessagesRow>()
+                                                .toList();
+                                          } catch (e) {
+                                            print(
+                                                'Error processing stream data: $e, type: ${data.runtimeType}');
+                                            return <GardeningInspirationalMessagesRow>[];
+                                          }
+                                        }),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (snapshot.hasError) {
+                                    // Hide the inspiration box on error
+                                    return SizedBox.shrink();
+                                  }
+                                  if (!snapshot.hasData) {
+                                    // Hide the inspiration box when loading to avoid showing spinner behind modals
+                                    return SizedBox.shrink();
+                                  }
+                                  List<GardeningInspirationalMessagesRow>
+                                      dailyInspirationGardeningInspirationalMessagesRowList =
+                                      snapshot.data!;
+
+                                  final dailyInspirationGardeningInspirationalMessagesRow =
+                                      dailyInspirationGardeningInspirationalMessagesRowList
+                                              .isNotEmpty
+                                          ? dailyInspirationGardeningInspirationalMessagesRowList
+                                              .first
+                                          : null;
+
+                                  return Container(
+                                    width: 390.0,
+                                    height: 240.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFE4EFD0),
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(12.0),
+                                        bottomRight: Radius.circular(12.0),
+                                        topLeft: Radius.circular(12.0),
+                                        topRight: Radius.circular(12.0),
                                       ),
                                     ),
-                                  ).animateOnPageLoad(
-                                      animationsMap['sageCardAnimation']!),
-                                ),
-                              ],
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        // Drag handle with arrow icon
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 8.0, 0.0, 4.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.keyboard_arrow_up,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText
+                                                        .withOpacity(0.6),
+                                                size: 24.0,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  20.0,
+                                                                  10.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        valueOrDefault<String>(
+                                                          dailyInspirationGardeningInspirationalMessagesRow
+                                                              ?.title,
+                                                          'Garden Inspiration',
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .outfit(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  20.0,
+                                                                  15.0,
+                                                                  20.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        valueOrDefault<String>(
+                                                          dailyInspirationGardeningInspirationalMessagesRow
+                                                              ?.body,
+                                                          'Go forth and grow!',
+                                                        ),
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .readexPro(
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .italic,
+                                                              ),
+                                                              fontSize: 16.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              if (_showInspirationBox)
-                GestureDetector(
-                  onVerticalDragUpdate: (details) {
-                    if (details.delta.dy < 0) {
-                      // Dragging up
-                      setState(() {
-                        _inspirationDragOffset += details.delta.dy;
-                        if (_inspirationDragOffset < -100) {
-                          // Threshold reached, hide the box
-                          _isAnimating = true;
-                        }
-                      });
-                    }
-                  },
-                  onVerticalDragEnd: (details) {
-                    if (_inspirationDragOffset < -100) {
-                      // Hide the box
-                      Future.delayed(Duration(milliseconds: 500), () {
-                        if (mounted) {
-                          setState(() {
-                            _showInspirationBox = false;
-                            _isAnimating = false;
-                            _inspirationDragOffset = 0.0;
-                          });
-                        }
-                      });
-                    } else {
-                      // Reset position
-                      setState(() {
-                        _inspirationDragOffset = 0.0;
-                      });
-                    }
-                  },
-                  child: AnimatedSlide(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeOut,
-                    offset: Offset(0.0, _inspirationDragOffset / 240.0),
-                    child: AnimatedOpacity(
-                      duration: Duration(milliseconds: 300),
-                      opacity: _isAnimating
-                          ? 0.0
-                          : (1.0 + _inspirationDragOffset / 240.0)
-                              .clamp(0.0, 1.0),
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(5.0, 12.0, 5.0, 0.0),
-                        child: StreamBuilder<
-                            List<GardeningInspirationalMessagesRow>>(
-                          stream: _model.dailyInspirationSupabaseStream ??=
-                              SupaFlow.client
-                                  .from("gardening_inspirational_messages")
-                                  .stream(primaryKey: ['id'])
-                                  .eqOrNull(
-                                    'message_date',
-                                    supaSerialize<DateTime>(
-                                        getCurrentTimestamp),
-                                  )
-                                  .map((data) {
-                                    try {
-                                      // Handle both List and Map responses (defensive programming)
-                                      List<dynamic> items;
-                                      if (data is List) {
-                                        items = data;
-                                      } else if (data is Map) {
-                                        // If it's a single item, wrap it in a list
-                                        items = [data];
-                                      } else {
-                                        return <GardeningInspirationalMessagesRow>[];
-                                      }
-
-                                      return items
-                                          .map((item) {
-                                            try {
-                                              return GardeningInspirationalMessagesRow(
-                                                  item);
-                                            } catch (e) {
-                                              print(
-                                                  'Error creating GardeningInspirationalMessagesRow: $e');
-                                              return null;
-                                            }
-                                          })
-                                          .whereType<
-                                              GardeningInspirationalMessagesRow>()
-                                          .toList();
-                                    } catch (e) {
-                                      print(
-                                          'Error processing stream data: $e, type: ${data.runtimeType}');
-                                      return <GardeningInspirationalMessagesRow>[];
-                                    }
-                                  }),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (snapshot.hasError) {
-                              // Hide the inspiration box on error
-                              return SizedBox.shrink();
-                            }
-                            if (!snapshot.hasData) {
-                              // Hide the inspiration box when loading to avoid showing spinner behind modals
-                              return SizedBox.shrink();
-                            }
-                            List<GardeningInspirationalMessagesRow>
-                                dailyInspirationGardeningInspirationalMessagesRowList =
-                                snapshot.data!;
-
-                            final dailyInspirationGardeningInspirationalMessagesRow =
-                                dailyInspirationGardeningInspirationalMessagesRowList
-                                        .isNotEmpty
-                                    ? dailyInspirationGardeningInspirationalMessagesRowList
-                                        .first
-                                    : null;
-
-                            return Container(
-                              width: 390.0,
-                              height: 240.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFE4EFD0),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(12.0),
-                                  bottomRight: Radius.circular(12.0),
-                                  topLeft: Radius.circular(12.0),
-                                  topRight: Radius.circular(12.0),
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  // Drag handle with arrow icon
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 4.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.keyboard_arrow_up,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText
-                                              .withOpacity(0.6),
-                                          size: 24.0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        20.0, 10.0, 0.0, 0.0),
-                                                child: Text(
-                                                  valueOrDefault<String>(
-                                                    dailyInspirationGardeningInspirationalMessagesRow
-                                                        ?.title,
-                                                    'Garden Inspiration',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .headlineSmall
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.outfit(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineSmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineSmall
-                                                                .fontStyle,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        20.0, 15.0, 20.0, 0.0),
-                                                child: Text(
-                                                  valueOrDefault<String>(
-                                                    dailyInspirationGardeningInspirationalMessagesRow
-                                                        ?.body,
-                                                    'Go forth and grow!',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .readexPro(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                        ),
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                        padding: EdgeInsets.all(10.0),
+                        child: CommunityFeedEmbedded(),
                       ),
                     ),
-                  ),
-                ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: CommunityFeedEmbedded(),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

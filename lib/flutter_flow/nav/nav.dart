@@ -20,6 +20,7 @@ import 'serialization_util.dart';
 
 import '/index.dart';
 import '/pages/harvest_scorecard/harvest_scorecard_widget.dart';
+import '/pages/subscription_page/subscription_page_widget.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -348,6 +349,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: HarvestScorecardWidget.routeName,
           path: HarvestScorecardWidget.routePath,
           builder: (context, params) => HarvestScorecardWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionPageWidget.routeName,
+          path: SubscriptionPageWidget.routePath,
+          builder: (context, params) => SubscriptionPageWidget(),
         ),
         FFRoute(
           name: ProductViewWidget.routeName,

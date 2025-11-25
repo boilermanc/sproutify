@@ -24,6 +24,12 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   Stream<List<GardeningInspirationalMessagesRow>>?
       dailyInspirationSupabaseStream;
 
+  // Trial status fields
+  String? trialStatus;
+  int? trialDaysRemaining;
+  bool? isTrialBannerDismissed;
+  String? trialErrorMessage; // Debug: show error on screen
+
   @override
   void initState(BuildContext context) {}
 

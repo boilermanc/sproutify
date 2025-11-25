@@ -1,4 +1,4 @@
-package com.sproutify.sproutifymobile
+package com.sproutify.sproutifyhome
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -3,12 +3,11 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'my_costs_model.dart';
 export 'my_costs_model.dart';
 
@@ -22,15 +21,17 @@ class MyCostsWidget extends StatefulWidget {
   State<MyCostsWidget> createState() => _MyCostsWidgetState();
 }
 
-class _MyCostsWidgetState extends State<MyCostsWidget> {
+class _MyCostsWidgetState extends State<MyCostsWidget>
+    with SingleTickerProviderStateMixin {
   late MyCostsModel _model;
-
+  late TabController _tabController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => MyCostsModel());
+    _tabController = TabController(length: 3, vsync: this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -38,8 +39,334 @@ class _MyCostsWidgetState extends State<MyCostsWidget> {
   @override
   void dispose() {
     _model.dispose();
-
+    _tabController.dispose();
     super.dispose();
+  }
+
+  // Fetch category costs by querying Supabase directly
+  Future<List<Map<String, dynamic>>> _fetchCategoryCosts() async {
+    try {
+      final supabase = Supabase.instance.client;
+
+      // Get all categories
+      final categories = await supabase
+          .from('categories')
+          .select('categoryid, categoryname')
+          .order('categoryname');
+
+      // Get user's product purchases
+      final userProducts = await supabase
+          .from('userproducts')
+          .select('productid, userpurchasecost')
+          .eq('userid', currentUserUid)
+          .or('archive.is.null,archive.eq.false');
+
+      // Get all products with their categories
+      final products = await supabase
+          .from('products')
+          .select('productid, categoryid');
+
+      // Calculate costs per category
+      final Map<int, double> costsByCategory = {};
+
+      for (final userProduct in userProducts) {
+        final productId = userProduct['productid'] as int?;
+        final cost = (userProduct['userpurchasecost'] as num?)?.toDouble() ?? 0.0;
+
+        if (productId != null) {
+          // Find the product's category
+          final product = products.firstWhere(
+            (p) => p['productid'] == productId,
+            orElse: () => {},
+          );
+
+          final categoryId = product['categoryid'] as int?;
+          if (categoryId != null) {
+            costsByCategory[categoryId] = (costsByCategory[categoryId] ?? 0.0) + cost;
+          }
+        }
+      }
+
+      // Build final result
+      final result = <Map<String, dynamic>>[];
+      for (final category in categories) {
+        final categoryId = category['categoryid'] as int;
+        final categoryName = category['categoryname'] as String;
+        final cost = costsByCategory[categoryId] ?? 0.0;
+
+        result.add({
+          'categoryid': categoryId,
+          'categoryname': categoryName,
+          'cost': cost,
+        });
+      }
+
+      return result;
+    } catch (e) {
+      print('Error fetching category costs: $e');
+      rethrow;
+    }
+  }
+
+  // Helper function to get icon based on category name
+  IconData _getCategoryIcon(String categoryName) {
+    final lowerName = categoryName.toLowerCase();
+    if (lowerName.contains('nutrient')) {
+      return Icons.water_drop; // Water drop for nutrients/liquids
+    } else if (lowerName.contains('medium') || lowerName.contains('soil')) {
+      return Icons.grass; // Grass for growing medium
+    } else if (lowerName.contains('accessor')) {
+      return Icons.build; // Tools/build for accessories
+    } else if (lowerName.contains('chemical')) {
+      return Icons.science; // Science flask for chemicals
+    } else if (lowerName.contains('seed')) {
+      return Icons.eco; // Leaf for seeds
+    } else if (lowerName.contains('light')) {
+      return Icons.lightbulb; // Light bulb for lighting
+    } else if (lowerName.contains('pump') || lowerName.contains('equipment')) {
+      return Icons.settings; // Settings/gear for equipment
+    } else {
+      return Icons.category_outlined; // Default icon
+    }
+  }
+
+  // Helper widget to build animated cost card
+  Widget _buildCostCard({
+    required String title,
+    required String monthlyCost,
+    required String quarterlyCost,
+    required String yearlyCost,
+    required Color color,
+    required IconData icon,
+  }) {
+    final costs = [monthlyCost, quarterlyCost, yearlyCost];
+    final labels = ['Monthly', 'Quarterly', 'Yearly'];
+    final selectedCost = costs[_tabController.index];
+
+    return AnimatedBuilder(
+      animation: _tabController.animation!,
+      builder: (context, child) {
+        return TweenAnimationBuilder(
+          duration: const Duration(milliseconds: 300),
+          tween: Tween<double>(begin: 0.95, end: 1.0),
+          builder: (context, double scale, child) {
+            return Transform.scale(
+              scale: scale,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [color, color.withOpacity(0.8)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(24.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: color.withOpacity(0.3),
+                      blurRadius: 12,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(24.0),
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                child: Icon(
+                                  icon,
+                                  color: Colors.white,
+                                  size: 28.0,
+                                ),
+                              ),
+                              Icon(
+                                Icons.trending_up,
+                                color: Colors.white.withOpacity(0.8),
+                                size: 20.0,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20.0),
+                          Text(
+                            title,
+                            style: GoogleFonts.outfit(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white.withOpacity(0.9),
+                            ),
+                          ),
+                          const SizedBox(height: 8.0),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Text(
+                                '\$',
+                                style: GoogleFonts.outfit(
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(width: 4.0),
+                              Flexible(
+                                child: Text(
+                                  selectedCost,
+                                  style: GoogleFonts.outfit(
+                                    fontSize: 36.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4.0),
+                          Text(
+                            'this ${labels[_tabController.index].toLowerCase()}',
+                            style: GoogleFonts.readexPro(
+                              fontSize: 13.0,
+                              color: Colors.white.withOpacity(0.75),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  // Helper widget to build category item
+  Widget _buildCategoryItem(String categoryName, String cost) {
+    return TweenAnimationBuilder(
+      duration: const Duration(milliseconds: 400),
+      tween: Tween<double>(begin: 0.0, end: 1.0),
+      builder: (context, double value, child) {
+        return Transform.translate(
+          offset: Offset(0, 20 * (1 - value)),
+          child: Opacity(
+            opacity: value,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 12.0),
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(16.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16.0),
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 48.0,
+                          height: 48.0,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                FlutterFlowTheme.of(context).primary,
+                                FlutterFlowTheme.of(context).primary.withOpacity(0.7),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Icon(
+                            _getCategoryIcon(categoryName),
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
+                        ),
+                        const SizedBox(width: 16.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                categoryName,
+                                style: GoogleFonts.readexPro(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              const SizedBox(height: 4.0),
+                              Text(
+                                'Yearly total',
+                                style: GoogleFonts.readexPro(
+                                  fontSize: 12.0,
+                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  '\$',
+                                  style: GoogleFonts.outfit(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: FlutterFlowTheme.of(context).tertiary,
+                                  ),
+                                ),
+                                Text(
+                                  cost,
+                                  style: GoogleFonts.outfit(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: FlutterFlowTheme.of(context).primaryText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -51,9 +378,9 @@ class _MyCostsWidgetState extends State<MyCostsWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).alternate,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,
@@ -62,869 +389,303 @@ class _MyCostsWidgetState extends State<MyCostsWidget> {
             buttonSize: 60.0,
             icon: Icon(
               Icons.arrow_back_rounded,
-              color: Colors.white,
+              color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
             onPressed: () async {
               context.pushNamed(HomePageWidget.routeName);
             },
           ),
-          title: Text(
-            'My Costs',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  font: GoogleFonts.outfit(
-                    fontWeight: FontWeight.w600,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                  ),
-                  color: Colors.white,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'My Costs',
+                style: GoogleFonts.outfit(
                   fontSize: 24.0,
-                  letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
-                  fontStyle:
-                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                  color: FlutterFlowTheme.of(context).primaryText,
                 ),
+              ),
+              Text(
+                'Track your investments',
+                style: GoogleFonts.readexPro(
+                  fontSize: 12.0,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                ),
+              ),
+            ],
           ),
           actions: [],
-          centerTitle: true,
-          elevation: 2.0,
+          centerTitle: false,
+          elevation: 0,
         ),
         body: SafeArea(
           top: true,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
+              // Time Period Tabs
               Container(
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).alternate,
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  padding: const EdgeInsets.all(4.0),
+                  child: TabBar(
+                    controller: _tabController,
+                    onTap: (_) => setState(() {}),
+                    indicator: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          FlutterFlowTheme.of(context).primary,
+                          FlutterFlowTheme.of(context).primary.withOpacity(0.8),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: FlutterFlowTheme.of(context).secondaryText,
+                    labelStyle: GoogleFonts.outfit(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    unselectedLabelStyle: GoogleFonts.outfit(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    tabs: const [
+                      Tab(text: 'Monthly'),
+                      Tab(text: 'Quarterly'),
+                      Tab(text: 'Yearly'),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            10.0, 10.0, 10.0, 10.0),
-                        child: Container(
-                          width: 100.0,
-                          height: 281.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondary,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(30.0),
-                              bottomRight: Radius.circular(30.0),
-                              topLeft: Radius.circular(30.0),
-                              topRight: Radius.circular(30.0),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      // Cost Cards Grid
+                      FutureBuilder<List<ApiCallResponse>>(
+                        future: Future.wait([
+                          TotalPlantCostPerUserCall.call(userID: currentUserUid),
+                          TotalSupplyCostPerUserCall.call(userID: currentUserUid),
+                        ]),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+
+                          final plantResponse = snapshot.data![0];
+                          final supplyResponse = snapshot.data![1];
+
+                          final plantJsonBody = plantResponse.jsonBody;
+                          final plantCostData = plantJsonBody is List && plantJsonBody.isNotEmpty
+                              ? plantJsonBody[0]
+                              : plantJsonBody is Map
+                                  ? plantJsonBody
+                                  : <String, dynamic>{};
+
+                          final supplyJsonBody = supplyResponse.jsonBody;
+                          final supplyCostData = supplyJsonBody is List && supplyJsonBody.isNotEmpty
+                              ? supplyJsonBody[0]
+                              : supplyJsonBody is Map
+                                  ? supplyJsonBody
+                                  : <String, dynamic>{};
+
+                          return Column(
+                            children: [
+                              _buildCostCard(
+                                title: 'Plant Costs',
+                                monthlyCost: valueOrDefault<String>(
+                                  getJsonField(plantCostData, r'''$.monthly_cost''')?.toString(),
+                                  '0',
+                                ),
+                                quarterlyCost: valueOrDefault<String>(
+                                  getJsonField(plantCostData, r'''$.quarterly_cost''')?.toString(),
+                                  '0',
+                                ),
+                                yearlyCost: valueOrDefault<String>(
+                                  getJsonField(plantCostData, r'''$.yearly_cost''')?.toString(),
+                                  '0',
+                                ),
+                                color: FlutterFlowTheme.of(context).primary,
+                                icon: Icons.eco,
+                              ),
+                              const SizedBox(height: 16.0),
+                              _buildCostCard(
+                                title: 'Supply Costs',
+                                monthlyCost: valueOrDefault<String>(
+                                  getJsonField(supplyCostData, r'''$.monthly_cost''')?.toString(),
+                                  '0',
+                                ),
+                                quarterlyCost: valueOrDefault<String>(
+                                  getJsonField(supplyCostData, r'''$.quarterly_cost''')?.toString(),
+                                  '0',
+                                ),
+                                yearlyCost: valueOrDefault<String>(
+                                  getJsonField(supplyCostData, r'''$.yearly_cost''')?.toString(),
+                                  '0',
+                                ),
+                                color: FlutterFlowTheme.of(context).tertiary,
+                                icon: Icons.inventory_2_outlined,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 24.0),
+                      // Category Breakdown Section
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Category Breakdown',
+                            style: GoogleFonts.outfit(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w600,
+                              color: FlutterFlowTheme.of(context).primaryText,
                             ),
                           ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 30.0, 0.0, 20.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
+                          TextButton(
+                            onPressed: () {},
+                            child: Row(
+                              children: [
+                                Text(
+                                  'View All',
+                                  style: GoogleFonts.readexPro(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: FlutterFlowTheme.of(context).primary,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 14.0,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16.0),
+                      FutureBuilder<List<Map<String, dynamic>>>(
+                        future: _fetchCategoryCosts(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+
+                          final categoryList = snapshot.data!;
+
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(32.0),
+                                child: Column(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          30.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        'Plant Costs',
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineLarge
-                                            .override(
-                                              font: GoogleFonts.outfit(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineLarge
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineLarge
-                                                        .fontStyle,
-                                              ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineLarge
-                                                      .fontStyle,
-                                            ),
+                                    Icon(
+                                      Icons.error_outline,
+                                      size: 64.0,
+                                      color: FlutterFlowTheme.of(context).error,
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                    Text(
+                                      'Error loading categories',
+                                      style: GoogleFonts.outfit(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: FlutterFlowTheme.of(context).error,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    Text(
+                                      snapshot.error.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.readexPro(
+                                        fontSize: 14.0,
+                                        color: FlutterFlowTheme.of(context).secondaryText,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              Expanded(
-                                child: FutureBuilder<ApiCallResponse>(
-                                  future: TotalPlantCostPerUserCall.call(
-                                    userID: currentUserUid,
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    final gridViewTotalPlantCostPerUserResponse =
-                                        snapshot.data!;
-
-                                    return GridView(
-                                      padding: EdgeInsets.zero,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        crossAxisSpacing: 10.0,
-                                        mainAxisSpacing: 10.0,
-                                        childAspectRatio: 1.0,
-                                      ),
-                                      scrollDirection: Axis.vertical,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: Container(
-                                            width: 100.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiary,
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  25.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        '\$',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .outfit(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryBackground,
-                                                                  fontSize:
-                                                                      24.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  25.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        getJsonField(
-                                                          gridViewTotalPlantCostPerUserResponse
-                                                              .jsonBody,
-                                                          r'''$.monthly_cost''',
-                                                        ).toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .outfit(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryBackground,
-                                                                  fontSize:
-                                                                      24.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 10.0),
-                                                  child: Text(
-                                                    'Monthly',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .readexPro(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 100.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiary,
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(30.0),
-                                              bottomRight:
-                                                  Radius.circular(30.0),
-                                              topLeft: Radius.circular(30.0),
-                                              topRight: Radius.circular(30.0),
-                                            ),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 25.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      '\$',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .headlineMedium
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .outfit(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                fontSize: 24.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 25.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      getJsonField(
-                                                        gridViewTotalPlantCostPerUserResponse
-                                                            .jsonBody,
-                                                        r'''$.quarterly_cost''',
-                                                      ).toString(),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .headlineMedium
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .outfit(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                fontSize: 24.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 10.0),
-                                                child: Text(
-                                                  'Quarterly',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .readexPro(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 5.0, 0.0),
-                                          child: Container(
-                                            width: 100.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiary,
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(30.0),
-                                                bottomRight:
-                                                    Radius.circular(30.0),
-                                                topLeft: Radius.circular(30.0),
-                                                topRight: Radius.circular(30.0),
-                                              ),
-                                              border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  25.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        '\$',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .outfit(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryBackground,
-                                                                  fontSize:
-                                                                      24.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  25.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        getJsonField(
-                                                          gridViewTotalPlantCostPerUserResponse
-                                                              .jsonBody,
-                                                          r'''$.yearly_cost''',
-                                                        ).toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .outfit(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryBackground,
-                                                                  fontSize:
-                                                                      24.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 10.0),
-                                                  child: Text(
-                                                    'Yearly',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .readexPro(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-                    child: FutureBuilder<ApiCallResponse>(
-                      future: CategoryCostPerUserCall.call(
-                        useriD: currentUserUid,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        final listViewCategoryCostPerUserResponse =
-                            snapshot.data!;
-
-                        return Builder(
-                          builder: (context) {
-                            // Handle both List and Map responses
-                            final jsonBody = listViewCategoryCostPerUserResponse.jsonBody;
-                            final categoryList = jsonBody is List
-                                ? jsonBody
-                                : jsonBody is Map
-                                    ? jsonBody.values.toList()
-                                    : <dynamic>[];
-
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.vertical,
-                              itemCount: categoryList.length,
-                              itemBuilder: (context, categoryListIndex) {
-                                final categoryListItem =
-                                    categoryList[categoryListIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
-                                  child: Container(
-                                    height: 75.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).tertiary,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Flexible(
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Flexible(
-                                                  child: Text(
-                                                    valueOrDefault<String>(
-                                                      getJsonField(
-                                                        categoryListItem,
-                                                        r'''$.category_name''',
-                                                      )?.toString(),
-                                                      'Category',
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .readexPro(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 25.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                5.0, 0.0),
-                                                    child: Text(
-                                                      '\$',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                font: GoogleFonts
-                                                                    .readexPro(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
-                                                                fontSize: 28.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    valueOrDefault<String>(
-                                                      getJsonField(
-                                                        categoryListItem,
-                                                        r'''$.yearly_category_cost''',
-                                                      )?.toString(),
-                                                      '0',
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .readexPro(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 25.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
                             );
-                          },
-                        );
-                      },
-                    ),
+                          }
+
+                          if (categoryList.isEmpty) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(32.0),
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.category_outlined,
+                                      size: 64.0,
+                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                    Text(
+                                      'No categories yet',
+                                      style: GoogleFonts.outfit(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    Text(
+                                      'Start tracking your costs',
+                                      style: GoogleFonts.readexPro(
+                                        fontSize: 14.0,
+                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+
+                          return Column(
+                            children: categoryList.map((categoryItem) {
+                              final categoryName = categoryItem['categoryname'] as String? ?? 'Category';
+                              final cost = categoryItem['cost'] as double? ?? 0.0;
+
+                              return _buildCategoryItem(
+                                categoryName,
+                                cost.toStringAsFixed(2),
+                              );
+                            }).toList(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),

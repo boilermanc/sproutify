@@ -1,0 +1,20 @@
+# Android Keystore Properties
+# Copy this file to key.properties and fill in your keystore details
+# DO NOT commit key.properties to version control!
+
+# Path to your keystore file (relative to android/ directory or absolute path)
+storeFile=app/upload-keystore.jks
+
+# Keystore password
+storePassword=Sproutify01
+
+# Key alias name
+keyAlias=upload
+
+# Key password (usually same as storePassword)
+keyPassword=Sproutify01
+
+
+
+
+

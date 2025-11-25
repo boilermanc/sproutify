@@ -17,14 +17,14 @@ class EcActionWidget extends StatefulWidget {
     required this.towerID,
     required this.timestamp,
     this.historyID,
-    double? ecValue,
+    this.ecValue,
     required this.updateCallback,
-  }) : this.ecValue = ecValue ?? 1.2;
+  });
 
   final UsertowerdetailsRow? towerID;
   final DateTime? timestamp;
   final int? historyID;
-  final double ecValue;
+  final double? ecValue;
   final Future Function()? updateCallback;
 
   @override
@@ -156,7 +156,7 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                           inactiveColor: FlutterFlowTheme.of(context).alternate,
                           min: 1.1,
                           max: 2.2,
-                          value: _model.ecAdjustmentValue ??= 1.2,
+                          value: _model.ecAdjustmentValue ??= (widget.ecValue ?? 1.2),
                           label: _model.ecAdjustmentValue?.toStringAsFixed(1),
                           divisions: 11,
                           onChanged: (newValue) {
@@ -175,13 +175,25 @@ class _EcActionWidgetState extends State<EcActionWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       HapticFeedback.lightImpact();
+
+                      // Insert the new EC value
                       _model.phECHistory9911 = await PhEchistoryTable().insert({
                         'tower_id': widget!.towerID?.towerId,
                         'timestamp': supaSerialize<DateTime>(widget!.timestamp),
                         'ec_value': _model.ecAdjustmentValue,
                       });
-                      await widget.updateCallback?.call();
+
+                      // Refresh the materialized view to update latest values
+                      await SupaFlow.client.rpc('refresh_usertowerdetails');
+
+                      // Close dialog first for better UX
                       Navigator.pop(context);
+
+                      // Wait longer for materialized view to fully refresh
+                      await Future.delayed(Duration(milliseconds: 1000));
+
+                      // Trigger UI refresh
+                      await widget.updateCallback?.call();
 
                       safeSetState(() {});
                     },
