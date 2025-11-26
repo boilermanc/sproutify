@@ -211,12 +211,8 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
             ),
             onPressed: () async {
               HapticFeedback.lightImpact();
-              // Navigate to HomePage tab instead of popping
-              if (context.canPop()) {
-                context.pop();
-              } else {
-                context.goNamed('HomePage');
-              }
+              // Navigate to HomePage route - this replaces current route with NavBarPage(HomePage)
+              context.go(HomePageWidget.routePath);
             },
           ),
           title: Text(

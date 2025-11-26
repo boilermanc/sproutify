@@ -353,11 +353,18 @@ class _NotificationComponentWidgetState
                                                                   ).toString(),
                                                                 );
 
-                                                                safeSetState(() =>
+                                                                safeSetState(() {
                                                                     _model.apiRequestCompleter1 =
-                                                                        null);
+                                                                        null;
+                                                                    _model.apiRequestCompleter2 =
+                                                                        null;
+                                                                });
                                                                 await _model
                                                                     .waitForApiRequestCompleted1(
+                                                                        minWait:
+                                                                            2000);
+                                                                await _model
+                                                                    .waitForApiRequestCompleted2(
                                                                         minWait:
                                                                             2000);
                                                                 ScaffoldMessenger.of(

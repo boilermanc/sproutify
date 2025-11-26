@@ -487,7 +487,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: CreateNewPasswordWidget.routeName,
           path: CreateNewPasswordWidget.routePath,
-          builder: (context, params) => CreateNewPasswordWidget(),
+          builder: (context, params) => CreateNewPasswordWidget(
+            code: params.getParam(
+              'code',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: CreateNewPasswordInternalWidget.routeName,

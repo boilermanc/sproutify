@@ -74,26 +74,24 @@ BEGIN
 
       -- Check if current user liked this post
       EXISTS (
-        SELECT 1 FROM post_likes
-        WHERE post_id = cp.id AND user_id = p_user_id
+        SELECT 1 FROM post_likes pl_like
+        WHERE pl_like.post_id = cp.id AND pl_like.user_id = p_user_id
       ) as is_liked,
 
       -- Check if current user bookmarked this post
       EXISTS (
-        SELECT 1 FROM post_bookmarks
-        WHERE post_id = cp.id AND user_id = p_user_id
+        SELECT 1 FROM post_bookmarks pb
+        WHERE pb.post_id = cp.id AND pb.user_id = p_user_id
       ) as is_bookmarked,
 
       -- Get plant tags as JSON
       (
         SELECT JSONB_AGG(
           JSONB_BUILD_OBJECT(
-            'id', pl.id,
-            'name', pl.common_name
+            'id', ppt.plant_id
           )
         )
         FROM post_plant_tags ppt
-        JOIN plants pl ON ppt.plant_id = pl.id
         WHERE ppt.post_id = cp.id
       ) as plant_tags_json,
 
@@ -131,9 +129,9 @@ BEGIN
 
             -- Same plant boost (15 points if growing same plants)
             (CASE WHEN EXISTS (
-              SELECT 1 FROM post_plant_tags ppt
-              JOIN user_plants up ON ppt.plant_id = up.plant_id
-              WHERE ppt.post_id = cp.id
+              SELECT 1 FROM post_plant_tags ppt_same
+              JOIN user_plants up ON ppt_same.plant_id = up.plant_id
+              WHERE ppt_same.post_id = cp.id
             ) THEN 15 ELSE 0 END) +
 
             -- Featured boost (10 points)
@@ -172,15 +170,15 @@ BEGIN
   SELECT
     pd.id,
     pd.user_id,
-    pd.username,
-    pd.profile_photo_url,
-    pd.photo_url,
+    pd.username::TEXT,
+    pd.profile_photo_url::TEXT,
+    pd.photo_url::TEXT,
     pd.photo_aspect_ratio,
-    pd.caption,
-    pd.location_city,
-    pd.location_state,
+    pd.caption::TEXT,
+    pd.location_city::TEXT,
+    pd.location_state::TEXT,
     pd.is_featured,
-    pd.featured_type,
+    pd.featured_type::TEXT,
     pd.likes_count,
     pd.comments_count,
     pd.view_count,
@@ -188,7 +186,7 @@ BEGIN
     pd.is_liked,
     pd.is_bookmarked,
     pd.plant_tags_json,
-    pd.tower_name,
+    pd.tower_name::TEXT,
     pd.hashtags_json,
     pd.relevance_score
   FROM post_data pd

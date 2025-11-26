@@ -32,10 +32,55 @@ class CreateNewPasswordModel extends FlutterFlowModel<CreateNewPasswordWidget> {
   // Stores action output result for [Backend Call - API (Send Email with Resend)] action in updatePasswordButton widget.
   ApiCallResponse? apiResult84k;
 
+  String? _passwordTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Password is required';
+    }
+
+    if (val.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+
+    if (!RegExp(r'[A-Z]').hasMatch(val)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+
+    if (!RegExp(r'[a-z]').hasMatch(val)) {
+      return 'Password must contain at least one lowercase letter';
+    }
+
+    if (!RegExp(r'[0-9]').hasMatch(val)) {
+      return 'Password must contain at least one number';
+    }
+
+    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(val)) {
+      return 'Password must contain at least one special character';
+    }
+
+    return null;
+  }
+
+  String? _confirmPasswordTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Please confirm your password';
+    }
+
+    if (val != passwordTextController?.text) {
+      return 'Passwords do not match';
+    }
+
+    return null;
+  }
+
   @override
   void initState(BuildContext context) {
     passwordVisibility1 = false;
     passwordVisibility2 = false;
+    passwordTextControllerValidator = _passwordTextControllerValidator;
+    confirmPasswordTextControllerValidator =
+        _confirmPasswordTextControllerValidator;
   }
 
   @override

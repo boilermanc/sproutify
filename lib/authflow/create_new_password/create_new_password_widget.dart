@@ -8,14 +8,18 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_new_password_model.dart';
 export 'create_new_password_model.dart';
 
 /// create a create a new password page for the user to create a new password
 /// with
 class CreateNewPasswordWidget extends StatefulWidget {
-  const CreateNewPasswordWidget({super.key});
+  const CreateNewPasswordWidget({
+    super.key,
+    this.code,
+  });
+
+  final String? code;
 
   static String routeName = 'createNewPassword';
   static String routePath = '/createNewPassword';
@@ -42,6 +46,23 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
     _model.textFieldFocusNode2 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+
+    if (widget.code != null && widget.code!.isNotEmpty) {
+      _exchangeCodeForSession(widget.code!);
+    }
+  }
+
+  Future<void> _exchangeCodeForSession(String code) async {
+    try {
+      await authManager.exchangeCodeForSession(code);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to verify reset link: $e'),
+          backgroundColor: FlutterFlowTheme.of(context).error,
+        ),
+      );
+    }
   }
 
   @override
@@ -349,12 +370,23 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                                     color: FlutterFlowTheme.of(context).success,
                                     size: 20.0,
                                   ),
-                                  Text(
-                                    'At least 8 characters',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.readexPro(
+                                  Flexible(
+                                    child: Text(
+                                      'At least 8 characters',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -364,16 +396,8 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                      softWrap: true,
+                                    ),
                                   ),
                                 ].divide(SizedBox(width: 8.0)),
                               ),
@@ -385,12 +409,23 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                                     color: FlutterFlowTheme.of(context).success,
                                     size: 20.0,
                                   ),
-                                  Text(
-                                    'Contains uppercase & lowercase letters',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.readexPro(
+                                  Flexible(
+                                    child: Text(
+                                      'Contains uppercase & lowercase letters',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -400,16 +435,8 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                      softWrap: true,
+                                    ),
                                   ),
                                 ].divide(SizedBox(width: 8.0)),
                               ),
@@ -421,12 +448,23 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                                     color: FlutterFlowTheme.of(context).success,
                                     size: 20.0,
                                   ),
-                                  Text(
-                                    'Contains numbers',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.readexPro(
+                                  Flexible(
+                                    child: Text(
+                                      'Contains numbers',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -436,16 +474,8 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                      softWrap: true,
+                                    ),
                                   ),
                                 ].divide(SizedBox(width: 8.0)),
                               ),
@@ -457,12 +487,23 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                                     color: FlutterFlowTheme.of(context).success,
                                     size: 20.0,
                                   ),
-                                  Text(
-                                    'Contains special characters',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.readexPro(
+                                  Flexible(
+                                    child: Text(
+                                      'Contains special characters',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -472,16 +513,8 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                      softWrap: true,
+                                    ),
                                   ),
                                 ].divide(SizedBox(width: 8.0)),
                               ),
@@ -495,10 +528,59 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                 FFButtonWidget(
                   onPressed: () async {
                     HapticFeedback.lightImpact();
-                    await authManager.updatePassword(
+                    
+                    // Validate password before submitting
+                    final passwordError = _model.passwordTextControllerValidator
+                        ?.call(context, _model.passwordTextController.text);
+                    if (passwordError != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            passwordError,
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          backgroundColor: FlutterFlowTheme.of(context).error,
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                      return;
+                    }
+
+                    // Validate password confirmation
+                    final confirmError =
+                        _model.confirmPasswordTextControllerValidator
+                            ?.call(context, _model.confirmPasswordTextController.text);
+                    if (confirmError != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            confirmError,
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          backgroundColor: FlutterFlowTheme.of(context).error,
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                      return;
+                    }
+
+                    final success = await authManager.updatePassword(
                       newPassword: _model.passwordTextController.text,
                       context: context,
                     );
+                    
+                    if (!success) {
+                      return;
+                    }
+                    
                     safeSetState(() {});
 
                     _model.apiResult84k = await SendEmailWithResendCall.call(

@@ -23,7 +23,7 @@ class Settings1AddProfileModel
   String? Function(BuildContext, String?)? firstNameTextControllerValidator;
   String? _firstNameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'first_name is required';
+      return 'First Name is required';
     }
 
     return null;
@@ -35,7 +35,7 @@ class Settings1AddProfileModel
   String? Function(BuildContext, String?)? lastNameTextControllerValidator;
   String? _lastNameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'last_name is required';
+      return 'Last Name is required';
     }
 
     return null;
@@ -48,7 +48,7 @@ class Settings1AddProfileModel
   String? _postalCodeTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'postal_code is required';
+      return 'Postal Code is required';
     }
 
     return null;

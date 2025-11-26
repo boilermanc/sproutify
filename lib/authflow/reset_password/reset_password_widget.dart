@@ -8,7 +8,6 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'reset_password_model.dart';
 export 'reset_password_model.dart';
 
@@ -342,17 +341,18 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 );
                                 return;
                               }
-                              await authManager.resetPassword(
+                              final success = await authManager.resetPassword(
                                 email: _model.emailAddressTextController.text,
                                 context: context,
                                 redirectTo:
-                                    "https://tower-garden-community-l9w4j2.flutterflow.app/createNewPassword",
+                                    "https://sproutify.app/createNewPassword",
                               );
-                              safeSetState(() {
-                                _model.emailAddressTextController?.clear();
-                              });
-
-                              context.pushNamed(LoginPageWidget.routeName);
+                              if (success) {
+                                safeSetState(() {
+                                  _model.emailAddressTextController?.clear();
+                                });
+                                return;
+                              }
                             },
                             text: 'Send Reset Link',
                             options: FFButtonOptions(

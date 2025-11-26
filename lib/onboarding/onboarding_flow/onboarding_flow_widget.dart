@@ -425,7 +425,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 12.0, 0.0, 0.0),
                               child: Text(
-                                'Sproutify Home is a mobile app to simplify home gardening for Tower Garden.',
+                                'Sproutify Home is a mobile app to simplify home gardening for Aeroponic Towers.',
                                 style: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -501,7 +501,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Sproutify Home for Tower Garden',
+                            'Aeroponic Towers',
                             style: FlutterFlowTheme.of(context)
                                 .headlineMedium
                                 .override(

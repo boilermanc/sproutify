@@ -1,18 +1,16 @@
-import '/backend/supabase/supabase.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/index.dart';
 import 'tower_catalog_widget.dart' show TowerCatalogWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class TowerCatalogModel extends FlutterFlowModel<TowerCatalogWidget> {
+  String? selectedBrandFilter;
+  bool isFilterExpanded = false;
+
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    selectedBrandFilter = null; // null means "All"
+    isFilterExpanded = false;
+  }
 
   @override
   void dispose() {}

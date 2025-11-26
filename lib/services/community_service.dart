@@ -10,7 +10,8 @@ class CommunityService {
   static const String _bucketName = 'community-posts';
   static const int _defaultPostLimit = 20;
   static const int _maxRetries = 2; // Reduced retries for faster failure
-  static const Duration _retryDelay = Duration(milliseconds: 500); // Faster retry
+  static const Duration _retryDelay =
+      Duration(milliseconds: 500); // Faster retry
 
   /// Helper method to retry a function with exponential backoff
   static Future<T> _retryWithBackoff<T>(
@@ -39,7 +40,7 @@ class CommunityService {
   }
 
   /// Fetch recent posts from the community
-  /// 
+  ///
   /// [limit] - Maximum number of posts to fetch (default: 20)
   /// Returns a list of CommunityPost models
   static Future<List<CommunityPost>> getRecentPosts({
@@ -58,15 +59,16 @@ class CommunityService {
 
       final List<dynamic> posts = response as List<dynamic>;
       return posts
-          .map((post) => CommunityPost.fromMap(
-              Map<String, dynamic>.from(post as Map)))
+          .map((post) =>
+              CommunityPost.fromMap(Map<String, dynamic>.from(post as Map)))
           .toList();
     } catch (e) {
       // Handle network errors gracefully
       if (e.toString().contains('HandshakeException') ||
           e.toString().contains('SocketException') ||
           e.toString().contains('Connection')) {
-        print('Network error fetching recent posts (this may be temporary): $e');
+        print(
+            'Network error fetching recent posts (this may be temporary): $e');
       } else {
         print('Error fetching recent posts: $e');
       }
@@ -75,7 +77,7 @@ class CommunityService {
   }
 
   /// Create a new community post
-  /// 
+  ///
   /// [photoUrl] - URL of the uploaded photo
   /// [photoAspectRatio] - Aspect ratio of the photo (default: 1.0)
   /// [caption] - Optional caption text
@@ -84,7 +86,7 @@ class CommunityService {
   /// [locationState] - Optional state location
   /// [plantIds] - Optional list of plant IDs to tag
   /// [hashtagTags] - Optional list of hashtag strings (without #)
-  /// 
+  ///
   /// Returns the created post ID and badge information
   static Future<Map<String, dynamic>> createPost({
     required String photoUrl,
@@ -102,7 +104,8 @@ class CommunityService {
         throw Exception('User must be authenticated to create a post');
       }
 
-      final response = await SupaFlow.client.rpc('create_community_post', params: {
+      final response =
+          await SupaFlow.client.rpc('create_community_post', params: {
         'p_user_id': userId,
         'p_photo_url': photoUrl,
         'p_photo_aspect_ratio': photoAspectRatio,
@@ -120,7 +123,7 @@ class CommunityService {
 
       final Map<String, dynamic> result =
           Map<String, dynamic>.from(response as Map);
-      
+
       if (result['success'] == true) {
         return result;
       } else {
@@ -133,9 +136,9 @@ class CommunityService {
   }
 
   /// Toggle like on a post (like if not liked, unlike if already liked)
-  /// 
+  ///
   /// [postId] - ID of the post to like/unlike
-  /// 
+  ///
   /// Returns a map with 'is_liked' (bool) and 'likes_count' (int)
   static Future<Map<String, dynamic>> toggleLike({
     required String postId,
@@ -157,7 +160,7 @@ class CommunityService {
 
       final Map<String, dynamic> result =
           Map<String, dynamic>.from(response as Map);
-      
+
       if (result['success'] == true) {
         return {
           'is_liked': result['is_liked'] as bool,
@@ -173,10 +176,10 @@ class CommunityService {
   }
 
   /// Upload a photo to Supabase Storage
-  /// 
+  ///
   /// [selectedFile] - The file to upload (SelectedFile from upload_data.dart)
   /// [userId] - Optional user ID, defaults to current user
-  /// 
+  ///
   /// Returns the public URL of the uploaded photo
   static Future<String> uploadPhoto({
     required SelectedFile selectedFile,
@@ -216,9 +219,9 @@ class CommunityService {
   }
 
   /// Check if the current user has liked a specific post
-  /// 
+  ///
   /// [postId] - ID of the post to check
-  /// 
+  ///
   /// Returns true if the user has liked the post, false otherwise
   static Future<bool> hasUserLikedPost({
     required String postId,
@@ -244,9 +247,9 @@ class CommunityService {
   }
 
   /// Get user's community profile
-  /// 
+  ///
   /// [userId] - Optional user ID, defaults to current user
-  /// 
+  ///
   /// Returns UserCommunityProfile or null if not found
   static Future<UserCommunityProfile?> getUserProfile({
     String? userId,
@@ -276,9 +279,9 @@ class CommunityService {
   }
 
   /// Follow a user
-  /// 
+  ///
   /// [userId] - ID of the user to follow
-  /// 
+  ///
   /// Returns true if successful, false otherwise
   static Future<bool> followUser({
     required String userId,
@@ -302,7 +305,7 @@ class CommunityService {
     } catch (e) {
       print('Error following user: $e');
       // If already following, that's okay
-      if (e.toString().contains('duplicate') || 
+      if (e.toString().contains('duplicate') ||
           e.toString().contains('unique')) {
         return true;
       }
@@ -311,9 +314,9 @@ class CommunityService {
   }
 
   /// Unfollow a user
-  /// 
+  ///
   /// [userId] - ID of the user to unfollow
-  /// 
+  ///
   /// Returns true if successful, false otherwise
   static Future<bool> unfollowUser({
     required String userId,
@@ -338,9 +341,9 @@ class CommunityService {
   }
 
   /// Check if the current user is following another user
-  /// 
+  ///
   /// [userId] - ID of the user to check
-  /// 
+  ///
   /// Returns true if following, false otherwise
   static Future<bool> isFollowingUser({
     required String userId,
@@ -366,9 +369,9 @@ class CommunityService {
   }
 
   /// Get posts from users the current user is following
-  /// 
+  ///
   /// [limit] - Maximum number of posts to fetch (default: 20)
-  /// 
+  ///
   /// Returns a list of CommunityPost models
   static Future<List<CommunityPost>> getFollowingFeed({
     int limit = _defaultPostLimit,
@@ -380,7 +383,8 @@ class CommunityService {
       }
 
       // Use the get_personalized_feed function with 'following' type
-      final response = await SupaFlow.client.rpc('get_personalized_feed', params: {
+      final response =
+          await SupaFlow.client.rpc('get_personalized_feed', params: {
         'p_user_id': userId,
         'p_feed_type': 'following',
         'p_limit': limit,
@@ -392,7 +396,8 @@ class CommunityService {
 
       final List<dynamic> posts = response as List<dynamic>;
       return posts
-          .map((post) => _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
+          .map((post) =>
+              _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
           .toList();
     } catch (e) {
       print('Error fetching following feed: $e');
@@ -401,9 +406,9 @@ class CommunityService {
   }
 
   /// Get popular posts (sorted by engagement)
-  /// 
+  ///
   /// [limit] - Maximum number of posts to fetch (default: 20)
-  /// 
+  ///
   /// Returns a list of CommunityPost models
   static Future<List<CommunityPost>> getPopularFeed({
     int limit = _defaultPostLimit,
@@ -415,7 +420,8 @@ class CommunityService {
       }
 
       // Use the get_personalized_feed function with 'popular' type
-      final response = await SupaFlow.client.rpc('get_personalized_feed', params: {
+      final response =
+          await SupaFlow.client.rpc('get_personalized_feed', params: {
         'p_user_id': userId,
         'p_feed_type': 'popular',
         'p_limit': limit,
@@ -427,7 +433,8 @@ class CommunityService {
 
       final List<dynamic> posts = response as List<dynamic>;
       return posts
-          .map((post) => _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
+          .map((post) =>
+              _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
           .toList();
     } catch (e) {
       print('Error fetching popular feed: $e');
@@ -436,9 +443,9 @@ class CommunityService {
   }
 
   /// Get featured posts
-  /// 
+  ///
   /// [limit] - Maximum number of posts to fetch (default: 20)
-  /// 
+  ///
   /// Returns a list of CommunityPost models that are featured
   static Future<List<CommunityPost>> getFeaturedPosts({
     int limit = _defaultPostLimit,
@@ -455,8 +462,8 @@ class CommunityService {
 
       final List<dynamic> posts = response as List<dynamic>;
       return posts
-          .map((post) => CommunityPost.fromMap(
-              Map<String, dynamic>.from(post as Map)))
+          .map((post) =>
+              CommunityPost.fromMap(Map<String, dynamic>.from(post as Map)))
           .toList();
     } catch (e) {
       print('Error fetching featured posts: $e');
@@ -465,9 +472,9 @@ class CommunityService {
   }
 
   /// Get "For You" personalized feed (algorithm-based recommendations)
-  /// 
+  ///
   /// [limit] - Maximum number of posts to fetch (default: 20)
-  /// 
+  ///
   /// Returns a list of CommunityPost models sorted by relevance
   static Future<List<CommunityPost>> getForYouFeed({
     int limit = _defaultPostLimit,
@@ -480,7 +487,8 @@ class CommunityService {
       }
 
       // Use the get_personalized_feed function with 'for_you' type
-      final response = await SupaFlow.client.rpc('get_personalized_feed', params: {
+      final response =
+          await SupaFlow.client.rpc('get_personalized_feed', params: {
         'p_user_id': userId,
         'p_feed_type': 'for_you',
         'p_limit': limit,
@@ -499,7 +507,8 @@ class CommunityService {
       }
 
       final mappedPosts = posts
-          .map((post) => _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
+          .map((post) =>
+              _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
           .toList();
 
       // If mapping resulted in empty list, fall back to recent posts
@@ -523,37 +532,69 @@ class CommunityService {
 
   /// Helper method to map feed post data to CommunityPost
   static CommunityPost _mapFeedPostToCommunityPost(Map<String, dynamic> post) {
-    // Map the feed post structure to CommunityPost structure
-    // The get_personalized_feed function returns: id, user_id (not post_id, post_user_id)
-    // But it might also be called with different field names, so we check both
-    return CommunityPost.fromMap({
+    // Normalize RPC response into the flat structure CommunityPost expects.
+    final normalized = <String, dynamic>{
       'id': post['post_id'] ?? post['id'] ?? '',
       'user_id': post['post_user_id'] ?? post['user_id'] ?? '',
       'photo_url': post['photo_url'],
-      'photo_aspect_ratio': post['photo_aspect_ratio'] ?? 1.0,
+      'photo_aspect_ratio': _parseDouble(post['photo_aspect_ratio']),
       'caption': post['caption'],
-      'tower_id': post['tower_id'],
+      'tower_id': _parseNullableInt(post['tower_id']),
       'location_city': post['location_city'],
       'location_state': post['location_state'],
       'is_featured': post['is_featured'] ?? false,
       'featured_type': post['featured_type'],
       'is_approved': true,
       'is_hidden': false,
-      'view_count': post['view_count'] ?? 0,
-      'likes_count': post['likes_count'] ?? 0,
-      'comments_count': post['comments_count'] ?? 0,
+      'view_count': _parseNullableInt(post['view_count']) ?? 0,
+      'likes_count': _parseNullableInt(post['likes_count']) ?? 0,
+      'comments_count': _parseNullableInt(post['comments_count']) ?? 0,
       'shares_count': 0,
       'reports_count': 0,
-      'created_at': post['created_at'],
-      'updated_at': post['created_at'] ?? post['updated_at'],
-    });
+      'created_at': _normalizeDate(post['created_at']),
+      'updated_at': _normalizeDate(post['updated_at'] ?? post['created_at']),
+    };
+
+    return CommunityPost.fromMap(normalized);
+  }
+
+  static double _parseDouble(dynamic value, [double fallback = 1.0]) {
+    if (value == null) return fallback;
+    if (value is num) return value.toDouble();
+    if (value is String) {
+      return double.tryParse(value) ?? fallback;
+    }
+    return fallback;
+  }
+
+  static int? _parseNullableInt(dynamic value) {
+    if (value == null) return null;
+    if (value is int) {
+      return value;
+    }
+    if (value is num) {
+      return value.toInt();
+    }
+    if (value is String) {
+      return int.tryParse(value);
+    }
+    return null;
+  }
+
+  static String? _normalizeDate(dynamic value) {
+    if (value == null) return null;
+    if (value is String) return value;
+    if (value is DateTime) {
+      return value.toIso8601String();
+    }
+    return value.toString();
   }
 
   /// Search for users by username or name
-  /// 
+  ///
   /// [query] - Search query string
   /// [limit] - Maximum number of results (default: 20)
-  /// 
+  ///
   /// Returns a list of user profiles with basic info
   static Future<List<Map<String, dynamic>>> searchUsers({
     required String query,
@@ -593,7 +634,8 @@ class CommunityService {
   }
 
   /// Helper method to get display name from user data
-  static String _getDisplayName(String? username, String? firstName, String? lastName) {
+  static String _getDisplayName(
+      String? username, String? firstName, String? lastName) {
     if (username != null && username.isNotEmpty) {
       return username;
     }
@@ -602,7 +644,7 @@ class CommunityService {
   }
 
   /// Get unread notifications count for the current user
-  /// 
+  ///
   /// Returns the count of unread notifications
   static Future<int> getUnreadNotificationsCount() async {
     try {
@@ -626,10 +668,10 @@ class CommunityService {
   }
 
   /// Get recent notifications for the current user
-  /// 
+  ///
   /// [limit] - Maximum number of notifications to fetch (default: 20)
   /// [includeRead] - Whether to include read notifications (default: false)
-  /// 
+  ///
   /// Returns a list of notification maps
   static Future<List<Map<String, dynamic>>> getNotifications({
     int limit = 20,
@@ -650,9 +692,8 @@ class CommunityService {
         query = query.eq('is_read', false);
       }
 
-      final response = await query
-          .order('created_at', ascending: false)
-          .limit(limit);
+      final response =
+          await query.order('created_at', ascending: false).limit(limit);
 
       final List<dynamic> notifications = response as List<dynamic>;
       return notifications
@@ -665,9 +706,9 @@ class CommunityService {
   }
 
   /// Mark a notification as read
-  /// 
+  ///
   /// [notificationId] - ID of the notification to mark as read
-  /// 
+  ///
   /// Returns true if successful
   static Future<bool> markNotificationAsRead({
     required String notificationId,
@@ -692,10 +733,10 @@ class CommunityService {
   }
 
   /// Get user badges with progress information
-  /// 
+  ///
   /// [userId] - Optional user ID, defaults to current user
   /// [filter] - Filter type: 'all', 'earned', or 'locked' (default: 'all')
-  /// 
+  ///
   /// Returns a map with 'user_stats', 'categories', and 'badges' arrays
   static Future<Map<String, dynamic>> getUserBadges({
     String? userId,
@@ -724,9 +765,9 @@ class CommunityService {
   }
 
   /// Get user gamification stats (XP, level, badges count)
-  /// 
+  ///
   /// [userId] - Optional user ID, defaults to current user
-  /// 
+  ///
   /// Returns a map with total_xp, current_level, badges_earned, etc.
   static Future<Map<String, dynamic>?> getUserGamification({
     String? userId,
@@ -748,15 +789,15 @@ class CommunityService {
       }
 
       final gamification = Map<String, dynamic>.from(response as Map);
-      
+
       // Calculate actual badge count from user_badges table
       final badgeResponse = await SupaFlow.client
           .from('user_badges')
           .select('id')
           .eq('user_id', profileUserId);
-      
+
       final actualBadgeCount = (badgeResponse as List).length;
-      
+
       // Override the stored count with the actual count
       gamification['badges_earned'] = actualBadgeCount;
 
@@ -767,4 +808,3 @@ class CommunityService {
     }
   }
 }
-

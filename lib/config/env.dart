@@ -38,6 +38,17 @@ class Env {
     defaultValue: 'https://n8n.sproutify.app/webhook/a9aae518-ec85-4b0d-b2cb-5e6f64c5783d',
   );
 
+  // Email Configuration (Resend)
+  static const String resendApiKey = String.fromEnvironment(
+    'RESEND_API_KEY',
+    defaultValue: '',
+  );
+
+  static const String resendFromEmail = String.fromEnvironment(
+    'RESEND_FROM_EMAIL',
+    defaultValue: 'onboarding@resend.dev', // Test domain for development
+  );
+
   // Development/Production flags
   static bool get isProduction => kReleaseMode;
   static bool get isDevelopment => kDebugMode;
@@ -45,4 +56,12 @@ class Env {
   // Debug settings
   static bool get enableDebugLogging => isDevelopment;
   static bool get enableSupabaseDebug => isDevelopment;
+
+  // Feature flags
+  // Trial banner feature flag. Enabled by default so dev/test builds get the UI
+  // automatically; can be disabled via --dart-define=ENABLE_TRIAL_BANNER=false.
+  static const bool enableTrialBanner = bool.fromEnvironment(
+    'ENABLE_TRIAL_BANNER',
+    defaultValue: true,
+  );
 }

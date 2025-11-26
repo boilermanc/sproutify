@@ -3,6 +3,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/community_feed_embedded.dart';
 import '/components/trial_banner_widget.dart';
+import '/config/env.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -148,18 +149,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
       await Future.delayed(Duration(milliseconds: 100));
 
       // Load data asynchronously without blocking UI
-      unawaited(Future.wait([
+      final dataLoaders = <Future<void>>[
         Future(() async {
           _model.apiResultoqk = await FetchNewNotficationsCall.call(
             userID: currentUserUid,
           );
 
           if ((_model.apiResultoqk?.succeeded ?? true)) {
-            FFAppState().isNewNotification =
-                !(FFAppState().isNewNotification ?? true);
+            FFAppState().isNewNotification = !FFAppState().isNewNotification;
             safeSetState(() {});
-          } else {
-            return;
           }
         }),
         Future(() async {
@@ -178,12 +176,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
             'Gardener',
           );
         }),
-        Future(() async {
+      ];
+
+      if (Env.enableTrialBanner) {
+        dataLoaders.add(Future(() async {
           // Load trial status
           print('DEBUG: Starting trial status load for user: $currentUserUid');
 
-          if (currentUserUid == null || currentUserUid.isEmpty) {
-            print('DEBUG: currentUserUid is null or empty!');
+          if (currentUserUid.isEmpty) {
+            print('DEBUG: currentUserUid is empty!');
             return;
           }
 
@@ -199,7 +200,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
             print('DEBUG: Trial data: $trialData');
 
             if (trialData != null) {
-              if (trialData is List && trialData.isNotEmpty) {
+              if (trialData.isNotEmpty) {
                 final data = trialData.first;
                 print('DEBUG: First row data: $data');
                 print(
@@ -212,8 +213,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 print('DEBUG: Model updated successfully');
                 safeSetState(() {});
               } else {
-                print(
-                    'DEBUG: Trial data is not a List or is empty: ${trialData.runtimeType}');
+                print('DEBUG: Trial data is empty: ${trialData.runtimeType}');
               }
             } else {
               print('DEBUG: Trial data is null');
@@ -224,8 +224,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
             _model.trialErrorMessage = 'Error: $e';
             safeSetState(() {});
           }
-        }),
-      ]));
+        }));
+      } else {
+        _model.trialStatus = null;
+        _model.trialDaysRemaining = null;
+        _model.isTrialBannerDismissed = true;
+      }
+
+      unawaited(Future.wait(dataLoaders));
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -375,7 +381,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          fontSize: 18.0,
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
@@ -420,12 +426,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       size: 24.0,
                                     ),
                                   ),
-                                  Text(
-                                    'Manage Subscription',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.readexPro(
+                                  Flexible(
+                                    child: Text(
+                                      'Manage Subscription',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -435,17 +453,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -495,7 +503,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          fontSize: 18.0,
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
@@ -555,7 +563,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          fontSize: 18.0,
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
@@ -655,7 +663,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          fontSize: 18.0,
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
@@ -714,7 +722,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          fontSize: 18.0,
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
@@ -759,12 +767,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       size: 24.0,
                                     ),
                                   ),
-                                  Text(
-                                    'Harvest Scorecard',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.readexPro(
+                                  Flexible(
+                                    child: Text(
+                                      'Harvest Scorecard',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -774,17 +794,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -871,7 +881,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           ),
                                           color: FlutterFlowTheme.of(context)
                                               .tertiary,
-                                          fontSize: 18.0,
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
@@ -1013,15 +1023,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
         body: Column(
           children: [
             // Trial banner
-            if (_model.trialDaysRemaining != null &&
+            if (Env.enableTrialBanner &&
+                _model.trialDaysRemaining != null &&
                 !(_model.isTrialBannerDismissed ?? false))
               TrialBannerWidget(
                 daysRemaining: _model.trialDaysRemaining!,
                 onDismiss: () async {
-                  await SupaFlow.client.rpc(
-                    'dismiss_trial_banner',
-                    params: {'user_uuid': currentUserUid},
-                  );
+                  try {
+                    await SupaFlow.client.rpc(
+                      'dismiss_trial_banner',
+                      params: {'user_uuid': currentUserUid},
+                    );
+                  } catch (e) {
+                    // Log error but still dismiss banner locally for better UX
+                    print('Error dismissing trial banner: $e');
+                  }
+                  // Always update local state to dismiss banner, even if RPC fails
                   _model.isTrialBannerDismissed = true;
                   safeSetState(() {});
                 },
@@ -1535,7 +1552,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           supaSerialize<DateTime>(
                                               getCurrentTimestamp),
                                         )
-                                        .map((data) {
+                                        .map((dynamic data) {
                                           try {
                                             // Handle both List and Map responses (defensive programming)
                                             List<dynamic> items;

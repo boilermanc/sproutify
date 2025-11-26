@@ -56,7 +56,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                 letterSpacing: 0.0,
               ),
         ),
-        centerTitle: false,
+        centerTitle: true,
         elevation: 2.0,
       ),
       body: SafeArea(
@@ -91,7 +91,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       ),
                       const SizedBox(height: 16.0),
                       Text(
-                        'Unlock Full Access',
+                        'Grow Smarter\nwith Sproutify',
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.readexPro(
                           color: Colors.white,
                           fontSize: 28.0,
@@ -101,7 +102,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'Get unlimited access to all premium features',
+                        'Your complete aeroponic tower companion',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.readexPro(
                           color: Colors.white.withValues(alpha: 0.9),
@@ -122,7 +123,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Premium Features',
+                      'Everything You Need',
                       style: GoogleFonts.readexPro(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,

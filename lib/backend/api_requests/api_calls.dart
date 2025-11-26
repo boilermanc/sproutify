@@ -5,6 +5,7 @@ import '../schema/structs/index.dart';
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
+import '/config/env.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -728,7 +729,7 @@ class SendEmailWithResendCall {
       apiUrl: 'https://api.resend.com/emails',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer re_14nGZdWr_FKaDuhS93ZoywtVKeY1C7Jew',
+        'Authorization': 'Bearer ${Env.resendApiKey}',
         'Content-Type': 'application/json',
       },
       params: {},

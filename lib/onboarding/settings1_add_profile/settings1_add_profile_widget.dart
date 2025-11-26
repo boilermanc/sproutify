@@ -87,11 +87,10 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Expanded(
-                child: Form(
-                  key: _model.formKey,
-                  autovalidateMode: AutovalidateMode.always,
-                  child: FutureBuilder<List<ProfilesRow>>(
+              Form(
+                key: _model.formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: FutureBuilder<List<ProfilesRow>>(
                     future: ProfilesTable().querySingleRow(
                       queryFn: (q) => q.eqOrNull(
                         'id',
@@ -759,24 +758,6 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                     },
                   ),
                 ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        width: 100.0,
-                        height: 400.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
