@@ -29,6 +29,8 @@ export '/onboarding/onboarding_questions/onboarding_questions_widget.dart'
 export '/faq/main_f_a_q/main_f_a_q_widget.dart' show MainFAQWidget;
 export '/my_towers_expandable/my_towers_expandable_widget.dart'
     show MyTowersExpandableWidget;
+export '/my_towers_expandable/edit_tower/edit_tower_widget.dart'
+    show EditTowerWidget;
 export '/authflow/create_an_account/create_an_account_widget.dart'
     show CreateAnAccountWidget;
 export '/my_plant_expandable_copy/my_plant_expandable_copy_widget.dart'

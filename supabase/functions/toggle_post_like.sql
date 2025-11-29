@@ -83,13 +83,19 @@ BEGIN
       current_value = badge_progress.current_value + 1,
       updated_at = NOW();
 
-    -- Check badge progress for likes received (post owner)
+    -- Check if user earned any badges for giving likes
+    PERFORM check_and_award_badges(p_user_id, 'likes_given');
+
+    -- Check badge progress for total likes received (post owner)
     INSERT INTO badge_progress (user_id, badge_category, current_value)
     VALUES (v_post_owner_id, 'total_likes_received', 1)
     ON CONFLICT (user_id, badge_category)
     DO UPDATE SET
       current_value = badge_progress.current_value + 1,
       updated_at = NOW();
+
+    -- Check if post owner earned any badges for receiving likes
+    PERFORM check_and_award_badges(v_post_owner_id, 'total_likes_received');
 
   END IF;
 

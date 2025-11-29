@@ -33,8 +33,9 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
   // Feed state
   List<CommunityPost> _posts = [];
   bool _isLoading = true;
-  int _selectedTab = 0; // 0 = For You, 1 = Recent, 2 = Following, 3 = Popular, 4 = Featured
-  
+  int _selectedTab =
+      0; // 0 = For You, 1 = Recent, 2 = Following, 3 = Popular, 4 = Featured
+
   // User gamification state
   Map<String, dynamic>? _userGamification;
 
@@ -55,7 +56,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
       _loadPosts();
     });
   }
-  
+
   Future<void> _loadUserGamification() async {
     try {
       final gamification = await CommunityService.getUserGamification();
@@ -114,17 +115,56 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
       _loadPosts();
     }
   }
-  
+
+  List<PopupMenuEntry<String>> _buildFeedTypeMenuItems() {
+    final feedTypes = [
+      {'name': 'For You', 'icon': Icons.people_outline, 'index': 0},
+      {'name': 'Recent', 'icon': Icons.access_time, 'index': 1},
+      {'name': 'Following', 'icon': Icons.people, 'index': 2},
+      {'name': 'Popular', 'icon': Icons.trending_up, 'index': 3},
+      {'name': 'Featured', 'icon': Icons.star, 'index': 4},
+    ];
+
+    return feedTypes.map((feedType) {
+      final index = feedType['index'] as int;
+      final isSelected = _selectedTab == index;
+      return PopupMenuItem<String>(
+        value: feedType['name'] as String,
+        child: Row(
+          children: [
+            Icon(
+              feedType['icon'] as IconData,
+              color: isSelected
+                  ? FlutterFlowTheme.of(context).primary
+                  : FlutterFlowTheme.of(context).secondaryText,
+              size: 20.0,
+            ),
+            SizedBox(width: 12.0),
+            Text(
+              feedType['name'] as String,
+              style: TextStyle(
+                color: isSelected
+                    ? FlutterFlowTheme.of(context).primary
+                    : FlutterFlowTheme.of(context).secondaryText,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+      );
+    }).toList();
+  }
+
   Widget _buildUserProfileRow(BuildContext context) {
     final theme = FlutterFlowTheme.of(context);
     final currentLevel = _userGamification?['current_level'] as int? ?? 1;
     final totalXp = _userGamification?['total_xp'] as int? ?? 0;
     final totalBadgesEarned = _userGamification?['badges_earned'] as int? ?? 0;
-    
+
     if (_userGamification == null) {
       return SizedBox.shrink();
     }
-    
+
     return InkWell(
       onTap: () async {
         HapticFeedback.lightImpact();
@@ -159,7 +199,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
       ),
     );
   }
-  
+
   Widget _buildStatItem(BuildContext context, String label, String value) {
     final theme = FlutterFlowTheme.of(context);
     return Column(
@@ -216,7 +256,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
             },
           ),
           title: Text(
-            'Community Garden',
+            'Community',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.outfit(
                     fontWeight:
@@ -234,6 +274,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                 ),
           ),
           actions: [
+            SizedBox(width: 8.0),
             FlutterFlowIconButton(
               borderColor: Colors.transparent,
               borderRadius: 30.0,
@@ -265,8 +306,15 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
               MaterialPageRoute(
                 builder: (context) => CreatePostWidget(
                   onPostCreated: () {
+                    // Switch to Recent tab to ensure new post shows up
+                    // (new posts always appear in Recent feed)
+                    if (_selectedTab != 1) {
+                      setState(() {
+                        _selectedTab = 1; // Switch to Recent tab
+                      });
+                    }
                     // Refresh the feed after creating a post
-                    safeSetState(() {});
+                    _loadPosts();
                   },
                 ),
               ),
@@ -287,8 +335,9 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
             children: [
               // User Profile Row (Name, Avatar, Stats)
               _buildUserProfileRow(context),
-              // Tab Switcher
+              // Feed Type Indicator (clickable to open dropdown)
               Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primaryBackground,
                   border: Border(
@@ -298,191 +347,66 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                     ),
                   ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () => _onTabChanged(0),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: _selectedTab == 0
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : Colors.transparent,
-                                  width: 2.0,
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              'For You',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.readexPro(
-                                      fontWeight: _selectedTab == 0
-                                          ? FontWeight.w600
-                                          : FontWeight.normal,
-                                    ),
-                                    color: _selectedTab == 0
-                                        ? FlutterFlowTheme.of(context).primary
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ),
+                child: PopupMenuButton<String>(
+                  onSelected: (String value) {
+                    final index = [
+                      'For You',
+                      'Recent',
+                      'Following',
+                      'Popular',
+                      'Featured'
+                    ].indexOf(value);
+                    if (index != -1) {
+                      _onTabChanged(index);
+                    }
+                  },
+                  itemBuilder: (BuildContext context) =>
+                      _buildFeedTypeMenuItems(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        _selectedTab == 0
+                            ? Icons.people_outline
+                            : _selectedTab == 1
+                                ? Icons.access_time
+                                : _selectedTab == 2
+                                    ? Icons.people
+                                    : _selectedTab == 3
+                                        ? Icons.trending_up
+                                        : Icons.star,
+                        color: FlutterFlowTheme.of(context).primary,
+                        size: 20.0,
                       ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () => _onTabChanged(1),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: _selectedTab == 1
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : Colors.transparent,
-                                  width: 2.0,
-                                ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        _selectedTab == 0
+                            ? 'For You'
+                            : _selectedTab == 1
+                                ? 'Recent'
+                                : _selectedTab == 2
+                                    ? 'Following'
+                                    : _selectedTab == 3
+                                        ? 'Popular'
+                                        : 'Featured',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FontWeight.w600,
                               ),
+                              color: FlutterFlowTheme.of(context).primary,
+                              letterSpacing: 0.0,
                             ),
-                            child: Text(
-                              'Recent',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.readexPro(
-                                      fontWeight: _selectedTab == 1
-                                          ? FontWeight.w600
-                                          : FontWeight.normal,
-                                    ),
-                                    color: _selectedTab == 1
-                                        ? FlutterFlowTheme.of(context).primary
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ),
                       ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () => _onTabChanged(2),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: _selectedTab == 2
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : Colors.transparent,
-                                  width: 2.0,
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              'Following',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.readexPro(
-                                      fontWeight: _selectedTab == 2
-                                          ? FontWeight.w600
-                                          : FontWeight.normal,
-                                    ),
-                                    color: _selectedTab == 2
-                                        ? FlutterFlowTheme.of(context).primary
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () => _onTabChanged(3),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: _selectedTab == 3
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : Colors.transparent,
-                                  width: 2.0,
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              'Popular',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.readexPro(
-                                      fontWeight: _selectedTab == 3
-                                          ? FontWeight.w600
-                                          : FontWeight.normal,
-                                    ),
-                                    color: _selectedTab == 3
-                                        ? FlutterFlowTheme.of(context).primary
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () => _onTabChanged(4),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: _selectedTab == 4
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : Colors.transparent,
-                                  width: 2.0,
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              'Featured',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.readexPro(
-                                      fontWeight: _selectedTab == 4
-                                          ? FontWeight.w600
-                                          : FontWeight.normal,
-                                    ),
-                                    color: _selectedTab == 4
-                                        ? FlutterFlowTheme.of(context).primary
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ),
+                      SizedBox(width: 4.0),
+                      Icon(
+                        Icons.arrow_drop_down,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 20.0,
                       ),
                     ],
                   ),
+                ),
               ),
               // Posts List
               Expanded(
@@ -773,12 +697,13 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
                                   leading: CircleAvatar(
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).primary,
-                                    backgroundImage: user['avatar_url'] != null &&
-                                            (user['avatar_url'] as String)
-                                                .isNotEmpty
-                                        ? NetworkImage(
-                                            user['avatar_url'] as String)
-                                        : null,
+                                    backgroundImage:
+                                        user['avatar_url'] != null &&
+                                                (user['avatar_url'] as String)
+                                                    .isNotEmpty
+                                            ? NetworkImage(
+                                                user['avatar_url'] as String)
+                                            : null,
                                     child: user['avatar_url'] == null ||
                                             (user['avatar_url'] as String)
                                                 .isEmpty

@@ -261,6 +261,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
+          name: EditTowerWidget.routeName,
+          path: EditTowerWidget.routePath,
+          builder: (context, params) => EditTowerWidget(
+            towerID: params.getParam(
+              'towerID',
+              ParamType.int,
+            ),
+            towerName: params.getParam(
+              'towerName',
+              ParamType.String,
+            ),
+            portCount: params.getParam(
+              'portCount',
+              ParamType.int,
+            ),
+            indoorOutdoor: params.getParam(
+              'indoorOutdoor',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
           name: CreateAnAccountWidget.routeName,
           path: CreateAnAccountWidget.routePath,
           builder: (context, params) => CreateAnAccountWidget(),

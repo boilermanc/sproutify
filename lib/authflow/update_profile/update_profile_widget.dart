@@ -8,10 +8,8 @@ import 'dart:ui';
 import '/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'update_profile_model.dart';
 export 'update_profile_model.dart';
 
@@ -39,22 +37,6 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UpdateProfileModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await ProfilesTable().update(
-        data: {
-          'first_name': _model.firstNameTextController.text,
-          'updated_at': supaSerialize<DateTime>(getCurrentTimestamp),
-          'last_name': _model.lastNameTextController.text,
-          'postal_code': _model.postalCodeTextController.text,
-        },
-        matchingRows: (rows) => rows.eqOrNull(
-          'id',
-          currentUserUid,
-        ),
-      );
-    });
 
     _model.firstNameFocusNode ??= FocusNode();
 
@@ -214,12 +196,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                       child: TextFormField(
                                         controller:
                                             _model.firstNameTextController ??=
-                                                TextEditingController(
-                                          text: valueOrDefault<String>(
-                                            listViewProfilesRow?.firstName,
-                                            'Happy',
-                                          ),
-                                        ),
+                                                TextEditingController(),
                                         focusNode: _model.firstNameFocusNode,
                                         autofocus: true,
                                         obscureText: false,
@@ -252,8 +229,10 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                          hintText:
-                                              listViewProfilesRow?.firstName,
+                                          hintText: valueOrDefault<String>(
+                                            listViewProfilesRow?.firstName,
+                                            'Happy',
+                                          ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelMedium
@@ -369,12 +348,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                       child: TextFormField(
                                         controller:
                                             _model.lastNameTextController ??=
-                                                TextEditingController(
-                                          text: valueOrDefault<String>(
-                                            listViewProfilesRow?.lastName,
-                                            'Gardener',
-                                          ),
-                                        ),
+                                                TextEditingController(),
                                         focusNode: _model.lastNameFocusNode,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -406,6 +380,10 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                                         .labelMedium
                                                         .fontStyle,
                                               ),
+                                          hintText: valueOrDefault<String>(
+                                            listViewProfilesRow?.lastName,
+                                            'Gardener',
+                                          ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelMedium
@@ -521,12 +499,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                       child: TextFormField(
                                         controller:
                                             _model.postalCodeTextController ??=
-                                                TextEditingController(
-                                          text: valueOrDefault<String>(
-                                            listViewProfilesRow?.postalCode,
-                                            '000000',
-                                          ),
-                                        ),
+                                                TextEditingController(),
                                         focusNode: _model.postalCodeFocusNode,
                                         textCapitalization:
                                             TextCapitalization.none,
@@ -561,6 +534,10 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                                         .labelMedium
                                                         .fontStyle,
                                               ),
+                                          hintText: valueOrDefault<String>(
+                                            listViewProfilesRow?.postalCode,
+                                            '00000',
+                                          ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelMedium
@@ -695,23 +672,29 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                             FFButtonWidget(
                               onPressed: () async {
                                 HapticFeedback.lightImpact();
+                                // Use existing values if fields are empty
+                                final firstName = _model.firstNameTextController.text.trim().isEmpty
+                                    ? (listViewProfilesRow?.firstName ?? '')
+                                    : _model.firstNameTextController.text.trim();
+                                final lastName = _model.lastNameTextController.text.trim().isEmpty
+                                    ? (listViewProfilesRow?.lastName ?? '')
+                                    : _model.lastNameTextController.text.trim();
+                                final postalCode = _model.postalCodeTextController.text.trim().isEmpty
+                                    ? (listViewProfilesRow?.postalCode ?? '')
+                                    : _model.postalCodeTextController.text.trim();
+                                
                                 await ProfilesTable().update(
                                   data: {
-                                    'first_name':
-                                        _model.firstNameTextController.text,
-                                    'last_name':
-                                        _model.lastNameTextController.text,
-                                    'postal_code':
-                                        _model.postalCodeTextController.text,
+                                    'first_name': firstName,
+                                    'last_name': lastName,
+                                    'postal_code': postalCode,
+                                    'updated_at': supaSerialize<DateTime>(getCurrentTimestamp),
                                   },
                                   matchingRows: (rows) => rows.eqOrNull(
                                     'id',
                                     currentUserUid,
                                   ),
                                 );
-                                safeSetState(
-                                    () => _model.requestCompleter = null);
-                                await _model.waitForRequestCompleted();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
@@ -727,10 +710,8 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                         FlutterFlowTheme.of(context).success,
                                   ),
                                 );
-                                FFAppState().firstName =
-                                    _model.firstNameTextController.text;
-                                FFAppState().lastName =
-                                    _model.lastNameTextController.text;
+                                FFAppState().firstName = firstName;
+                                FFAppState().lastName = lastName;
                                 safeSetState(() {});
 
                                 context.pushNamed(

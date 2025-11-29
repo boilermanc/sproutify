@@ -1,3 +1,4 @@
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,9 +16,9 @@ export 'port_count_input_model.dart';
 class PortCountInputWidget extends StatefulWidget {
   const PortCountInputWidget({
     super.key,
-    required this.towerBrandID,
-    required this.brandName,
-    required this.allowCustomName,
+    this.towerBrandID,
+    this.brandName,
+    this.allowCustomName,
   });
 
   final int? towerBrandID;
@@ -43,11 +44,14 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
 
     _model.portCountTextController ??= TextEditingController();
     _model.portCountFocusNode ??= FocusNode();
+    _model.customBrandNameTextController ??= TextEditingController();
+    _model.customBrandNameFocusNode ??= FocusNode();
 
-    // If "Other" brand, also initialize custom brand name controller
-    if (widget.allowCustomName == true) {
-      _model.customBrandNameTextController ??= TextEditingController();
-      _model.customBrandNameFocusNode ??= FocusNode();
+    // If brand was passed in (legacy support), set it
+    if (widget.towerBrandID != null) {
+      _model.selectedBrandID = widget.towerBrandID;
+      _model.selectedBrandName = widget.brandName;
+      _model.selectedAllowCustomName = widget.allowCustomName ?? false;
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -123,7 +127,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
                       child: Text(
-                        widget.brandName ?? 'Your Tower',
+                        'Other',
                         style: FlutterFlowTheme.of(context).headlineMedium.override(
                               font: GoogleFonts.outfit(
                                 fontWeight: FontWeight.w600,
@@ -139,8 +143,192 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                             ),
                       ),
                     ),
+                    // Brand dropdown
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          16.0, 24.0, 16.0, 0.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'What brand is your tower?',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .override(
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyLarge
+                                      .fontStyle,
+                                ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 12.0, 0.0, 0.0),
+                            child: FutureBuilder<List<TowerBrandsRow>>(
+                              future: TowerBrandsTable().queryRows(
+                                queryFn: (q) => q
+                                    .eqOrNull('is_active', true)
+                                    .order('display_order', ascending: true),
+                              ),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container(
+                                    padding: EdgeInsets.all(16.0),
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                final brands = snapshot.data!;
+                                return DropdownButtonFormField<int>(
+                                  value: _model.selectedBrandID,
+                                  decoration: InputDecoration(
+                                    labelText: 'Brand Name',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .fontStyle,
+                                        ),
+                                    hintText: 'Select a brand',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .fontStyle,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).primary,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context).error,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context).error,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                  ),
+                                  items: brands.map((brand) {
+                                    return DropdownMenuItem<int>(
+                                      value: brand.id,
+                                      child: Text(
+                                        brand.brandName ?? 'Unknown',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.readexPro(
+                                                fontWeight: FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    safeSetState(() {
+                                      _model.selectedBrandID = value;
+                                      final selectedBrand = brands.firstWhere(
+                                        (b) => b.id == value,
+                                        orElse: () => brands.first,
+                                      );
+                                      _model.selectedBrandName = selectedBrand.brandName;
+                                      _model.selectedAllowCustomName = selectedBrand.allowCustomName ?? false;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Please select a brand';
+                                    }
+                                    return null;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     // Show custom brand name input if "Other" is selected
-                    if (widget.allowCustomName == true)
+                    if (_model.selectedAllowCustomName == true)
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 24.0, 16.0, 0.0),
@@ -407,7 +595,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 0.0),
+                                0.0, 8.0, 0.0, 0.0),
                             child: Text(
                               'Common sizes: 9, 12, 20, 27, 36, 44',
                               style: FlutterFlowTheme.of(context)
@@ -452,7 +640,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                             NameTowerNewWidget.routeName,
                             queryParameters: {
                               'towerID': serializeParam(
-                                widget.towerBrandID,
+                                _model.selectedBrandID ?? widget.towerBrandID,
                                 ParamType.int,
                               ),
                               'portCount': serializeParam(
@@ -461,7 +649,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                                 ParamType.int,
                               ),
                               'customBrandName': serializeParam(
-                                widget.allowCustomName == true
+                                (_model.selectedAllowCustomName ?? widget.allowCustomName) == true
                                     ? _model.customBrandNameTextController.text
                                     : null,
                                 ParamType.String,

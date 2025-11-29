@@ -277,7 +277,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                             EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            context.goNamed(TowerCatalogWidget.routeName);
+                            context.goNamed(PortCountInputWidget.routeName);
                           },
                           text: 'Yes! I Do!',
                           icon: Icon(

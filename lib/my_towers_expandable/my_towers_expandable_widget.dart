@@ -9,7 +9,7 @@ import '/components/ph_ec_chart/ph_ec_chart_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/my_towers_expandable/edit_tower/edit_tower_widget.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'dart:async';
@@ -111,7 +111,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
               FFAppState().profileIsSet = true;
               safeSetState(() {});
 
-              context.pushNamed(TowerCatalogNewWidget.routeName);
+              context.pushNamed(PortCountInputWidget.routeName);
             },
             backgroundColor: FlutterFlowTheme.of(context).primary,
             elevation: 8.0,
@@ -293,7 +293,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                     .fromSTEB(
                                                         0.0, 8.0, 0.0, 0.0),
                                                 child: Text(
-                                                  'Make sure your hugging your tower everyday!',
+                                                  'Hug your tower everyday!',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -328,7 +328,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                     ),
                                     expanded: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 10.0, 0.0),
+                                          10.0, 0.0, 10.0, 20.0),
                                       child: Container(
                                         decoration: BoxDecoration(),
                                         child: Column(
@@ -1558,7 +1558,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      5.0, 0.0, 0.0, 10.0),
+                                                      5.0, 10.0, 0.0, 20.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -1574,18 +1574,131 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                     onTap: () async {
                                                       HapticFeedback
                                                           .lightImpact();
-                                                      await MyTowersTable()
-                                                          .update(
-                                                        data: {
-                                                          'archive': true,
-                                                        },
-                                                        matchingRows: (rows) =>
-                                                            rows.eqOrNull(
-                                                          'tower_id',
-                                                          listViewUsertowerdetailsRow
-                                                              .towerId,
-                                                        ),
+                                                      context.pushNamed(
+                                                        EditTowerWidget.routeName,
+                                                        queryParameters: {
+                                                          'towerID': serializeParam(
+                                                            listViewUsertowerdetailsRow.towerId,
+                                                            ParamType.int,
+                                                          ),
+                                                          'towerName': serializeParam(
+                                                            listViewUsertowerdetailsRow.towerName,
+                                                            ParamType.String,
+                                                          ),
+                                                          'portCount': serializeParam(
+                                                            listViewUsertowerdetailsRow.ports,
+                                                            ParamType.int,
+                                                          ),
+                                                          'indoorOutdoor': serializeParam(
+                                                            listViewUsertowerdetailsRow.indoorOutdoor,
+                                                            ParamType.String,
+                                                          ),
+                                                        }.withoutNulls,
                                                       );
+                                                      // Refresh the list after editing
+                                                      safeSetState(() {
+                                                        _model.requestCompleter = null;
+                                                      });
+                                                      await _model.waitForRequestCompleted();
+                                                    },
+                                                    child: Container(
+                                                      width: 150.0,
+                                                      height: 30.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(context).primary,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          5.0,
+                                                                          0.0),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .edit_outlined,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                size: 20.0,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              'Edit Tower',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .readexPro(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontStyle:
+                                                                          FlutterFlowTheme.of(
+                                                                                  context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
+                                                                    ),
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        14.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle:
+                                                                        FlutterFlowTheme.of(
+                                                                                context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        HapticFeedback
+                                                            .lightImpact();
+                                                        await MyTowersTable()
+                                                            .update(
+                                                          data: {
+                                                            'archive': true,
+                                                          },
+                                                          matchingRows: (rows) =>
+                                                              rows.eqOrNull(
+                                                            'tower_id',
+                                                            listViewUsertowerdetailsRow
+                                                                .towerId,
+                                                          ),
+                                                        );
                                                       // Reset completer and force rebuild to refresh the list
                                                       safeSetState(() {
                                                         _model.requestCompleter = null;
@@ -1727,6 +1840,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                       ),
                                                     ),
                                                   ),
+                                                    ),
                                                 ],
                                               ),
                                             ),

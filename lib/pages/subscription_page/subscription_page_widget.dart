@@ -167,8 +167,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
 
               // Subscription options
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    16.0, 0.0, 16.0, 32.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 32.0),
                 child: Column(
                   children: [
                     Text(
@@ -223,8 +223,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
 
               // Subscribe button
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    24.0, 0.0, 24.0, 16.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     if (_model.isPurchasing) {
@@ -244,12 +244,14 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       final offerings = revenue_cat.offerings;
 
                       if (offerings == null || offerings.current == null) {
-                        throw Exception('No offerings available. Please try again.');
+                        throw Exception(
+                            'No offerings available. Please try again.');
                       }
 
                       // Find the product by identifier
                       StoreProduct? targetProduct;
-                      for (final package in offerings.current!.availablePackages) {
+                      for (final package
+                          in offerings.current!.availablePackages) {
                         if (package.storeProduct.identifier == productId) {
                           targetProduct = package.storeProduct;
                           break;
@@ -257,17 +259,19 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       }
 
                       if (targetProduct == null) {
-                        throw Exception('Product not found. Please contact support.');
+                        throw Exception(
+                            'Product not found. Please contact support.');
                       }
 
                       // Make the purchase
-                      final purchaserInfo = await Purchases.purchaseStoreProduct(targetProduct);
+                      final purchaserInfo =
+                          await Purchases.purchaseStoreProduct(targetProduct);
 
                       // Check if purchase was successful
                       if (purchaserInfo.entitlements.active.isNotEmpty) {
                         // Purchase successful - update database
                         final durationDays = _model.selectedPlan == 'lifetime'
-                            ? 36500  // ~100 years for lifetime
+                            ? 36500 // ~100 years for lifetime
                             : (_model.selectedPlan == 'annual' ? 365 : 30);
 
                         await SupaFlow.client.rpc(
@@ -288,7 +292,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                 'Welcome to Sproutify Premium! 🌱',
                                 style: GoogleFonts.readexPro(),
                               ),
-                              backgroundColor: FlutterFlowTheme.of(context).success,
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).success,
                               duration: const Duration(seconds: 3),
                             ),
                           );
@@ -297,11 +302,13 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                           context.pop();
                         }
                       } else {
-                        throw Exception('Purchase did not complete. Please try again.');
+                        throw Exception(
+                            'Purchase did not complete. Please try again.');
                       }
                     } catch (e) {
                       // Handle errors
-                      String errorMessage = 'Purchase failed. Please try again.';
+                      String errorMessage =
+                          'Purchase failed. Please try again.';
 
                       if (e is PlatformException) {
                         if (e.code == 'PURCHASE_CANCELLED') {
@@ -312,7 +319,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                           errorMessage = e.message ?? errorMessage;
                         }
                       } else if (e is Exception) {
-                        errorMessage = e.toString().replaceAll('Exception: ', '');
+                        errorMessage =
+                            e.toString().replaceAll('Exception: ', '');
                       }
 
                       if (mounted) {
@@ -360,8 +368,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
 
               // Restore purchases
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    24.0, 0.0, 24.0, 16.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
                 child: InkWell(
                   onTap: () async {
                     try {
@@ -380,13 +388,15 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       if (customerInfo != null &&
                           customerInfo.entitlements.active.isNotEmpty) {
                         // Has active subscription - update database
-                        final entitlement = customerInfo.entitlements.active.values.first;
+                        final entitlement =
+                            customerInfo.entitlements.active.values.first;
 
                         // Determine duration based on product identifier
                         int durationDays = 30; // default to monthly
                         if (entitlement.productIdentifier.contains('Year')) {
                           durationDays = 365;
-                        } else if (entitlement.productIdentifier.contains('Life')) {
+                        } else if (entitlement.productIdentifier
+                            .contains('Life')) {
                           durationDays = 36500;
                         }
 
@@ -407,7 +417,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                 'Purchases restored successfully!',
                                 style: GoogleFonts.readexPro(),
                               ),
-                              backgroundColor: FlutterFlowTheme.of(context).success,
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).success,
                             ),
                           );
                           context.pop();
@@ -453,8 +464,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
 
               // Terms and privacy
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    24.0, 0.0, 24.0, 32.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 32.0),
                 child: Text(
                   'Subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. Payment will be charged to your App Store account.',
                   textAlign: TextAlign.center,
@@ -557,8 +568,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(
-                  16.0, 16.0, 16.0, 16.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -619,8 +630,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                               child: Text(
                                 period,
                                 style: GoogleFonts.readexPro(
-                                  color:
-                                      FlutterFlowTheme.of(context).secondaryText,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                 ),

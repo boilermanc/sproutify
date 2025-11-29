@@ -2,43 +2,51 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
-import 'port_count_input_widget.dart' show PortCountInputWidget;
+import 'edit_tower_widget.dart' show EditTowerWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class PortCountInputModel extends FlutterFlowModel<PortCountInputWidget> {
+class EditTowerModel extends FlutterFlowModel<EditTowerWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  // State field(s) for towerName widget.
+  FocusNode? towerNameFocusNode;
+  TextEditingController? towerNameTextController;
+  String? Function(BuildContext, String?)? towerNameTextControllerValidator;
   // State field(s) for portCount widget.
   FocusNode? portCountFocusNode;
   TextEditingController? portCountTextController;
   String? Function(BuildContext, String?)? portCountTextControllerValidator;
-  // State field(s) for customBrandName widget (conditional).
-  FocusNode? customBrandNameFocusNode;
-  TextEditingController? customBrandNameTextController;
-  String? Function(BuildContext, String?)?
-      customBrandNameTextControllerValidator;
-  // State field(s) for brand selection
-  int? selectedBrandID;
-  String? selectedBrandName;
-  bool selectedAllowCustomName = false;
+  // State field(s) for location RadioButton widget.
+  FormFieldController<String>? locationValueController;
 
   @override
   void initState(BuildContext context) {
+    towerNameTextControllerValidator = _towerNameValidator;
     portCountTextControllerValidator = _portCountValidator;
-    customBrandNameTextControllerValidator = _customBrandNameValidator;
   }
 
   @override
   void dispose() {
+    towerNameFocusNode?.dispose();
+    towerNameTextController?.dispose();
     portCountFocusNode?.dispose();
     portCountTextController?.dispose();
-    customBrandNameFocusNode?.dispose();
-    customBrandNameTextController?.dispose();
+  }
+
+  String? _towerNameValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Tower name is required';
+    }
+    if (val.trim().isEmpty) {
+      return 'Tower name cannot be empty';
+    }
+    return null;
   }
 
   String? _portCountValidator(BuildContext context, String? val) {
@@ -61,17 +69,5 @@ class PortCountInputModel extends FlutterFlowModel<PortCountInputWidget> {
 
     return null;
   }
-
-  String? _customBrandNameValidator(BuildContext context, String? val) {
-    // Only validate if the widget is using custom brand name (i.e., "Other" was selected)
-    if (val == null || val.isEmpty) {
-      return 'Brand name is required';
-    }
-
-    if (val.length < 2) {
-      return 'Brand name must be at least 2 characters';
-    }
-
-    return null;
-  }
 }
+

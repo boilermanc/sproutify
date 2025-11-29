@@ -84,3 +84,4 @@ If using n8n for automated trial reminder emails:
 
 See `EMAIL_SETUP_GUIDE.md` for detailed instructions, troubleshooting, and best practices.
 
+

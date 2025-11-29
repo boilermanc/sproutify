@@ -133,7 +133,7 @@ class _NoTowersWidgetState extends State<NoTowersWidget> {
                             FFAppState().profileIsSet = true;
                             safeSetState(() {});
 
-                            context.pushNamed(TowerCatalogWidget.routeName);
+                            context.pushNamed(PortCountInputWidget.routeName);
                           },
                           child: Container(
                             width: 150.0,

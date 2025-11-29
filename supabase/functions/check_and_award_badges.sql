@@ -39,61 +39,90 @@ BEGIN
     -- Check if threshold is met
     IF v_current_progress >= v_badge.trigger_threshold THEN
 
-      -- Award the badge
-      INSERT INTO user_badges (user_id, badge_id, earned_at)
-      VALUES (p_user_id, v_badge.id, NOW())
-      ON CONFLICT (user_id, badge_id) DO NOTHING;
+      -- Check if user already has this badge (double-check before inserting)
+      IF NOT EXISTS (
+        SELECT 1 FROM user_badges
+        WHERE user_id = p_user_id AND badge_id = v_badge.id
+      ) THEN
 
-      -- Check if insert actually happened (might conflict)
-      IF FOUND THEN
+        -- Award the badge
+        INSERT INTO user_badges (user_id, badge_id, earned_at)
+        VALUES (p_user_id, v_badge.id, NOW())
+        ON CONFLICT (user_id, badge_id) DO NOTHING;
 
-        -- Add XP to user
-        INSERT INTO user_gamification (user_id, total_xp, badges_earned, last_badge_earned_at)
-        VALUES (p_user_id, v_badge.xp_value, 1, NOW())
-        ON CONFLICT (user_id)
-        DO UPDATE SET
-          total_xp = user_gamification.total_xp + v_badge.xp_value,
-          badges_earned = user_gamification.badges_earned + 1,
-          last_badge_earned_at = NOW();
+        -- Verify the badge was actually inserted (not a conflict)
+        IF EXISTS (
+          SELECT 1 FROM user_badges
+          WHERE user_id = p_user_id AND badge_id = v_badge.id
+        ) THEN
 
-        -- Create notification
-        INSERT INTO community_notifications (
-          user_id,
-          type,
-          title,
-          message,
-          related_badge_id
-        )
-        VALUES (
-          p_user_id,
-          'badge_earned',
-          'New Badge Earned!',
-          'You earned the ' || v_badge.name || ' badge!',
-          v_badge.id
-        );
+          -- Ensure user_gamification record exists
+          INSERT INTO user_gamification (user_id, total_xp, current_level, badges_earned, last_badge_earned_at)
+          VALUES (p_user_id, 0, 1, 0, NOW())
+          ON CONFLICT (user_id) DO NOTHING;
 
-        -- Add to newly earned badges array
-        v_badge_info := JSONB_BUILD_OBJECT(
-          'id', v_badge.id,
-          'name', v_badge.name,
-          'description', v_badge.description,
-          'tier', v_badge.tier,
-          'rarity', v_badge.rarity,
-          'xp_value', v_badge.xp_value,
-          'icon_url', v_badge.icon_url
-        );
+          -- Add XP to user
+          UPDATE user_gamification
+          SET
+            total_xp = user_gamification.total_xp + v_badge.xp_value,
+            badges_earned = user_gamification.badges_earned + 1,
+            last_badge_earned_at = NOW()
+          WHERE user_id = p_user_id;
 
-        v_newly_earned_badges := v_newly_earned_badges || v_badge_info;
-        v_total_xp := v_total_xp + v_badge.xp_value;
+          -- Update badge progress for badges_earned (for meta-badges)
+          -- This allows badges like "Badge Collector" to track progress
+          INSERT INTO badge_progress (user_id, badge_category, current_value)
+          VALUES (p_user_id, 'badges_earned', 1)
+          ON CONFLICT (user_id, badge_category)
+          DO UPDATE SET
+            current_value = badge_progress.current_value + 1,
+            updated_at = NOW();
 
-      END IF;
+          -- Create notification
+          INSERT INTO community_notifications (
+            user_id,
+            type,
+            title,
+            message,
+            related_badge_id
+          )
+          VALUES (
+            p_user_id,
+            'badge_earned',
+            'New Badge Earned!',
+            'You earned the ' || v_badge.name || ' badge!',
+            v_badge.id
+          );
 
-    END IF;
+          -- Add to newly earned badges array
+          v_badge_info := JSONB_BUILD_OBJECT(
+            'id', v_badge.id,
+            'name', v_badge.name,
+            'description', v_badge.description,
+            'tier', v_badge.tier,
+            'rarity', v_badge.rarity,
+            'xp_value', v_badge.xp_value,
+            'icon_url', v_badge.icon_url
+          );
+
+          v_newly_earned_badges := v_newly_earned_badges || v_badge_info;
+          v_total_xp := v_total_xp + v_badge.xp_value;
+
+        END IF; -- End verify badge was inserted
+
+      END IF; -- End check if user already has badge
+
+    END IF; -- End check if threshold met
 
   END LOOP;
 
+  -- Ensure user_gamification record exists before calculating level
+  INSERT INTO user_gamification (user_id, total_xp, current_level, badges_earned)
+  VALUES (p_user_id, 0, 1, 0)
+  ON CONFLICT (user_id) DO NOTHING;
+
   -- Calculate new level based on total XP
-  SELECT total_xp INTO v_total_xp
+  SELECT COALESCE(total_xp, 0) INTO v_total_xp
   FROM user_gamification
   WHERE user_id = p_user_id;
 

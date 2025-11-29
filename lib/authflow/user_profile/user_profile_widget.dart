@@ -378,46 +378,36 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 20.0, 0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 15.0, 0.0),
-                                    child: FlutterFlowIconButton(
-                                      borderColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      borderRadius: 20.0,
-                                      borderWidth: 1.0,
-                                      buttonSize: 40.0,
-                                      fillColor:
-                                          FlutterFlowTheme.of(context).warning,
-                                      hoverColor:
-                                          FlutterFlowTheme.of(context).tertiary,
-                                      hoverIconColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      icon: Icon(
-                                        Icons.chevron_left,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        size: 24.0,
-                                      ),
-                                      onPressed: () async {
-                                        HapticFeedback.lightImpact();
-                                        if (Navigator.canPop(context)) {
-                                          Navigator.pop(context);
-                                        } else {
-                                          context.goNamed(HomePageWidget.routeName);
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ],
+                            Positioned(
+                              top: 20.0,
+                              right: 15.0,
+                              child: FlutterFlowIconButton(
+                                borderColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                borderRadius: 20.0,
+                                borderWidth: 1.0,
+                                buttonSize: 40.0,
+                                fillColor:
+                                    FlutterFlowTheme.of(context).warning,
+                                hoverColor:
+                                    FlutterFlowTheme.of(context).tertiary,
+                                hoverIconColor:
+                                    FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                icon: Icon(
+                                  Icons.chevron_left,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryText,
+                                  size: 24.0,
+                                ),
+                                onPressed: () async {
+                                  HapticFeedback.lightImpact();
+                                  if (context.canPop()) {
+                                    context.pop();
+                                  } else {
+                                    context.goNamed(HomePageWidget.routeName);
+                                  }
+                                },
                               ),
                             ),
                           ],

@@ -50,3 +50,4 @@ IS 'Maintains follower/following counters with SECURITY DEFINER to bypass RLS wh
 
 COMMIT;
 
+
