@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
@@ -92,7 +93,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -118,7 +119,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -132,7 +133,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
                     child: Text(
                       'Update your tower information',
                       style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -152,7 +153,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                     child: TextFormField(
                       controller: _model.towerNameTextController,
                       focusNode: _model.towerNameFocusNode,
@@ -256,7 +257,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
                     child: TextFormField(
                       controller: _model.portCountTextController,
                       focusNode: _model.portCountFocusNode,
@@ -365,13 +366,13 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 10.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 10.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Flexible(
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 20.0),
                             child: Text(
                               'Select where you are growing...',
@@ -398,7 +399,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                     child: Container(
                       width: 405.0,
                       height: 100.0,
@@ -408,7 +409,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                         shape: BoxShape.rectangle,
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                         child: FlutterFlowRadioButton(
                           options: ['Inside', 'Outside', 'Both'].toList(),
                           onChanged: (val) => safeSetState(() {}),
@@ -468,7 +469,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 40.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 20.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         HapticFeedback.lightImpact();
@@ -485,7 +486,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                         if (towerName.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Tower name is required'),
+                              content: const Text('Tower name is required'),
                               backgroundColor: FlutterFlowTheme.of(context).error,
                             ),
                           );
@@ -495,7 +496,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                         if (portCount == null || portCount < 1 || portCount > 100) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Port count must be between 1 and 100'),
+                              content: const Text('Port count must be between 1 and 100'),
                               backgroundColor: FlutterFlowTheme.of(context).error,
                             ),
                           );
@@ -524,7 +525,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                                 fontSize: 18.0,
                               ),
                             ),
-                            duration: Duration(milliseconds: 4000),
+                            duration: const Duration(milliseconds: 4000),
                             backgroundColor:
                                 FlutterFlowTheme.of(context).success,
                           ),
@@ -535,9 +536,9 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                       text: 'Save Changes',
                       options: FFButtonOptions(
                         height: 50.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
@@ -561,7 +562,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                                       .fontStyle,
                                 ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -569,6 +570,117 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                         hoverColor: FlutterFlowTheme.of(context).tertiary,
                         hoverTextColor:
                             FlutterFlowTheme.of(context).secondaryBackground,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 40.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        HapticFeedback.lightImpact();
+                        
+                        // Show confirmation dialog
+                        final confirm = await showDialog<bool>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Archive Tower'),
+                            content: const Text('Are you sure you want to archive this tower? You can restore it later.'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(false),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(true),
+                                child: Text(
+                                  'Archive',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context).error,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+
+                        if (confirm != true) return;
+
+                        await MyTowersTable().update(
+                          data: {
+                            'archive': true,
+                          },
+                          matchingRows: (rows) => rows.eqOrNull(
+                            'tower_id',
+                            widget.towerID,
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Tower Archived',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            duration: const Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+
+                        context.pop();
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF8EFCD),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 8.0, 0.0),
+                                child: Icon(
+                                  Icons.inventory_2_outlined,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  size: 20.0,
+                                ),
+                              ),
+                              Text(
+                                'Archive Tower',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),

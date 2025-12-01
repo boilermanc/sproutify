@@ -56,6 +56,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
         queryFn: (q) => q.eq('id', widget.post.userId),
       );
 
+      if (!mounted) return;
+
       if (profile.isNotEmpty) {
         final userProfile = profile.first;
         setState(() {
@@ -82,10 +84,12 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       }
     } catch (e) {
       print('Error loading user profile: $e');
-      setState(() {
-        _username = 'User';
-        _isLoadingProfile = false;
-      });
+      if (mounted) {
+        setState(() {
+          _username = 'User';
+          _isLoadingProfile = false;
+        });
+      }
     }
   }
 
@@ -94,9 +98,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       final isLiked = await CommunityService.hasUserLikedPost(
         postId: widget.post.id,
       );
-      setState(() {
-        _isLiked = isLiked;
-      });
+      if (mounted) {
+        setState(() {
+          _isLiked = isLiked;
+        });
+      }
     } catch (e) {
       print('Error checking if liked: $e');
     }
@@ -107,9 +113,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       final isFollowing = await CommunityService.isFollowingUser(
         userId: widget.post.userId,
       );
-      setState(() {
-        _isFollowing = isFollowing;
-      });
+      if (mounted) {
+        setState(() {
+          _isFollowing = isFollowing;
+        });
+      }
     } catch (e) {
       print('Error checking if following: $e');
     }
@@ -120,9 +128,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       final gamification = await CommunityService.getUserGamification(
         userId: widget.post.userId,
       );
-      setState(() {
-        _userGamification = gamification;
-      });
+      if (mounted) {
+        setState(() {
+          _userGamification = gamification;
+        });
+      }
     } catch (e) {
       print('Error loading user gamification: $e');
     }
@@ -161,7 +171,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to update follow status. Please try again.'),
+            content: const Text('Failed to update follow status. Please try again.'),
             backgroundColor: FlutterFlowTheme.of(context).error,
           ),
         );
@@ -188,7 +198,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Invalid post ID. Please try again.'),
+            content: const Text('Invalid post ID. Please try again.'),
             backgroundColor: FlutterFlowTheme.of(context).error,
           ),
         );
@@ -205,19 +215,23 @@ class _PostCardWidgetState extends State<PostCardWidget> {
         postId: widget.post.id,
       );
 
-      setState(() {
-        _isLiked = result['is_liked'] as bool;
-        _likesCount = result['likes_count'] as int;
-        _isLiking = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLiked = result['is_liked'] as bool;
+          _likesCount = result['likes_count'] as int;
+          _isLiking = false;
+        });
 
-      // Notify parent widget if callback provided
-      widget.onLikeChanged?.call();
+        // Notify parent widget if callback provided
+        widget.onLikeChanged?.call();
+      }
     } catch (e) {
       print('Error toggling like: $e');
-      setState(() {
-        _isLiking = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLiking = false;
+        });
+      }
 
       // Show error message with actual error details
       if (mounted) {
@@ -228,7 +242,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           SnackBar(
             content: Text(errorMessage),
             backgroundColor: FlutterFlowTheme.of(context).error,
-            duration: Duration(seconds: 4),
+            duration: const Duration(seconds: 4),
           ),
         );
       }
@@ -242,11 +256,14 @@ class _PostCardWidgetState extends State<PostCardWidget> {
 
   String _getInitials(String? name) {
     if (name == null || name.isEmpty) return 'U';
-    final parts = name.trim().split(' ');
+    final parts = name.trim().split(' ').where((part) => part.isNotEmpty).toList();
     if (parts.length >= 2) {
       return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
     }
-    return name[0].toUpperCase();
+    if (parts.isNotEmpty && parts[0].isNotEmpty) {
+      return parts[0][0].toUpperCase();
+    }
+    return 'U';
   }
 
   @override
@@ -254,11 +271,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: 12.0),
+        margin: const EdgeInsets.only(bottom: 12.0),
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(8.0),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               blurRadius: 4.0,
               color: Color(0x33000000),
@@ -271,7 +288,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           children: [
             // Header: User info and timestamp
             Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -318,7 +335,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                 ),
                               ),
                   ),
-                  SizedBox(width: 12.0),
+                  const SizedBox(width: 12.0),
                   // Username and timestamp
                   Expanded(
                     child: Column(
@@ -358,9 +375,9 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                     ),
                                     if (widget.post.isFeatured)
                                       Padding(
-                                        padding: EdgeInsets.only(left: 6.0),
+                                        padding: const EdgeInsets.only(left: 6.0),
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                             horizontal: 6.0,
                                             vertical: 2.0,
                                           ),
@@ -373,17 +390,18 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.star,
                                                 size: 12.0,
                                                 color: Colors.white,
                                               ),
-                                              SizedBox(width: 2.0),
+                                              const SizedBox(width: 2.0),
                                               Text(
                                                 widget.post.featuredType
                                                         .isNotEmpty
                                                     ? widget.post.featuredType
                                                         .split('_')
+                                                        .where((word) => word.isNotEmpty)
                                                         .map((word) =>
                                                             word[0]
                                                                 .toUpperCase() +
@@ -413,7 +431,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                               ),
                               if (_userGamification != null)
                                 Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   child: XpLevelDisplayWidget(
                                     level: _userGamification!['current_level']
                                             as int? ??
@@ -427,7 +445,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                 ),
                             ],
                           ),
-                        SizedBox(height: 2.0),
+                        const SizedBox(height: 2.0),
                         Text(
                           _formatTimestamp(widget.post.createdAt),
                           style: FlutterFlowTheme.of(context)
@@ -442,14 +460,14 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                       ],
                     ),
                   ),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
                   // Follow button - only show if not your own post
                   if (!_isLoadingProfile &&
                       currentUserUid != widget.post.userId)
                     InkWell(
                       onTap: _toggleFollow,
                       child: Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 12.0, vertical: 6.0),
                         decoration: BoxDecoration(
                           color: _isFollowing
@@ -477,7 +495,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 6.0),
+                                  const SizedBox(width: 6.0),
                                   Text(
                                     _isFollowing ? 'Following' : 'Follow',
                                     style: _followButtonTextStyle(context),
@@ -496,7 +514,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
             // Post Image
             widget.post.photoUrl.isNotEmpty
                 ? ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(8.0),
                       topRight: Radius.circular(8.0),
                     ),
@@ -529,10 +547,10 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                       ),
                     ),
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
             // Caption and Actions
             Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -563,7 +581,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                 size: 24.0,
                               ),
                       ),
-                      SizedBox(width: 8.0),
+                      const SizedBox(width: 8.0),
                       Text(
                         '$_likesCount',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -575,7 +593,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   // Caption
                   if (widget.post.caption.isNotEmpty)
                     Text(

@@ -60,9 +60,11 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
   Future<void> _loadUserGamification() async {
     try {
       final gamification = await CommunityService.getUserGamification();
-      setState(() {
-        _userGamification = gamification;
-      });
+      if (mounted) {
+        setState(() {
+          _userGamification = gamification;
+        });
+      }
     } catch (e) {
       print('Error loading user gamification: $e');
     }
@@ -76,6 +78,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
   }
 
   Future<void> _loadPosts() async {
+    if (!mounted) return;
     setState(() {
       _isLoading = true;
     });
@@ -91,15 +94,19 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                       ? await CommunityService.getPopularFeed(limit: 20)
                       : await CommunityService.getFeaturedPosts(limit: 20);
 
-      setState(() {
-        _posts = posts;
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _posts = posts;
+          _isLoading = false;
+        });
+      }
     } catch (e) {
       print('Error loading posts: $e');
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -139,7 +146,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                   : FlutterFlowTheme.of(context).secondaryText,
               size: 20.0,
             ),
-            SizedBox(width: 12.0),
+            const SizedBox(width: 12.0),
             Text(
               feedType['name'] as String,
               style: TextStyle(
@@ -162,7 +169,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
     final totalBadgesEarned = _userGamification?['badges_earned'] as int? ?? 0;
 
     if (_userGamification == null) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
 
     return InkWell(
@@ -171,14 +178,14 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
         await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => BadgesPage(),
+            builder: (context) => const BadgesPage(),
           ),
         );
         // Refresh gamification data when returning from badges page
         _loadUserGamification();
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
         decoration: BoxDecoration(
           color: theme.primaryBackground,
           border: Border(
@@ -213,7 +220,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
             letterSpacing: 0.0,
           ),
         ),
-        SizedBox(height: 4.0),
+        const SizedBox(height: 4.0),
         Text(
           label,
           style: theme.bodySmall.override(
@@ -244,7 +251,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -274,13 +281,13 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                 ),
           ),
           actions: [
-            SizedBox(width: 8.0),
+            const SizedBox(width: 8.0),
             FlutterFlowIconButton(
               borderColor: Colors.transparent,
               borderRadius: 30.0,
               borderWidth: 1.0,
               buttonSize: 60.0,
-              icon: Icon(
+              icon: const Icon(
                 Icons.search,
                 color: Colors.white,
                 size: 30.0,
@@ -337,7 +344,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
               _buildUserProfileRow(context),
               // Feed Type Indicator (clickable to open dropdown)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primaryBackground,
                   border: Border(
@@ -379,7 +386,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                         color: FlutterFlowTheme.of(context).primary,
                         size: 20.0,
                       ),
-                      SizedBox(width: 8.0),
+                      const SizedBox(width: 8.0),
                       Text(
                         _selectedTab == 0
                             ? 'For You'
@@ -398,7 +405,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                               letterSpacing: 0.0,
                             ),
                       ),
-                      SizedBox(width: 4.0),
+                      const SizedBox(width: 4.0),
                       Icon(
                         Icons.arrow_drop_down,
                         color: FlutterFlowTheme.of(context).secondaryText,
@@ -422,8 +429,8 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                         ? RefreshIndicator(
                             onRefresh: _refreshPosts,
                             child: SingleChildScrollView(
-                              physics: AlwaysScrollableScrollPhysics(),
-                              child: Container(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              child: SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.6,
                                 child: Center(
@@ -444,7 +451,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                                             .secondaryText,
                                         size: 64.0,
                                       ),
-                                      SizedBox(height: 16.0),
+                                      const SizedBox(height: 16.0),
                                       Text(
                                         _selectedTab == 0
                                             ? 'No posts yet'
@@ -464,7 +471,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                                               letterSpacing: 0.0,
                                             ),
                                       ),
-                                      SizedBox(height: 8.0),
+                                      const SizedBox(height: 8.0),
                                       Text(
                                         _selectedTab == 0
                                             ? 'Be the first to share your garden!'
@@ -490,7 +497,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                         : RefreshIndicator(
                             onRefresh: _refreshPosts,
                             child: ListView.builder(
-                              padding: EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(16.0),
                               itemCount: _posts.length,
                               itemBuilder: (context, index) {
                                 final post = _posts[index];
@@ -514,6 +521,8 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
 
 /// Simple user search dialog
 class UserSearchDialog extends StatefulWidget {
+  const UserSearchDialog({super.key});
+
   @override
   State<UserSearchDialog> createState() => _UserSearchDialogState();
 }
@@ -594,7 +603,7 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to update follow status. Please try again.'),
+            content: const Text('Failed to update follow status. Please try again.'),
             backgroundColor: FlutterFlowTheme.of(context).error,
           ),
         );
@@ -604,24 +613,27 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
 
   String _getInitials(String? name) {
     if (name == null || name.isEmpty) return 'U';
-    final parts = name.trim().split(' ');
+    final parts = name.trim().split(' ').where((part) => part.isNotEmpty).toList();
     if (parts.length >= 2) {
       return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
     }
-    return name[0].toUpperCase();
+    if (parts.isNotEmpty && parts[0].isNotEmpty) {
+      return parts[0][0].toUpperCase();
+    }
+    return 'U';
   }
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.7,
         child: Column(
           children: [
             // Header
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
                   Expanded(
@@ -630,22 +642,22 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
                       autofocus: true,
                       decoration: InputDecoration(
                         hintText: 'Search users...',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
                   IconButton(
-                    icon: Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ],
               ),
             ),
-            Divider(),
+            const Divider(),
             // Results
             Expanded(
               child: _isSearching
@@ -667,7 +679,7 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
                                 color:
                                     FlutterFlowTheme.of(context).secondaryText,
                               ),
-                              SizedBox(height: 16.0),
+                              const SizedBox(height: 16.0),
                               Text(
                                 _searchController.text.isEmpty
                                     ? 'Search for users'
@@ -683,7 +695,7 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
                           ),
                         )
                       : ListView.builder(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           itemCount: _searchResults.length,
                           itemBuilder: (context, index) {
                             final user = _searchResults[index];
@@ -710,7 +722,7 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
                                         ? Text(
                                             _getInitials(user['display_name']
                                                 as String?),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.white,
                                             ),
                                           )

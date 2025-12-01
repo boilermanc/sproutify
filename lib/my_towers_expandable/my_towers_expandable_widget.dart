@@ -130,7 +130,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -155,7 +155,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -167,7 +167,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: FutureBuilder<List<UsertowerdetailsRow>>(
                     future: (_model.requestCompleter ??=
                             Completer<List<UsertowerdetailsRow>>()
@@ -202,7 +202,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                           listViewUsertowerdetailsRowList = snapshot.data!;
 
                       if (listViewUsertowerdetailsRowList.isEmpty) {
-                        return NoTowersWidget();
+                        return const NoTowersWidget();
                       }
 
                       return ListView.builder(
@@ -215,7 +215,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                           final listViewUsertowerdetailsRow =
                               listViewUsertowerdetailsRowList[listViewIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 5.0),
                             child: Container(
                               decoration: BoxDecoration(
@@ -227,7 +227,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                   initialExpanded: true,
                                   child: ExpandablePanel(
                                     header: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 0.0, 0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -282,14 +282,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                             .secondaryBackground,
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 0.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Flexible(
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 8.0, 0.0, 0.0),
                                                 child: Text(
@@ -309,7 +309,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            Color(0x8A000000),
+                                                            const Color(0x8A000000),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
@@ -327,10 +327,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                       ),
                                     ),
                                     expanded: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 0.0, 10.0, 20.0),
                                       child: Container(
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -364,7 +364,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             20.0,
                                                                             0.0,
@@ -393,7 +393,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             5.0,
                                                                             0.0,
@@ -442,7 +442,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             20.0,
                                                                             0.0,
@@ -471,7 +471,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             5.0,
                                                                             0.0,
@@ -508,7 +508,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                               ),
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             5.0,
@@ -520,7 +520,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                           .max,
                                                                   children: [
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           20.0,
                                                                           0.0,
                                                                           0.0,
@@ -543,7 +543,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           10.0,
                                                                           0.0,
                                                                           0.0,
@@ -605,7 +605,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           10.0,
                                                                           0.0,
                                                                           0.0,
@@ -642,7 +642,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 },
                                                                                 child: Padding(
                                                                                   padding: MediaQuery.viewInsetsOf(context),
-                                                                                  child: PhInfoWidget(),
+                                                                                  child: const PhInfoWidget(),
                                                                                 ),
                                                                               );
                                                                             },
@@ -661,7 +661,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           10.0,
                                                                           0.0,
                                                                           0.0,
@@ -695,7 +695,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                   FocusScope.of(context).unfocus();
                                                                                   FocusManager.instance.primaryFocus?.unfocus();
                                                                                 },
-                                                                                child: Container(
+                                                                                child: SizedBox(
                                                                                   height: MediaQuery.of(context).size.height * 0.9,
                                                                                   child: PhEcChartWidget(
                                                                                     towerID: listViewUsertowerdetailsRow,
@@ -732,7 +732,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                 true,
                                                               ))
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           10.0,
@@ -741,7 +741,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   child:
                                                                       Container(
                                                                     decoration:
-                                                                        BoxDecoration(
+                                                                        const BoxDecoration(
                                                                       color: Color(
                                                                           0xFFF8F4F4),
                                                                       borderRadius:
@@ -771,7 +771,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               mainAxisSize: MainAxisSize.max,
                                                                               children: [
                                                                                 Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
                                                                                   child: Container(
                                                                                     width: 75.0,
                                                                                     height: 75.0,
@@ -791,7 +791,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                               height: 200.0,
                                                                                               fit: BoxFit.cover,
                                                                                               errorBuilder: (context, error, stackTrace) {
-                                                                                                return SizedBox(
+                                                                                                return const SizedBox(
                                                                                                   width: 300.0,
                                                                                                   height: 200.0,
                                                                                                 );
@@ -799,7 +799,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                             ),
                                                                                           ),
                                                                                         Align(
-                                                                                          alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                          alignment: const AlignmentDirectional(0.0, 0.0),
                                                                                           child: Text(
                                                                                             valueOrDefault<String>(
                                                                                               listViewUsertowerdetailsRow.latestPhValue?.toString(),
@@ -825,12 +825,12 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 ),
                                                                                 Expanded(
                                                                                   child: Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
                                                                                     child: Container(
-                                                                                      constraints: BoxConstraints(
+                                                                                      constraints: const BoxConstraints(
                                                                                         minHeight: 100.0,
                                                                                       ),
-                                                                                      decoration: BoxDecoration(
+                                                                                      decoration: const BoxDecoration(
                                                                                         color: Color(0xFFD3DDEB),
                                                                                         borderRadius: BorderRadius.only(
                                                                                           bottomLeft: Radius.circular(10.0),
@@ -840,7 +840,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                         ),
                                                                                       ),
                                                                                       child: Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(8.0, 12.0, 8.0, 12.0),
+                                                                                        padding: const EdgeInsetsDirectional.fromSTEB(8.0, 12.0, 8.0, 12.0),
                                                                                         child: Text(
                                                                                           valueOrDefault<String>(
                                                                                             listViewUsertowerdetailsRow.phReview,
@@ -862,13 +862,13 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                   ),
                                                                                 ),
                                                                                 Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 0.0, 5.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 0.0, 5.0),
                                                                                   child: Container(
                                                                                     width: 75.0,
-                                                                                    constraints: BoxConstraints(
+                                                                                    constraints: const BoxConstraints(
                                                                                       minHeight: 100.0,
                                                                                     ),
-                                                                                    decoration: BoxDecoration(),
+                                                                                    decoration: const BoxDecoration(),
                                                                                     child: (listViewUsertowerdetailsRow.reviewImageUrl != null &&
                                                                                             listViewUsertowerdetailsRow.reviewImageUrl!.isNotEmpty)
                                                                                         ? ClipRRect(
@@ -878,14 +878,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                               width: 75.0,
                                                                                               fit: BoxFit.cover,
                                                                                               errorBuilder: (context, error, stackTrace) {
-                                                                                                return SizedBox(
+                                                                                                return const SizedBox(
                                                                                                   width: 75.0,
                                                                                                   height: 100.0,
                                                                                                 );
                                                                                               },
                                                                                             ),
                                                                                           )
-                                                                                        : SizedBox(
+                                                                                        : const SizedBox(
                                                                                             width: 75.0,
                                                                                             height: 100.0,
                                                                                           ),
@@ -903,7 +903,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       .latestPhValue ==
                                                                   null)
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           10.0,
@@ -919,7 +919,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               context)
                                                                           .secondaryBackground,
                                                                       borderRadius:
-                                                                          BorderRadius
+                                                                          const BorderRadius
                                                                               .only(
                                                                         bottomLeft:
                                                                             Radius.circular(10.0),
@@ -945,11 +945,11 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               mainAxisSize: MainAxisSize.max,
                                                                               children: [
                                                                                 Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 5.0, 0.0, 5.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 5.0, 0.0, 5.0),
                                                                                   child: Container(
                                                                                     width: 100.0,
                                                                                     height: 120.0,
-                                                                                    decoration: BoxDecoration(
+                                                                                    decoration: const BoxDecoration(
                                                                                       color: Color(0xFFD3DDEB),
                                                                                       borderRadius: BorderRadius.only(
                                                                                         bottomLeft: Radius.circular(10.0),
@@ -959,7 +959,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                       ),
                                                                                     ),
                                                                                     child: Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 5.0, 5.0),
+                                                                                      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 5.0, 5.0),
                                                                                       child: Text(
                                                                                         'To get started, click on the gear icon above and enter your first pH value!',
                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -977,11 +977,11 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                   ),
                                                                                 ),
                                                                                 Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                                                                                   child: Container(
                                                                                     width: 75.0,
                                                                                     height: 125.0,
-                                                                                    decoration: BoxDecoration(),
+                                                                                    decoration: const BoxDecoration(),
                                                                                     child: ClipRRect(
                                                                                       borderRadius: BorderRadius.circular(8.0),
                                                                                       child: Image.asset(
@@ -1010,7 +1010,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             20.0,
                                                                             0.0,
@@ -1048,7 +1048,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -1115,7 +1115,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -1155,7 +1155,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               },
                                                                               child: Padding(
                                                                                 padding: MediaQuery.viewInsetsOf(context),
-                                                                                child: EcInfoWidget(),
+                                                                                child: const EcInfoWidget(),
                                                                               ),
                                                                             );
                                                                           },
@@ -1174,7 +1174,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -1213,7 +1213,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 FocusScope.of(context).unfocus();
                                                                                 FocusManager.instance.primaryFocus?.unfocus();
                                                                               },
-                                                                              child: Container(
+                                                                              child: SizedBox(
                                                                                 height: MediaQuery.of(context).size.height * 0.9,
                                                                                 child: PhEcChartWidget(
                                                                                   towerID: listViewUsertowerdetailsRow,
@@ -1245,7 +1245,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       .latestEcValue !=
                                                                   null)
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           10.0,
@@ -1254,7 +1254,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   child:
                                                                       Container(
                                                                     decoration:
-                                                                        BoxDecoration(
+                                                                        const BoxDecoration(
                                                                       color: Color(
                                                                           0xFFF8F4F4),
                                                                       borderRadius:
@@ -1281,7 +1281,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               MainAxisSize.max,
                                                                           children: [
                                                                             Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
                                                                               child: InkWell(
                                                                                 splashColor: Colors.transparent,
                                                                                 focusColor: Colors.transparent,
@@ -1299,7 +1299,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                           FocusScope.of(context).unfocus();
                                                                                           FocusManager.instance.primaryFocus?.unfocus();
                                                                                         },
-                                                                                        child: Container(
+                                                                                        child: SizedBox(
                                                                                           height: MediaQuery.of(context).size.height * 0.9,
                                                                                           child: PhEcChartWidget(
                                                                                             towerID: listViewUsertowerdetailsRow,
@@ -1312,7 +1312,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 child: Container(
                                                                                   width: 75.0,
                                                                                   height: 75.0,
-                                                                                  decoration: BoxDecoration(
+                                                                                  decoration: const BoxDecoration(
                                                                                     color: Color(0xFF9ACD32),
                                                                                     shape: BoxShape.circle,
                                                                                   ),
@@ -1328,7 +1328,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                             height: 200.0,
                                                                                             fit: BoxFit.cover,
                                                                                             errorBuilder: (context, error, stackTrace) {
-                                                                                              return SizedBox(
+                                                                                              return const SizedBox(
                                                                                                 width: 300.0,
                                                                                                 height: 200.0,
                                                                                               );
@@ -1336,7 +1336,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                           ),
                                                                                         ),
                                                                                       Align(
-                                                                                        alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                        alignment: const AlignmentDirectional(0.0, 0.0),
                                                                                         child: Text(
                                                                                           valueOrDefault<String>(
                                                                                             listViewUsertowerdetailsRow.latestEcValue?.toString(),
@@ -1363,10 +1363,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                             ),
                                                                             Expanded(
                                                                               child: Container(
-                                                                                constraints: BoxConstraints(
+                                                                                constraints: const BoxConstraints(
                                                                                   minHeight: 100.0,
                                                                                 ),
-                                                                                decoration: BoxDecoration(
+                                                                                decoration: const BoxDecoration(
                                                                                   color: Color(0xFFD3DDEB),
                                                                                   borderRadius: BorderRadius.only(
                                                                                     bottomLeft: Radius.circular(10.0),
@@ -1376,7 +1376,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                   ),
                                                                                 ),
                                                                                 child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 12.0, 8.0, 12.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 12.0, 8.0, 12.0),
                                                                                   child: Text(
                                                                                     valueOrDefault<String>(
                                                                                       listViewUsertowerdetailsRow.ecReview,
@@ -1397,13 +1397,13 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               ),
                                                                             ),
                                                                             Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                                                                               child: Container(
                                                                                 width: 75.0,
-                                                                                constraints: BoxConstraints(
+                                                                                constraints: const BoxConstraints(
                                                                                   minHeight: 100.0,
                                                                                 ),
-                                                                                decoration: BoxDecoration(),
+                                                                                decoration: const BoxDecoration(),
                                                                                 child: (listViewUsertowerdetailsRow.ecReviewImageUrl != null &&
                                                                                         listViewUsertowerdetailsRow.ecReviewImageUrl!.isNotEmpty)
                                                                                     ? ClipRRect(
@@ -1413,14 +1413,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                           width: 75.0,
                                                                                           fit: BoxFit.cover,
                                                                                           errorBuilder: (context, error, stackTrace) {
-                                                                                            return SizedBox(
+                                                                                            return const SizedBox(
                                                                                               width: 75.0,
                                                                                               height: 100.0,
                                                                                             );
                                                                                           },
                                                                                         ),
                                                                                       )
-                                                                                    : SizedBox(
+                                                                                    : const SizedBox(
                                                                                         width: 75.0,
                                                                                         height: 100.0,
                                                                                       ),
@@ -1436,7 +1436,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       .latestEcValue ==
                                                                   null)
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           10.0,
@@ -1452,7 +1452,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               context)
                                                                           .secondaryBackground,
                                                                       borderRadius:
-                                                                          BorderRadius
+                                                                          const BorderRadius
                                                                               .only(
                                                                         bottomLeft:
                                                                             Radius.circular(10.0),
@@ -1478,11 +1478,11 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               mainAxisSize: MainAxisSize.max,
                                                                               children: [
                                                                                 Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 5.0, 0.0, 5.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 5.0, 0.0, 5.0),
                                                                                   child: Container(
                                                                                     width: 100.0,
                                                                                     height: 120.0,
-                                                                                    decoration: BoxDecoration(
+                                                                                    decoration: const BoxDecoration(
                                                                                       color: Color(0xFFD3DDEB),
                                                                                       borderRadius: BorderRadius.only(
                                                                                         bottomLeft: Radius.circular(10.0),
@@ -1492,7 +1492,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                       ),
                                                                                     ),
                                                                                     child: Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 5.0, 5.0),
+                                                                                      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 5.0, 5.0),
                                                                                       child: Text(
                                                                                         'To get started, click on the gear icon above and enter your first EC value!',
                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1510,11 +1510,11 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                   ),
                                                                                 ),
                                                                                 Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                                                                                   child: Container(
                                                                                     width: 75.0,
                                                                                     height: 125.0,
-                                                                                    decoration: BoxDecoration(),
+                                                                                    decoration: const BoxDecoration(),
                                                                                     child: (listViewUsertowerdetailsRow.ecReviewImageUrl != null &&
                                                                                             listViewUsertowerdetailsRow.ecReviewImageUrl!.isNotEmpty)
                                                                                         ? ClipRRect(
@@ -1525,14 +1525,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                               height: 100.0,
                                                                                               fit: BoxFit.cover,
                                                                                               errorBuilder: (context, error, stackTrace) {
-                                                                                                return SizedBox(
+                                                                                                return const SizedBox(
                                                                                                   width: 75.0,
                                                                                                   height: 100.0,
                                                                                                 );
                                                                                               },
                                                                                             ),
                                                                                           )
-                                                                                        : SizedBox(
+                                                                                        : const SizedBox(
                                                                                             width: 75.0,
                                                                                             height: 100.0,
                                                                                           ),
@@ -1556,7 +1556,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       5.0, 10.0, 0.0, 20.0),
                                               child: Row(
@@ -1613,14 +1613,14 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                       ),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsets.all(4.0),
+                                                            const EdgeInsets.all(4.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -1673,174 +1673,6 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                       ),
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                                                    child: InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        HapticFeedback
-                                                            .lightImpact();
-                                                        await MyTowersTable()
-                                                            .update(
-                                                          data: {
-                                                            'archive': true,
-                                                          },
-                                                          matchingRows: (rows) =>
-                                                              rows.eqOrNull(
-                                                            'tower_id',
-                                                            listViewUsertowerdetailsRow
-                                                                .towerId,
-                                                          ),
-                                                        );
-                                                      // Reset completer and force rebuild to refresh the list
-                                                      safeSetState(() {
-                                                        _model.requestCompleter = null;
-                                                      });
-                                                      // Wait a moment for the trigger to refresh the materialized view
-                                                      await Future.delayed(
-                                                        Duration(
-                                                          milliseconds: 500,
-                                                        ),
-                                                      );
-                                                      // Force a rebuild to pick up the new future
-                                                      safeSetState(() {});
-                                                      await _model
-                                                          .waitForRequestCompleted();
-                                                      _model.isTowerActive1199 =
-                                                          await MyTowersTable()
-                                                              .queryRows(
-                                                        queryFn: (q) => q
-                                                            .eqOrNull(
-                                                              'user_id',
-                                                              listViewUsertowerdetailsRow
-                                                                  .userId,
-                                                            )
-                                                            .eqOrNull(
-                                                              'archive',
-                                                              false,
-                                                            ),
-                                                      );
-                                                      if (_model.isTowerActive1199 !=
-                                                              null &&
-                                                          (_model.isTowerActive1199)!
-                                                              .isNotEmpty) {
-                                                        FFAppState()
-                                                                .isTowerActive =
-                                                            true;
-                                                        safeSetState(() {});
-                                                      } else {
-                                                        FFAppState()
-                                                                .isTowerActive =
-                                                            false;
-                                                        safeSetState(() {});
-                                                      }
-
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          content: Text(
-                                                            'Tower Archived',
-                                                            style: TextStyle(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  4000),
-                                                          backgroundColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .secondary,
-                                                        ),
-                                                      );
-                                                      safeSetState(() => _model
-                                                              .requestCompleter =
-                                                          null);
-                                                      await _model
-                                                          .waitForRequestCompleted();
-
-                                                      safeSetState(() {});
-                                                    },
-                                                    child: Container(
-                                                      width: 150.0,
-                                                      height: 30.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFFF8EFCD),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsets.all(4.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .inventory_2_outlined,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                size: 20.0,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Archive Tower',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .readexPro(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                    ),
                                                 ],
                                               ),
                                             ),
@@ -1848,7 +1680,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                         ),
                                       ),
                                     ),
-                                    theme: ExpandableThemeData(
+                                    theme: const ExpandableThemeData(
                                       tapHeaderToExpand: true,
                                       tapBodyToExpand: false,
                                       tapBodyToCollapse: false,
