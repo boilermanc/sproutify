@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/services/community_service.dart';
+import '/components/community_guidelines_dialog.dart';
 import '/flutter_flow/upload_data.dart';
 import '/backend/supabase/database/tables/userplants.dart';
 import '/backend/supabase/database/tables/my_towers.dart';
@@ -32,9 +33,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
   bool _isUploading = false;
   bool _isPosting = false;
   final int _maxCaptionLength = 500;
-  
+
   // Tag selection
-  List<int> _selectedPlantIds = [];
+  final List<int> _selectedPlantIds = [];
   int? _selectedTowerId;
   List<Map<String, dynamic>> _userPlants = [];
   List<Map<String, dynamic>> _userTowers = [];
@@ -45,22 +46,54 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
     super.initState();
     _captionController = TextEditingController();
     _loadUserTags();
+    _checkGuidelinesAcceptance();
   }
-  
+
+  Future<void> _checkGuidelinesAcceptance() async {
+    final hasAccepted = await CommunityService.hasAcceptedGuidelines();
+    if (!hasAccepted) {
+      // Show guidelines dialog before allowing post creation
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _showGuidelinesDialog();
+        }
+      });
+    }
+  }
+
+  Future<void> _showGuidelinesDialog() async {
+    final accepted = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false, // Must accept to continue
+      builder: (context) => CommunityGuidelinesDialog(
+        onAccepted: () {
+          // Guidelines accepted, user can now create posts
+        },
+      ),
+    );
+
+    if (accepted != true) {
+      // User didn't accept, go back
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    }
+  }
+
   Future<void> _loadUserTags() async {
     setState(() {
       _isLoadingTags = true;
     });
-    
+
     try {
       final userId = currentUserUid;
       if (userId.isEmpty) return;
-      
+
       // Load user plants
       final plants = await UserplantsTable().queryRows(
         queryFn: (q) => q.eq('user_id', userId).eq('archived', false),
       );
-      
+
       // Get plant details
       final plantDetails = <Map<String, dynamic>>[];
       for (final plant in plants) {
@@ -80,17 +113,19 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
           }
         }
       }
-      
+
       // Load user towers
       final towers = await MyTowersTable().queryRows(
         queryFn: (q) => q.eq('user_id', userId).eq('archive', false),
       );
-      
-      final towerDetails = towers.map((tower) => {
-        'id': tower.towerId,
-        'name': tower.towerName,
-      }).toList();
-      
+
+      final towerDetails = towers
+          .map((tower) => {
+                'id': tower.towerId,
+                'name': tower.towerName,
+              })
+          .toList();
+
       setState(() {
         _userPlants = plantDetails;
         _userTowers = towerDetails;
@@ -103,7 +138,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
       });
     }
   }
-  
+
   /// Extract hashtags from caption text
   List<String> _extractHashtags(String text) {
     final hashtagRegex = RegExp(r'#(\w+)');
@@ -134,7 +169,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
   }
 
   double _calculateAspectRatio(MediaDimensions? dimensions) {
-    if (dimensions == null || dimensions.width == null || dimensions.height == null) {
+    if (dimensions == null ||
+        dimensions.width == null ||
+        dimensions.height == null) {
       return 1.0;
     }
     return dimensions.width! / dimensions.height!;
@@ -144,7 +181,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
     if (_selectedFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Please select a photo first'),
+          content: const Text('Please select a photo first'),
           backgroundColor: FlutterFlowTheme.of(context).error,
         ),
       );
@@ -153,6 +190,26 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
 
     if (!_formKey.currentState!.validate()) {
       return;
+    }
+
+    // Extract hashtags from caption
+    final caption = _captionController!.text.trim();
+
+    // Content filtering: Check for profanity before uploading
+    if (caption.isNotEmpty) {
+      final hasProfanity = await CommunityService.containsProfanity(caption);
+      if (hasProfanity) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Your post contains inappropriate language. Please revise your caption and try again.',
+            ),
+            backgroundColor: FlutterFlowTheme.of(context).error,
+            duration: const Duration(seconds: 4),
+          ),
+        );
+        return;
+      }
     }
 
     setState(() {
@@ -173,10 +230,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
       // Calculate aspect ratio
       final aspectRatio = _calculateAspectRatio(_selectedFile!.dimensions);
 
-      // Extract hashtags from caption
-      final caption = _captionController!.text.trim();
-      final hashtags = caption.isNotEmpty ? _extractHashtags(caption) : <String>[];
-      
+      final hashtags =
+          caption.isNotEmpty ? _extractHashtags(caption) : <String>[];
+
       // Create post
       final result = await CommunityService.createPost(
         photoUrl: photoUrl,
@@ -191,7 +247,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Post created successfully!'),
+            content: const Text('Post created successfully!'),
             backgroundColor: FlutterFlowTheme.of(context).success,
           ),
         );
@@ -248,7 +304,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
           borderRadius: 30.0,
           borderWidth: 1.0,
           buttonSize: 60.0,
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.white,
             size: 30.0,
@@ -261,14 +317,15 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
           'Create Post',
           style: FlutterFlowTheme.of(context).headlineMedium.override(
                 font: GoogleFonts.outfit(
-                  fontWeight: FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                  fontWeight:
+                      FlutterFlowTheme.of(context).headlineMedium.fontWeight,
                 ),
                 color: Colors.white,
                 fontSize: 22.0,
                 letterSpacing: 0.0,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 2.0,
       ),
@@ -283,7 +340,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
               children: [
                 // Image picker section
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 16.0, 16.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: 300.0,
@@ -303,10 +361,11 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                               children: [
                                 Icon(
                                   Icons.add_photo_alternate_outlined,
-                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   size: 64.0,
                                 ),
-                                SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
                                 Text(
                                   'Tap to add photo',
                                   style: FlutterFlowTheme.of(context)
@@ -316,7 +375,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                         letterSpacing: 0.0,
                                       ),
                                 ),
-                                SizedBox(height: 8.0),
+                                const SizedBox(height: 8.0),
                                 Text(
                                   'Camera or Gallery',
                                   style: FlutterFlowTheme.of(context)
@@ -348,12 +407,12 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                 child: InkWell(
                                   onTap: _removeImage,
                                   child: Container(
-                                    padding: EdgeInsets.all(8.0),
-                                    decoration: BoxDecoration(
+                                    padding: const EdgeInsets.all(8.0),
+                                    decoration: const BoxDecoration(
                                       color: Colors.black54,
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.close,
                                       color: Colors.white,
                                       size: 20.0,
@@ -367,22 +426,25 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                 ),
                 // Caption input section
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 16.0, 16.0, 0.0),
                   child: TextFormField(
                     controller: _captionController,
                     autofocus: false,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Caption (optional)',
-                      labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                            font: GoogleFonts.readexPro(),
-                            letterSpacing: 0.0,
-                          ),
+                      labelStyle:
+                          FlutterFlowTheme.of(context).labelMedium.override(
+                                font: GoogleFonts.readexPro(),
+                                letterSpacing: 0.0,
+                              ),
                       hintText: 'Share your garden story...',
-                      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                            font: GoogleFonts.readexPro(),
-                            letterSpacing: 0.0,
-                          ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).labelMedium.override(
+                                font: GoogleFonts.readexPro(),
+                                letterSpacing: 0.0,
+                              ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).alternate,
@@ -412,8 +474,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                      contentPadding: EdgeInsetsDirectional.fromSTEB(
+                      fillColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
+                      contentPadding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 24.0, 16.0, 24.0),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -430,7 +493,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                       '$currentLength / ${maxLength ?? _maxCaptionLength}',
                       style: FlutterFlowTheme.of(context).bodySmall.override(
                             font: GoogleFonts.readexPro(),
-                            color: maxLength != null && currentLength > maxLength * 0.9
+                            color: maxLength != null &&
+                                    currentLength > maxLength * 0.9
                                 ? FlutterFlowTheme.of(context).error
                                 : FlutterFlowTheme.of(context).secondaryText,
                             letterSpacing: 0.0,
@@ -447,7 +511,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                 // Tag selection section
                 if (_isLoadingTags)
                   Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Center(
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
@@ -458,7 +522,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                   )
                 else if (_userPlants.isNotEmpty || _userTowers.isNotEmpty)
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        16.0, 16.0, 16.0, 0.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -466,19 +531,22 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                         if (_userPlants.isNotEmpty) ...[
                           Text(
                             'Tag Plants (optional)',
-                            style: FlutterFlowTheme.of(context).labelMedium.override(
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
                                   font: GoogleFonts.readexPro(
                                     fontWeight: FontWeight.w600,
                                   ),
                                   letterSpacing: 0.0,
                                 ),
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Wrap(
                             spacing: 8.0,
                             runSpacing: 8.0,
                             children: _userPlants.map((plant) {
-                              final isSelected = _selectedPlantIds.contains(plant['id']);
+                              final isSelected =
+                                  _selectedPlantIds.contains(plant['id']);
                               return FilterChip(
                                 label: Text(plant['name'] as String),
                                 selected: isSelected,
@@ -487,65 +555,76 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                     if (selected) {
                                       _selectedPlantIds.add(plant['id'] as int);
                                     } else {
-                                      _selectedPlantIds.remove(plant['id'] as int);
+                                      _selectedPlantIds
+                                          .remove(plant['id'] as int);
                                     }
                                   });
                                 },
-                                selectedColor: FlutterFlowTheme.of(context).primary,
+                                selectedColor:
+                                    FlutterFlowTheme.of(context).primary,
                                 checkmarkColor: Colors.white,
                                 labelStyle: TextStyle(
                                   color: isSelected
                                       ? Colors.white
-                                      : FlutterFlowTheme.of(context).primaryText,
+                                      : FlutterFlowTheme.of(context)
+                                          .primaryText,
                                 ),
                               );
                             }).toList(),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                         ],
                         // Tower tag
                         if (_userTowers.isNotEmpty) ...[
                           Text(
                             'Tag Tower (optional)',
-                            style: FlutterFlowTheme.of(context).labelMedium.override(
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
                                   font: GoogleFonts.readexPro(
                                     fontWeight: FontWeight.w600,
                                   ),
                                   letterSpacing: 0.0,
                                 ),
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Wrap(
                             spacing: 8.0,
                             runSpacing: 8.0,
                             children: _userTowers.map((tower) {
-                              final isSelected = _selectedTowerId == tower['id'];
+                              final isSelected =
+                                  _selectedTowerId == tower['id'];
                               return FilterChip(
                                 label: Text(tower['name'] as String),
                                 selected: isSelected,
                                 onSelected: (selected) {
                                   setState(() {
-                                    _selectedTowerId = selected ? tower['id'] as int : null;
+                                    _selectedTowerId =
+                                        selected ? tower['id'] as int : null;
                                   });
                                 },
-                                selectedColor: FlutterFlowTheme.of(context).primary,
+                                selectedColor:
+                                    FlutterFlowTheme.of(context).primary,
                                 checkmarkColor: Colors.white,
                                 labelStyle: TextStyle(
                                   color: isSelected
                                       ? Colors.white
-                                      : FlutterFlowTheme.of(context).primaryText,
+                                      : FlutterFlowTheme.of(context)
+                                          .primaryText,
                                 ),
                               );
                             }).toList(),
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Text(
                             'Tip: Use #hashtags in your caption to help others discover your post!',
-                            style: FlutterFlowTheme.of(context).bodySmall.override(
-                                  font: GoogleFonts.readexPro(),
-                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                  letterSpacing: 0.0,
-                                ),
+                            style:
+                                FlutterFlowTheme.of(context).bodySmall.override(
+                                      font: GoogleFonts.readexPro(),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      letterSpacing: 0.0,
+                                    ),
                           ),
                         ],
                       ],
@@ -554,7 +633,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                 // Loading indicator
                 if (_isUploading || _isPosting)
                   Padding(
-                    padding: EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Column(
                       children: [
                         CircularProgressIndicator(
@@ -562,13 +641,16 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                             FlutterFlowTheme.of(context).primary,
                           ),
                         ),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Text(
-                          _isUploading ? 'Uploading photo...' : 'Creating post...',
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.readexPro(),
-                                letterSpacing: 0.0,
-                              ),
+                          _isUploading
+                              ? 'Uploading photo...'
+                              : 'Creating post...',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.readexPro(),
+                                    letterSpacing: 0.0,
+                                  ),
                         ),
                       ],
                     ),
@@ -576,25 +658,29 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                 // Post button
                 if (_selectedFile != null && !_isUploading && !_isPosting)
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 24.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        16.0, 24.0, 16.0, 24.0),
                     child: FFButtonWidget(
                       onPressed: _createPost,
                       text: 'Post',
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 50.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
-                        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.readexPro(
-                                fontWeight: FontWeight.w600,
-                              ),
-                              color: Colors.white,
-                              letterSpacing: 0.0,
-                            ),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -603,7 +689,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                     ),
                   )
                 else
-                  SizedBox(height: 24.0),
+                  const SizedBox(height: 24.0),
               ],
             ),
           ),
@@ -612,4 +698,3 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
     );
   }
 }
-

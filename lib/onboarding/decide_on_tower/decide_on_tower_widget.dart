@@ -59,8 +59,8 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(1.4, 1.4),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(1.4, 1.4),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -78,8 +78,8 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 70.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 70.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -97,8 +97,8 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 90.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 90.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -116,15 +116,15 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 100.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 100.0),
+            end: const Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.8, 0.8),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.8, 0.8),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -142,15 +142,15 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 100.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 100.0),
+            end: const Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.8, 0.8),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.8, 0.8),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -187,7 +187,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
           body: SafeArea(
             top: true,
             child: Padding(
-              padding: EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(30.0),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -196,7 +196,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0x97FFFFFF),
+                    color: const Color(0x97FFFFFF),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Column(
@@ -205,7 +205,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                     children: [
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -247,7 +247,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                           animationsMap['textOnPageLoadAnimation1']!),
                       Flexible(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 12.0, 24.0, 0.0),
                           child: Text(
                             'Do you have a Tower Garden?',
@@ -274,22 +274,22 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             context.goNamed(PortCountInputWidget.routeName);
                           },
                           text: 'Yes! I Do!',
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.check,
                             size: 15.0,
                           ),
                           options: FFButtonOptions(
                             width: 200.0,
                             height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -314,7 +314,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                                       .fontStyle,
                                 ),
                             elevation: 2.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -328,7 +328,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             await showModalBottomSheet(
@@ -345,7 +345,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                                   },
                                   child: Padding(
                                     padding: MediaQuery.viewInsetsOf(context),
-                                    child: NeedATowerComponentWidget(),
+                                    child: const NeedATowerComponentWidget(),
                                   ),
                                 );
                               },
@@ -355,9 +355,9 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                           options: FFButtonOptions(
                             width: 200.0,
                             height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -382,7 +382,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                                       .fontStyle,
                                 ),
                             elevation: 2.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -395,9 +395,9 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                             animationsMap['buttonOnPageLoadAnimation2']!),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 10.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -422,7 +422,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                                   );
                                 },
                                 child: Container(
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [

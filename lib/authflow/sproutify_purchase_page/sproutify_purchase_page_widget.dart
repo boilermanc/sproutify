@@ -63,7 +63,7 @@ class _SproutifyPurchasePageWidgetState
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                  alignment: AlignmentDirectional(0.0, -1.0),
+                  alignment: const AlignmentDirectional(0.0, -1.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -76,9 +76,9 @@ class _SproutifyPurchasePageWidgetState
                               child: Container(
                                 width: double.infinity,
                                 height: 200.0,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Padding(
-                                  padding: EdgeInsets.all(20.0),
+                                  padding: const EdgeInsets.all(20.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: Image.asset(
@@ -94,7 +94,7 @@ class _SproutifyPurchasePageWidgetState
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -107,8 +107,8 @@ class _SproutifyPurchasePageWidgetState
                                       width: 350.0,
                                       height: 100.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFDAE5D7),
-                                        boxShadow: [
+                                        color: const Color(0xFFDAE5D7),
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 4.0,
                                             color: Color(0x33000000),
@@ -122,7 +122,7 @@ class _SproutifyPurchasePageWidgetState
                                             BorderRadius.circular(12.0),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -149,8 +149,8 @@ class _SproutifyPurchasePageWidgetState
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                        color:
-                                                            Color(0xFF2F6D23),
+                                                        color: const Color(
+                                                            0xFF2F6D23),
                                                         fontSize: 20.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -170,9 +170,9 @@ class _SproutifyPurchasePageWidgetState
                                                 Flexible(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 7.0,
-                                                                0.0, 0.0),
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 7.0, 0.0, 0.0),
                                                     child: Text(
                                                       'Track plants, harvests, nutrients, and costs all in one place',
                                                       textAlign:
@@ -193,7 +193,7 @@ class _SproutifyPurchasePageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF2F6D23),
                                                                 letterSpacing:
                                                                     0.0,
@@ -219,6 +219,18 @@ class _SproutifyPurchasePageWidgetState
                                       opaque: false,
                                       cursor: MouseCursor.defer ??
                                           MouseCursor.defer,
+                                      onEnter: ((event) async {
+                                        safeSetState(() =>
+                                            _model.mouseRegionHovered1 = true);
+                                        _model.isCard1Hovered = true;
+                                        safeSetState(() {});
+                                      }),
+                                      onExit: ((event) async {
+                                        safeSetState(() =>
+                                            _model.mouseRegionHovered1 = false);
+                                        _model.isCard1Hovered = false;
+                                        safeSetState(() {});
+                                      }),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 20.0, 0.0, 0.0),
@@ -554,23 +566,23 @@ class _SproutifyPurchasePageWidgetState
                                           ),
                                         ),
                                       ),
-                                      onEnter: ((event) async {
-                                        safeSetState(() =>
-                                            _model.mouseRegionHovered1 = true);
-                                        _model.isCard1Hovered = true;
-                                        safeSetState(() {});
-                                      }),
-                                      onExit: ((event) async {
-                                        safeSetState(() =>
-                                            _model.mouseRegionHovered1 = false);
-                                        _model.isCard1Hovered = false;
-                                        safeSetState(() {});
-                                      }),
                                     ),
                                     MouseRegion(
                                       opaque: false,
                                       cursor: MouseCursor.defer ??
                                           MouseCursor.defer,
+                                      onEnter: ((event) async {
+                                        safeSetState(() =>
+                                            _model.mouseRegionHovered2 = true);
+                                        _model.isCard2Hovered = true;
+                                        safeSetState(() {});
+                                      }),
+                                      onExit: ((event) async {
+                                        safeSetState(() =>
+                                            _model.mouseRegionHovered2 = false);
+                                        _model.isCard2Hovered = false;
+                                        safeSetState(() {});
+                                      }),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 20.0, 0.0, 0.0),
@@ -906,23 +918,23 @@ class _SproutifyPurchasePageWidgetState
                                           ),
                                         ),
                                       ),
-                                      onEnter: ((event) async {
-                                        safeSetState(() =>
-                                            _model.mouseRegionHovered2 = true);
-                                        _model.isCard2Hovered = true;
-                                        safeSetState(() {});
-                                      }),
-                                      onExit: ((event) async {
-                                        safeSetState(() =>
-                                            _model.mouseRegionHovered2 = false);
-                                        _model.isCard2Hovered = false;
-                                        safeSetState(() {});
-                                      }),
                                     ),
                                     MouseRegion(
                                       opaque: false,
                                       cursor: MouseCursor.defer ??
                                           MouseCursor.defer,
+                                      onEnter: ((event) async {
+                                        safeSetState(() =>
+                                            _model.mouseRegionHovered3 = true);
+                                        _model.isCard3Hovered = true;
+                                        safeSetState(() {});
+                                      }),
+                                      onExit: ((event) async {
+                                        safeSetState(() =>
+                                            _model.mouseRegionHovered3 = false);
+                                        _model.isCard3Hovered = false;
+                                        safeSetState(() {});
+                                      }),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 20.0, 0.0, 0.0),
@@ -1245,29 +1257,18 @@ class _SproutifyPurchasePageWidgetState
                                           ),
                                         ),
                                       ),
-                                      onEnter: ((event) async {
-                                        safeSetState(() =>
-                                            _model.mouseRegionHovered3 = true);
-                                        _model.isCard3Hovered = true;
-                                        safeSetState(() {});
-                                      }),
-                                      onExit: ((event) async {
-                                        safeSetState(() =>
-                                            _model.mouseRegionHovered3 = false);
-                                        _model.isCard3Hovered = false;
-                                        safeSetState(() {});
-                                      }),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 20.0, 0.0, 0.0),
                                       child: Container(
                                         width: 350.0,
                                         height: 140.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
-                                          boxShadow: [
+                                          boxShadow: const [
                                             BoxShadow(
                                               blurRadius: 4.0,
                                               color: Color(0x33000000),
@@ -1292,7 +1293,8 @@ class _SproutifyPurchasePageWidgetState
                                           children: [
                                             Expanded(
                                               child: Padding(
-                                                padding: EdgeInsets.all(10.0),
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1303,12 +1305,9 @@ class _SproutifyPurchasePageWidgetState
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  5.0),
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(0.0,
+                                                              0.0, 0.0, 5.0),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -1380,8 +1379,9 @@ class _SproutifyPurchasePageWidgetState
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           5.0,
                                                                           0.0,
                                                                           0.0,
@@ -1414,12 +1414,12 @@ class _SproutifyPurchasePageWidgetState
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -1438,12 +1438,12 @@ class _SproutifyPurchasePageWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       'Harvest Logging',
                                                                       style: FlutterFlowTheme.of(
@@ -1469,12 +1469,12 @@ class _SproutifyPurchasePageWidgetState
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -1493,12 +1493,12 @@ class _SproutifyPurchasePageWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       'Cost Tracking',
                                                                       style: FlutterFlowTheme.of(
@@ -1524,12 +1524,12 @@ class _SproutifyPurchasePageWidgetState
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -1548,12 +1548,12 @@ class _SproutifyPurchasePageWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       'AI Assistant',
                                                                       style: FlutterFlowTheme.of(
@@ -1604,8 +1604,9 @@ class _SproutifyPurchasePageWidgetState
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           5.0,
                                                                           0.0,
                                                                           0.0,
@@ -1638,12 +1639,12 @@ class _SproutifyPurchasePageWidgetState
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -1662,12 +1663,12 @@ class _SproutifyPurchasePageWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       'pH & EC Tracking',
                                                                       style: FlutterFlowTheme.of(
@@ -1693,12 +1694,12 @@ class _SproutifyPurchasePageWidgetState
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -1717,12 +1718,12 @@ class _SproutifyPurchasePageWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       'Pest & disease library',
                                                                       style: FlutterFlowTheme.of(
@@ -1748,12 +1749,12 @@ class _SproutifyPurchasePageWidgetState
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -1772,12 +1773,12 @@ class _SproutifyPurchasePageWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       'Growth Analysis',
                                                                       style: FlutterFlowTheme.of(
@@ -1814,8 +1815,9 @@ class _SproutifyPurchasePageWidgetState
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 15.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 15.0, 0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1844,9 +1846,8 @@ class _SproutifyPurchasePageWidgetState
                                                 ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Monthly - \$3.99/month',
                                               style: FlutterFlowTheme.of(
@@ -1879,8 +1880,9 @@ class _SproutifyPurchasePageWidgetState
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 15.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 15.0, 0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1893,11 +1895,14 @@ class _SproutifyPurchasePageWidgetState
                                             text: 'Subscribe',
                                             options: FFButtonOptions(
                                               height: 40.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
@@ -1939,8 +1944,9 @@ class _SproutifyPurchasePageWidgetState
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 10.0, 0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1975,8 +1981,9 @@ class _SproutifyPurchasePageWidgetState
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 10.0, 0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -2012,8 +2019,9 @@ class _SproutifyPurchasePageWidgetState
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 10.0, 0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -2080,7 +2088,7 @@ class _SproutifyPurchasePageWidgetState
                 Expanded(
                   flex: 6,
                   child: Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Container(
                       width: 100.0,
                       height: double.infinity,

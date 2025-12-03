@@ -27,11 +27,11 @@ void main() async {
   await appState.initializePersistedState();
 
   // Initialize RevenueCat with platform-specific API keys
-  final iosKey = Env.revenueCatIosApiKey.isNotEmpty 
-      ? Env.revenueCatIosApiKey 
+  final iosKey = Env.revenueCatIosApiKey.isNotEmpty
+      ? Env.revenueCatIosApiKey
       : Env.revenueCatApiKey; // Fallback to legacy key if needed
-  final androidKey = Env.revenueCatAndroidApiKey;
-  
+  const androidKey = Env.revenueCatAndroidApiKey;
+
   await revenue_cat.initialize(
     iosKey,
     androidKey,
@@ -46,6 +46,8 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   State<MyApp> createState() => _MyAppState();
@@ -109,7 +111,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'SproutifyHome',
       scrollBehavior: MyAppScrollBehavior(),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -126,12 +128,12 @@ class _MyAppState extends State<MyApp> {
 }
 
 class NavBarPage extends StatefulWidget {
-  NavBarPage({
-    Key? key,
+  const NavBarPage({
+    super.key,
     this.initialPage,
     this.page,
     this.disableResizeToAvoidBottomInset = false,
-  }) : super(key: key);
+  });
 
   final String? initialPage;
   final Widget? page;
@@ -142,7 +144,8 @@ class NavBarPage extends StatefulWidget {
 }
 
 /// This is the private State class that goes with NavBarPage.
-class _NavBarPageState extends State<NavBarPage> with SingleTickerProviderStateMixin {
+class _NavBarPageState extends State<NavBarPage>
+    with SingleTickerProviderStateMixin {
   String _currentPageName = 'HomePage';
   late Widget? _currentPage;
   late AnimationController _navAnimationController;
@@ -153,30 +156,30 @@ class _NavBarPageState extends State<NavBarPage> with SingleTickerProviderStateM
     super.initState();
     _currentPageName = widget.initialPage ?? _currentPageName;
     _currentPage = widget.page;
-    
+
     // Initialize animation controller
     _navAnimationController = AnimationController(
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    
+
     // Create slide animation from bottom
     _navSlideAnimation = Tween<Offset>(
-      begin: Offset(0.0, 1.0), // Start from below
-      end: Offset(0.0, 0.0),   // End at normal position
+      begin: const Offset(0.0, 1.0), // Start from below
+      end: const Offset(0.0, 0.0), // End at normal position
     ).animate(CurvedAnimation(
       parent: _navAnimationController,
       curve: Curves.easeOut,
     ));
-    
+
     // Start animation after a short delay
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       if (mounted) {
         _navAnimationController.forward();
       }
     });
   }
-  
+
   @override
   void dispose() {
     _navAnimationController.dispose();
@@ -186,11 +189,11 @@ class _NavBarPageState extends State<NavBarPage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'HomePage': HomePageWidget(),
-      'plantFavorites': PlantFavoritesWidget(),
-      'pestSupport2': PestSupport2Widget(),
-      'myCosts': MyCostsWidget(),
-      'community': CommunityFeedWidget(),
+      'HomePage': const HomePageWidget(),
+      'plantFavorites': const PlantFavoritesWidget(),
+      'pestSupport2': const PestSupport2Widget(),
+      'myCosts': const MyCostsWidget(),
+      'community': const CommunityFeedWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -200,59 +203,59 @@ class _NavBarPageState extends State<NavBarPage> with SingleTickerProviderStateM
       bottomNavigationBar: SlideTransition(
         position: _navSlideAnimation,
         child: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (i) => safeSetState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
-        backgroundColor: Colors.white,
-        selectedItemColor: FlutterFlowTheme.of(context).primary,
-        unselectedItemColor: Color(0x8A000000),
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
-              size: 24.0,
+          currentIndex: currentIndex,
+          onTap: (i) => safeSetState(() {
+            _currentPage = null;
+            _currentPageName = tabs.keys.toList()[i];
+          }),
+          backgroundColor: Colors.white,
+          selectedItemColor: FlutterFlowTheme.of(context).primary,
+          unselectedItemColor: const Color(0x8A000000),
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_outlined,
+                size: 24.0,
+              ),
+              label: 'Home',
+              tooltip: '',
             ),
-            label: 'Home',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite_sharp,
-              size: 24.0,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite_sharp,
+                size: 24.0,
+              ),
+              label: 'Favorites',
+              tooltip: '',
             ),
-            label: 'Favorites',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.bug_report,
-              size: 24.0,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.bug_report,
+                size: 24.0,
+              ),
+              label: 'Pests',
+              tooltip: '',
             ),
-            label: 'Pests',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.query_stats,
-              size: 24.0,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.query_stats,
+                size: 24.0,
+              ),
+              label: 'Stats',
+              tooltip: '',
             ),
-            label: 'Stats',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.people_outline,
-              size: 24.0,
-            ),
-            label: 'Community',
-            tooltip: 'Community',
-          )
-        ],
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.people_outline,
+                size: 24.0,
+              ),
+              label: 'Community',
+              tooltip: 'Community',
+            )
+          ],
         ),
       ),
     );

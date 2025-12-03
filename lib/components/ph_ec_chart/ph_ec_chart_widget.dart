@@ -89,7 +89,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Loaded ${phData.length} pH records, ${ecData.length} EC records for tower ${widget.towerID!.towerId}'),
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           ),
         );
       }
@@ -127,7 +127,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
         children: [
           // --- Header ---
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 40.0, 16.0, 10.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 40.0, 16.0, 10.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,14 +157,14 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
                       ),
                 ),
                 // Empty box for spacing balance
-                SizedBox(width: 44.0),
+                const SizedBox(width: 44.0),
               ],
             ),
           ),
 
           // --- Tabs ---
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).primaryBackground,
               borderRadius: BorderRadius.circular(12),
@@ -177,7 +177,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
                   ),
               indicatorColor: FlutterFlowTheme.of(context).primary,
               indicatorSize: TabBarIndicatorSize.tab,
-              indicatorPadding: EdgeInsets.all(4),
+              indicatorPadding: const EdgeInsets.all(4),
               dividerColor: Colors.transparent,
               indicator: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -186,12 +186,12 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 4,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   )
                 ],
               ),
               controller: _model.tabBarController,
-              tabs: [
+              tabs: const [
                 Tab(text: 'pH Levels'),
                 Tab(text: 'EC Levels'),
               ],
@@ -221,7 +221,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
   // ---------------------------------------------------------------------------
   Widget _buildPhChart() {
     if (_model.phHistoryData == null) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (_model.phHistoryData!.isEmpty) {
@@ -244,28 +244,28 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
         children: [
           Container(
             height: 300,
-            padding: EdgeInsets.fromLTRB(16, 24, 24, 0),
+            padding: const EdgeInsets.fromLTRB(16, 24, 24, 0),
             child: LineChart(
               _mainChartData(
                 context,
                 spots,
                 minY.toDouble(),
                 maxY.toDouble(),
-                [Color(0xFF00C6FF), Color(0xFF0072FF)], // pH Colors (Blue/Cyan)
+                [const Color(0xFF00C6FF), const Color(0xFF0072FF)], // pH Colors (Blue/Cyan)
                 _model.phHistoryData!,
               ),
-              duration: Duration(milliseconds: 800), // Animation duration
+              duration: const Duration(milliseconds: 800), // Animation duration
               curve: Curves.easeInOutCubic, // Animation curve
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           if (_model.phHistoryData!.isNotEmpty)
             _buildStatsSummary(
               'pH Statistics',
               values.reduce((a, b) => a < b ? a : b).toStringAsFixed(1),
               values.reduce((a, b) => a > b ? a : b).toStringAsFixed(1),
               (values.reduce((a, b) => a + b) / values.length).toStringAsFixed(1),
-              Color(0xFF0072FF),
+              const Color(0xFF0072FF),
             ),
         ],
       ),
@@ -277,7 +277,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
   // ---------------------------------------------------------------------------
   Widget _buildEcChart() {
     if (_model.ecHistoryData == null) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (_model.ecHistoryData!.isEmpty) {
@@ -299,28 +299,28 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
         children: [
           Container(
             height: 300,
-            padding: EdgeInsets.fromLTRB(16, 24, 24, 0),
+            padding: const EdgeInsets.fromLTRB(16, 24, 24, 0),
             child: LineChart(
               _mainChartData(
                 context,
                 spots,
                 minY.toDouble(),
                 maxY.toDouble(),
-                [Color(0xFF96E6A1), Color(0xFFD4FC79)], // EC Colors (Green/Lime)
+                [const Color(0xFF96E6A1), const Color(0xFFD4FC79)], // EC Colors (Green/Lime)
                 _model.ecHistoryData!,
               ),
-              duration: Duration(milliseconds: 800),
+              duration: const Duration(milliseconds: 800),
               curve: Curves.easeInOutCubic,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           if (_model.ecHistoryData!.isNotEmpty)
             _buildStatsSummary(
               'EC Statistics',
               values.reduce((a, b) => a < b ? a : b).toStringAsFixed(1),
               values.reduce((a, b) => a > b ? a : b).toStringAsFixed(1),
               (values.reduce((a, b) => a + b) / values.length).toStringAsFixed(1),
-              Color(0xFF96E6A1),
+              const Color(0xFF96E6A1),
             ),
         ],
       ),
@@ -351,15 +351,15 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
       ),
       titlesData: FlTitlesData(
         show: true,
-        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 32,
             interval: (spots.length / 4).ceilToDouble(), // Don't crowd X axis
             getTitlesWidget: (value, meta) {
-              if (value.toInt() >= historyData.length || value.toInt() < 0) return SizedBox();
+              if (value.toInt() >= historyData.length || value.toInt() < 0) return const SizedBox();
               final date = historyData[value.toInt()].timestamp;
               return Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -399,7 +399,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
         touchTooltipData: LineTouchTooltipData(
           getTooltipColor: (spot) => FlutterFlowTheme.of(context).secondaryBackground,
           tooltipRoundedRadius: 8,
-          tooltipPadding: EdgeInsets.all(12),
+          tooltipPadding: const EdgeInsets.all(12),
           tooltipBorder: BorderSide(color: FlutterFlowTheme.of(context).alternate),
           getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
             return touchedBarSpots.map((barSpot) {
@@ -457,7 +457,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
           gradient: LinearGradient(colors: gradientColors),
           barWidth: 3,
           isStrokeCapRound: true,
-          dotData: FlDotData(show: false), // Hide default dots for cleaner look
+          dotData: const FlDotData(show: false), // Hide default dots for cleaner look
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
@@ -476,12 +476,12 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
 
   Widget _buildStatsSummary(String title, String min, String max, String avg, Color accentColor) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
-      padding: EdgeInsets.all(16.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(16.0),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 12.0,
             color: Color(0x1A000000),
@@ -497,7 +497,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.only(bottom: 12),
             child: Row(
               children: [
                 Container(
@@ -508,7 +508,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   title,
                   style: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -544,7 +544,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
             letterSpacing: 0.0,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           value,
           style: FlutterFlowTheme.of(context).titleMedium.override(
@@ -565,7 +565,7 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
         children: [
           Icon(Icons.insights_rounded, size: 64, color: FlutterFlowTheme.of(context).alternate),
           Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Text(
               message,
               textAlign: TextAlign.center,

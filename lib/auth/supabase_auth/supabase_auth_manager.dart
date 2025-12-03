@@ -58,7 +58,7 @@ class SupabaseAuthManager extends AuthManager
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Email change confirmation email sent'),
+        content: const Text('Email change confirmation email sent'),
         backgroundColor: FlutterFlowTheme.of(context).secondary,
       ),
     );
@@ -81,7 +81,7 @@ class SupabaseAuthManager extends AuthManager
               ),
             ),
             backgroundColor: FlutterFlowTheme.of(context).error,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           ),
         );
         return false;
@@ -112,7 +112,7 @@ class SupabaseAuthManager extends AuthManager
             ),
           ),
           backgroundColor: FlutterFlowTheme.of(context).error,
-          duration: Duration(seconds: 4),
+          duration: const Duration(seconds: 4),
         ),
       );
       return false;
@@ -128,7 +128,7 @@ class SupabaseAuthManager extends AuthManager
             ),
           ),
           backgroundColor: FlutterFlowTheme.of(context).error,
-          duration: Duration(seconds: 4),
+          duration: const Duration(seconds: 4),
         ),
       );
       return false;
@@ -166,9 +166,9 @@ class SupabaseAuthManager extends AuthManager
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Password reset email sent'),
+        content: const Text('Password reset email sent'),
         backgroundColor: FlutterFlowTheme.of(context).secondary,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       ),
     );
     return true;

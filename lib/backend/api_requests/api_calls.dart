@@ -34,13 +34,13 @@ class SendFullPromptCall {
     final prompt = _serializeJson(promptJson);
     final ffApiRequestBody = '''
 {
-  "chatInput": "\${${userMessage}}",
-  "userID": "${userID}",
-  "sessionId": "${userID}"
+  "chatInput": "\${$userMessage}",
+  "userID": "$userID",
+  "sessionId": "$userID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Send Full Prompt',
-      apiUrl: '${baseUrl}/chat',
+      apiUrl: '$baseUrl/chat',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
@@ -82,10 +82,10 @@ class UpsertRatingsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "input_plant_id": "${plantID}",
-  "input_user_id": "${userID}",
-  "input_rating": "${rating}",
-  "input_user_plant_id": "${userPlantID}"
+  "input_plant_id": "$plantID",
+  "input_user_id": "$userID",
+  "input_rating": "$rating",
+  "input_user_plant_id": "$userPlantID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'upsertRatings',
@@ -119,7 +119,7 @@ class FetchNewNotficationsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "_user_id": "${userID}"
+  "_user_id": "$userID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'fetchNewNotfications',
@@ -155,7 +155,7 @@ class TotalPlantCostPerUserCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "_user_id": "${userID}"
+  "_user_id": "$userID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Total Plant Cost Per User',
@@ -188,7 +188,7 @@ class TotalSupplyCostPerUserCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "_user_id": "${userID}"
+  "_user_id": "$userID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Total Supply Cost Per User',
@@ -222,8 +222,8 @@ class PerUserPlantCostPerCatagoryCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "_user_id": "${userID}",
-  "_category_ids": "${categoryIDs}" [
+  "_user_id": "$userID",
+  "_category_ids": "$categoryIDs" [
     1,
     2,
     3,
@@ -312,7 +312,7 @@ class CategoryCostPerUserCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "_userid": "${useriD}"
+  "_userid": "$useriD"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CategoryCost Per User',
@@ -374,7 +374,7 @@ class FAQSearchCall {
     return ApiManager.instance.makeApiCall(
       callName: 'FAQ Search',
       apiUrl:
-          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/tower_faq?or=(question.ilike.*${searchString}*,answer.ilike.*${searchString}*,links.ilike.*${searchString}*)&select=*',
+          'https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/tower_faq?or=(question.ilike.*$searchString*,answer.ilike.*$searchString*,links.ilike.*$searchString*)&select=*',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
@@ -400,7 +400,7 @@ class FAQIndexSearchCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "searchterm": "${searchterm}"
+  "searchterm": "$searchterm"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'FAQ Index Search',
@@ -434,7 +434,7 @@ class CoralChatCall {
     final ffApiRequestBody = '''
 {
   "chat_history": [],
-  "message": "${inputContent}"
+  "message": "$inputContent"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Coral Chat',
@@ -475,16 +475,16 @@ class AddNewSubscriberInMailerLiteCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "email": "${email}",
+  "email": "$email",
   "fields": {
-    "name": "${firstName}",
-    "last_name": "${lastName}",
-    "experience": "${experience}",
-    "z_i_p": "${postalCode}"
+    "name": "$firstName",
+    "last_name": "$lastName",
+    "experience": "$experience",
+    "z_i_p": "$postalCode"
   },
   "groups": [
     "113457793189545748",
-    "${groupID}"
+    "$groupID"
   ]
 }''';
     return ApiManager.instance.makeApiCall(
@@ -535,7 +535,7 @@ class TomorrowIOWeatherCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Tomorrow IO Weather',
       apiUrl:
-          'https://api.tomorrow.io/v4/weather/realtime?location=*${zipcode}*&units=imperial',
+          'https://api.tomorrow.io/v4/weather/realtime?location=*$zipcode*&units=imperial',
       callType: ApiCallType.GET,
       headers: {
         'Accept': 'application/json',
@@ -558,7 +558,7 @@ class GetNotificationsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "user_uuid": "${userID}"
+  "user_uuid": "$userID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'GetNotifications',
@@ -590,8 +590,8 @@ class ArchiveNotificationsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "user_uuid": "${userID}",
-  "notification_id_arg": "${notificationID}"
+  "user_uuid": "$userID",
+  "notification_id_arg": "$notificationID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'ArchiveNotifications',
@@ -622,7 +622,7 @@ class GetArchiveNotificationsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "_user_id": "${userID}"
+  "_user_id": "$userID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'GetArchiveNotifications',
@@ -654,8 +654,8 @@ class DeleteNotficationsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "notification_id_arg": "${notificationID}",
-  "user_uuid": "${userID}"
+  "notification_id_arg": "$notificationID",
+  "user_uuid": "$userID"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'DeleteNotfications',
@@ -687,7 +687,7 @@ class CohereTestAPICall {
     final ffApiRequestBody = '''
 {
   "model": "75cd83ef-8816-4019-81dc-45c5b4779782-ft",
-  "message": "${message}"
+  "message": "$message"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CohereTestAPI',

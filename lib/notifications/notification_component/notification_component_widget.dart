@@ -60,14 +60,14 @@ class _NotificationComponentWidgetState
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         height: double.infinity,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).primaryBackground,
         ),
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           child: Container(
             height: double.infinity,
             decoration: BoxDecoration(
@@ -77,7 +77,7 @@ class _NotificationComponentWidgetState
             child: Column(
               children: [
                 Align(
-                  alignment: Alignment(0.0, 0),
+                  alignment: const Alignment(0.0, 0),
                   child: TabBar(
                     isScrollable: true,
                     labelColor: FlutterFlowTheme.of(context).secondary,
@@ -97,10 +97,10 @@ class _NotificationComponentWidgetState
                                   .titleMedium
                                   .fontStyle,
                             ),
-                    unselectedLabelStyle: TextStyle(),
+                    unselectedLabelStyle: const TextStyle(),
                     indicatorColor: FlutterFlowTheme.of(context).primary,
-                    padding: EdgeInsets.all(4.0),
-                    tabs: [
+                    padding: const EdgeInsets.all(4.0),
+                    tabs: const [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -136,9 +136,9 @@ class _NotificationComponentWidgetState
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Container(
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: FutureBuilder<ApiCallResponse>(
                             future: (_model.apiRequestCompleter1 ??=
@@ -191,7 +191,7 @@ class _NotificationComponentWidgetState
                                       final isBadgeEarned = notificationType == 'badge_earned';
                                       
                                       return Padding(
-                                        padding: EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: isBadgeEarned
@@ -206,7 +206,7 @@ class _NotificationComponentWidgetState
                                                     ? FlutterFlowTheme.of(context)
                                                         .primary
                                                         .withOpacity(0.3)
-                                                    : Color(0x33000000),
+                                                    : const Color(0x33000000),
                                                 offset: Offset(
                                                   0.0,
                                                   isBadgeEarned ? 3.0 : 2.0,
@@ -236,7 +236,7 @@ class _NotificationComponentWidgetState
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   8.0,
@@ -255,7 +255,7 @@ class _NotificationComponentWidgetState
                                                                 if (isBadgeEarned)
                                                                   Padding(
                                                                     padding:
-                                                                        EdgeInsetsDirectional
+                                                                        const EdgeInsetsDirectional
                                                                             .fromSTEB(
                                                                                 10.0,
                                                                                 0.0,
@@ -327,7 +327,7 @@ class _NotificationComponentWidgetState
                                                           ),
                                                           Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: InkWell(
                                                               splashColor: Colors
@@ -380,7 +380,7 @@ class _NotificationComponentWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: Duration(
+                                                                    duration: const Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
@@ -421,7 +421,7 @@ class _NotificationComponentWidgetState
                                                                     ),
                                                                     Align(
                                                                       alignment:
-                                                                          AlignmentDirectional(
+                                                                          const AlignmentDirectional(
                                                                               0.0,
                                                                               0.0),
                                                                       child:
@@ -452,7 +452,7 @@ class _NotificationComponentWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   5.0,
@@ -473,7 +473,7 @@ class _NotificationComponentWidgetState
                                                                   '')
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           10.0,
                                                                           0.0,
@@ -521,7 +521,7 @@ class _NotificationComponentWidgetState
                                                 ),
                                                 collapsed: Container(),
                                                 expanded: Padding(
-                                                  padding: EdgeInsets.all(5.0),
+                                                  padding: const EdgeInsets.all(5.0),
                                                   child: Container(
                                                     decoration: BoxDecoration(
                                                       color: isBadgeEarned
@@ -529,12 +529,12 @@ class _NotificationComponentWidgetState
                                                                   context)
                                                               .primary
                                                               .withOpacity(0.05)
-                                                          : Color(0xFFEEF4ED),
+                                                          : const Color(0xFFEEF4ED),
                                                       borderRadius: BorderRadius.circular(8),
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsets.all(8.0),
+                                                          const EdgeInsets.all(8.0),
                                                       child:
                                                           SingleChildScrollView(
                                                         child: Column(
@@ -543,7 +543,7 @@ class _NotificationComponentWidgetState
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           10.0,
                                                                           5.0,
@@ -574,7 +574,7 @@ class _NotificationComponentWidgetState
                                                                       color: isBadgeEarned
                                                                           ? FlutterFlowTheme.of(context)
                                                                               .primaryText
-                                                                          : Color(
+                                                                          : const Color(
                                                                               0x8A000000),
                                                                       fontSize:
                                                                           16.0,
@@ -597,7 +597,7 @@ class _NotificationComponentWidgetState
                                                     ),
                                                   ),
                                                 ),
-                                                theme: ExpandableThemeData(
+                                                theme: const ExpandableThemeData(
                                                   tapHeaderToExpand: true,
                                                   tapBodyToExpand: false,
                                                   tapBodyToCollapse: false,
@@ -620,9 +620,9 @@ class _NotificationComponentWidgetState
                         ),
                       ),
                       Container(
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: FutureBuilder<ApiCallResponse>(
                             future: (_model.apiRequestCompleter2 ??= Completer<
@@ -670,12 +670,12 @@ class _NotificationComponentWidgetState
                                           archivedNotifications[
                                               archivedNotificationsIndex];
                                       return Padding(
-                                        padding: EdgeInsets.all(5.0),
+                                        padding: const EdgeInsets.all(5.0),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryBackground,
-                                            boxShadow: [
+                                            boxShadow: const [
                                               BoxShadow(
                                                 blurRadius: 4.0,
                                                 color: Color(0x33000000),
@@ -706,7 +706,7 @@ class _NotificationComponentWidgetState
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   8.0,
@@ -722,7 +722,7 @@ class _NotificationComponentWidgetState
                                                           Flexible(
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           10.0,
                                                                           0.0,
@@ -811,7 +811,7 @@ class _NotificationComponentWidgetState
                                                                           .primaryText,
                                                                     ),
                                                                   ),
-                                                                  duration: Duration(
+                                                                  duration: const Duration(
                                                                       milliseconds:
                                                                           4000),
                                                                   backgroundColor:
@@ -852,7 +852,7 @@ class _NotificationComponentWidgetState
                                                                   ),
                                                                   Align(
                                                                     alignment:
-                                                                        AlignmentDirectional(
+                                                                        const AlignmentDirectional(
                                                                             0.0,
                                                                             0.0),
                                                                     child: Text(
@@ -899,7 +899,7 @@ class _NotificationComponentWidgetState
                                                                 '')
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         10.0,
                                                                         0.0,
@@ -950,21 +950,21 @@ class _NotificationComponentWidgetState
                                                 ),
                                                 collapsed: Container(),
                                                 expanded: Padding(
-                                                  padding: EdgeInsets.all(5.0),
+                                                  padding: const EdgeInsets.all(5.0),
                                                   child: Container(
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                       color: Color(0xFFEEF4ED),
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsets.all(8.0),
+                                                          const EdgeInsets.all(8.0),
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         10.0,
                                                                         5.0,
@@ -994,7 +994,7 @@ class _NotificationComponentWidgetState
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0x8A000000),
                                                                     fontSize:
                                                                         16.0,
@@ -1016,7 +1016,7 @@ class _NotificationComponentWidgetState
                                                     ),
                                                   ),
                                                 ),
-                                                theme: ExpandableThemeData(
+                                                theme: const ExpandableThemeData(
                                                   tapHeaderToExpand: true,
                                                   tapBodyToExpand: false,
                                                   tapBodyToCollapse: false,

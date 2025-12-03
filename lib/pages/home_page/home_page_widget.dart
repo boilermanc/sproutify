@@ -72,8 +72,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
             curve: Curves.easeOut,
             delay: 0.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0.0, 30.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 30.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -91,8 +91,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
             curve: Curves.easeOut,
             delay: 100.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0.0, 30.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 30.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -110,8 +110,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
             curve: Curves.easeOut,
             delay: 200.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0.0, 30.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 30.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -129,8 +129,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
             curve: Curves.easeOut,
             delay: 300.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0.0, 30.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 30.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -146,7 +146,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
     // On page load action - defer data loading to avoid blocking initial render
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       // Add a small delay to let the UI render first
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
 
       // Load data asynchronously without blocking UI
       final dataLoaders = <Future<void>>[
@@ -256,12 +256,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        drawer: Container(
+        drawer: SizedBox(
           width: 250.0,
           child: Drawer(
             elevation: 16.0,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xFFE2EBE1),
               ),
               child: Column(
@@ -269,7 +269,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 40.0, 10.0, 10.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 40.0, 10.0, 10.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -295,7 +295,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 10.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -319,7 +319,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -331,7 +331,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 5.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -357,7 +357,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: Icon(
                                       Icons.person_3_outlined,
@@ -398,7 +398,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -417,7 +417,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: Icon(
                                       Icons.card_membership,
@@ -460,7 +460,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -479,7 +479,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: Icon(
                                       Icons.add_moderator,
@@ -520,7 +520,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -539,7 +539,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: Icon(
                                       Icons.contact_support_outlined,
@@ -580,7 +580,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -613,7 +613,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -639,7 +639,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: FaIcon(
                                       FontAwesomeIcons.shoppingBasket,
@@ -680,7 +680,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -698,7 +698,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: Icon(
                                       Icons.bar_chart,
@@ -739,7 +739,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -758,7 +758,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: Icon(
                                       Icons.assessment,
@@ -801,7 +801,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -835,7 +835,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 10.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -855,7 +855,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: Icon(
                                       Icons.logout_rounded,
@@ -897,7 +897,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               ),
                             ),
                           ),
-                        ].divide(SizedBox(height: 12.0)),
+                        ].divide(const SizedBox(height: 12.0)),
                       ),
                     ),
                   ),
@@ -952,13 +952,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 35.0,
                     height: 35.0,
                     child: Stack(
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 10.0, 0.0),
                           child: Container(
                             width: 50.0,
@@ -999,11 +999,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         ),
                         if (FFAppState().isNewNotification == true)
                           Align(
-                            alignment: AlignmentDirectional(0.5, -0.8),
+                            alignment: const AlignmentDirectional(0.5, -0.8),
                             child: Container(
                               width: 10.0,
                               height: 10.0,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xFFE11919),
                                 shape: BoxShape.circle,
                               ),
@@ -1016,7 +1016,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
               ),
             ],
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -1054,10 +1054,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -1070,7 +1070,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       .secondaryBackground,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 5.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -1089,7 +1089,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           },
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     2.0, 0.0, 2.0, 0.0),
                                             child: Card(
                                               clipBehavior:
@@ -1111,7 +1111,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   2.0,
                                                                   0.0,
@@ -1133,7 +1133,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   5.0,
@@ -1191,7 +1191,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           },
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     2.0, 0.0, 2.0, 0.0),
                                             child: Card(
                                               clipBehavior:
@@ -1213,7 +1213,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   2.0,
                                                                   0.0,
@@ -1235,7 +1235,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   5.0,
@@ -1300,7 +1300,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           },
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     2.0, 0.0, 2.0, 0.0),
                                             child: Card(
                                               clipBehavior:
@@ -1322,7 +1322,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   2.0,
                                                                   0.0,
@@ -1344,7 +1344,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   5.0,
@@ -1401,7 +1401,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           },
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     2.0, 0.0, 2.0, 0.0),
                                             child: Card(
                                               clipBehavior:
@@ -1423,11 +1423,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     2.0,
                                                                     0.0,
@@ -1510,7 +1510,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         onVerticalDragEnd: (details) {
                           if (_inspirationDragOffset < -100) {
                             // Hide the box
-                            Future.delayed(Duration(milliseconds: 500), () {
+                            Future.delayed(const Duration(milliseconds: 500), () {
                               if (mounted) {
                                 setState(() {
                                   _showInspirationBox = false;
@@ -1527,17 +1527,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           }
                         },
                         child: AnimatedSlide(
-                          duration: Duration(milliseconds: 300),
+                          duration: const Duration(milliseconds: 300),
                           curve: Curves.easeOut,
                           offset: Offset(0.0, _inspirationDragOffset / 240.0),
                           child: AnimatedOpacity(
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             opacity: _isAnimating
                                 ? 0.0
                                 : (1.0 + _inspirationDragOffset / 240.0)
                                     .clamp(0.0, 1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   5.0, 12.0, 5.0, 0.0),
                               child: StreamBuilder<
                                   List<GardeningInspirationalMessagesRow>>(
@@ -1589,11 +1589,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   // Customize what your widget looks like when it's loading.
                                   if (snapshot.hasError) {
                                     // Hide the inspiration box on error
-                                    return SizedBox.shrink();
+                                    return const SizedBox.shrink();
                                   }
                                   if (!snapshot.hasData) {
                                     // Hide the inspiration box when loading to avoid showing spinner behind modals
-                                    return SizedBox.shrink();
+                                    return const SizedBox.shrink();
                                   }
                                   List<GardeningInspirationalMessagesRow>
                                       dailyInspirationGardeningInspirationalMessagesRowList =
@@ -1609,7 +1609,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   return Container(
                                     width: 390.0,
                                     height: 240.0,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Color(0xFFE4EFD0),
                                       borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(12.0),
@@ -1624,7 +1624,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         // Drag handle with arrow icon
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 4.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1652,7 +1652,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   20.0,
                                                                   10.0,
@@ -1702,7 +1702,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   20.0,
                                                                   15.0,
@@ -1757,7 +1757,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           ),
                         ),
                       ),
-                    Align(
+                    const Align(
                       alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding: EdgeInsets.all(10.0),

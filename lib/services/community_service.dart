@@ -1,5 +1,4 @@
 import '/backend/supabase/supabase.dart';
-import '/backend/supabase/storage/storage.dart';
 import '/flutter_flow/upload_data.dart';
 import '/models/index.dart';
 import '/auth/supabase_auth/auth_util.dart';
@@ -12,6 +11,70 @@ class CommunityService {
   static const int _maxRetries = 2; // Reduced retries for faster failure
   static const Duration _retryDelay =
       Duration(milliseconds: 500); // Faster retry
+
+  // Cache for profanity words (loaded from database)
+  static List<String>? _cachedProfanityWords;
+  static DateTime? _cacheTimestamp;
+  static const Duration _cacheExpiry = Duration(hours: 1);
+
+  /// Load profanity words from database (with caching)
+  ///
+  /// Returns a list of enabled profanity words
+  static Future<List<String>> _loadProfanityWords() async {
+    // Return cached words if still valid
+    if (_cachedProfanityWords != null &&
+        _cacheTimestamp != null &&
+        DateTime.now().difference(_cacheTimestamp!) < _cacheExpiry) {
+      return _cachedProfanityWords!;
+    }
+
+    try {
+      final response = await SupaFlow.client
+          .from('profanity_filter')
+          .select('word')
+          .eq('enabled', true);
+
+      final List<dynamic> words = response as List<dynamic>;
+      _cachedProfanityWords = words
+          .map((item) => (item as Map<String, dynamic>)['word'] as String)
+          .toList();
+      _cacheTimestamp = DateTime.now();
+
+      return _cachedProfanityWords!;
+    } catch (e) {
+      print('Error loading profanity words from database: $e');
+      // Fallback to empty list if database query fails
+      // This ensures the app continues to work even if the table doesn't exist yet
+      return [];
+    }
+  }
+
+  /// Clear the profanity words cache
+  /// Call this when words are updated in the database
+  static void clearProfanityCache() {
+    _cachedProfanityWords = null;
+    _cacheTimestamp = null;
+  }
+
+  /// Check if text contains profanity
+  ///
+  /// [text] - Text to check
+  ///
+  /// Returns true if profanity is detected
+  static Future<bool> containsProfanity(String text) async {
+    if (text.isEmpty) return false;
+
+    final profanityWords = await _loadProfanityWords();
+    if (profanityWords.isEmpty) return false; // No words loaded, allow post
+
+    final lowerText = text.toLowerCase();
+    for (final word in profanityWords) {
+      if (lowerText.contains(word.toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /// Helper method to retry a function with exponential backoff
   static Future<T> _retryWithBackoff<T>(
@@ -47,6 +110,9 @@ class CommunityService {
     int limit = _defaultPostLimit,
   }) async {
     try {
+      // Get list of blocked user IDs
+      final blockedUserIds = await getBlockedUserIds();
+
       final response = await _retryWithBackoff(() async {
         return await SupaFlow.client
             .from('community_posts')
@@ -54,11 +120,24 @@ class CommunityService {
             .eq('is_approved', true)
             .eq('is_hidden', false)
             .order('created_at', ascending: false)
-            .limit(limit);
+            .limit(limit * 2); // Fetch more to account for filtering
       });
 
       final List<dynamic> posts = response as List<dynamic>;
-      return posts
+
+      // Filter out posts from blocked users client-side
+      final filteredPosts = blockedUserIds.isEmpty
+          ? posts
+          : posts.where((post) {
+              final postMap = post as Map<String, dynamic>;
+              final userId = postMap['user_id'] as String?;
+              return userId != null && !blockedUserIds.contains(userId);
+            }).toList();
+
+      // Limit to requested amount after filtering
+      final limitedPosts = filteredPosts.take(limit).toList();
+
+      return limitedPosts
           .map((post) =>
               CommunityPost.fromMap(Map<String, dynamic>.from(post as Map)))
           .toList();
@@ -99,6 +178,14 @@ class CommunityService {
     List<String>? hashtagTags,
   }) async {
     try {
+      // Content filtering: Check caption for profanity
+      if (caption != null && caption.isNotEmpty) {
+        if (await containsProfanity(caption)) {
+          throw Exception(
+            'Your post contains inappropriate language. Please revise your caption and try again.',
+          );
+        }
+      }
       final userId = currentUserUid;
       if (userId.isEmpty) {
         throw Exception('User must be authenticated to create a post');
@@ -395,7 +482,18 @@ class CommunityService {
       }
 
       final List<dynamic> posts = response as List<dynamic>;
-      return posts
+
+      // Filter out posts from blocked users
+      final blockedUserIds = await getBlockedUserIds();
+      final filteredPosts = blockedUserIds.isEmpty
+          ? posts
+          : posts.where((post) {
+              final postMap = post as Map<String, dynamic>;
+              final userId = postMap['user_id'] as String?;
+              return userId != null && !blockedUserIds.contains(userId);
+            }).toList();
+
+      return filteredPosts
           .map((post) =>
               _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
           .toList();
@@ -432,7 +530,18 @@ class CommunityService {
       }
 
       final List<dynamic> posts = response as List<dynamic>;
-      return posts
+
+      // Filter out posts from blocked users
+      final blockedUserIds = await getBlockedUserIds();
+      final filteredPosts = blockedUserIds.isEmpty
+          ? posts
+          : posts.where((post) {
+              final postMap = post as Map<String, dynamic>;
+              final userId = postMap['user_id'] as String?;
+              return userId != null && !blockedUserIds.contains(userId);
+            }).toList();
+
+      return filteredPosts
           .map((post) =>
               _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
           .toList();
@@ -451,6 +560,9 @@ class CommunityService {
     int limit = _defaultPostLimit,
   }) async {
     try {
+      // Get list of blocked user IDs
+      final blockedUserIds = await getBlockedUserIds();
+
       final response = await SupaFlow.client
           .from('community_posts')
           .select()
@@ -458,10 +570,23 @@ class CommunityService {
           .eq('is_hidden', false)
           .eq('is_featured', true)
           .order('created_at', ascending: false)
-          .limit(limit);
+          .limit(limit * 2); // Fetch more to account for filtering
 
       final List<dynamic> posts = response as List<dynamic>;
-      return posts
+
+      // Filter out posts from blocked users client-side
+      final filteredPosts = blockedUserIds.isEmpty
+          ? posts
+          : posts.where((post) {
+              final postMap = post as Map<String, dynamic>;
+              final userId = postMap['user_id'] as String?;
+              return userId != null && !blockedUserIds.contains(userId);
+            }).toList();
+
+      // Limit to requested amount after filtering
+      final limitedPosts = filteredPosts.take(limit).toList();
+
+      return limitedPosts
           .map((post) =>
               CommunityPost.fromMap(Map<String, dynamic>.from(post as Map)))
           .toList();
@@ -506,7 +631,17 @@ class CommunityService {
         return await getRecentPosts(limit: limit);
       }
 
-      final mappedPosts = posts
+      // Filter out posts from blocked users
+      final blockedUserIds = await getBlockedUserIds();
+      final filteredPosts = blockedUserIds.isEmpty
+          ? posts
+          : posts.where((post) {
+              final postMap = post as Map<String, dynamic>;
+              final userId = postMap['user_id'] as String?;
+              return userId != null && !blockedUserIds.contains(userId);
+            }).toList();
+
+      final mappedPosts = filteredPosts
           .map((post) =>
               _mapFeedPostToCommunityPost(post as Map<String, dynamic>))
           .toList();
@@ -634,13 +769,35 @@ class CommunityService {
   }
 
   /// Helper method to get display name from user data
+  /// Formats names as "First L." when both names exist, otherwise uses available name
+  /// Falls back to username if available, then "Gardener" as final fallback
   static String _getDisplayName(
       String? username, String? firstName, String? lastName) {
+    // If both first and last names exist, format as "First L."
+    if (firstName != null &&
+        firstName.isNotEmpty &&
+        lastName != null &&
+        lastName.isNotEmpty) {
+      return '$firstName ${lastName[0]}.';
+    }
+
+    // If only first name exists
+    if (firstName != null && firstName.isNotEmpty) {
+      return firstName;
+    }
+
+    // If only last name exists
+    if (lastName != null && lastName.isNotEmpty) {
+      return lastName;
+    }
+
+    // If username is available (when names are missing)
     if (username != null && username.isNotEmpty) {
       return username;
     }
-    final name = '${firstName ?? ''} ${lastName ?? ''}'.trim();
-    return name.isNotEmpty ? name : 'User';
+
+    // Final fallback
+    return 'Gardener';
   }
 
   /// Get unread notifications count for the current user
@@ -805,6 +962,208 @@ class CommunityService {
     } catch (e) {
       print('Error fetching user gamification: $e');
       return null;
+    }
+  }
+
+  /// Report a post for inappropriate content
+  ///
+  /// [postId] - ID of the post to report
+  /// [reason] - Reason for reporting: 'spam', 'inappropriate', 'unrelated', or 'other'
+  /// [additionalInfo] - Optional additional information about the report
+  ///
+  /// Returns true if successful
+  static Future<bool> reportPost({
+    required String postId,
+    required String reason,
+    String? additionalInfo,
+  }) async {
+    try {
+      final userId = currentUserUid;
+      if (userId.isEmpty) {
+        throw Exception('User must be authenticated to report a post');
+      }
+
+      if (postId.isEmpty) {
+        throw Exception('Post ID is required');
+      }
+
+      // Check if user has already reported this post
+      final existingReport = await SupaFlow.client
+          .from('post_reports')
+          .select()
+          .eq('user_id', userId)
+          .eq('post_id', postId)
+          .maybeSingle();
+
+      if (existingReport != null) {
+        throw Exception('You have already reported this post');
+      }
+
+      // Insert the report
+      // Note: The database trigger (handle_post_report) will automatically:
+      // 1. Increment reports_count on the post
+      // 2. Auto-hide the post if reports_count >= 3
+      await SupaFlow.client.from('post_reports').insert({
+        'user_id': userId,
+        'post_id': postId,
+        'reason': reason,
+        'additional_info': additionalInfo,
+        'is_resolved': false,
+      });
+
+      return true;
+    } catch (e) {
+      print('Error reporting post: $e');
+      rethrow;
+    }
+  }
+
+  /// Block a user
+  ///
+  /// [userId] - ID of the user to block
+  ///
+  /// Returns true if successful
+  static Future<bool> blockUser({
+    required String userId,
+  }) async {
+    try {
+      final blockerId = currentUserUid;
+      if (blockerId.isEmpty) {
+        throw Exception('User must be authenticated to block a user');
+      }
+
+      if (userId == blockerId) {
+        throw Exception('You cannot block yourself');
+      }
+
+      // Check if already blocked
+      final existingBlock = await SupaFlow.client
+          .from('user_blocks')
+          .select()
+          .eq('blocker_id', blockerId)
+          .eq('blocked_id', userId)
+          .maybeSingle();
+
+      if (existingBlock != null) {
+        return true; // Already blocked
+      }
+
+      // Insert the block
+      await SupaFlow.client.from('user_blocks').insert({
+        'blocker_id': blockerId,
+        'blocked_id': userId,
+      });
+
+      return true;
+    } catch (e) {
+      print('Error blocking user: $e');
+      rethrow;
+    }
+  }
+
+  /// Unblock a user
+  ///
+  /// [userId] - ID of the user to unblock
+  ///
+  /// Returns true if successful
+  static Future<bool> unblockUser({
+    required String userId,
+  }) async {
+    try {
+      final blockerId = currentUserUid;
+      if (blockerId.isEmpty) {
+        throw Exception('User must be authenticated to unblock a user');
+      }
+
+      // Delete the block
+      await SupaFlow.client
+          .from('user_blocks')
+          .delete()
+          .eq('blocker_id', blockerId)
+          .eq('blocked_id', userId);
+
+      return true;
+    } catch (e) {
+      print('Error unblocking user: $e');
+      rethrow;
+    }
+  }
+
+  /// Check if a user is blocked by the current user
+  ///
+  /// [userId] - ID of the user to check
+  ///
+  /// Returns true if the user is blocked
+  static Future<bool> isUserBlocked({
+    required String userId,
+  }) async {
+    try {
+      final blockerId = currentUserUid;
+      if (blockerId.isEmpty || userId.isEmpty) {
+        return false;
+      }
+
+      final response = await SupaFlow.client
+          .from('user_blocks')
+          .select()
+          .eq('blocker_id', blockerId)
+          .eq('blocked_id', userId)
+          .maybeSingle();
+
+      return response != null;
+    } catch (e) {
+      print('Error checking if user is blocked: $e');
+      return false;
+    }
+  }
+
+  /// Get list of blocked user IDs for the current user
+  ///
+  /// Returns a list of user IDs that are blocked
+  static Future<List<String>> getBlockedUserIds() async {
+    try {
+      final blockerId = currentUserUid;
+      if (blockerId.isEmpty) {
+        return [];
+      }
+
+      final response = await SupaFlow.client
+          .from('user_blocks')
+          .select('blocked_id')
+          .eq('blocker_id', blockerId);
+
+      final List<dynamic> blocks = response as List<dynamic>;
+      return blocks
+          .map((block) =>
+              (block as Map<String, dynamic>)['blocked_id'] as String)
+          .toList();
+    } catch (e) {
+      print('Error fetching blocked users: $e');
+      return [];
+    }
+  }
+
+  /// Check if user has accepted community guidelines
+  ///
+  /// Returns true if user has accepted, false otherwise
+  static Future<bool> hasAcceptedGuidelines() async {
+    try {
+      final userId = currentUserUid;
+      if (userId.isEmpty) {
+        return false;
+      }
+
+      final response = await SupaFlow.client
+          .from('profiles')
+          .select('community_guidelines_accepted_at')
+          .eq('id', userId)
+          .single();
+
+      final acceptedAt = response['community_guidelines_accepted_at'];
+      return acceptedAt != null;
+    } catch (e) {
+      print('Error checking guidelines acceptance: $e');
+      return false;
     }
   }
 }

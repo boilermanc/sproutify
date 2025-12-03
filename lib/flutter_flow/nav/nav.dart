@@ -21,6 +21,7 @@ import 'serialization_util.dart';
 import '/index.dart';
 import '/pages/harvest_scorecard/harvest_scorecard_widget.dart';
 import '/pages/subscription_page/subscription_page_widget.dart';
+import '/pages/admin_guidelines/admin_guidelines_widget.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -88,13 +89,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : const LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : const LoginPageWidget(),
         ),
         FFRoute(
           name: HomePageWidget.routeName,
@@ -111,12 +112,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: LoginPageWidget.routeName,
           path: LoginPageWidget.routePath,
-          builder: (context, params) => LoginPageWidget(),
+          builder: (context, params) => const LoginPageWidget(),
         ),
         FFRoute(
           name: TowerCatalogWidget.routeName,
           path: TowerCatalogWidget.routePath,
-          builder: (context, params) => TowerCatalogWidget(),
+          builder: (context, params) => const TowerCatalogWidget(),
         ),
         FFRoute(
           name: PortCountInputWidget.routeName,
@@ -201,7 +202,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: OnboardingFlowWidget.routeName,
           path: OnboardingFlowWidget.routePath,
-          builder: (context, params) => OnboardingFlowWidget(),
+          builder: (context, params) => const OnboardingFlowWidget(),
         ),
         FFRoute(
           name: UserProfileWidget.routeName,
@@ -216,39 +217,39 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: SubmitForPestsWidget.routeName,
           path: SubmitForPestsWidget.routePath,
-          builder: (context, params) => SubmitForPestsWidget(),
+          builder: (context, params) => const SubmitForPestsWidget(),
         ),
         FFRoute(
           name: SupportGrowBetterWidget.routeName,
           path: SupportGrowBetterWidget.routePath,
-          builder: (context, params) => SupportGrowBetterWidget(),
+          builder: (context, params) => const SupportGrowBetterWidget(),
         ),
         FFRoute(
           name: PestSupport2Widget.routeName,
           path: PestSupport2Widget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'pestSupport2')
-              : PestSupport2Widget(),
+              : const PestSupport2Widget(),
         ),
         FFRoute(
           name: AphidsDetailWidget.routeName,
           path: AphidsDetailWidget.routePath,
-          builder: (context, params) => AphidsDetailWidget(),
+          builder: (context, params) => const AphidsDetailWidget(),
         ),
         FFRoute(
           name: CustomerSupportWidget.routeName,
           path: CustomerSupportWidget.routePath,
-          builder: (context, params) => CustomerSupportWidget(),
+          builder: (context, params) => const CustomerSupportWidget(),
         ),
         FFRoute(
           name: OnboardingQuestionsWidget.routeName,
           path: OnboardingQuestionsWidget.routePath,
-          builder: (context, params) => OnboardingQuestionsWidget(),
+          builder: (context, params) => const OnboardingQuestionsWidget(),
         ),
         FFRoute(
           name: MainFAQWidget.routeName,
           path: MainFAQWidget.routePath,
-          builder: (context, params) => MainFAQWidget(),
+          builder: (context, params) => const MainFAQWidget(),
         ),
         FFRoute(
           name: MyTowersExpandableWidget.routeName,
@@ -285,37 +286,37 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: CreateAnAccountWidget.routeName,
           path: CreateAnAccountWidget.routePath,
-          builder: (context, params) => CreateAnAccountWidget(),
+          builder: (context, params) => const CreateAnAccountWidget(),
         ),
         FFRoute(
           name: MyPlantExpandableCopyWidget.routeName,
           path: MyPlantExpandableCopyWidget.routePath,
-          builder: (context, params) => MyPlantExpandableCopyWidget(),
+          builder: (context, params) => const MyPlantExpandableCopyWidget(),
         ),
         FFRoute(
           name: ResetPasswordWidget.routeName,
           path: ResetPasswordWidget.routePath,
-          builder: (context, params) => ResetPasswordWidget(),
+          builder: (context, params) => const ResetPasswordWidget(),
         ),
         FFRoute(
           name: WhitefliesDetailWidget.routeName,
           path: WhitefliesDetailWidget.routePath,
-          builder: (context, params) => WhitefliesDetailWidget(),
+          builder: (context, params) => const WhitefliesDetailWidget(),
         ),
         FFRoute(
           name: GnatsDetailWidget.routeName,
           path: GnatsDetailWidget.routePath,
-          builder: (context, params) => GnatsDetailWidget(),
+          builder: (context, params) => const GnatsDetailWidget(),
         ),
         FFRoute(
           name: PesticideDetailWidget.routeName,
           path: PesticideDetailWidget.routePath,
-          builder: (context, params) => PesticideDetailWidget(),
+          builder: (context, params) => const PesticideDetailWidget(),
         ),
         FFRoute(
           name: BeneficialsDetailWidget.routeName,
           path: BeneficialsDetailWidget.routePath,
-          builder: (context, params) => BeneficialsDetailWidget(),
+          builder: (context, params) => const BeneficialsDetailWidget(),
         ),
         FFRoute(
           name: PlantDetail3Widget.routeName,
@@ -358,24 +359,30 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: LoginPageRedirectWidget.routeName,
           path: LoginPageRedirectWidget.routePath,
-          builder: (context, params) => LoginPageRedirectWidget(),
+          builder: (context, params) => const LoginPageRedirectWidget(),
         ),
         FFRoute(
           name: MyCostsWidget.routeName,
           path: MyCostsWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'myCosts')
-              : MyCostsWidget(),
+              : const MyCostsWidget(),
         ),
         FFRoute(
           name: HarvestScorecardWidget.routeName,
           path: HarvestScorecardWidget.routePath,
-          builder: (context, params) => HarvestScorecardWidget(),
+          builder: (context, params) => const HarvestScorecardWidget(),
         ),
         FFRoute(
           name: SubscriptionPageWidget.routeName,
           path: SubscriptionPageWidget.routePath,
-          builder: (context, params) => SubscriptionPageWidget(),
+          builder: (context, params) => const SubscriptionPageWidget(),
+        ),
+        FFRoute(
+          name: AdminGuidelinesWidget.routeName,
+          path: AdminGuidelinesWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => const AdminGuidelinesWidget(),
         ),
         FFRoute(
           name: ProductViewWidget.routeName,
@@ -408,7 +415,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: ProductCategoriesWidget.routeName,
           path: ProductCategoriesWidget.routePath,
-          builder: (context, params) => ProductCategoriesWidget(),
+          builder: (context, params) => const ProductCategoriesWidget(),
         ),
         FFRoute(
           name: MySuppliesWidget.routeName,
@@ -427,7 +434,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: CommunityFeedWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'community')
-              : CommunityFeedWidget(),
+              : const CommunityFeedWidget(),
         ),
         FFRoute(
           name: BadgesPage.routeName,
@@ -452,7 +459,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: PlantCatalogWidget.routeName,
           path: PlantCatalogWidget.routePath,
-          builder: (context, params) => PlantCatalogWidget(),
+          builder: (context, params) => const PlantCatalogWidget(),
         ),
         FFRoute(
           name: FaqSearchResultsWidget.routeName,
@@ -467,12 +474,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: CoralChatWidget.routeName,
           path: CoralChatWidget.routePath,
-          builder: (context, params) => CoralChatWidget(),
+          builder: (context, params) => const CoralChatWidget(),
         ),
         FFRoute(
           name: WormsDetail2Widget.routeName,
           path: WormsDetail2Widget.routePath,
-          builder: (context, params) => WormsDetail2Widget(),
+          builder: (context, params) => const WormsDetail2Widget(),
         ),
         FFRoute(
           name: OnboardingQuestionsCopyWidget.routeName,
@@ -487,24 +494,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: PlantSelectorWidget.routeName,
           path: PlantSelectorWidget.routePath,
-          builder: (context, params) => PlantSelectorWidget(),
+          builder: (context, params) => const PlantSelectorWidget(),
         ),
         FFRoute(
           name: OutdoorPlantsWidget.routeName,
           path: OutdoorPlantsWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => OutdoorPlantsWidget(),
+          builder: (context, params) => const OutdoorPlantsWidget(),
         ),
         FFRoute(
           name: IndoorPlantsWidget.routeName,
           path: IndoorPlantsWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => IndoorPlantsWidget(),
+          builder: (context, params) => const IndoorPlantsWidget(),
         ),
         FFRoute(
           name: TowerCatalogNewWidget.routeName,
           path: TowerCatalogNewWidget.routePath,
-          builder: (context, params) => TowerCatalogNewWidget(),
+          builder: (context, params) => const TowerCatalogNewWidget(),
         ),
         FFRoute(
           name: CreateNewPasswordWidget.routeName,
@@ -519,17 +526,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: CreateNewPasswordInternalWidget.routeName,
           path: CreateNewPasswordInternalWidget.routePath,
-          builder: (context, params) => CreateNewPasswordInternalWidget(),
+          builder: (context, params) => const CreateNewPasswordInternalWidget(),
         ),
         FFRoute(
           name: ChatAiScreenWidget.routeName,
           path: ChatAiScreenWidget.routePath,
-          builder: (context, params) => ChatAiScreenWidget(),
+          builder: (context, params) => const ChatAiScreenWidget(),
         ),
         FFRoute(
           name: NotificationsMainWidget.routeName,
           path: NotificationsMainWidget.routePath,
-          builder: (context, params) => NotificationsMainWidget(),
+          builder: (context, params) => const NotificationsMainWidget(),
         ),
         FFRoute(
           name: NameTowerWidget.routeName,
@@ -566,17 +573,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: OnboardingQuestionsCopy2Widget.routeName,
           path: OnboardingQuestionsCopy2Widget.routePath,
-          builder: (context, params) => OnboardingQuestionsCopy2Widget(),
+          builder: (context, params) => const OnboardingQuestionsCopy2Widget(),
         ),
         FFRoute(
           name: PlantCatalogCopyWidget.routeName,
           path: PlantCatalogCopyWidget.routePath,
-          builder: (context, params) => PlantCatalogCopyWidget(),
+          builder: (context, params) => const PlantCatalogCopyWidget(),
         ),
         FFRoute(
           name: SproutifyPurchasePageWidget.routeName,
           path: SproutifyPurchasePageWidget.routePath,
-          builder: (context, params) => SproutifyPurchasePageWidget(),
+          builder: (context, params) => const SproutifyPurchasePageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -812,7 +819,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

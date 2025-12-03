@@ -99,7 +99,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                 ),
               ],
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 2.0,
           ),
@@ -154,7 +154,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                   children: [
                     // Expandable filter card
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
                       child: Container(
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -167,7 +167,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                             BoxShadow(
                               color: Colors.black.withOpacity(0.05),
                               blurRadius: 4.0,
-                              offset: Offset(0.0, 2.0),
+                              offset: const Offset(0.0, 2.0),
                             ),
                           ],
                         ),
@@ -182,7 +182,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                 });
                               },
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,7 +195,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                           color: FlutterFlowTheme.of(context).primary,
                                           size: 20.0,
                                         ),
-                                        SizedBox(width: 8.0),
+                                        const SizedBox(width: 8.0),
                                         Text(
                                           'Filter by Brand',
                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -205,16 +205,16 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                               ),
                                         ),
                                         if (_model.selectedBrandFilter != null) ...[
-                                          SizedBox(width: 8.0),
+                                          const SizedBox(width: 8.0),
                                           Container(
-                                            padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
+                                            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
                                             decoration: BoxDecoration(
                                               color: FlutterFlowTheme.of(context).primary,
                                               borderRadius: BorderRadius.circular(12.0),
                                             ),
                                             child: Text(
                                               _model.selectedBrandFilter!,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 12.0,
                                                 fontWeight: FontWeight.w600,
@@ -226,7 +226,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                     ),
                                     AnimatedRotation(
                                       turns: _model.isFilterExpanded ? 0.5 : 0.0,
-                                      duration: Duration(milliseconds: 300),
+                                      duration: const Duration(milliseconds: 300),
                                       curve: Curves.easeInOut,
                                       child: Icon(
                                         Icons.keyboard_arrow_down,
@@ -240,18 +240,18 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                             ),
                             // Expandable content with smooth animation
                             AnimatedSize(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                               child: _model.isFilterExpanded
                                   ? Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
                                       child: Wrap(
                                         spacing: 8.0,
                                         runSpacing: 8.0,
                                         children: [
                                           // "All" filter chip
                                           FilterChip(
-                                            label: Text('All'),
+                                            label: const Text('All'),
                                             selected: _model.selectedBrandFilter == null,
                                             onSelected: (selected) {
                                               safeSetState(() {
@@ -299,7 +299,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                         ],
                                       ),
                                     )
-                                  : SizedBox.shrink(),
+                                  : const SizedBox.shrink(),
                             ),
                           ],
                         ),
@@ -308,7 +308,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                     // Grid of towers
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 20.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 20.0),
                         child: filteredBrands.isEmpty
                             ? Center(
                                 child: Text(
@@ -318,7 +318,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                               )
                             : GridView.builder(
                                 padding: EdgeInsets.zero,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 16.0,
                                   mainAxisSpacing: 16.0,
@@ -357,10 +357,10 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFE6EAF0),
+                                        color: const Color(0xFFE6EAF0),
                                         borderRadius: BorderRadius.circular(16.0),
                                         border: Border.all(
-                                          color: Color(0xCCE5DBDB),
+                                          color: const Color(0xCCE5DBDB),
                                           width: 2.0,
                                         ),
                                       ),
@@ -386,7 +386,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                                   ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                 12.0, 12.0, 12.0, 0.0),
                                             child: Text(
                                               gridViewTowerBrandsRow.brandName ?? 'Tower',

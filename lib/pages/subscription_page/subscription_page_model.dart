@@ -11,6 +11,10 @@ class SubscriptionPageModel extends FlutterFlowModel<SubscriptionPageWidget> {
   // Purchase in progress flag
   bool isPurchasing = false;
 
+  // Offerings loading state
+  bool isLoadingOfferings = true;
+  String? offeringsError;
+
   // RevenueCat product identifiers
   String get selectedProductId {
     switch (selectedPlan) {

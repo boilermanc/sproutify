@@ -77,8 +77,17 @@ List<String> get activeEntitlementIds => _customerInfo != null
 Future loadOfferings() async {
   try {
     _offerings = await Purchases.getOfferings();
+    if (_offerings == null) {
+      print("Warning: RevenueCat returned null offerings");
+    } else if (_offerings!.current == null) {
+      print("Warning: RevenueCat offerings exist but no current offering is set. Available offerings: ${_offerings!.all.keys.join(', ')}");
+    }
   } on PlatformException catch (e) {
     print("Error loading offerings info: $e");
+    // Don't rethrow to maintain backward compatibility
+  } on Exception catch (e) {
+    print("Unexpected error loading offerings: $e");
+    // Don't rethrow to maintain backward compatibility
   }
 }
 

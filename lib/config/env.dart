@@ -16,13 +16,13 @@ class Env {
   // iOS App Store API Key (starts with 'appl_')
   static const String revenueCatIosApiKey = String.fromEnvironment(
     'REVENUE_CAT_IOS_API_KEY',
-    defaultValue: '',
+    defaultValue: 'appl_szgNwIyKqHcKLtwDsoMEvuwPtOi',
   );
-  
+
   // Android Play Store API Key (starts with 'goog_')
   static const String revenueCatAndroidApiKey = String.fromEnvironment(
     'REVENUE_CAT_ANDROID_API_KEY',
-    defaultValue: '',
+    defaultValue: 'goog_YcTwAxdzBQCTTogBgSirpzebWdV',
   );
   
   // Legacy support - use iOS key if provided, otherwise empty

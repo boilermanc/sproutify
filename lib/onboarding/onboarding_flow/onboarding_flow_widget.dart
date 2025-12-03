@@ -52,8 +52,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(1.2, 1.2),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(1.2, 1.2),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -71,8 +71,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -90,8 +90,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -109,8 +109,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.4, 0.4),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.4, 0.4),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -128,8 +128,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(1.2, 1.2),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(1.2, 1.2),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -147,8 +147,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -166,8 +166,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -185,8 +185,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.5, 0.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.5, 0.5),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -204,8 +204,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(1.2, 1.2),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(1.2, 1.2),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -223,8 +223,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -242,8 +242,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -261,8 +261,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.5, 0.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.5, 0.5),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -280,8 +280,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(1.4, 1.4),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(1.4, 1.4),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -299,8 +299,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 70.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 70.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -318,8 +318,8 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 90.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 90.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -337,15 +337,15 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 100.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 100.0),
+            end: const Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.8, 0.8),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.8, 0.8),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -395,9 +395,9 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                         animationsMap['imageOnPageLoadAnimation1']!),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
                       child: Container(
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -422,7 +422,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                             ).animateOnPageLoad(
                                 animationsMap['textOnPageLoadAnimation1']!),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 12.0, 0.0, 0.0),
                               child: Text(
                                 'Sproutify Home is a mobile app to simplify home gardening for Aeroponic Towers.',
@@ -470,7 +470,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                   ),
                                   onPressed: () async {
                                     await _model.pageViewController?.nextPage(
-                                      duration: Duration(milliseconds: 300),
+                                      duration: const Duration(milliseconds: 300),
                                       curve: Curves.ease,
                                     );
                                   },
@@ -495,7 +495,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                     ).animateOnPageLoad(
                         animationsMap['imageOnPageLoadAnimation2']!),
                     Padding(
-                      padding: EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -520,7 +520,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                           ).animateOnPageLoad(
                               animationsMap['textOnPageLoadAnimation3']!),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Text(
                               'A user-friendly app to help you plan, care, and grow fresh produce at home.',
@@ -568,7 +568,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                 ),
                                 onPressed: () async {
                                   await _model.pageViewController?.nextPage(
-                                    duration: Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 300),
                                     curve: Curves.ease,
                                   );
                                 },
@@ -592,7 +592,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                     ).animateOnPageLoad(
                         animationsMap['imageOnPageLoadAnimation3']!),
                     Padding(
-                      padding: EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -617,7 +617,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                           ).animateOnPageLoad(
                               animationsMap['textOnPageLoadAnimation5']!),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Text(
                               'Setup your system, add your plants, track your expenses, and find the resources you need all in one convenient app.',
@@ -665,7 +665,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                 ),
                                 onPressed: () async {
                                   await _model.pageViewController?.nextPage(
-                                    duration: Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 300),
                                     curve: Curves.ease,
                                   );
                                 },
@@ -690,7 +690,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                       sigmaY: 2.5,
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(30.0),
                       child: Container(
                         decoration: BoxDecoration(
                           color:
@@ -702,7 +702,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 50.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -745,7 +745,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                             ).animateOnPageLoad(
                                 animationsMap['textOnPageLoadAnimation7']!),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 12.0, 24.0, 0.0),
                               child: Text(
                                 'Let\'s get you signed up!',
@@ -771,7 +771,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                   animationsMap['textOnPageLoadAnimation8']!),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 44.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -782,9 +782,9 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                 options: FFButtonOptions(
                                   width: 200.0,
                                   height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -806,7 +806,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                             .fontStyle,
                                       ),
                                   elevation: 2.0,
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),

@@ -77,7 +77,7 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                 fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 2.0,
       ),
@@ -126,7 +126,7 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                         scrollDirection: Axis.vertical,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 24.0, 16.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -158,7 +158,7 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 16.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -169,7 +169,7 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                   children: [
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
@@ -328,7 +328,7 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                   children: [
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
@@ -486,7 +486,7 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                   children: [
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller: _model
@@ -716,9 +716,9 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                                 text: 'Submit',
                                 options: FFButtonOptions(
                                   height: 40.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)

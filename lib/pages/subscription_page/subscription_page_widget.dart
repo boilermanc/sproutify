@@ -31,6 +31,77 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SubscriptionPageModel());
+    _loadOfferings();
+  }
+
+  Future<void> _loadOfferings({bool retry = false}) async {
+    if (mounted) {
+      setState(() {
+        _model.isLoadingOfferings = true;
+        _model.offeringsError = null;
+      });
+    }
+
+    try {
+      // Try loading offerings with retry logic
+      int attempts = 0;
+      const maxAttempts = 3;
+      
+      while (attempts < maxAttempts) {
+        try {
+          await revenue_cat.loadOfferings();
+        } catch (e) {
+          // If loadOfferings throws, log it but continue to check offerings
+          print('Error calling loadOfferings: $e');
+        }
+        
+        final offerings = revenue_cat.offerings;
+
+        if (offerings != null && offerings.current != null) {
+          // Success - offerings loaded
+          if (mounted) {
+            setState(() {
+              _model.isLoadingOfferings = false;
+              _model.offeringsError = null;
+            });
+          }
+          return;
+        }
+
+        attempts++;
+        if (attempts < maxAttempts) {
+          // Wait before retrying (exponential backoff)
+          await Future.delayed(Duration(seconds: attempts));
+        }
+      }
+
+      // If we get here, offerings failed to load after retries
+      if (mounted) {
+        final offerings = revenue_cat.offerings;
+        String errorMessage = 'Unable to load subscription options.';
+        
+        if (offerings == null) {
+          errorMessage += ' Please check your internet connection and RevenueCat configuration.';
+        } else if (offerings.current == null) {
+          errorMessage += ' No default offering is configured in RevenueCat. Please contact support.';
+        } else {
+          errorMessage += ' Please try again.';
+        }
+        
+        setState(() {
+          _model.isLoadingOfferings = false;
+          _model.offeringsError = errorMessage;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _model.isLoadingOfferings = false;
+          _model.offeringsError = 
+              'Error loading subscription options: ${e.toString().replaceAll('Exception: ', '')}';
+        });
+      }
+    }
   }
 
   @override
@@ -165,10 +236,59 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                 ),
               ),
 
+              // Error banner if offerings failed to load
+              if (_model.offeringsError != null)
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).error,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            _model.offeringsError!,
+                            style: GoogleFonts.readexPro(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.0,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8.0),
+                        InkWell(
+                          onTap: () => _loadOfferings(retry: true),
+                          child: Container(
+                            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Text(
+                              'Retry',
+                              style: GoogleFonts.readexPro(
+                                color: Colors.white,
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
               // Subscription options
               Padding(
                 padding:
-                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 32.0),
+                    const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 32.0),
                 child: Column(
                   children: [
                     Text(
@@ -226,7 +346,9 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                 padding:
                     const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
                 child: FFButtonWidget(
-                  onPressed: () async {
+                  onPressed: (_model.isPurchasing || _model.isLoadingOfferings || _model.offeringsError != null)
+                      ? null
+                      : () async {
                     if (_model.isPurchasing) {
                       return; // Prevent double-tap
                     }
@@ -239,13 +361,23 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       // Get the product identifier
                       final productId = _model.selectedProductId;
 
+                      // Ensure offerings are loaded
+                      if (_model.isLoadingOfferings) {
+                        await _loadOfferings();
+                      }
+
                       // Get offerings to find the right product
-                      await revenue_cat.loadOfferings();
-                      final offerings = revenue_cat.offerings;
+                      var offerings = revenue_cat.offerings;
 
                       if (offerings == null || offerings.current == null) {
-                        throw Exception(
-                            'No offerings available. Please try again.');
+                        // Try loading one more time
+                        await revenue_cat.loadOfferings();
+                        offerings = revenue_cat.offerings;
+                        
+                        if (offerings == null || offerings.current == null) {
+                          throw Exception(
+                              'No subscription options available. Please check your internet connection and try again.');
+                        }
                       }
 
                       // Find the product by identifier
@@ -340,7 +472,11 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       }
                     }
                   },
-                  text: _model.isPurchasing ? 'Processing...' : 'Continue',
+                  text: _model.isPurchasing 
+                      ? 'Processing...' 
+                      : (_model.isLoadingOfferings 
+                          ? 'Loading...' 
+                          : 'Continue'),
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 56.0,

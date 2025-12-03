@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/components/create_post_widget.dart';
 import '/components/post_card_widget.dart';
+import '/components/community_guidelines_dialog.dart';
 import '/models/index.dart';
 import '/services/community_service.dart';
 import '/auth/supabase_auth/auth_util.dart';
@@ -308,6 +309,23 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             HapticFeedback.lightImpact();
+
+            // Check if user has accepted guidelines before allowing post creation
+            final hasAccepted = await CommunityService.hasAcceptedGuidelines();
+            if (!hasAccepted) {
+              // Show guidelines dialog first
+              final accepted = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => CommunityGuidelinesDialog(),
+              );
+
+              if (accepted != true) {
+                // User didn't accept, don't open create post
+                return;
+              }
+            }
+
             await Navigator.push(
               context,
               MaterialPageRoute(
@@ -344,7 +362,8 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
               _buildUserProfileRow(context),
               // Feed Type Indicator (clickable to open dropdown)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 12.0),
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primaryBackground,
                   border: Border(
@@ -603,7 +622,8 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Failed to update follow status. Please try again.'),
+            content:
+                const Text('Failed to update follow status. Please try again.'),
             backgroundColor: FlutterFlowTheme.of(context).error,
           ),
         );
@@ -613,7 +633,8 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
 
   String _getInitials(String? name) {
     if (name == null || name.isEmpty) return 'U';
-    final parts = name.trim().split(' ').where((part) => part.isNotEmpty).toList();
+    final parts =
+        name.trim().split(' ').where((part) => part.isNotEmpty).toList();
     if (parts.length >= 2) {
       return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
     }

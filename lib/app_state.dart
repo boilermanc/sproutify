@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '/backend/schema/structs/index.dart';
-import '/backend/api_requests/api_manager.dart';
-import 'backend/supabase/supabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -20,7 +18,7 @@ class FFAppState extends ChangeNotifier {
 
   Future initializePersistedState() async {
     final prefs = await SharedPreferences.getInstance();
-    
+
     // Load persisted state
     _firstName = prefs.getString('firstName') ?? '';
     _lastName = prefs.getString('lastName') ?? '';
@@ -33,7 +31,7 @@ class FFAppState extends ChangeNotifier {
     _wrongLogin = prefs.getBool('wrongLogin') ?? false;
     _aiSearchResultDisplay = prefs.getBool('aiSearchResultDisplay') ?? false;
     _isTowerActive = prefs.getBool('isTowerActive') ?? false;
-    
+
     // Load plant names list
     final plantNamesJson = prefs.getString('plantNamesForSearch');
     if (plantNamesJson != null) {
@@ -44,7 +42,7 @@ class FFAppState extends ChangeNotifier {
         _plantNamesForSearch = [];
       }
     }
-    
+
     // Load user struct if available
     final userJson = prefs.getString('user');
     if (userJson != null) {
@@ -64,7 +62,7 @@ class FFAppState extends ChangeNotifier {
 
   Future<void> _persistState() async {
     final prefs = await SharedPreferences.getInstance();
-    
+
     // Persist all state variables
     await prefs.setString('firstName', _firstName);
     await prefs.setString('lastName', _lastName);
@@ -76,10 +74,11 @@ class FFAppState extends ChangeNotifier {
     await prefs.setBool('isNewNotification', _isNewNotification);
     await prefs.setBool('wrongLogin', _wrongLogin);
     await prefs.setBool('aiSearchResultDisplay', _aiSearchResultDisplay);
-    
+
     // Persist plant names list
-    await prefs.setString('plantNamesForSearch', jsonEncode(_plantNamesForSearch));
-    
+    await prefs.setString(
+        'plantNamesForSearch', jsonEncode(_plantNamesForSearch));
+
     // Persist user struct
     await prefs.setString('user', jsonEncode(_user.toSerializableMap()));
   }

@@ -66,8 +66,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
             curve: Curves.easeInOut,
             delay: 400.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -86,8 +86,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
             curve: Curves.easeInOut,
             delay: 400.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -123,7 +123,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
           top: true,
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +167,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                   if (snapshot.hasError) {
                     return Center(
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -176,12 +176,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               size: 48.0,
                               color: FlutterFlowTheme.of(context).error,
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             Text(
                               'Error loading profile',
                               style: FlutterFlowTheme.of(context).headlineSmall,
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Text(
                               '${snapshot.error}',
                               style: FlutterFlowTheme.of(context).bodyMedium,
@@ -204,7 +204,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                     final userId = widget.userID ?? currentUserUid;
                     return Center(
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -213,18 +213,18 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               size: 48.0,
                               color: FlutterFlowTheme.of(context).secondaryText,
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             Text(
                               'Profile not found',
                               style: FlutterFlowTheme.of(context).headlineSmall,
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Text(
                               'No profile exists for user ID:\n$userId',
                               style: FlutterFlowTheme.of(context).bodyMedium,
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             FFButtonWidget(
                               onPressed: () async {
                                 context.pushNamed(UpdateProfileWidget.routeName);
@@ -232,9 +232,9 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               text: 'Create Profile',
                               options: FFButtonOptions(
                                 height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -245,7 +245,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       letterSpacing: 0.0,
                                     ),
                                 elevation: 3.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -262,23 +262,23 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 200.0,
                         child: Stack(
                           children: [
                             Container(
                               width: double.infinity,
                               height: 140.0,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xFFD8EED3),
                               ),
                             ),
                             Stack(
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, 1.0),
+                                  alignment: const AlignmentDirectional(-1.0, 1.0),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 0.0, 16.0),
                                     child: Container(
                                       width: 90.0,
@@ -295,21 +295,21 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       ),
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Padding(
-                                          padding: EdgeInsets.all(4.0),
+                                          padding: const EdgeInsets.all(4.0),
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(50.0),
                                             child: CachedNetworkImage(
-                                              fadeInDuration: Duration(
+                                              fadeInDuration: const Duration(
                                                   milliseconds: 500),
-                                              fadeOutDuration: Duration(
+                                              fadeOutDuration: const Duration(
                                                   milliseconds: 500),
                                               imageUrl:
                                                   valueOrDefault<String>(
                                                 listViewProfilesRow
-                                                    ?.avatarUrl,
+                                                    .avatarUrl,
                                                 'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tower-garden-community-l9w4j2/assets/cpng3hq99m1r/Tower_Garden_Clip_100x100.png',
                                               ),
                                               width: 100.0,
@@ -332,7 +332,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     borderRadius: 20.0,
                                     borderWidth: 1.0,
                                     buttonSize: 40.0,
-                                    fillColor: Color(0xFFB3DAAE),
+                                    fillColor: const Color(0xFFB3DAAE),
                                     icon: Icon(
                                       Icons.add,
                                       color: FlutterFlowTheme.of(
@@ -345,9 +345,9 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor:
-                                            Color(0xFFB3DAAE),
+                                            const Color(0xFFB3DAAE),
                                         barrierColor:
-                                            Color(0xFFB3DAAE),
+                                            const Color(0xFFB3DAAE),
                                         enableDrag: false,
                                         context: context,
                                         builder: (context) {
@@ -402,11 +402,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                 ),
                                 onPressed: () async {
                                   HapticFeedback.lightImpact();
-                                  if (context.canPop()) {
-                                    context.pop();
-                                  } else {
-                                    context.goNamed(HomePageWidget.routeName);
-                                  }
+                                  context.go(HomePageWidget.routePath);
                                 },
                               ),
                             ),
@@ -415,10 +411,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                         child: Text(
                           valueOrDefault<String>(
-                            listViewProfilesRow?.firstName,
+                            listViewProfilesRow.firstName,
                             'Happy Gardener',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -443,7 +439,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 4.0, 0.0, 10.0),
                         child: Text(
                           valueOrDefault<String>(
@@ -473,12 +469,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 10.0, 0.0),
                               child: Text(
                                 'Postal Code:',
@@ -502,7 +498,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                             ),
                             Text(
                               valueOrDefault<String>(
-                                listViewProfilesRow?.postalCode,
+                                listViewProfilesRow.postalCode,
                                 'Not set',
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -531,12 +527,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 10.0, 0.0),
                               child: Text(
                                 'My Level:',
@@ -560,7 +556,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                             ),
                             Text(
                               valueOrDefault<String>(
-                                listViewProfilesRow?.gardeningExperience,
+                                listViewProfilesRow.gardeningExperience,
                                 'Not set',
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -589,12 +585,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -619,7 +615,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                           },
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(context),
-                                            child: ManageGoalsWidget(),
+                                            child: const ManageGoalsWidget(),
                                           ),
                                         ),
                                       );
@@ -635,7 +631,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       'My Goals',
                                       style: FlutterFlowTheme.of(context)
@@ -663,7 +659,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -687,7 +683,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                         child: Padding(
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
-                                          child: WhatILikeToGrowWidget(),
+                                          child: const WhatILikeToGrowWidget(),
                                         ),
                                       );
                                     },
@@ -702,7 +698,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       'Plant Preferences',
                                       style: FlutterFlowTheme.of(context)
@@ -734,7 +730,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 0.0, 0.0),
                         child: Text(
                           'Your Account',
                           style:
@@ -759,7 +755,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
@@ -785,7 +781,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 3.0,
                                   color: Color(0x33000000),
@@ -799,7 +795,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               shape: BoxShape.rectangle,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(12.0),
+                              padding: const EdgeInsets.all(12.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -810,7 +806,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     size: 24.0,
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       'Edit Profile',
@@ -841,7 +837,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   ),
                                   Expanded(
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.9, 0.0),
+                                      alignment: const AlignmentDirectional(0.9, 0.0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
                                         color: FlutterFlowTheme.of(context)
@@ -857,7 +853,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
@@ -876,7 +872,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 3.0,
                                   color: Color(0x33000000),
@@ -890,7 +886,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               shape: BoxShape.rectangle,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(12.0),
+                              padding: const EdgeInsets.all(12.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -901,7 +897,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     size: 24.0,
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       'Reset Password',
@@ -932,7 +928,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   ),
                                   Expanded(
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.9, 0.0),
+                                      alignment: const AlignmentDirectional(0.9, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -958,7 +954,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
@@ -976,7 +972,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 3.0,
                                   color: Color(0x33000000),
@@ -990,7 +986,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               shape: BoxShape.rectangle,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(12.0),
+                              padding: const EdgeInsets.all(12.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -1001,7 +997,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                     size: 24.0,
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       'Terms of Service',
@@ -1032,7 +1028,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   ),
                                   Expanded(
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.9, 0.0),
+                                      alignment: const AlignmentDirectional(0.9, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -1059,9 +1055,9 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       ),
                       // Log Out Button
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -1076,9 +1072,9 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                             options: FFButtonOptions(
                               width: 200.0,
                               height: 44.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
@@ -1124,7 +1120,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       // Danger Zone Section
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(24.0, 32.0, 24.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(24.0, 32.0, 24.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1150,12 +1146,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 12.0, 0.0, 0.0),
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFF5F5),
+                                  color: const Color(0xFFFFF5F5),
                                   borderRadius: BorderRadius.circular(8.0),
                                   border: Border.all(
                                     color: FlutterFlowTheme.of(context).error,
@@ -1163,7 +1159,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.all(16.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1177,7 +1173,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                             size: 24.0,
                                           ),
                                           Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                 8.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Delete Account',
@@ -1205,7 +1201,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                         ],
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 0.0),
                                         child: Text(
                                           'Once you delete your account, there is no going back. This will permanently delete all your data including plants, towers, goals, and preferences.',
@@ -1237,7 +1233,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -1251,7 +1247,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                 return StatefulBuilder(
                                                   builder: (context, setState) {
                                                     return AlertDialog(
-                                                      title: Text('Delete Account'),
+                                                      title: const Text('Delete Account'),
                                                       content: Column(
                                                         mainAxisSize: MainAxisSize.min,
                                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1263,7 +1259,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                               letterSpacing: 0.0,
                                                             ),
                                                           ),
-                                                          SizedBox(height: 16.0),
+                                                          const SizedBox(height: 16.0),
                                                           Text(
                                                             'Type DELETE to confirm:',
                                                             style: FlutterFlowTheme.of(context).bodySmall.override(
@@ -1272,10 +1268,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                               letterSpacing: 0.0,
                                                             ),
                                                           ),
-                                                          SizedBox(height: 8.0),
+                                                          const SizedBox(height: 8.0),
                                                           TextField(
                                                             controller: confirmController,
-                                                            decoration: InputDecoration(
+                                                            decoration: const InputDecoration(
                                                               hintText: 'DELETE',
                                                               border: OutlineInputBorder(),
                                                               contentPadding: EdgeInsets.symmetric(
@@ -1295,7 +1291,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                             confirmController.dispose();
                                                             Navigator.pop(alertDialogContext, false);
                                                           },
-                                                          child: Text('Cancel'),
+                                                          child: const Text('Cancel'),
                                                         ),
                                                         TextButton(
                                                           onPressed: confirmController.text == 'DELETE'
@@ -1371,7 +1367,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                         ),
                                                       ),
                                                       duration:
-                                                          Duration(seconds: 4),
+                                                          const Duration(seconds: 4),
                                                       backgroundColor:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1383,11 +1379,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                     SnackBar(
-                                                      content: Text(
+                                                      content: const Text(
                                                         'Failed to delete account. Please try again or contact support.',
                                                       ),
                                                       duration:
-                                                          Duration(seconds: 4),
+                                                          const Duration(seconds: 4),
                                                       backgroundColor:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1406,7 +1402,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                     content: Text(
                                                       'An error occurred: ${e.toString()}',
                                                     ),
-                                                    duration: Duration(seconds: 4),
+                                                    duration: const Duration(seconds: 4),
                                                     backgroundColor:
                                                         FlutterFlowTheme.of(context)
                                                             .error,
@@ -1416,17 +1412,17 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                             }
                                           },
                                           text: 'Delete My Account',
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.delete_forever,
                                             size: 20.0,
                                           ),
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 44.0,
-                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context).error,
                                             textStyle: FlutterFlowTheme.of(context)
@@ -1448,7 +1444,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                           .fontStyle,
                                                 ),
                                             elevation: 3.0,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -1467,7 +1463,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                       ),
 
                       // Bottom padding
-                      SizedBox(height: 40.0),
+                      const SizedBox(height: 40.0),
                     ],
                   );
                 },

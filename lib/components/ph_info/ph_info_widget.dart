@@ -49,14 +49,14 @@ class _PhInfoWidgetState extends State<PhInfoWidget> {
     final maxHeight = (screenHeight * 0.7).clamp(400.0, 600.0);
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: maxWidth,
@@ -73,7 +73,7 @@ class _PhInfoWidgetState extends State<PhInfoWidget> {
               child: SingleChildScrollView(
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 20.0),
+                      const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 20.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +125,7 @@ class _PhInfoWidgetState extends State<PhInfoWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                         child: Text(
                           'The recommended pH level for a Tower Garden, which is a vertical, aeroponic growing system, typically ranges from 5.5 to 6.5. This slightly acidic range is ideal for most plants grown in hydroponic or aeroponic systems like the Tower Garden. It ensures optimal nutrient availability and absorption by the plants. Regular testing and adjustments of the pH level are important to maintain this range for the best growing results.',
                           style:

@@ -64,7 +64,7 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
       final profileUserId = widget.userId ?? currentUserUid;
       if (profileUserId.isEmpty) {
         setState(() {
-          _userDisplayName = 'User';
+          _userDisplayName = 'Gardener';
           _isLoadingProfile = false;
         });
         return;
@@ -77,26 +77,38 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
       if (profile.isNotEmpty) {
         final userProfile = profile.first;
         setState(() {
-          // Use same display name logic as CommunityService
-          if (userProfile.username != null && userProfile.username!.isNotEmpty) {
-            _userDisplayName = userProfile.username;
+          final firstName = userProfile.firstName;
+          final lastName = userProfile.lastName;
+          final username = userProfile.username;
+
+          // Format names as "First L." when both names exist
+          if (firstName != null &&
+              firstName.isNotEmpty &&
+              lastName != null &&
+              lastName.isNotEmpty) {
+            _userDisplayName = '$firstName ${lastName[0]}.';
+          } else if (firstName != null && firstName.isNotEmpty) {
+            _userDisplayName = firstName;
+          } else if (lastName != null && lastName.isNotEmpty) {
+            _userDisplayName = lastName;
+          } else if (username != null && username.isNotEmpty) {
+            _userDisplayName = username;
           } else {
-            final name = '${userProfile.firstName ?? ''} ${userProfile.lastName ?? ''}'.trim();
-            _userDisplayName = name.isNotEmpty ? name : (userProfile.email?.split('@').first ?? 'User');
+            _userDisplayName = 'Gardener';
           }
           _userAvatarUrl = userProfile.avatarUrl;
           _isLoadingProfile = false;
         });
       } else {
         setState(() {
-          _userDisplayName = 'User';
+          _userDisplayName = 'Gardener';
           _isLoadingProfile = false;
         });
       }
     } catch (e) {
       print('Error loading user profile: $e');
       setState(() {
-        _userDisplayName = 'User';
+        _userDisplayName = 'Gardener';
         _isLoadingProfile = false;
       });
     }
@@ -215,7 +227,7 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
 
   Widget _buildUserProfileHeader(BuildContext context) {
     final theme = FlutterFlowTheme.of(context);
-    
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -278,7 +290,7 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
                     ),
                   )
                 : Text(
-                    _userDisplayName ?? 'User',
+                    _userDisplayName ?? 'Gardener',
                     style: theme.headlineSmall.override(
                       fontFamily: GoogleFonts.readexPro().fontFamily,
                       fontWeight: FontWeight.w600,
@@ -291,8 +303,7 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
     );
   }
 
-  Widget _buildUserStatsRow(
-      BuildContext context, Map<String, dynamic> stats) {
+  Widget _buildUserStatsRow(BuildContext context, Map<String, dynamic> stats) {
     final theme = FlutterFlowTheme.of(context);
     final totalXp = stats['total_xp'] as int? ?? 0;
     final currentLevel = stats['current_level'] as int? ?? 1;
@@ -430,8 +441,11 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
                           children: [
                             Text(
                               _formatCategoryName(category),
-                              style: FlutterFlowTheme.of(context).titleMedium.override(
-                                    fontFamily: GoogleFonts.readexPro().fontFamily,
+                              style: FlutterFlowTheme.of(context)
+                                  .titleMedium
+                                  .override(
+                                    fontFamily:
+                                        GoogleFonts.readexPro().fontFamily,
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0,
                                   ),
@@ -441,10 +455,14 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
                                 padding: const EdgeInsets.only(left: 8),
                                 child: Text(
                                   '(${categoryInfo['earned']}/${categoryInfo['total']})',
-                                  style: FlutterFlowTheme.of(context).bodySmall.override(
-                                        fontFamily: GoogleFonts.readexPro().fontFamily,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodySmall
+                                      .override(
+                                        fontFamily:
+                                            GoogleFonts.readexPro().fontFamily,
                                         letterSpacing: 0,
-                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
                                       ),
                                 ),
                               ),
@@ -464,7 +482,7 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
@@ -497,4 +515,3 @@ class _BadgeCollectionWidgetState extends State<BadgeCollectionWidget>
     );
   }
 }
-

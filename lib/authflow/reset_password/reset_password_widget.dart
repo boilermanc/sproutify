@@ -57,7 +57,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
           borderRadius: 30.0,
           borderWidth: 1.0,
           buttonSize: 60.0,
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.white,
             size: 30.0,
@@ -69,7 +69,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
           },
         ),
         title: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
           child: Text(
             'Reset Password',
             style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -89,20 +89,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 ),
           ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: true,
         elevation: 2.0,
       ),
       body: Align(
-        alignment: AlignmentDirectional(0.0, -1.0),
+        alignment: const AlignmentDirectional(0.0, -1.0),
         child: Container(
           width: double.infinity,
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             maxWidth: 570.0,
           ),
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           child: Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Container(
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -120,7 +120,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                   ))
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -133,7 +133,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 12.0, 0.0, 12.0),
                               child: Icon(
                                 Icons.arrow_back_rounded,
@@ -142,7 +142,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 'Back',
@@ -172,14 +172,14 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                       ),
                     ),
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(0x4CB6B1E7),
+                        color: const Color(0x4CB6B1E7),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 10.0, 16.0, 4.0),
                         child: Text(
                           'We will send you an email with a link to reset your password, please enter the email associated with your account below.',
@@ -211,14 +211,14 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                     autovalidateMode: AutovalidateMode.disabled,
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                      child: Container(
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                      child: SizedBox(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.emailAddressTextController,
                           focusNode: _model.emailAddressFocusNode,
                           autofocus: true,
-                          autofillHints: [AutofillHints.email],
+                          autofillHints: const [AutofillHints.email],
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Your email address',
@@ -287,7 +287,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 24.0, 20.0, 24.0),
                           ),
                           style:
@@ -323,9 +323,9 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -333,7 +333,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                               if (_model
                                   .emailAddressTextController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content: Text(
                                       'Email required!',
                                     ),
@@ -358,9 +358,9 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                             options: FFButtonOptions(
                               width: 270.0,
                               height: 50.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -384,7 +384,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                         .fontStyle,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -401,19 +401,19 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                   Flexible(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(7.0, 20.0, 7.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(7.0, 20.0, 7.0, 0.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0xFFF6EED7),
+                          color: const Color(0xFFF6EED7),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 5.0, 0.0),
                                 child: Icon(
                                   Icons.warning_amber,
@@ -423,7 +423,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                               ),
                               Flexible(
                                 child: Padding(
-                                  padding: EdgeInsets.all(5.0),
+                                  padding: const EdgeInsets.all(5.0),
                                   child: Text(
                                     'If you don\'t receive the email in a timely manner, check your spam folder.',
                                     style: FlutterFlowTheme.of(context)

@@ -97,7 +97,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                 fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
@@ -149,7 +149,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                       scrollDirection: Axis.vertical,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 24.0, 16.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -180,7 +180,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 16.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -191,7 +191,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 16.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
@@ -343,7 +343,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 16.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
@@ -494,7 +494,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 16.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
@@ -705,7 +705,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                         fontSize: 18.0,
                                       ),
                                     ),
-                                    duration: Duration(milliseconds: 4000),
+                                    duration: const Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).success,
                                   ),
@@ -726,8 +726,8 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                               },
                               text: 'Submit Update',
                               options: FFButtonOptions(
-                                padding: EdgeInsets.all(20.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsets.all(20.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -752,7 +752,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                           .fontStyle,
                                     ),
                                 elevation: 3.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),

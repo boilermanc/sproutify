@@ -3,6 +3,7 @@ import '/models/index.dart';
 import '/services/community_service.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/xp_level_display_widget.dart';
+import '/components/report_post_dialog.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
   bool _isLoadingProfile = true;
   bool _isFollowing = false;
   bool _isFollowingLoading = false;
+  bool _isBlocked = false;
+  bool _isBlocking = false;
   Map<String, dynamic>? _userGamification;
 
   @override
@@ -47,6 +50,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
     _loadUserProfile();
     _checkIfLiked();
     _checkIfFollowing();
+    _checkIfBlocked();
     _loadUserGamification();
   }
 
@@ -61,24 +65,31 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       if (profile.isNotEmpty) {
         final userProfile = profile.first;
         setState(() {
-          // Use same display name logic as CommunityService
-          if (userProfile.username != null &&
-              userProfile.username!.isNotEmpty) {
-            _username = userProfile.username;
+          final firstName = userProfile.firstName;
+          final lastName = userProfile.lastName;
+          final username = userProfile.username;
+
+          // Format names as "First L." when both names exist
+          if (firstName != null &&
+              firstName.isNotEmpty &&
+              lastName != null &&
+              lastName.isNotEmpty) {
+            _username = '$firstName ${lastName[0]}.';
+          } else if (firstName != null && firstName.isNotEmpty) {
+            _username = firstName;
+          } else if (lastName != null && lastName.isNotEmpty) {
+            _username = lastName;
+          } else if (username != null && username.isNotEmpty) {
+            _username = username;
           } else {
-            final name =
-                '${userProfile.firstName ?? ''} ${userProfile.lastName ?? ''}'
-                    .trim();
-            _username = name.isNotEmpty
-                ? name
-                : (userProfile.email?.split('@').first ?? 'User');
+            _username = 'Gardener';
           }
           _profilePhotoUrl = userProfile.avatarUrl;
           _isLoadingProfile = false;
         });
       } else {
         setState(() {
-          _username = 'User';
+          _username = 'Gardener';
           _isLoadingProfile = false;
         });
       }
@@ -86,7 +97,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       print('Error loading user profile: $e');
       if (mounted) {
         setState(() {
-          _username = 'User';
+          _username = 'Gardener';
           _isLoadingProfile = false;
         });
       }
@@ -138,6 +149,80 @@ class _PostCardWidgetState extends State<PostCardWidget> {
     }
   }
 
+  Future<void> _checkIfBlocked() async {
+    try {
+      final isBlocked = await CommunityService.isUserBlocked(
+        userId: widget.post.userId,
+      );
+      if (mounted) {
+        setState(() {
+          _isBlocked = isBlocked;
+        });
+      }
+    } catch (e) {
+      print('Error checking if blocked: $e');
+    }
+  }
+
+  Future<void> _toggleBlock() async {
+    if (_isBlocking) return;
+
+    final shouldBlock = !_isBlocked;
+
+    setState(() {
+      _isBlocking = true;
+    });
+
+    try {
+      if (shouldBlock) {
+        await CommunityService.blockUser(userId: widget.post.userId);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text(
+                  'User blocked. You will no longer see their posts.'),
+              backgroundColor: FlutterFlowTheme.of(context).success,
+              duration: const Duration(seconds: 3),
+            ),
+          );
+        }
+      } else {
+        await CommunityService.unblockUser(userId: widget.post.userId);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('User unblocked.'),
+              backgroundColor: FlutterFlowTheme.of(context).success,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      }
+
+      if (mounted) {
+        setState(() {
+          _isBlocked = shouldBlock;
+          _isBlocking = false;
+        });
+      }
+    } catch (e) {
+      print('Error toggling block: $e');
+      if (mounted) {
+        setState(() {
+          _isBlocking = false;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                'Failed to ${shouldBlock ? 'block' : 'unblock'} user. Please try again.'),
+            backgroundColor: FlutterFlowTheme.of(context).error,
+          ),
+        );
+      }
+    }
+  }
+
   Future<void> _toggleFollow() async {
     if (_isFollowingLoading) return;
 
@@ -171,7 +256,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Failed to update follow status. Please try again.'),
+            content:
+                const Text('Failed to update follow status. Please try again.'),
             backgroundColor: FlutterFlowTheme.of(context).error,
           ),
         );
@@ -256,7 +342,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
 
   String _getInitials(String? name) {
     if (name == null || name.isEmpty) return 'U';
-    final parts = name.trim().split(' ').where((part) => part.isNotEmpty).toList();
+    final parts =
+        name.trim().split(' ').where((part) => part.isNotEmpty).toList();
     if (parts.length >= 2) {
       return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
     }
@@ -264,6 +351,29 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       return parts[0][0].toUpperCase();
     }
     return 'U';
+  }
+
+  Future<void> _showReportDialog() async {
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      enableDrag: false,
+      context: context,
+      builder: (context) {
+        return GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Padding(
+            padding: MediaQuery.viewInsetsOf(context),
+            child: ReportPostDialog(
+              postId: widget.post.id,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -360,7 +470,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                   children: [
                                     Flexible(
                                       child: Text(
-                                        _username ?? 'User',
+                                        _username ?? 'Gardener',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -375,7 +485,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                     ),
                                     if (widget.post.isFeatured)
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 6.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 6.0),
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 6.0,
@@ -401,7 +512,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                                                         .isNotEmpty
                                                     ? widget.post.featuredType
                                                         .split('_')
-                                                        .where((word) => word.isNotEmpty)
+                                                        .where((word) =>
+                                                            word.isNotEmpty)
                                                         .map((word) =>
                                                             word[0]
                                                                 .toUpperCase() +
@@ -461,52 +573,128 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  // Follow button - only show if not your own post
+                  // Follow button and menu - only show if not your own post
                   if (!_isLoadingProfile &&
                       currentUserUid != widget.post.userId)
-                    InkWell(
-                      onTap: _toggleFollow,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12.0, vertical: 6.0),
-                        decoration: BoxDecoration(
-                          color: _isFollowing
-                              ? FlutterFlowTheme.of(context).secondaryBackground
-                              : FlutterFlowTheme.of(context).primary,
-                          borderRadius: BorderRadius.circular(16.0),
-                          border: _isFollowing
-                              ? Border.all(
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                  width: 1.0,
-                                )
-                              : null,
-                        ),
-                        child: _isFollowingLoading
-                            ? Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    width: 16.0,
-                                    height: 16.0,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2.0,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        InkWell(
+                          onTap: _toggleFollow,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12.0, vertical: 6.0),
+                            decoration: BoxDecoration(
+                              color: _isFollowing
+                                  ? FlutterFlowTheme.of(context)
+                                      .secondaryBackground
+                                  : FlutterFlowTheme.of(context).primary,
+                              borderRadius: BorderRadius.circular(16.0),
+                              border: _isFollowing
+                                  ? Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 1.0,
+                                    )
+                                  : null,
+                            ),
+                            child: _isFollowingLoading
+                                ? Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      SizedBox(
+                                        width: 16.0,
+                                        height: 16.0,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2.0,
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 6.0),
-                                  Text(
+                                      const SizedBox(width: 6.0),
+                                      Text(
+                                        _isFollowing ? 'Following' : 'Follow',
+                                        style: _followButtonTextStyle(context),
+                                      ),
+                                    ],
+                                  )
+                                : Text(
                                     _isFollowing ? 'Following' : 'Follow',
                                     style: _followButtonTextStyle(context),
                                   ),
+                          ),
+                        ),
+                        const SizedBox(width: 8.0),
+                        // 3-dot menu
+                        PopupMenuButton<String>(
+                          icon: Icon(
+                            Icons.more_vert,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 20.0,
+                          ),
+                          onSelected: (value) {
+                            if (value == 'report') {
+                              _showReportDialog();
+                            } else if (value == 'block') {
+                              _toggleBlock();
+                            } else if (value == 'unblock') {
+                              _toggleBlock();
+                            }
+                          },
+                          itemBuilder: (BuildContext context) => [
+                            PopupMenuItem<String>(
+                              value: 'report',
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.flag_outlined,
+                                    size: 20.0,
+                                    color: FlutterFlowTheme.of(context).error,
+                                  ),
+                                  const SizedBox(width: 12.0),
+                                  Text(
+                                    'Report Post',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.readexPro(),
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
                                 ],
-                              )
-                            : Text(
-                                _isFollowing ? 'Following' : 'Follow',
-                                style: _followButtonTextStyle(context),
                               ),
-                      ),
+                            ),
+                            PopupMenuItem<String>(
+                              value: _isBlocked ? 'unblock' : 'block',
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    _isBlocked
+                                        ? Icons.block
+                                        : Icons.block_outlined,
+                                    size: 20.0,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                  ),
+                                  const SizedBox(width: 12.0),
+                                  Text(
+                                    _isBlocked ? 'Unblock User' : 'Block User',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.readexPro(),
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                 ],
               ),

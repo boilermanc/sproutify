@@ -84,7 +84,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
               borderRadius: 30.0,
               borderWidth: 1.0,
               buttonSize: 60.0,
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_rounded,
                 color: Colors.white,
                 size: 30.0,
@@ -110,7 +110,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 2.0,
           ),
@@ -125,7 +125,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
                       child: Text(
                         'Other',
                         style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -145,7 +145,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                     ),
                     // Brand dropdown
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 24.0, 16.0, 0.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +169,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                                 ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: FutureBuilder<List<TowerBrandsRow>>(
                               future: TowerBrandsTable().queryRows(
@@ -180,7 +180,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                               builder: (context, snapshot) {
                                 if (!snapshot.hasData) {
                                   return Container(
-                                    padding: EdgeInsets.all(16.0),
+                                    padding: const EdgeInsets.all(16.0),
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -330,7 +330,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                     // Show custom brand name input if "Other" is selected
                     if (_model.selectedAllowCustomName == true)
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 24.0, 16.0, 0.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,7 +354,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                                   ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 12.0, 0.0, 0.0),
                               child: TextFormField(
                                 controller: _model.customBrandNameTextController,
@@ -462,7 +462,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                       ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -485,7 +485,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                                 ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: TextFormField(
                               controller: _model.portCountTextController,
@@ -594,7 +594,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: Text(
                               'Common sizes: 9, 12, 20, 27, 36, 44',
@@ -626,7 +626,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 40.0, 16.0, 24.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 40.0, 16.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           HapticFeedback.lightImpact();
@@ -661,9 +661,9 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle: FlutterFlowTheme.of(context)
@@ -683,7 +683,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                                     .fontStyle,
                               ),
                           elevation: 3.0,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),
