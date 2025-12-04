@@ -45,16 +45,16 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -94,7 +94,7 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
                                 ),
                       ),
                     ),
-                  ].divide(SizedBox(width: 8.0)),
+                  ].divide(const SizedBox(width: 8.0)),
                 ),
                 Text(
                   'Tower Garden® lets you easily grow your own fresh, nutrient-rich food without soil. ',
@@ -113,7 +113,8 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
                       ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                   child: Text(
                     'Let\'s grow a healthier you.',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -137,19 +138,21 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
                     HapticFeedback.lightImpact();
                     await launchURL('https://us.towergarden.com/');
 
-                    context.pushNamed(HomePageWidget.routeName);
+                    // Navigate to trial screens before going to dashboard
+                    context.pushNamed('TrialBenefitsPage');
                   },
                   text: 'Visit Tower Garden Website',
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.open_in_new,
                     size: 20.0,
                   ),
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 48.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     iconColor: FlutterFlowTheme.of(context).info,
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
@@ -180,7 +183,8 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
                   onTap: () async {
                     HapticFeedback.lightImpact();
 
-                    context.pushNamed(HomePageWidget.routeName);
+                    // Navigate to trial screens before going to dashboard
+                    context.pushNamed('TrialBenefitsPage');
                   },
                   child: Container(
                     width: double.infinity,
@@ -199,10 +203,10 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 0.0, 0.0),
                           child: Text(
-                            'Take me to the Home Page',
+                            'Continue to App',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -230,7 +234,7 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
                     ),
                   ),
                 ),
-              ].divide(SizedBox(height: 16.0)),
+              ].divide(const SizedBox(height: 16.0)),
             ),
           ),
         ),

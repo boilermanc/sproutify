@@ -92,5 +92,9 @@ export '/plant_catalog_copy/plant_catalog_copy_widget.dart'
     show PlantCatalogCopyWidget;
 export '/authflow/sproutify_purchase_page/sproutify_purchase_page_widget.dart'
     show SproutifyPurchasePageWidget;
+export '/authflow/trial_timeline_page/trial_timeline_page_widget.dart'
+    show TrialTimelinePageWidget;
+export '/authflow/trial_benefits_page/trial_benefits_page_widget.dart'
+    show TrialBenefitsPageWidget;
 export '/components/community_feed_widget.dart' show CommunityFeedWidget;
 export '/pages/badges_page.dart' show BadgesPage;

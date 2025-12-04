@@ -75,7 +75,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                  alignment: AlignmentDirectional(0.0, -1.0),
+                  alignment: const AlignmentDirectional(0.0, -1.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -86,9 +86,9 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                           children: [
                             Expanded(
                               child: Container(
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Padding(
-                                  padding: EdgeInsets.all(20.0),
+                                  padding: const EdgeInsets.all(20.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: Image.asset(
@@ -104,19 +104,20 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                           ],
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Form(
                             key: _model.formKey,
                             autovalidateMode: AutovalidateMode.disabled,
                             child: Padding(
-                              padding: EdgeInsets.all(32.0),
+                              padding: const EdgeInsets.all(32.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 10.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 10.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -153,9 +154,10 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
-                                    child: Container(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                    child: SizedBox(
                                       width: 370.0,
                                       child: TextFormField(
                                         controller:
@@ -272,9 +274,10 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
-                                    child: Container(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                    child: SizedBox(
                                       width: 370.0,
                                       child: TextFormField(
                                         controller:
@@ -406,9 +409,10 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
-                                    child: Container(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                    child: SizedBox(
                                       width: 370.0,
                                       child: TextFormField(
                                         controller: _model
@@ -545,8 +549,9 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         HapticFeedback.lightImpact();
@@ -557,7 +562,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                                 .text) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            SnackBar(
+                                            const SnackBar(
                                               content: Text(
                                                 'Passwords don\'t match!',
                                               ),
@@ -581,15 +586,14 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                             OnboardingQuestionsWidget.routeName,
                                             context.mounted);
                                       },
-                                      text: 'Create Account',
+                                      text: 'Start Your Free Trial',
                                       options: FFButtonOptions(
                                         width: 370.0,
                                         height: 44.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -617,7 +621,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                                       .fontStyle,
                                             ),
                                         elevation: 3.0,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),
@@ -634,8 +638,9 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
 
                                   // You will have to add an action on this rich text to go to your login page.
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 12.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 12.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -649,7 +654,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                         textScaler:
                                             MediaQuery.of(context).textScaler,
                                         text: TextSpan(
-                                          children: [
+                                          children: const [
                                             TextSpan(
                                               text: 'Already have an account? ',
                                               style: TextStyle(
@@ -749,8 +754,9 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 20.0, 0.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 20.0, 0.0, 0.0),
                                     child: Container(
                                       width: 388.0,
                                       height: 100.0,
@@ -801,9 +807,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                             ],
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 10.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 10.0, 0.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -875,13 +880,13 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                 Expanded(
                   flex: 6,
                   child: Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Container(
                       width: 100.0,
                       height: double.infinity,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           fit: BoxFit.cover,
                           image: CachedNetworkImageProvider(
                             'https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1380&q=80',

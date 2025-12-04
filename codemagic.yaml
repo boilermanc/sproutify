@@ -25,7 +25,7 @@ workflows:
         # These will be set via environment variable groups in Codemagic UI
         # SUPABASE_URL: (set in app_secrets group) - REQUIRED
         # SUPABASE_ANON_KEY: (set in app_secrets group) - REQUIRED
-        # REVENUE_CAT_IOS_API_KEY: (set in app_secrets group) - OPTIONAL (leave empty if not set up yet)
+        # REVENUE_CAT_IOS_API_KEY: (set in app_secrets group) - REQUIRED
         # N8N_WEBHOOK_URL: (set in app_secrets group) - REQUIRED
     scripts:
       - name: Set up code signing

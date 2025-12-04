@@ -1,10 +1,10 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/ec_action/ec_action_widget.dart';
-import '/components/ec_info/ec_info_widget.dart';
+import '/components/ec_action/ec_action_widget.dart'
+    show EcActionWidget, EcInfoPopup;
 import '/components/no_towers/no_towers_widget.dart';
-import '/components/ph_action/ph_action_widget.dart';
-import '/components/ph_info/ph_info_widget.dart';
+import '/components/ph_action/ph_action_widget.dart'
+    show PhActionWidget, PhInfoPopup;
 import '/components/ph_ec_chart/ph_ec_chart_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -85,13 +85,30 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
     super.dispose();
   }
 
+  // --- HELPER: Get pH Color based on value ---
+  Color _getPhColor(double? value) {
+    if (value == null) return FlutterFlowTheme.of(context).primary;
+    if (value < 5.5) return const Color(0xFFF1C40F); // Acidic Yellow/Orange
+    if (value > 6.5) return const Color(0xFF3498DB); // Alkaline Blue
+    return const Color(0xFF2ECC71); // Sweet Spot Green
+  }
+
+  // --- HELPER: Get EC Color based on value ---
+  Color _getEcColor(double? value) {
+    if (value == null) return FlutterFlowTheme.of(context).primary;
+    if (value < 1.5) return const Color(0xFFE74C3C); // Too Low - Red
+    if (value > 2.5) return const Color(0xFFF39C12); // Too High - Orange
+    return const Color(0xFF2ECC71); // Sweet Spot Green
+  }
+
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
     // Reset completer when widget is rebuilt to ensure fresh data
     // This will refresh the list when navigating back to this page
-    if (_model.requestCompleter != null && _model.requestCompleter!.isCompleted) {
+    if (_model.requestCompleter != null &&
+        _model.requestCompleter!.isCompleted) {
       _model.requestCompleter = null;
     }
 
@@ -227,8 +244,9 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                   initialExpanded: true,
                                   child: ExpandablePanel(
                                     header: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -282,15 +300,16 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                             .secondaryBackground,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(10.0, 0.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Flexible(
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         0.0, 8.0, 0.0, 0.0),
                                                 child: Text(
                                                   'Hug your tower everyday!',
@@ -308,8 +327,8 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                        color:
-                                                            const Color(0x8A000000),
+                                                        color: const Color(
+                                                            0x8A000000),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
@@ -327,8 +346,9 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                       ),
                                     ),
                                     expanded: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 10.0, 20.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 20.0),
                                       child: Container(
                                         decoration: const BoxDecoration(),
                                         child: Column(
@@ -366,10 +386,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   Padding(
                                                                     padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            20.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        20.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       'Ports:',
                                                                       style: FlutterFlowTheme.of(
@@ -395,10 +415,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   Padding(
                                                                     padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       valueOrDefault<
                                                                           String>(
@@ -444,10 +464,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   Padding(
                                                                     padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            20.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        20.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       'Location:',
                                                                       style: FlutterFlowTheme.of(
@@ -473,10 +493,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   Padding(
                                                                     padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child: Text(
                                                                       valueOrDefault<
                                                                           String>(
@@ -510,17 +530,18 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                 padding:
                                                                     const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        0.0,
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                 child: Row(
                                                                   mainAxisSize:
                                                                       MainAxisSize
                                                                           .max,
                                                                   children: [
                                                                     Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           20.0,
                                                                           0.0,
                                                                           0.0,
@@ -543,7 +564,8 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           10.0,
                                                                           0.0,
                                                                           0.0,
@@ -560,6 +582,8 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                             Colors.transparent,
                                                                         onTap:
                                                                             () async {
+                                                                          HapticFeedback
+                                                                              .lightImpact();
                                                                           await showModalBottomSheet(
                                                                             isScrollControlled:
                                                                                 true,
@@ -578,71 +602,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 },
                                                                                 child: Padding(
                                                                                   padding: MediaQuery.viewInsetsOf(context),
-                                                                                  child: PhActionWidget(
-                                                                                    towerID: listViewUsertowerdetailsRow,
-                                                                                    timestamp: getCurrentTimestamp,
-                                                                                    phValue: listViewUsertowerdetailsRow.latestPhValue,
-                                                                                    phCallBack: () async {
-                                                                                      safeSetState(() => _model.requestCompleter = null);
-                                                                                      await _model.waitForRequestCompleted(minWait: 100, maxWait: 3000);
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            },
-                                                                          ).then((value) =>
-                                                                              safeSetState(() {}));
-                                                                        },
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .settings_outlined,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                          size:
-                                                                              24.0,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          InkWell(
-                                                                        splashColor:
-                                                                            Colors.transparent,
-                                                                        focusColor:
-                                                                            Colors.transparent,
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        highlightColor:
-                                                                            Colors.transparent,
-                                                                        onTap:
-                                                                            () async {
-                                                                          await showModalBottomSheet(
-                                                                            isScrollControlled:
-                                                                                true,
-                                                                            backgroundColor:
-                                                                                Colors.transparent,
-                                                                            enableDrag:
-                                                                                false,
-                                                                            useSafeArea:
-                                                                                true,
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                (context) {
-                                                                              return GestureDetector(
-                                                                                onTap: () {
-                                                                                  FocusScope.of(context).unfocus();
-                                                                                  FocusManager.instance.primaryFocus?.unfocus();
-                                                                                },
-                                                                                child: Padding(
-                                                                                  padding: MediaQuery.viewInsetsOf(context),
-                                                                                  child: const PhInfoWidget(),
+                                                                                  child: const PhInfoPopup(),
                                                                                 ),
                                                                               );
                                                                             },
@@ -661,7 +621,8 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           10.0,
                                                                           0.0,
                                                                           0.0,
@@ -678,7 +639,8 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                             Colors.transparent,
                                                                         onTap:
                                                                             () async {
-                                                                          HapticFeedback.lightImpact();
+                                                                          HapticFeedback
+                                                                              .lightImpact();
                                                                           await showModalBottomSheet(
                                                                             isScrollControlled:
                                                                                 true,
@@ -732,8 +694,9 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                 true,
                                                               ))
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           10.0,
                                                                           5.0,
@@ -772,54 +735,80 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               children: [
                                                                                 Padding(
                                                                                   padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
-                                                                                  child: Container(
-                                                                                    width: 75.0,
-                                                                                    height: 75.0,
-                                                                                    decoration: BoxDecoration(
-                                                                                      color: FlutterFlowTheme.of(context).primary,
-                                                                                      shape: BoxShape.circle,
-                                                                                    ),
-                                                                                    child: Stack(
-                                                                                      children: [
-                                                                                        if (listViewUsertowerdetailsRow.phImageUrl != null &&
-                                                                                            listViewUsertowerdetailsRow.phImageUrl!.isNotEmpty)
-                                                                                          ClipRRect(
-                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                            child: Image.network(
-                                                                                              listViewUsertowerdetailsRow.phImageUrl!,
-                                                                                              width: 300.0,
-                                                                                              height: 200.0,
-                                                                                              fit: BoxFit.cover,
-                                                                                              errorBuilder: (context, error, stackTrace) {
-                                                                                                return const SizedBox(
-                                                                                                  width: 300.0,
-                                                                                                  height: 200.0,
-                                                                                                );
-                                                                                              },
+                                                                                  child: InkWell(
+                                                                                    splashColor: Colors.transparent,
+                                                                                    focusColor: Colors.transparent,
+                                                                                    hoverColor: Colors.transparent,
+                                                                                    highlightColor: Colors.transparent,
+                                                                                    onTap: () async {
+                                                                                      HapticFeedback.lightImpact();
+                                                                                      await showModalBottomSheet(
+                                                                                        isScrollControlled: true,
+                                                                                        backgroundColor: Colors.transparent,
+                                                                                        enableDrag: false,
+                                                                                        context: context,
+                                                                                        builder: (context) {
+                                                                                          return GestureDetector(
+                                                                                            onTap: () {
+                                                                                              FocusScope.of(context).unfocus();
+                                                                                              FocusManager.instance.primaryFocus?.unfocus();
+                                                                                            },
+                                                                                            child: Padding(
+                                                                                              padding: MediaQuery.viewInsetsOf(context),
+                                                                                              child: PhActionWidget(
+                                                                                                towerID: listViewUsertowerdetailsRow,
+                                                                                                timestamp: getCurrentTimestamp,
+                                                                                                phValue: listViewUsertowerdetailsRow.latestPhValue,
+                                                                                                phCallBack: () async {
+                                                                                                  safeSetState(() => _model.requestCompleter = null);
+                                                                                                  await _model.waitForRequestCompleted(minWait: 100, maxWait: 3000);
+                                                                                                },
+                                                                                              ),
                                                                                             ),
+                                                                                          );
+                                                                                        },
+                                                                                      ).then((value) => safeSetState(() {}));
+                                                                                    },
+                                                                                    child: Container(
+                                                                                      width: 75.0,
+                                                                                      height: 75.0,
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: _getPhColor(listViewUsertowerdetailsRow.latestPhValue),
+                                                                                        shape: BoxShape.circle,
+                                                                                        boxShadow: [
+                                                                                          BoxShadow(
+                                                                                            color: _getPhColor(listViewUsertowerdetailsRow.latestPhValue).withOpacity(0.3),
+                                                                                            blurRadius: 8,
+                                                                                            offset: const Offset(0, 2),
                                                                                           ),
-                                                                                        Align(
-                                                                                          alignment: const AlignmentDirectional(0.0, 0.0),
-                                                                                          child: Text(
-                                                                                            valueOrDefault<String>(
-                                                                                              listViewUsertowerdetailsRow.latestPhValue?.toString(),
-                                                                                              '6.5',
-                                                                                            ),
-                                                                                            textAlign: TextAlign.center,
-                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                  font: GoogleFonts.readexPro(
+                                                                                        ],
+                                                                                      ),
+                                                                                      child: Center(
+                                                                                        child: FittedBox(
+                                                                                          fit: BoxFit.scaleDown,
+                                                                                          child: Padding(
+                                                                                            padding: const EdgeInsets.all(4.0),
+                                                                                            child: Text(
+                                                                                              valueOrDefault<String>(
+                                                                                                listViewUsertowerdetailsRow.latestPhValue?.toStringAsFixed(1),
+                                                                                                '6.5',
+                                                                                              ),
+                                                                                              textAlign: TextAlign.center,
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    font: GoogleFonts.readexPro(
+                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                    ),
+                                                                                                    color: Colors.white,
+                                                                                                    fontSize: 18.0,
+                                                                                                    letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.bold,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                   ),
-                                                                                                  color: FlutterFlowTheme.of(context).info,
-                                                                                                  fontSize: 20.0,
-                                                                                                  letterSpacing: 0.0,
-                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                ),
+                                                                                            ),
                                                                                           ),
                                                                                         ),
-                                                                                      ],
+                                                                                      ),
                                                                                     ),
                                                                                   ),
                                                                                 ),
@@ -869,8 +858,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                       minHeight: 100.0,
                                                                                     ),
                                                                                     decoration: const BoxDecoration(),
-                                                                                    child: (listViewUsertowerdetailsRow.reviewImageUrl != null &&
-                                                                                            listViewUsertowerdetailsRow.reviewImageUrl!.isNotEmpty)
+                                                                                    child: (listViewUsertowerdetailsRow.reviewImageUrl != null && listViewUsertowerdetailsRow.reviewImageUrl!.isNotEmpty)
                                                                                         ? ClipRRect(
                                                                                             borderRadius: BorderRadius.circular(8.0),
                                                                                             child: Image.network(
@@ -903,8 +891,9 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       .latestPhValue ==
                                                                   null)
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           10.0,
                                                                           5.0,
@@ -1012,10 +1001,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                 padding:
                                                                     const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            20.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        20.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                 child: Text(
                                                                   'EC',
                                                                   style: FlutterFlowTheme.of(
@@ -1050,10 +1039,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   Padding(
                                                                     padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child:
                                                                         InkWell(
                                                                       splashColor:
@@ -1070,6 +1059,8 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               .transparent,
                                                                       onTap:
                                                                           () async {
+                                                                        HapticFeedback
+                                                                            .lightImpact();
                                                                         await showModalBottomSheet(
                                                                           isScrollControlled:
                                                                               true,
@@ -1088,74 +1079,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               },
                                                                               child: Padding(
                                                                                 padding: MediaQuery.viewInsetsOf(context),
-                                                                                child: EcActionWidget(
-                                                                                  towerID: listViewUsertowerdetailsRow,
-                                                                                  timestamp: getCurrentTimestamp,
-                                                                                  ecValue: listViewUsertowerdetailsRow.latestEcValue,
-                                                                                  updateCallback: () async {
-                                                                                    safeSetState(() => _model.requestCompleter = null);
-                                                                                    await _model.waitForRequestCompleted(minWait: 100, maxWait: 3000);
-                                                                                  },
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          },
-                                                                        ).then((value) =>
-                                                                            safeSetState(() {}));
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .settings_outlined,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
-                                                                        size:
-                                                                            24.0,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        await showModalBottomSheet(
-                                                                          isScrollControlled:
-                                                                              true,
-                                                                          backgroundColor:
-                                                                              Colors.transparent,
-                                                                          enableDrag:
-                                                                              false,
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (context) {
-                                                                            return GestureDetector(
-                                                                              onTap: () {
-                                                                                FocusScope.of(context).unfocus();
-                                                                                FocusManager.instance.primaryFocus?.unfocus();
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: MediaQuery.viewInsetsOf(context),
-                                                                                child: const EcInfoWidget(),
+                                                                                child: EcInfoPopup(),
                                                                               ),
                                                                             );
                                                                           },
@@ -1176,10 +1100,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                   Padding(
                                                                     padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                                     child:
                                                                         InkWell(
                                                                       splashColor:
@@ -1196,7 +1120,8 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               .transparent,
                                                                       onTap:
                                                                           () async {
-                                                                        HapticFeedback.lightImpact();
+                                                                        HapticFeedback
+                                                                            .lightImpact();
                                                                         await showModalBottomSheet(
                                                                           isScrollControlled:
                                                                               true,
@@ -1245,8 +1170,9 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       .latestEcValue !=
                                                                   null)
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           10.0,
                                                                           5.0,
@@ -1288,6 +1214,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 hoverColor: Colors.transparent,
                                                                                 highlightColor: Colors.transparent,
                                                                                 onTap: () async {
+                                                                                  HapticFeedback.lightImpact();
                                                                                   await showModalBottomSheet(
                                                                                     isScrollControlled: true,
                                                                                     backgroundColor: Colors.transparent,
@@ -1299,10 +1226,16 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                           FocusScope.of(context).unfocus();
                                                                                           FocusManager.instance.primaryFocus?.unfocus();
                                                                                         },
-                                                                                        child: SizedBox(
-                                                                                          height: MediaQuery.of(context).size.height * 0.9,
-                                                                                          child: PhEcChartWidget(
+                                                                                        child: Padding(
+                                                                                          padding: MediaQuery.viewInsetsOf(context),
+                                                                                          child: EcActionWidget(
                                                                                             towerID: listViewUsertowerdetailsRow,
+                                                                                            timestamp: getCurrentTimestamp,
+                                                                                            ecValue: listViewUsertowerdetailsRow.latestEcValue,
+                                                                                            updateCallback: () async {
+                                                                                              safeSetState(() => _model.requestCompleter = null);
+                                                                                              await _model.waitForRequestCompleted(minWait: 100, maxWait: 3000);
+                                                                                            },
                                                                                           ),
                                                                                         ),
                                                                                       );
@@ -1312,35 +1245,26 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 child: Container(
                                                                                   width: 75.0,
                                                                                   height: 75.0,
-                                                                                  decoration: const BoxDecoration(
-                                                                                    color: Color(0xFF9ACD32),
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: _getEcColor(listViewUsertowerdetailsRow.latestEcValue),
                                                                                     shape: BoxShape.circle,
+                                                                                    boxShadow: [
+                                                                                      BoxShadow(
+                                                                                        color: _getEcColor(listViewUsertowerdetailsRow.latestEcValue).withOpacity(0.3),
+                                                                                        blurRadius: 8,
+                                                                                        offset: const Offset(0, 2),
+                                                                                      ),
+                                                                                    ],
                                                                                   ),
-                                                                                  child: Stack(
-                                                                                    children: [
-                                                                                      if (listViewUsertowerdetailsRow.ecImageUrl != null &&
-                                                                                          listViewUsertowerdetailsRow.ecImageUrl!.isNotEmpty)
-                                                                                        ClipRRect(
-                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                          child: Image.network(
-                                                                                            listViewUsertowerdetailsRow.ecImageUrl!,
-                                                                                            width: 300.0,
-                                                                                            height: 200.0,
-                                                                                            fit: BoxFit.cover,
-                                                                                            errorBuilder: (context, error, stackTrace) {
-                                                                                              return const SizedBox(
-                                                                                                width: 300.0,
-                                                                                                height: 200.0,
-                                                                                              );
-                                                                                            },
-                                                                                          ),
-                                                                                        ),
-                                                                                      Align(
-                                                                                        alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Center(
+                                                                                    child: FittedBox(
+                                                                                      fit: BoxFit.scaleDown,
+                                                                                      child: Padding(
+                                                                                        padding: const EdgeInsets.all(4.0),
                                                                                         child: Text(
                                                                                           valueOrDefault<String>(
-                                                                                            listViewUsertowerdetailsRow.latestEcValue?.toString(),
-                                                                                            '1.2',
+                                                                                            listViewUsertowerdetailsRow.latestEcValue?.toStringAsFixed(1),
+                                                                                            '1.8',
                                                                                           ),
                                                                                           textAlign: TextAlign.center,
                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1348,15 +1272,15 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                                   fontWeight: FontWeight.bold,
                                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                 ),
-                                                                                                color: FlutterFlowTheme.of(context).info,
-                                                                                                fontSize: 20.0,
+                                                                                                color: Colors.white,
+                                                                                                fontSize: 18.0,
                                                                                                 letterSpacing: 0.0,
                                                                                                 fontWeight: FontWeight.bold,
                                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                               ),
                                                                                         ),
                                                                                       ),
-                                                                                    ],
+                                                                                    ),
                                                                                   ),
                                                                                 ),
                                                                               ),
@@ -1404,8 +1328,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                   minHeight: 100.0,
                                                                                 ),
                                                                                 decoration: const BoxDecoration(),
-                                                                                child: (listViewUsertowerdetailsRow.ecReviewImageUrl != null &&
-                                                                                        listViewUsertowerdetailsRow.ecReviewImageUrl!.isNotEmpty)
+                                                                                child: (listViewUsertowerdetailsRow.ecReviewImageUrl != null && listViewUsertowerdetailsRow.ecReviewImageUrl!.isNotEmpty)
                                                                                     ? ClipRRect(
                                                                                         borderRadius: BorderRadius.circular(8.0),
                                                                                         child: Image.network(
@@ -1436,8 +1359,9 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       .latestEcValue ==
                                                                   null)
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           10.0,
                                                                           5.0,
@@ -1515,8 +1439,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     width: 75.0,
                                                                                     height: 125.0,
                                                                                     decoration: const BoxDecoration(),
-                                                                                    child: (listViewUsertowerdetailsRow.ecReviewImageUrl != null &&
-                                                                                            listViewUsertowerdetailsRow.ecReviewImageUrl!.isNotEmpty)
+                                                                                    child: (listViewUsertowerdetailsRow.ecReviewImageUrl != null && listViewUsertowerdetailsRow.ecReviewImageUrl!.isNotEmpty)
                                                                                         ? ClipRRect(
                                                                                             borderRadius: BorderRadius.circular(8.0),
                                                                                             child: Image.network(
@@ -1556,8 +1479,9 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       5.0, 10.0, 0.0, 20.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -1575,45 +1499,59 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                       HapticFeedback
                                                           .lightImpact();
                                                       context.pushNamed(
-                                                        EditTowerWidget.routeName,
+                                                        EditTowerWidget
+                                                            .routeName,
                                                         queryParameters: {
-                                                          'towerID': serializeParam(
-                                                            listViewUsertowerdetailsRow.towerId,
+                                                          'towerID':
+                                                              serializeParam(
+                                                            listViewUsertowerdetailsRow
+                                                                .towerId,
                                                             ParamType.int,
                                                           ),
-                                                          'towerName': serializeParam(
-                                                            listViewUsertowerdetailsRow.towerName,
+                                                          'towerName':
+                                                              serializeParam(
+                                                            listViewUsertowerdetailsRow
+                                                                .towerName,
                                                             ParamType.String,
                                                           ),
-                                                          'portCount': serializeParam(
-                                                            listViewUsertowerdetailsRow.ports,
+                                                          'portCount':
+                                                              serializeParam(
+                                                            listViewUsertowerdetailsRow
+                                                                .ports,
                                                             ParamType.int,
                                                           ),
-                                                          'indoorOutdoor': serializeParam(
-                                                            listViewUsertowerdetailsRow.indoorOutdoor,
+                                                          'indoorOutdoor':
+                                                              serializeParam(
+                                                            listViewUsertowerdetailsRow
+                                                                .indoorOutdoor,
                                                             ParamType.String,
                                                           ),
                                                         }.withoutNulls,
                                                       );
                                                       // Refresh the list after editing
                                                       safeSetState(() {
-                                                        _model.requestCompleter = null;
+                                                        _model.requestCompleter =
+                                                            null;
                                                       });
-                                                      await _model.waitForRequestCompleted();
+                                                      await _model
+                                                          .waitForRequestCompleted();
                                                     },
                                                     child: Container(
                                                       width: 150.0,
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
                                                         color:
-                                                            FlutterFlowTheme.of(context).primary,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8.0),
                                                       ),
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.all(4.0),
+                                                            const EdgeInsets
+                                                                .all(4.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -1622,10 +1560,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                               padding:
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      0.0,
+                                                                      5.0,
+                                                                      0.0),
                                                               child: Icon(
                                                                 Icons
                                                                     .edit_outlined,
@@ -1646,11 +1584,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
-                                                                      fontStyle:
-                                                                          FlutterFlowTheme.of(
-                                                                                  context)
-                                                                              .bodyMedium
-                                                                              .fontStyle,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
                                                                     ),
                                                                     color: Colors
                                                                         .white,
@@ -1661,11 +1598,10 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
-                                                                    fontStyle:
-                                                                        FlutterFlowTheme.of(
-                                                                                context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ],

@@ -584,7 +584,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: SproutifyPurchasePageWidget.routeName,
           path: SproutifyPurchasePageWidget.routePath,
           builder: (context, params) => const SproutifyPurchasePageWidget(),
-        )
+        ),
+        FFRoute(
+          name: TrialTimelinePageWidget.routeName,
+          path: TrialTimelinePageWidget.routePath,
+          builder: (context, params) => const TrialTimelinePageWidget(),
+        ),
+        FFRoute(
+          name: TrialBenefitsPageWidget.routeName,
+          path: TrialBenefitsPageWidget.routePath,
+          builder: (context, params) => const TrialBenefitsPageWidget(),
+        ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 

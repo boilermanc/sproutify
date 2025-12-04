@@ -62,16 +62,16 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
           .or('archive.is.null,archive.eq.false');
 
       // Get all products with their categories
-      final products = await supabase
-          .from('products')
-          .select('productid, categoryid');
+      final products =
+          await supabase.from('products').select('productid, categoryid');
 
       // Calculate costs per category
       final Map<int, double> costsByCategory = {};
 
       for (final userProduct in userProducts) {
         final productId = userProduct['productid'] as int?;
-        final cost = (userProduct['userpurchasecost'] as num?)?.toDouble() ?? 0.0;
+        final cost =
+            (userProduct['userpurchasecost'] as num?)?.toDouble() ?? 0.0;
 
         if (productId != null) {
           // Find the product's category
@@ -82,7 +82,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
 
           final categoryId = product['categoryid'] as int?;
           if (categoryId != null) {
-            costsByCategory[categoryId] = (costsByCategory[categoryId] ?? 0.0) + cost;
+            costsByCategory[categoryId] =
+                (costsByCategory[categoryId] ?? 0.0) + cost;
           }
         }
       }
@@ -258,8 +259,264 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
     );
   }
 
+  // Fetch purchases for a specific category
+  Future<List<Map<String, dynamic>>> _fetchCategoryPurchases(
+      int categoryId) async {
+    try {
+      final supabase = Supabase.instance.client;
+
+      // Get all products in this category
+      final products = await supabase
+          .from('products')
+          .select('productid, productname')
+          .eq('categoryid', categoryId);
+
+      if (products.isEmpty) {
+        return [];
+      }
+
+      final productIds = products.map((p) => p['productid'] as int).toList();
+      final productMap = <int, String>{};
+      for (final product in products) {
+        final id = product['productid'] as int?;
+        final name = product['productname'] as String?;
+        if (id != null && name != null) {
+          productMap[id] = name;
+        }
+      }
+
+      // Get all user's purchases and filter by product IDs client-side
+      final userProducts = await supabase
+          .from('userproducts')
+          .select(
+              'productid, userpurchasecost, userpurchasedate, userpurchasedquantity')
+          .eq('userid', currentUserUid)
+          .or('archive.is.null,archive.eq.false')
+          .order('userpurchasedate', ascending: false);
+
+      // Filter to only products in this category and combine with product names
+      final result = <Map<String, dynamic>>[];
+      for (final purchase in userProducts) {
+        final productId = purchase['productid'] as int?;
+        if (productId != null && productIds.contains(productId)) {
+          result.add({
+            'productname': productMap[productId] ?? 'Unknown Product',
+            'userpurchasecost': purchase['userpurchasecost'] as double? ?? 0.0,
+            'userpurchasedate': purchase['userpurchasedate'],
+            'userpurchasedquantity':
+                purchase['userpurchasedquantity'] as int? ?? 1,
+          });
+        }
+      }
+
+      return result;
+    } catch (e) {
+      print('Error fetching category purchases: $e');
+      return [];
+    }
+  }
+
+  // Show bottom sheet with purchases for a category
+  Future<void> _showCategoryPurchases(
+      int categoryId, String categoryName) async {
+    final purchases = await _fetchCategoryPurchases(categoryId);
+
+    if (!mounted) return;
+
+    // Only show if there are purchases
+    if (purchases.isEmpty) {
+      return;
+    }
+
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(24.0),
+            ),
+          ),
+          child: DraggableScrollableSheet(
+            initialChildSize: 0.7,
+            minChildSize: 0.5,
+            maxChildSize: 0.95,
+            expand: false,
+            builder: (context, scrollController) {
+              return Column(
+                children: [
+                  // Handle bar
+                  Container(
+                    margin: const EdgeInsets.only(top: 12.0, bottom: 8.0),
+                    width: 40.0,
+                    height: 4.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      borderRadius: BorderRadius.circular(2.0),
+                    ),
+                  ),
+                  // Header
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 16.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                categoryName,
+                                style: GoogleFonts.outfit(
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              Text(
+                                '${purchases.length} ${purchases.length == 1 ? 'purchase' : 'purchases'}',
+                                style: GoogleFonts.readexPro(
+                                  fontSize: 14.0,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(height: 1),
+                  // Purchases list
+                  Expanded(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      padding: const EdgeInsets.all(16.0),
+                      itemCount: purchases.length,
+                      itemBuilder: (context, index) {
+                        final purchase = purchases[index];
+                        final productName =
+                            purchase['productname'] as String? ?? 'Unknown';
+                        final cost =
+                            purchase['userpurchasecost'] as double? ?? 0.0;
+                        final date = purchase['userpurchasedate'] as DateTime?;
+                        final quantity =
+                            purchase['userpurchasedquantity'] as int? ?? 1;
+
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 12.0),
+                          decoration: BoxDecoration(
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            borderRadius: BorderRadius.circular(16.0),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 1.0,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        productName,
+                                        style: GoogleFonts.readexPro(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      if (date != null) ...[
+                                        const SizedBox(height: 4.0),
+                                        Text(
+                                          dateTimeFormat('MMM d, y', date),
+                                          style: GoogleFonts.readexPro(
+                                            fontSize: 12.0,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                          ),
+                                        ),
+                                      ],
+                                      if (quantity > 1) ...[
+                                        const SizedBox(height: 4.0),
+                                        Text(
+                                          'Quantity: $quantity',
+                                          style: GoogleFonts.readexPro(
+                                            fontSize: 12.0,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '\$',
+                                          style: GoogleFonts.outfit(
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: FlutterFlowTheme.of(context)
+                                                .tertiary,
+                                          ),
+                                        ),
+                                        Text(
+                                          cost.toStringAsFixed(2),
+                                          style: GoogleFonts.outfit(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
   // Helper widget to build category item
-  Widget _buildCategoryItem(String categoryName, String cost) {
+  Widget _buildCategoryItem(int categoryId, String categoryName, String cost) {
     return TweenAnimationBuilder(
       duration: const Duration(milliseconds: 400),
       tween: Tween<double>(begin: 0.0, end: 1.0),
@@ -285,7 +542,9 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                 color: Colors.transparent,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(16.0),
-                  onTap: () {},
+                  onTap: () async {
+                    await _showCategoryPurchases(categoryId, categoryName);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -297,7 +556,9 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                             gradient: LinearGradient(
                               colors: [
                                 FlutterFlowTheme.of(context).primary,
-                                FlutterFlowTheme.of(context).primary.withOpacity(0.7),
+                                FlutterFlowTheme.of(context)
+                                    .primary
+                                    .withOpacity(0.7),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(12.0),
@@ -318,7 +579,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                 style: GoogleFonts.readexPro(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
-                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                 ),
                               ),
                               const SizedBox(height: 4.0),
@@ -326,7 +588,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                 'Yearly total',
                                 style: GoogleFonts.readexPro(
                                   fontSize: 12.0,
-                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                 ),
                               ),
                             ],
@@ -342,7 +605,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                   style: GoogleFonts.outfit(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
-                                    color: FlutterFlowTheme.of(context).tertiary,
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
                                   ),
                                 ),
                                 Text(
@@ -350,7 +614,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                   style: GoogleFonts.outfit(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
-                                    color: FlutterFlowTheme.of(context).primaryText,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                   ),
                                 ),
                               ],
@@ -416,7 +681,7 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
               ),
             ],
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0,
         ),
@@ -427,7 +692,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
               // Time Period Tabs
               Container(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 12.0),
                 child: Container(
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
@@ -447,7 +713,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     labelColor: Colors.white,
-                    unselectedLabelColor: FlutterFlowTheme.of(context).secondaryText,
+                    unselectedLabelColor:
+                        FlutterFlowTheme.of(context).secondaryText,
                     labelStyle: GoogleFonts.outfit(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w600,
@@ -472,8 +739,10 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                       // Cost Cards Grid
                       FutureBuilder<List<ApiCallResponse>>(
                         future: Future.wait([
-                          TotalPlantCostPerUserCall.call(userID: currentUserUid),
-                          TotalSupplyCostPerUserCall.call(userID: currentUserUid),
+                          TotalPlantCostPerUserCall.call(
+                              userID: currentUserUid),
+                          TotalSupplyCostPerUserCall.call(
+                              userID: currentUserUid),
                         ]),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
@@ -494,14 +763,16 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                           final supplyResponse = snapshot.data![1];
 
                           final plantJsonBody = plantResponse.jsonBody;
-                          final plantCostData = plantJsonBody is List && plantJsonBody.isNotEmpty
-                              ? plantJsonBody[0]
-                              : plantJsonBody is Map
-                                  ? plantJsonBody
-                                  : <String, dynamic>{};
+                          final plantCostData =
+                              plantJsonBody is List && plantJsonBody.isNotEmpty
+                                  ? plantJsonBody[0]
+                                  : plantJsonBody is Map
+                                      ? plantJsonBody
+                                      : <String, dynamic>{};
 
                           final supplyJsonBody = supplyResponse.jsonBody;
-                          final supplyCostData = supplyJsonBody is List && supplyJsonBody.isNotEmpty
+                          final supplyCostData = supplyJsonBody is List &&
+                                  supplyJsonBody.isNotEmpty
                               ? supplyJsonBody[0]
                               : supplyJsonBody is Map
                                   ? supplyJsonBody
@@ -512,15 +783,21 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                               _buildCostCard(
                                 title: 'Plant Costs',
                                 monthlyCost: valueOrDefault<String>(
-                                  getJsonField(plantCostData, r'''$.monthly_cost''')?.toString(),
+                                  getJsonField(
+                                          plantCostData, r'''$.monthly_cost''')
+                                      ?.toString(),
                                   '0',
                                 ),
                                 quarterlyCost: valueOrDefault<String>(
-                                  getJsonField(plantCostData, r'''$.quarterly_cost''')?.toString(),
+                                  getJsonField(plantCostData,
+                                          r'''$.quarterly_cost''')
+                                      ?.toString(),
                                   '0',
                                 ),
                                 yearlyCost: valueOrDefault<String>(
-                                  getJsonField(plantCostData, r'''$.yearly_cost''')?.toString(),
+                                  getJsonField(
+                                          plantCostData, r'''$.yearly_cost''')
+                                      ?.toString(),
                                   '0',
                                 ),
                                 color: FlutterFlowTheme.of(context).primary,
@@ -530,15 +807,21 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                               _buildCostCard(
                                 title: 'Supply Costs',
                                 monthlyCost: valueOrDefault<String>(
-                                  getJsonField(supplyCostData, r'''$.monthly_cost''')?.toString(),
+                                  getJsonField(
+                                          supplyCostData, r'''$.monthly_cost''')
+                                      ?.toString(),
                                   '0',
                                 ),
                                 quarterlyCost: valueOrDefault<String>(
-                                  getJsonField(supplyCostData, r'''$.quarterly_cost''')?.toString(),
+                                  getJsonField(supplyCostData,
+                                          r'''$.quarterly_cost''')
+                                      ?.toString(),
                                   '0',
                                 ),
                                 yearlyCost: valueOrDefault<String>(
-                                  getJsonField(supplyCostData, r'''$.yearly_cost''')?.toString(),
+                                  getJsonField(
+                                          supplyCostData, r'''$.yearly_cost''')
+                                      ?.toString(),
                                   '0',
                                 ),
                                 color: FlutterFlowTheme.of(context).tertiary,
@@ -559,26 +842,6 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                               fontSize: 20.0,
                               fontWeight: FontWeight.w600,
                               color: FlutterFlowTheme.of(context).primaryText,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Text(
-                                  'View All',
-                                  style: GoogleFonts.readexPro(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 14.0,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                ),
-                              ],
                             ),
                           ),
                         ],
@@ -620,7 +883,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                       style: GoogleFonts.outfit(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600,
-                                        color: FlutterFlowTheme.of(context).error,
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
                                       ),
                                     ),
                                     const SizedBox(height: 8.0),
@@ -629,7 +893,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.readexPro(
                                         fontSize: 14.0,
-                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
                                       ),
                                     ),
                                   ],
@@ -647,7 +912,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                     Icon(
                                       Icons.category_outlined,
                                       size: 64.0,
-                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
                                     ),
                                     const SizedBox(height: 16.0),
                                     Text(
@@ -655,7 +921,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                       style: GoogleFonts.outfit(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600,
-                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
                                       ),
                                     ),
                                     const SizedBox(height: 8.0),
@@ -663,7 +930,8 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                       'Start tracking your costs',
                                       style: GoogleFonts.readexPro(
                                         fontSize: 14.0,
-                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
                                       ),
                                     ),
                                   ],
@@ -674,10 +942,16 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
 
                           return Column(
                             children: categoryList.map((categoryItem) {
-                              final categoryName = categoryItem['categoryname'] as String? ?? 'Category';
-                              final cost = categoryItem['cost'] as double? ?? 0.0;
+                              final categoryId =
+                                  categoryItem['categoryid'] as int? ?? 0;
+                              final categoryName =
+                                  categoryItem['categoryname'] as String? ??
+                                      'Category';
+                              final cost =
+                                  categoryItem['cost'] as double? ?? 0.0;
 
                               return _buildCategoryItem(
+                                categoryId,
                                 categoryName,
                                 cost.toStringAsFixed(2),
                               );

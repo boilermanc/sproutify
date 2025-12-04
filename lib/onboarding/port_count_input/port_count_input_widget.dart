@@ -127,7 +127,7 @@ class _PortCountInputWidgetState extends State<PortCountInputWidget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
                       child: Text(
-                        'Other',
+                        _model.selectedBrandName ?? widget.brandName ?? 'Select a Brand',
                         style: FlutterFlowTheme.of(context).headlineMedium.override(
                               font: GoogleFonts.outfit(
                                 fontWeight: FontWeight.w600,

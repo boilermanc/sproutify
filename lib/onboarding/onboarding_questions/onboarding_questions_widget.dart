@@ -56,8 +56,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -75,8 +75,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.4, 0.4),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.4, 0.4),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -94,8 +94,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -113,8 +113,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -132,8 +132,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -151,8 +151,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -170,8 +170,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -189,8 +189,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.5, 0.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.5, 0.5),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -243,7 +243,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 2.0,
           ),
@@ -257,7 +257,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,7 +331,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                   });
                                 }
                                 await _model.collectInfoController?.nextPage(
-                                  duration: Duration(milliseconds: 300),
+                                  duration: const Duration(milliseconds: 300),
                                   curve: Curves.ease,
                                 );
                               },
@@ -364,17 +364,18 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                             animationsMap['textOnPageLoadAnimation2']!),
                         Container(
                           height: 640.0,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 32.0),
                             child: SingleChildScrollView(
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 12.0, 16.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
@@ -394,9 +395,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 12.0, 8.0, 5.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 12.0, 8.0, 5.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -468,7 +468,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                             width: 2,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .secondaryText!,
+                                                                .secondaryText,
                                                           )
                                                         : null,
                                                     activeColor:
@@ -485,9 +485,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 8.0, 12.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 0.0, 8.0, 12.0),
                                             child: Text(
                                               'To reduce reliance on grocery stores and produce a significant portion of your own food.',
                                               style: FlutterFlowTheme.of(
@@ -526,8 +525,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 12.0, 16.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
@@ -547,9 +547,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 12.0, 8.0, 5.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 12.0, 8.0, 5.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -623,7 +622,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                             width: 2,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .secondaryText!,
+                                                                .secondaryText,
                                                           )
                                                         : null,
                                                     activeColor:
@@ -640,9 +639,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 8.0, 12.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 0.0, 8.0, 12.0),
                                             child: Text(
                                               'To ensure access to fresh, nutritious produce that\'s free from harmful chemicals and pesticides.',
                                               style: FlutterFlowTheme.of(
@@ -681,8 +679,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 12.0, 16.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
@@ -702,9 +701,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 12.0, 8.0, 5.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 12.0, 8.0, 5.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -778,7 +776,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                             width: 2,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .secondaryText!,
+                                                                .secondaryText,
                                                           )
                                                         : null,
                                                     activeColor:
@@ -795,9 +793,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 8.0, 12.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 0.0, 8.0, 12.0),
                                             child: Text(
                                               'To contribute to a more sustainable lifestyle by reducing the carbon footprint associated with food transportation and packaging.',
                                               style: FlutterFlowTheme.of(
@@ -836,8 +833,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 12.0, 16.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
@@ -857,9 +855,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 12.0, 8.0, 5.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 12.0, 8.0, 5.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -933,7 +930,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                             width: 2,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .secondaryText!,
+                                                                .secondaryText,
                                                           )
                                                         : null,
                                                     activeColor:
@@ -950,9 +947,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 8.0, 12.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 0.0, 8.0, 12.0),
                                             child: Text(
                                               'To teach family members, especially children, about where food comes from, and the importance of sustainable practices.',
                                               style: FlutterFlowTheme.of(
@@ -991,8 +987,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 12.0, 16.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
@@ -1012,9 +1009,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 12.0, 8.0, 5.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 12.0, 8.0, 5.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -1088,7 +1084,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                             width: 2,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .secondaryText!,
+                                                                .secondaryText,
                                                           )
                                                         : null,
                                                     activeColor:
@@ -1105,9 +1101,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 8.0, 12.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 0.0, 8.0, 12.0),
                                             child: Text(
                                               'Fostering well-being, providing stress relief and joy through nurturing plants in a tranquil setting',
                                               style: FlutterFlowTheme.of(
@@ -1146,8 +1141,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 12.0, 16.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
                                       height: 200.0,
@@ -1172,13 +1168,13 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 20.0, 0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -1211,7 +1207,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Text(
                               'Whether you are a beginner or an expert, Sproutify can help you meet your goals.',
@@ -1247,8 +1243,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 32.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 32.0),
                                       child: ListView(
                                         padding: EdgeInsets.zero,
                                         primary: false,
@@ -1256,9 +1253,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                         scrollDirection: Axis.vertical,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 6.0, 16.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 6.0, 16.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
@@ -1280,9 +1276,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0,
-                                                                12.0, 8.0, 5.0),
+                                                            12.0, 8.0, 5.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1344,9 +1340,10 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                                 .collectInfoController
                                                                 ?.animateToPage(
                                                               2,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      500),
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500),
                                                               curve:
                                                                   Curves.ease,
                                                             );
@@ -1364,9 +1361,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
-                                                                8.0, 12.0),
+                                                            8.0, 12.0),
                                                     child: Text(
                                                       'New gardener learning the basics of seeding, planting, and simple pest management.',
                                                       style:
@@ -1404,9 +1401,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 6.0, 16.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 6.0, 16.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
@@ -1428,9 +1424,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0,
-                                                                12.0, 8.0, 5.0),
+                                                            12.0, 8.0, 5.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1494,9 +1490,10 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                                 .collectInfoController
                                                                 ?.animateToPage(
                                                               2,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      500),
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500),
                                                               curve:
                                                                   Curves.ease,
                                                             );
@@ -1514,9 +1511,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
-                                                                8.0, 12.0),
+                                                            8.0, 12.0),
                                                     child: Text(
                                                       'Gardener with some experience focusing on plant experimentation and garden layout improvement.',
                                                       style:
@@ -1554,9 +1551,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 6.0, 16.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 6.0, 16.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
@@ -1578,9 +1574,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0,
-                                                                12.0, 8.0, 5.0),
+                                                            12.0, 8.0, 5.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1644,9 +1640,10 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                                 .collectInfoController
                                                                 ?.animateToPage(
                                                               2,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      500),
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500),
                                                               curve:
                                                                   Curves.ease,
                                                             );
@@ -1664,9 +1661,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
-                                                                8.0, 12.0),
+                                                            8.0, 12.0),
                                                     child: Text(
                                                       'Seasoned gardener diversifying crops and applying advanced techniques like crop rotation.',
                                                       style:
@@ -1704,9 +1701,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 6.0, 16.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 6.0, 16.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
@@ -1728,9 +1724,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0,
-                                                                12.0, 8.0, 5.0),
+                                                            12.0, 8.0, 5.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1796,9 +1792,10 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                                 .collectInfoController
                                                                 ?.animateToPage(
                                                               2,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      500),
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500),
                                                               curve:
                                                                   Curves.ease,
                                                             );
@@ -1816,9 +1813,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
-                                                                8.0, 12.0),
+                                                            8.0, 12.0),
                                                     child: Text(
                                                       'Experienced gardener fine-tuning practices, understanding local ecosystems, and saving seeds.',
                                                       style:
@@ -1856,9 +1853,8 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 6.0, 16.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 6.0, 16.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
@@ -1880,9 +1876,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0,
-                                                                12.0, 8.0, 5.0),
+                                                            12.0, 8.0, 5.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1948,9 +1944,10 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                                 .collectInfoController
                                                                 ?.animateToPage(
                                                               2,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      500),
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500),
                                                               curve:
                                                                   Curves.ease,
                                                             );
@@ -1968,9 +1965,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
-                                                                8.0, 12.0),
+                                                            8.0, 12.0),
                                                     child: Text(
                                                       'Highly skilled gardener, innovating and mentoring others. ',
                                                       style:
@@ -2025,7 +2022,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2050,7 +2047,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                         ).animateOnPageLoad(
                             animationsMap['textOnPageLoadAnimation5']!),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
                           child: Text(
                             'Deciding on the type of plants you like to grow makes it easier to get started. Some plants are easier to grow than others. ',
@@ -2159,8 +2156,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                   scrollDirection: Axis.vertical,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 0.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 0.0, 16.0, 0.0),
                                       child: Container(
                                         width: 100.0,
                                         decoration: BoxDecoration(
@@ -2180,8 +2178,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       16.0, 12.0, 8.0, 5.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -2256,7 +2255,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                               width: 2,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText!,
+                                                                  .secondaryText,
                                                             )
                                                           : null,
                                                       activeColor:
@@ -2277,8 +2276,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 12.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 12.0, 16.0, 0.0),
                                       child: Container(
                                         width: 100.0,
                                         decoration: BoxDecoration(
@@ -2298,8 +2298,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       16.0, 12.0, 8.0, 5.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -2377,7 +2378,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                               width: 2,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText!,
+                                                                  .secondaryText,
                                                             )
                                                           : null,
                                                       activeColor:
@@ -2398,8 +2399,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 12.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 12.0, 16.0, 0.0),
                                       child: Container(
                                         width: 100.0,
                                         decoration: BoxDecoration(
@@ -2419,8 +2421,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       16.0, 12.0, 8.0, 5.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -2495,7 +2498,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                               width: 2,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText!,
+                                                                  .secondaryText,
                                                             )
                                                           : null,
                                                       activeColor:
@@ -2516,8 +2519,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 12.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 12.0, 16.0, 0.0),
                                       child: Container(
                                         width: 100.0,
                                         decoration: BoxDecoration(
@@ -2537,8 +2541,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       16.0, 12.0, 8.0, 5.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -2616,7 +2621,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                               width: 2,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText!,
+                                                                  .secondaryText,
                                                             )
                                                           : null,
                                                       activeColor:
@@ -2637,8 +2642,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 12.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 12.0, 16.0, 0.0),
                                       child: Container(
                                         width: 100.0,
                                         decoration: BoxDecoration(
@@ -2658,8 +2664,9 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       16.0, 12.0, 8.0, 5.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -2737,7 +2744,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                                                               width: 2,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText!,
+                                                                  .secondaryText,
                                                             )
                                                           : null,
                                                       activeColor:

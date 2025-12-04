@@ -411,15 +411,8 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                                 onTap: () async {
                                   HapticFeedback.lightImpact();
 
-                                  context.pushNamed(
-                                    HomePageWidget.routeName,
-                                    queryParameters: {
-                                      'cat02': serializeParam(
-                                        '0',
-                                        ParamType.String,
-                                      ),
-                                    }.withoutNulls,
-                                  );
+                                  // Navigate to trial screens before going to dashboard
+                                  context.pushNamed('TrialBenefitsPage');
                                 },
                                 child: Container(
                                   decoration: const BoxDecoration(),

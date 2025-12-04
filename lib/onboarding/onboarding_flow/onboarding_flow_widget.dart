@@ -748,7 +748,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 12.0, 24.0, 0.0),
                               child: Text(
-                                'Let\'s get you signed up!',
+                                'Start your free 7-day trial today!',
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -778,7 +778,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget>
                                   context
                                       .goNamed(CreateAnAccountWidget.routeName);
                                 },
-                                text: 'Get Started',
+                                text: 'Start Your Free Trial',
                                 options: FFButtonOptions(
                                   width: 200.0,
                                   height: 50.0,

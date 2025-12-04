@@ -31,6 +31,7 @@ class FFAppState extends ChangeNotifier {
     _wrongLogin = prefs.getBool('wrongLogin') ?? false;
     _aiSearchResultDisplay = prefs.getBool('aiSearchResultDisplay') ?? false;
     _isTowerActive = prefs.getBool('isTowerActive') ?? false;
+    _hasSeenTrialTimeline = prefs.getBool('hasSeenTrialTimeline') ?? false;
 
     // Load plant names list
     final plantNamesJson = prefs.getString('plantNamesForSearch');
@@ -74,6 +75,7 @@ class FFAppState extends ChangeNotifier {
     await prefs.setBool('isNewNotification', _isNewNotification);
     await prefs.setBool('wrongLogin', _wrongLogin);
     await prefs.setBool('aiSearchResultDisplay', _aiSearchResultDisplay);
+    await prefs.setBool('hasSeenTrialTimeline', _hasSeenTrialTimeline);
 
     // Persist plant names list
     await prefs.setString(
@@ -203,5 +205,11 @@ class FFAppState extends ChangeNotifier {
   bool get isTowerActive => _isTowerActive;
   set isTowerActive(bool value) {
     _isTowerActive = value;
+  }
+
+  bool _hasSeenTrialTimeline = false;
+  bool get hasSeenTrialTimeline => _hasSeenTrialTimeline;
+  set hasSeenTrialTimeline(bool value) {
+    _hasSeenTrialTimeline = value;
   }
 }

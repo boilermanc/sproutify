@@ -22,7 +22,7 @@ class Env {
   // Android Play Store API Key (starts with 'goog_')
   static const String revenueCatAndroidApiKey = String.fromEnvironment(
     'REVENUE_CAT_ANDROID_API_KEY',
-    defaultValue: 'goog_YcTwAxdzBQCTTogBgSirpzebWdV',
+    defaultValue: 'your_android_key_here',
   );
   
   // Legacy support - use iOS key if provided, otherwise empty
