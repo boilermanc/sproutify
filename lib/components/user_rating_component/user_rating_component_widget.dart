@@ -56,7 +56,7 @@ class _UserRatingComponentWidgetState extends State<UserRatingComponentWidget> {
       ),
       direction: Axis.horizontal,
       initialRating: _model.ratingBarValue ??=
-          widget!.plantRatingNumber!.toDouble(),
+          widget.plantRatingNumber!.toDouble(),
       unratedColor: FlutterFlowTheme.of(context).alternate,
       itemCount: 5,
       itemSize: 24.0,

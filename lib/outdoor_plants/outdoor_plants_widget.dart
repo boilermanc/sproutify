@@ -102,7 +102,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                       },
                       child: Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: BottomPlantCatagoriesWidget(),
+                        child: const BottomPlantCatagoriesWidget(),
                       ),
                     );
                   },
@@ -124,7 +124,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                 borderRadius: 30.0,
                 borderWidth: 1.0,
                 buttonSize: 60.0,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_rounded,
                   color: Colors.white,
                   size: 30.0,
@@ -151,19 +151,19 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                           FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
               ),
-              actions: [],
+              actions: const [],
               centerTitle: true,
               elevation: 2.0,
             ),
             body: SafeArea(
               top: true,
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Container(
                         decoration: BoxDecoration(
                           color:
@@ -171,13 +171,13 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 10.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -186,7 +186,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                   children: [
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -236,7 +236,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                     Expanded(
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                         child: Builder(
                           builder: (context) {
                             final outdoorPlants =
@@ -245,7 +245,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                             return GridView.builder(
                               padding: EdgeInsets.zero,
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 10.0,
                                 mainAxisSpacing: 10.0,
@@ -286,7 +286,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      boxShadow: [
+                                      boxShadow: const [
                                         BoxShadow(
                                           blurRadius: 4.0,
                                           color: Color(0x33000000),
@@ -296,7 +296,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                           ),
                                         )
                                       ],
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         bottomLeft: Radius.circular(0.0),
                                         bottomRight: Radius.circular(0.0),
                                         topLeft: Radius.circular(0.0),
@@ -311,7 +311,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 5.0, 0.0, 5.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -319,11 +319,11 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                                 Expanded(
                                                   child: Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   8.0,
@@ -347,7 +347,7 @@ class _OutdoorPlantsWidgetState extends State<OutdoorPlantsWidget> {
                                                 Flexible(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(7.0),
+                                                        const EdgeInsets.all(7.0),
                                                     child: Text(
                                                       valueOrDefault<String>(
                                                         outdoorPlantsItem

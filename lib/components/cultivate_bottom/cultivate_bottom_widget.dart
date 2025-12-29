@@ -51,22 +51,22 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Container(
             width: double.infinity,
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 700.0,
             ),
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   blurRadius: 12.0,
                   color: Color(0x33000000),
@@ -79,7 +79,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
               borderRadius: BorderRadius.circular(16.0),
             ),
             child: Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +87,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -152,7 +152,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -169,10 +169,10 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                             return Container(
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                                borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+                                borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -185,7 +185,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                         letterSpacing: 0.0,
                                       ),
                                     ),
-                                    SizedBox(height: 20.0),
+                                    const SizedBox(height: 20.0),
                                     FFButtonWidget(
                                       onPressed: () async {
                                         HapticFeedback.lightImpact();
@@ -205,7 +205,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                         Navigator.pop(context);
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(
-                                            content: Text('Great harvest! Tracked successfully.'),
+                                            content: const Text('Great harvest! Tracked successfully.'),
                                             backgroundColor: FlutterFlowTheme.of(context).success,
                                           ),
                                         );
@@ -214,8 +214,8 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                       options: FFButtonOptions(
                                         width: double.infinity,
                                         height: 50.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                        iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                        iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context).success,
                                         textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                           font: GoogleFonts.readexPro(),
@@ -226,7 +226,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                         borderRadius: BorderRadius.circular(8.0),
                                       ),
                                     ),
-                                    SizedBox(height: 10.0),
+                                    const SizedBox(height: 10.0),
                                     FFButtonWidget(
                                       onPressed: () async {
                                         HapticFeedback.lightImpact();
@@ -246,7 +246,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                         Navigator.pop(context);
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(
-                                            content: Text('Harvest tracked.'),
+                                            content: const Text('Harvest tracked.'),
                                             backgroundColor: FlutterFlowTheme.of(context).warning,
                                           ),
                                         );
@@ -255,8 +255,8 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                       options: FFButtonOptions(
                                         width: double.infinity,
                                         height: 50.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                        iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                        iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context).warning,
                                         textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                           font: GoogleFonts.readexPro(),
@@ -285,7 +285,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -294,7 +294,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                 color: FlutterFlowTheme.of(context).success,
                                 size: 24.0,
                               ),
-                              SizedBox(width: 12.0),
+                              const SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,7 +309,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                                       child: Text(
                                         'Choose this option if your plant reached full growth and you\'ve collected your homegrown produce.',
                                         style: FlutterFlowTheme.of(context).bodySmall.override(
@@ -335,7 +335,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -358,7 +358,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Pest issue tracked.'),
+                            content: const Text('Pest issue tracked.'),
                             backgroundColor: FlutterFlowTheme.of(context).error,
                           ),
                         );
@@ -374,7 +374,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -383,7 +383,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                 color: FlutterFlowTheme.of(context).error,
                                 size: 24.0,
                               ),
-                              SizedBox(width: 12.0),
+                              const SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -398,7 +398,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                                       child: Text(
                                         'Select this if pests invaded your plant and you decided it was best to discard it.',
                                         style: FlutterFlowTheme.of(context).bodySmall.override(
@@ -424,7 +424,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -447,7 +447,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Plant waste tracked.'),
+                            content: const Text('Plant waste tracked.'),
                             backgroundColor: FlutterFlowTheme.of(context).warning,
                           ),
                         );
@@ -463,7 +463,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -472,7 +472,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                 color: FlutterFlowTheme.of(context).warning,
                                 size: 24.0,
                               ),
-                              SizedBox(width: 12.0),
+                              const SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -487,7 +487,7 @@ class _CultivateBottomWidgetState extends State<CultivateBottomWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                                       child: Text(
                                         'Use this option if your plant didn\'t thrive and you\'ve removed it from your garden.',
                                         style: FlutterFlowTheme.of(context).bodySmall.override(

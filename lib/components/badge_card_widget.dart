@@ -134,7 +134,7 @@ class BadgeCardWidget extends StatelessWidget {
                         color: Colors.black.withOpacity(0.5),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.lock,
                         color: Colors.white,
                         size: 24,

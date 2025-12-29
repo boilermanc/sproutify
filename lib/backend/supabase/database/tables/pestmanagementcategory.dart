@@ -11,7 +11,7 @@ class PestmanagementcategoryTable
 }
 
 class PestmanagementcategoryRow extends SupabaseDataRow {
-  PestmanagementcategoryRow(Map<String, dynamic> data) : super(data);
+  PestmanagementcategoryRow(super.data);
 
   @override
   SupabaseTable get table => PestmanagementcategoryTable();

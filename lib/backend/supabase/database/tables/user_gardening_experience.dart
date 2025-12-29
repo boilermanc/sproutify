@@ -11,7 +11,7 @@ class UserGardeningExperienceTable
 }
 
 class UserGardeningExperienceRow extends SupabaseDataRow {
-  UserGardeningExperienceRow(Map<String, dynamic> data) : super(data);
+  UserGardeningExperienceRow(super.data);
 
   @override
   SupabaseTable get table => UserGardeningExperienceTable();

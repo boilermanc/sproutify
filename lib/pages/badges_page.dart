@@ -29,7 +29,7 @@ class BadgesPage extends StatelessWidget {
           borderRadius: 30.0,
           borderWidth: 1.0,
           buttonSize: 60.0,
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.white,
             size: 30.0,
@@ -49,7 +49,7 @@ class BadgesPage extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: true,
         elevation: 2.0,
       ),

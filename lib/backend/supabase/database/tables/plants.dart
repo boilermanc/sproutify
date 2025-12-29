@@ -9,7 +9,7 @@ class PlantsTable extends SupabaseTable<PlantsRow> {
 }
 
 class PlantsRow extends SupabaseDataRow {
-  PlantsRow(Map<String, dynamic> data) : super(data);
+  PlantsRow(super.data);
 
   @override
   SupabaseTable get table => PlantsTable();

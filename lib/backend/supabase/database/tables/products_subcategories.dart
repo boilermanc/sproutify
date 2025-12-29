@@ -11,7 +11,7 @@ class ProductsSubcategoriesTable
 }
 
 class ProductsSubcategoriesRow extends SupabaseDataRow {
-  ProductsSubcategoriesRow(Map<String, dynamic> data) : super(data);
+  ProductsSubcategoriesRow(super.data);
 
   @override
   SupabaseTable get table => ProductsSubcategoriesTable();

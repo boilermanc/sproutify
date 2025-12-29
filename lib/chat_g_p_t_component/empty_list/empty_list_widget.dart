@@ -43,10 +43,10 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12.0),
           child: InkWell(
             splashColor: Colors.transparent,
             focusColor: Colors.transparent,
@@ -65,7 +65,7 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
                   size: 90.0,
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
                   child: SelectionArea(
                     child: AutoSizeText(
                       'Sage Is Active!',
@@ -91,7 +91,7 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 0.0),
                   child: SelectionArea(
                     child: AutoSizeText(
                       'I\'m your personal Tower Garden assistant. Ask me anything about growing your plants, maintaining your tower, or getting the most from your Tower Garden!',

@@ -61,7 +61,7 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -86,7 +86,7 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -117,14 +117,14 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                   snapshot.data!;
 
               return ListView.builder(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
                 scrollDirection: Axis.vertical,
                 itemCount: listViewTowerBrandsRowList.length,
                 itemBuilder: (context, listViewIndex) {
                   final listViewTowerBrandsRow =
                       listViewTowerBrandsRowList[listViewIndex];
                   return Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
                         5.0, 0.0, 5.0, 10.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
@@ -154,20 +154,20 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0xFFE6EAF0),
-                          borderRadius: BorderRadius.only(
+                          color: const Color(0xFFE6EAF0),
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(10.0),
                             bottomRight: Radius.circular(10.0),
                             topLeft: Radius.circular(10.0),
                             topRight: Radius.circular(10.0),
                           ),
                           border: Border.all(
-                            color: Color(0xCCE5DBDB),
+                            color: const Color(0xCCE5DBDB),
                             width: 1.0,
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 10.0, 20.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -176,7 +176,7 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 10.0, 0.0, 0.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -196,9 +196,9 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Align(
-                                      alignment: AlignmentDirectional(-1.0, 0.0),
+                                      alignment: const AlignmentDirectional(-1.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 10.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -206,9 +206,9 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                                             Flexible(
                                               child: Align(
                                                 alignment:
-                                                    AlignmentDirectional(-1.0, 0.0),
+                                                    const AlignmentDirectional(-1.0, 0.0),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(20.0, 0.0, 0.0, 0.0),
                                                   child: Text(
                                                     listViewTowerBrandsRow

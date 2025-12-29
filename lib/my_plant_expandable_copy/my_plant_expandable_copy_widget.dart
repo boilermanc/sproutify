@@ -52,7 +52,7 @@ class _MyPlantExpandableCopyWidgetState
         'userplants',
       );
       await Future.delayed(
-        Duration(
+        const Duration(
           milliseconds: 1000,
         ),
       );
@@ -117,7 +117,7 @@ class _MyPlantExpandableCopyWidgetState
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -144,7 +144,7 @@ class _MyPlantExpandableCopyWidgetState
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -155,19 +155,19 @@ class _MyPlantExpandableCopyWidgetState
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                         child: Container(
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [],
                           ),
@@ -177,7 +177,7 @@ class _MyPlantExpandableCopyWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -216,7 +216,7 @@ class _MyPlantExpandableCopyWidgetState
                               listViewUserplantdetailsRowList = snapshot.data!;
 
                           if (listViewUserplantdetailsRowList.isEmpty) {
-                            return NoPlantsWidget();
+                            return const NoPlantsWidget();
                           }
 
                           return ListView.builder(
@@ -234,7 +234,7 @@ class _MyPlantExpandableCopyWidgetState
                                   if (listViewUserplantdetailsRow.plantId !=
                                       null) {
                                     return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 10.0, 0.0, 0.0),
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -243,12 +243,12 @@ class _MyPlantExpandableCopyWidgetState
                                         ),
                                         child: Container(
                                           width: double.infinity,
-                                          color: Color(0xFFE4EFD0),
+                                          color: const Color(0xFFE4EFD0),
                                           child: ExpandableNotifier(
                                             initialExpanded: false,
                                             child: ExpandablePanel(
                                               header: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 20.0, 0.0, 0.0),
                                                 child: Row(
@@ -261,7 +261,7 @@ class _MyPlantExpandableCopyWidgetState
                                                     Flexible(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     5.0,
                                                                     0.0,
@@ -307,7 +307,7 @@ class _MyPlantExpandableCopyWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -438,7 +438,7 @@ class _MyPlantExpandableCopyWidgetState
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10.0,
                                                                   8.0,
@@ -475,7 +475,7 @@ class _MyPlantExpandableCopyWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10.0,
                                                                   8.0,
@@ -519,14 +519,14 @@ class _MyPlantExpandableCopyWidgetState
                                               expanded: Container(
                                                 width: 370.0,
                                                 height: 420.0,
-                                                decoration: BoxDecoration(),
+                                                decoration: const BoxDecoration(),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -538,10 +538,10 @@ class _MyPlantExpandableCopyWidgetState
                                                         children: [
                                                           Container(
                                                             decoration:
-                                                                BoxDecoration(),
+                                                                const BoxDecoration(),
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           10.0,
                                                                           0.0,
@@ -556,7 +556,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                         .start,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -598,12 +598,12 @@ class _MyPlantExpandableCopyWidgetState
                                                                               FFButtonOptions(
                                                                             height:
                                                                                 40.0,
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                                                 10.0,
                                                                                 0.0,
                                                                                 10.0,
                                                                                 0.0),
-                                                                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -623,7 +623,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                             elevation:
                                                                                 3.0,
                                                                             borderSide:
-                                                                                BorderSide(
+                                                                                const BorderSide(
                                                                               color: Colors.transparent,
                                                                               width: 1.0,
                                                                             ),
@@ -635,7 +635,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             5.0,
                                                                             0.0,
@@ -694,12 +694,12 @@ class _MyPlantExpandableCopyWidgetState
                                                                           ),
                                                                         ),
                                                                         Align(
-                                                                          alignment: AlignmentDirectional(
+                                                                          alignment: const AlignmentDirectional(
                                                                               -1.0,
                                                                               -1.0),
                                                                           child:
                                                                               Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                                                 5.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -725,7 +725,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                                       },
                                                                                       child: Padding(
                                                                                         padding: MediaQuery.viewInsetsOf(context),
-                                                                                        child: CultivateDirectionsWidget(),
+                                                                                        child: const CultivateDirectionsWidget(),
                                                                                       ),
                                                                                     );
                                                                                   },
@@ -743,7 +743,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             10.0,
@@ -770,7 +770,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                               ),
                                                                         ),
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               10.0,
                                                                               0.0,
                                                                               0.0,
@@ -797,7 +797,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             10.0,
@@ -809,7 +809,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                               .max,
                                                                       children: [
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
                                                                               0.0,
                                                                               10.0,
@@ -874,7 +874,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             5.0,
@@ -901,7 +901,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                               ),
                                                                         ),
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               10.0,
                                                                               0.0,
                                                                               0.0,
@@ -924,7 +924,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                           ),
                                                                         ),
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               5.0,
                                                                               0.0,
                                                                               0.0,
@@ -941,19 +941,19 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 Colors.transparent,
                                                                             onTap:
                                                                                 () async {
-                                                                              final _datePickedDate = await showDatePicker(
+                                                                              final datePickedDate = await showDatePicker(
                                                                                 context: context,
                                                                                 initialDate: getCurrentTimestamp,
                                                                                 firstDate: DateTime(1900),
                                                                                 lastDate: getCurrentTimestamp,
                                                                               );
 
-                                                                              if (_datePickedDate != null) {
+                                                                              if (datePickedDate != null) {
                                                                                 safeSetState(() {
                                                                                   _model.datePicked = DateTime(
-                                                                                    _datePickedDate.year,
-                                                                                    _datePickedDate.month,
-                                                                                    _datePickedDate.day,
+                                                                                    datePickedDate.year,
+                                                                                    datePickedDate.month,
+                                                                                    datePickedDate.day,
                                                                                   );
                                                                                 });
                                                                               } else if (_model.datePicked != null) {
@@ -983,7 +983,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             5.0,
@@ -1010,7 +1010,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                               ),
                                                                         ),
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               10.0,
                                                                               0.0,
                                                                               0.0,
@@ -1039,7 +1039,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                           ),
                                                                         ),
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               5.0,
                                                                               0.0,
                                                                               0.0,
@@ -1097,11 +1097,11 @@ class _MyPlantExpandableCopyWidgetState
                                                           Flexible(
                                                             child: Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       1.0, 0.0),
                                                               child: Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -1111,7 +1111,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                     Container(
                                                                   width: 100.0,
                                                                   decoration:
-                                                                      BoxDecoration(),
+                                                                      const BoxDecoration(),
                                                                   child: Column(
                                                                     mainAxisSize:
                                                                         MainAxisSize
@@ -1121,12 +1121,12 @@ class _MyPlantExpandableCopyWidgetState
                                                                             .center,
                                                                     children: [
                                                                       Align(
-                                                                        alignment: AlignmentDirectional(
+                                                                        alignment: const AlignmentDirectional(
                                                                             0.0,
                                                                             0.0),
                                                                         child:
                                                                             Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
                                                                               10.0,
                                                                               0.0,
@@ -1165,7 +1165,7 @@ class _MyPlantExpandableCopyWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -1175,9 +1175,9 @@ class _MyPlantExpandableCopyWidgetState
                                                         decoration:
                                                             BoxDecoration(
                                                           color:
-                                                              Color(0xFFF8F4F4),
+                                                              const Color(0xFFF8F4F4),
                                                           borderRadius:
-                                                              BorderRadius.only(
+                                                              const BorderRadius.only(
                                                             bottomLeft:
                                                                 Radius.circular(
                                                                     10.0),
@@ -1202,7 +1202,7 @@ class _MyPlantExpandableCopyWidgetState
                                                             Flexible(
                                                               child: Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             5.0,
                                                                             8.0,
@@ -1217,7 +1217,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                           .start,
                                                                   children: [
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           10.0,
@@ -1250,7 +1250,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           5.0,
                                                                           0.0,
@@ -1273,7 +1273,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                                                 5.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -1299,7 +1299,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           2.0,
                                                                           0.0,
@@ -1326,7 +1326,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                           Flexible(
                                                                             child:
                                                                                 Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
                                                                               child: Text(
                                                                                 valueOrDefault<String>(
                                                                                   listViewUserplantdetailsRow.harvestMethod,
@@ -1348,7 +1348,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           5.0,
                                                                           0.0,
@@ -1371,7 +1371,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                                                 5.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -1397,7 +1397,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           2.0,
                                                                           0.0,
@@ -1420,7 +1420,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                                                 5.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -1446,7 +1446,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           2.0,
                                                                           0.0,
@@ -1469,7 +1469,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                                                 5.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -1495,7 +1495,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           2.0,
                                                                           0.0,
@@ -1518,7 +1518,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                                 ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
                                                                                 5.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -1543,7 +1543,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                    Row(
+                                                                    const Row(
                                                                       mainAxisSize:
                                                                           MainAxisSize
                                                                               .max,
@@ -1560,7 +1560,7 @@ class _MyPlantExpandableCopyWidgetState
                                                   ],
                                                 ),
                                               ),
-                                              theme: ExpandableThemeData(
+                                              theme: const ExpandableThemeData(
                                                 tapHeaderToExpand: true,
                                                 tapBodyToExpand: false,
                                                 tapBodyToCollapse: false,

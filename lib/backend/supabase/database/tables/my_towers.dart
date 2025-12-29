@@ -9,7 +9,7 @@ class MyTowersTable extends SupabaseTable<MyTowersRow> {
 }
 
 class MyTowersRow extends SupabaseDataRow {
-  MyTowersRow(Map<String, dynamic> data) : super(data);
+  MyTowersRow(super.data);
 
   @override
   SupabaseTable get table => MyTowersTable();

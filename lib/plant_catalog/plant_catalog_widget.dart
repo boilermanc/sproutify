@@ -182,7 +182,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                       },
                       child: Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: BottomPlantCatagoriesWidget(),
+                        child: const BottomPlantCatagoriesWidget(),
                       ),
                     );
                   },
@@ -204,7 +204,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                 borderRadius: 30.0,
                 borderWidth: 1.0,
                 buttonSize: 60.0,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_rounded,
                   color: Colors.white,
                   size: 30.0,
@@ -232,7 +232,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
               ),
               actions: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -255,13 +255,13 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
             body: SafeArea(
               top: true,
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                       child: Container(
                         width: 388.0,
                         height: 100.0,
@@ -270,7 +270,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                               FlutterFlowTheme.of(context).secondaryBackground,
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -280,10 +280,10 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 8.0, 0.0),
                                       child: Autocomplete<String>(
-                                        initialValue: TextEditingValue(),
+                                        initialValue: const TextEditingValue(),
                                         optionsBuilder: (textEditingValue) {
                                           if (textEditingValue.text == '') {
                                             return const Iterable<
@@ -337,7 +337,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                               .bodyMedium
                                                               .fontStyle,
                                                     ),
-                                            textHighlightStyle: TextStyle(),
+                                            textHighlightStyle: const TextStyle(),
                                             elevation: 4.0,
                                             optionBackgroundColor:
                                                 FlutterFlowTheme.of(context)
@@ -374,7 +374,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                             onChanged: (_) =>
                                                 EasyDebounce.debounce(
                                               '_model.searchPlantNameTextController',
-                                              Duration(milliseconds: 500),
+                                              const Duration(milliseconds: 500),
                                               () => safeSetState(() {}),
                                             ),
                                             autofocus: false,
@@ -538,7 +538,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 10.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -565,7 +565,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                         ),
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Text(
                                             'View Recommendations',
                                             style: FlutterFlowTheme.of(context)
@@ -605,11 +605,11 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                     Expanded(
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                         child: GridView.builder(
                           padding: EdgeInsets.zero,
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
@@ -666,7 +666,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                   Expanded(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   8.0,
@@ -682,7 +682,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                           height: 80.0,
                                                           fit: BoxFit.contain,
                                                           errorBuilder: (context, error, stackTrace) {
-                                                            return Icon(Icons.image_not_supported, size: 80.0);
+                                                            return const Icon(Icons.image_not_supported, size: 80.0);
                                                           },
                                                         ),
                                                       ),
@@ -691,7 +691,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsets.all(5.0),
+                                                          const EdgeInsets.all(5.0),
                                                       child: Text(
                                                         plant.plantName,
                                                         textAlign:
@@ -734,9 +734,9 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                     ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(1.0, -1.0),
+                                          const AlignmentDirectional(1.0, -1.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 5.0, 0.0, 0.0),
                                         child: Builder(
                                           builder: (context) {
@@ -746,7 +746,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                                             return Container(
                                               width: 30.0,
                                               height: 30.0,
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                               child: Stack(
                                                 children: [
                                                   if (isFavorite)

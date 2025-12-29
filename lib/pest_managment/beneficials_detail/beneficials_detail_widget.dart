@@ -75,7 +75,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
@@ -88,7 +88,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Text(
                   'Beneficials',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -111,7 +111,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
@@ -123,7 +123,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Text(
                   'Ally with Nature\'s Protectors',
                   style: FlutterFlowTheme.of(context).titleSmall.override(
@@ -142,7 +142,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
                 child: Text(
                   'Beneficial insects are crucial for a healthy garden. They keep harmful pests at bay and aid in pollination. Ladybugs, bees, and lacewings, for instance, naturally control aphids and other pests. Encouraging these friendly insects with diverse plants can significantly reduce your reliance on pesticides and promote a robust garden ecosystem.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -169,7 +169,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                 color: FlutterFlowTheme.of(context).alternate,
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -226,9 +226,9 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                           listViewPestContentRowList[listViewIndex];
                       return Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Container(
                             width: double.infinity,
                             color: Colors.white,
@@ -236,7 +236,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                               initialExpanded: false,
                               child: ExpandablePanel(
                                 header: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     listViewPestContentRow.contentTitle,
@@ -279,7 +279,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 5.0, 10.0, 5.0),
                                       child: Text(
                                         listViewPestContentRow.contentBody,
@@ -296,7 +296,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color: Color(0x8A000000),
+                                              color: const Color(0x8A000000),
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -311,7 +311,7 @@ class _BeneficialsDetailWidgetState extends State<BeneficialsDetailWidget> {
                                     ),
                                   ],
                                 ),
-                                theme: ExpandableThemeData(
+                                theme: const ExpandableThemeData(
                                   tapHeaderToExpand: true,
                                   tapBodyToExpand: false,
                                   tapBodyToCollapse: false,

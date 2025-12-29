@@ -67,7 +67,7 @@ class _ChatAiScreenWidgetState extends State<ChatAiScreenWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -111,7 +111,7 @@ class _ChatAiScreenWidgetState extends State<ChatAiScreenWidget> {
               ),
             ],
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -130,12 +130,12 @@ class _ChatAiScreenWidgetState extends State<ChatAiScreenWidget> {
               ),
             ),
             child: Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: wrapWithModel(
                 model: _model.aiChatComponentModel,
                 updateCallback: () => safeSetState(() {}),
                 updateOnChange: true,
-                child: AiChatComponentWidget(),
+                child: const AiChatComponentWidget(),
               ),
             ),
           ),

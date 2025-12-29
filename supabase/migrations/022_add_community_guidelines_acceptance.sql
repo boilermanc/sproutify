@@ -16,3 +16,4 @@ CREATE INDEX IF NOT EXISTS idx_profiles_guidelines_accepted
 COMMENT ON COLUMN profiles.community_guidelines_accepted_at IS 
   'Timestamp when user accepted the community guidelines. NULL means not accepted yet.';
 
+

@@ -9,7 +9,7 @@ class IndoorPlantsTable extends SupabaseTable<IndoorPlantsRow> {
 }
 
 class IndoorPlantsRow extends SupabaseDataRow {
-  IndoorPlantsRow(Map<String, dynamic> data) : super(data);
+  IndoorPlantsRow(super.data);
 
   @override
   SupabaseTable get table => IndoorPlantsTable();

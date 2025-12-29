@@ -59,7 +59,7 @@ Future<bool> changePassword(String? newPassword) async {
       }
     } catch (innerError) {
       print('Inner Error Details: $innerError');
-      throw innerError;
+      rethrow;
     }
   } catch (error) {
     print('Outer Error Details: $error');

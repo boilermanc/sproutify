@@ -101,7 +101,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                       },
                       child: Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: BottomPlantCatagoriesWidget(),
+                        child: const BottomPlantCatagoriesWidget(),
                       ),
                     );
                   },
@@ -123,7 +123,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                 borderRadius: 30.0,
                 borderWidth: 1.0,
                 buttonSize: 60.0,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_rounded,
                   color: Colors.white,
                   size: 30.0,
@@ -150,19 +150,19 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                           FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
               ),
-              actions: [],
+              actions: const [],
               centerTitle: true,
               elevation: 2.0,
             ),
             body: SafeArea(
               top: true,
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Container(
                         decoration: BoxDecoration(
                           color:
@@ -170,13 +170,13 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.all(10.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -230,7 +230,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                     Expanded(
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                         child: Builder(
                           builder: (context) {
                             final indoorPlants =
@@ -239,7 +239,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                             return GridView.builder(
                               padding: EdgeInsets.zero,
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 10.0,
                                 mainAxisSpacing: 10.0,
@@ -280,7 +280,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      boxShadow: [
+                                      boxShadow: const [
                                         BoxShadow(
                                           blurRadius: 4.0,
                                           color: Color(0x33000000),
@@ -299,7 +299,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 5.0, 0.0, 5.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -307,11 +307,11 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                                                 Expanded(
                                                   child: Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   8.0,
@@ -319,7 +319,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                                                                   0.0),
                                                       child: ClipRRect(
                                                         borderRadius:
-                                                            BorderRadius.only(
+                                                            const BorderRadius.only(
                                                           bottomLeft:
                                                               Radius.circular(
                                                                   0.0),
@@ -347,7 +347,7 @@ class _IndoorPlantsWidgetState extends State<IndoorPlantsWidget> {
                                                 Flexible(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(7.0),
+                                                        const EdgeInsets.all(7.0),
                                                     child: Text(
                                                       valueOrDefault<String>(
                                                         indoorPlantsItem

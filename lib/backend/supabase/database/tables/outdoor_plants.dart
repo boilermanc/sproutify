@@ -10,7 +10,7 @@ class OutdoorPlantsTable extends SupabaseTable<OutdoorPlantsRow> {
 }
 
 class OutdoorPlantsRow extends SupabaseDataRow {
-  OutdoorPlantsRow(Map<String, dynamic> data) : super(data);
+  OutdoorPlantsRow(super.data);
 
   @override
   SupabaseTable get table => OutdoorPlantsTable();

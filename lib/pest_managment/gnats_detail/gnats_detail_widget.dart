@@ -74,7 +74,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
@@ -87,7 +87,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Text(
                   'Gnats',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -110,7 +110,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
@@ -122,7 +122,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Text(
                   'Outsmarting Fungus Gnats',
                   style: FlutterFlowTheme.of(context).titleSmall.override(
@@ -141,7 +141,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
                 child: Text(
                   'Fungus gnats may be small, but their impact on your garden can be significant. These dark, tiny insects thrive in moist soil conditions, feeding on fungi and decaying organic matter. While adult gnats are mostly a nuisance, their larvae can damage tender plant roots, leading to stunted growth and yellowing leaves. Keeping soil well-drained and dry between watering is your first line of defense against these pesky invaders.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -168,7 +168,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                 color: FlutterFlowTheme.of(context).alternate,
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -225,9 +225,9 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                           listViewPestContentRowList[listViewIndex];
                       return Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Container(
                             width: double.infinity,
                             color: Colors.white,
@@ -235,7 +235,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                               initialExpanded: false,
                               child: ExpandablePanel(
                                 header: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     listViewPestContentRow.contentTitle,
@@ -278,7 +278,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 5.0, 10.0, 5.0),
                                       child: Text(
                                         listViewPestContentRow.contentBody,
@@ -295,7 +295,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color: Color(0x8A000000),
+                                              color: const Color(0x8A000000),
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -310,7 +310,7 @@ class _GnatsDetailWidgetState extends State<GnatsDetailWidget> {
                                     ),
                                   ],
                                 ),
-                                theme: ExpandableThemeData(
+                                theme: const ExpandableThemeData(
                                   tapHeaderToExpand: true,
                                   tapBodyToExpand: false,
                                   tapBodyToCollapse: false,

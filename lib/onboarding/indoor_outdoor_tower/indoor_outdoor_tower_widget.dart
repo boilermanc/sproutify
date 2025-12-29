@@ -77,7 +77,7 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
               borderRadius: 30.0,
               borderWidth: 1.0,
               buttonSize: 60.0,
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_rounded,
                 color: Colors.white,
                 size: 30.0,
@@ -103,7 +103,7 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 2.0,
           ),
@@ -114,13 +114,13 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
               children: [
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 10.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 10.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Flexible(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 10.0, 20.0),
                           child: Text(
                             'Select where you are growing...',
@@ -151,7 +151,7 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                       child: Container(
                         width: 405.0,
                         height: 100.0,
@@ -161,7 +161,7 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
                           shape: BoxShape.rectangle,
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 0.0, 20.0, 0.0),
                           child: FlutterFlowRadioButton(
                             options: ['Inside', 'Outside', 'Both'].toList(),
@@ -223,16 +223,16 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           HapticFeedback.lightImpact();
                           await MyTowersTable().insert({
-                            'tower_brand_id': widget!.towerID,
+                            'tower_brand_id': widget.towerID,
                             'indoor_outdoor': _model.insideOutsideValue,
-                            'tower_name': widget!.towerName,
+                            'tower_name': widget.towerName,
                             'user_id': currentUserUid,
-                            'port_count': widget!.portCount,
+                            'port_count': widget.portCount,
                           });
 
                           context.pushNamed(
@@ -248,9 +248,9 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
                         text: 'Next...',
                         options: FFButtonOptions(
                           height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
@@ -273,7 +273,7 @@ class _IndoorOutdoorTowerWidgetState extends State<IndoorOutdoorTowerWidget> {
                                         .fontStyle,
                                   ),
                           elevation: 3.0,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),

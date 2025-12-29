@@ -60,7 +60,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -85,7 +85,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -94,18 +94,18 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
                       child: Text(
                         'Select A Category',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -162,7 +162,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                             final listViewCategoriesRow =
                                 listViewCategoriesRowList[listViewIndex];
                             return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 10.0, 20.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -194,7 +194,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                                       Flexible(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   30.0, 0.0, 0.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -238,7 +238,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                                                   ),
                                                 ],
                                               ),
-                                              Row(
+                                              const Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [],
                                               ),
@@ -247,7 +247,7 @@ class _ProductCategoriesWidgetState extends State<ProductCategoriesWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 30.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,

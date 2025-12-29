@@ -9,7 +9,7 @@ class EcValuesTable extends SupabaseTable<EcValuesRow> {
 }
 
 class EcValuesRow extends SupabaseDataRow {
-  EcValuesRow(Map<String, dynamic> data) : super(data);
+  EcValuesRow(super.data);
 
   @override
   SupabaseTable get table => EcValuesTable();

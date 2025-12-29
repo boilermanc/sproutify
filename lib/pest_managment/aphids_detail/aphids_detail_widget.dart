@@ -75,7 +75,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                 fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
@@ -83,7 +83,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
         top: true,
         child: Container(
           width: double.infinity,
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           child: SingleChildScrollView(
             primary: false,
             child: Column(
@@ -91,7 +91,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                   child: Text(
                     'Aphids',
                     style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -114,7 +114,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.asset(
@@ -126,7 +126,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                   child: Text(
                     'Get Ahead Stay Ahead',
                     style: FlutterFlowTheme.of(context).titleSmall.override(
@@ -147,7 +147,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
+                      const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
                   child: Text(
                     'Dealing with aphids on produce can be a challenging task for gardeners and farmers. These tiny, sap-sucking insects can quickly infest plants, causing damage and reducing yields.',
                     style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -176,7 +176,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                   color: FlutterFlowTheme.of(context).alternate,
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
                   child: Text(
                     'Here are some great resources',
                     style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -233,10 +233,10 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                         final listViewPestContentRow =
                             listViewPestContentRowList[listViewIndex];
                         return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               5.0, 5.0, 5.0, 5.0),
                           child: Container(
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Container(
                               width: double.infinity,
                               color: Colors.white,
@@ -244,7 +244,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                                 initialExpanded: false,
                                 child: ExpandablePanel(
                                   header: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         5.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       listViewPestContentRow.contentTitle,
@@ -290,7 +290,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 5.0, 10.0, 5.0),
                                         child: Text(
                                           listViewPestContentRow.contentBody,
@@ -309,7 +309,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                                color: Color(0x8A000000),
+                                                color: const Color(0x8A000000),
                                                 letterSpacing: 0.0,
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
@@ -323,7 +323,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 5.0, 10.0, 5.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -374,7 +374,7 @@ class _AphidsDetailWidgetState extends State<AphidsDetailWidget> {
                                       ),
                                     ],
                                   ),
-                                  theme: ExpandableThemeData(
+                                  theme: const ExpandableThemeData(
                                     tapHeaderToExpand: true,
                                     tapBodyToExpand: false,
                                     tapBodyToCollapse: false,

@@ -9,7 +9,7 @@ class TowerFaqTable extends SupabaseTable<TowerFaqRow> {
 }
 
 class TowerFaqRow extends SupabaseDataRow {
-  TowerFaqRow(Map<String, dynamic> data) : super(data);
+  TowerFaqRow(super.data);
 
   @override
   SupabaseTable get table => TowerFaqTable();

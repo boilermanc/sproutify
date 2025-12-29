@@ -20,7 +20,7 @@ class MySuppliesWidget extends StatefulWidget {
   const MySuppliesWidget({
     super.key,
     String? userID,
-  }) : this.userID = userID ?? '0';
+  }) : userID = userID ?? '0';
 
   final String userID;
 
@@ -83,7 +83,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -108,7 +108,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -123,7 +123,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: FutureBuilder<List<UserproductlistviewRow>>(
                           future: (_model.requestCompleter ??= Completer<
                                   List<UserproductlistviewRow>>()
@@ -160,7 +160,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                 snapshot.data!;
 
                             if (listViewUserproductlistviewRowList.isEmpty) {
-                              return NoSuppliesWidget();
+                              return const NoSuppliesWidget();
                             }
 
                             return ListView.builder(
@@ -173,7 +173,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                     listViewUserproductlistviewRowList[
                                         listViewIndex];
                                 return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 5.0),
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -187,7 +187,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                         child: ExpandablePanel(
                                           header: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               valueOrDefault<String>(
@@ -247,7 +247,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                         '')
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(20.0, 8.0,
                                                                 20.0, 0.0),
                                                     child: Text(
@@ -272,7 +272,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0x8A000000),
                                                                 letterSpacing:
                                                                     0.0,
@@ -295,13 +295,13 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                             children: [
                                               Container(
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xFFF1F5EB),
+                                                  color: const Color(0xFFF1F5EB),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10.0),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           20.0, 0.0, 0.0, 10.0),
                                                   child: Row(
@@ -311,7 +311,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                       Flexible(
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsets.all(
+                                                              const EdgeInsets.all(
                                                                   8.0),
                                                           child: Text(
                                                             valueOrDefault<
@@ -356,26 +356,26 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 5.0, 0.0, 0.0),
                                                 child: Container(
                                                   decoration: BoxDecoration(
-                                                    color: Color(0xFFEBE4C9),
+                                                    color: const Color(0xFFEBE4C9),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10.0),
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(5.0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       20.0,
                                                                       0.0,
@@ -388,7 +388,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -424,7 +424,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                               ),
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -477,7 +477,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       20.0,
                                                                       0.0,
@@ -490,7 +490,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -526,7 +526,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                               ),
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             5.0,
                                                                             0.0,
@@ -572,7 +572,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       20.0,
                                                                       0.0,
@@ -585,7 +585,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -621,7 +621,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                               ),
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             10.0,
                                                                             0.0,
@@ -670,7 +670,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 5.0, 0.0, 5.0),
                                                 child: Row(
@@ -679,7 +679,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -721,7 +721,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                           height: 30.0,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xFFF8EFCD),
                                                             borderRadius:
                                                                 BorderRadius
@@ -730,7 +730,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsets.all(
+                                                                const EdgeInsets.all(
                                                                     3.0),
                                                             child: Row(
                                                               mainAxisSize:
@@ -738,7 +738,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                                       .max,
                                                               children: [
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           10.0,
                                                                           0.0,
@@ -754,7 +754,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           10.0,
                                                                           0.0,
@@ -798,7 +798,7 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                                               ),
                                             ],
                                           ),
-                                          theme: ExpandableThemeData(
+                                          theme: const ExpandableThemeData(
                                             tapHeaderToExpand: true,
                                             tapBodyToExpand: false,
                                             tapBodyToCollapse: false,
@@ -821,19 +821,19 @@ class _MySuppliesWidgetState extends State<MySuppliesWidget> {
                   ],
                 ),
               ),
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),

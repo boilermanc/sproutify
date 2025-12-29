@@ -11,7 +11,7 @@ class UserProfilesWithGoalsTable
 }
 
 class UserProfilesWithGoalsRow extends SupabaseDataRow {
-  UserProfilesWithGoalsRow(Map<String, dynamic> data) : super(data);
+  UserProfilesWithGoalsRow(super.data);
 
   @override
   SupabaseTable get table => UserProfilesWithGoalsTable();

@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -232,17 +233,17 @@ class _SproutifyPurchasePageWidgetState
                                         safeSetState(() {});
                                       }),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 20.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 20.0, 0.0, 0.0),
                                         child: Container(
                                           width: 350.0,
                                           height: 110.0,
                                           decoration: BoxDecoration(
                                             color: _model.isCard1Hovered == true
-                                                ? Color(0xFFEEF0EE)
+                                                ? const Color(0xFFEEF0EE)
                                                 : FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
-                                            boxShadow: [
+                                            boxShadow: const [
                                               BoxShadow(
                                                 blurRadius: 4.0,
                                                 color: Color(0x33000000),
@@ -258,8 +259,8 @@ class _SproutifyPurchasePageWidgetState
                                             border: Border.all(
                                               color:
                                                   _model.isCard1Hovered == true
-                                                      ? Color(0xFF8FBC8F)
-                                                      : Color(0xFFE2E8F0),
+                                                      ? const Color(0xFF8FBC8F)
+                                                      : const Color(0xFFE2E8F0),
                                             ),
                                           ),
                                           child: Row(
@@ -269,7 +270,8 @@ class _SproutifyPurchasePageWidgetState
                                             children: [
                                               Flexible(
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(10.0),
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -303,7 +305,7 @@ class _SproutifyPurchasePageWidgetState
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: Color(
+                                                                  color: const Color(
                                                                       0xFF2F6D23),
                                                                   fontSize:
                                                                       20.0,
@@ -327,12 +329,12 @@ class _SproutifyPurchasePageWidgetState
                                                           Flexible(
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          7.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      7.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
                                                                 'Month-to-month access',
                                                                 textAlign:
@@ -351,7 +353,7 @@ class _SproutifyPurchasePageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF2F6D23),
                                                                       letterSpacing:
                                                                           0.0,
@@ -375,7 +377,8 @@ class _SproutifyPurchasePageWidgetState
                                               ),
                                               Flexible(
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(10.0),
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -409,7 +412,7 @@ class _SproutifyPurchasePageWidgetState
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xFF2F6D23),
                                                                     fontSize:
                                                                         20.0,
@@ -437,12 +440,12 @@ class _SproutifyPurchasePageWidgetState
                                                           Flexible(
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          7.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      7.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
                                                                 'per month',
                                                                 textAlign:
@@ -461,7 +464,7 @@ class _SproutifyPurchasePageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF2F6D23),
                                                                       letterSpacing:
                                                                           0.0,
@@ -481,12 +484,9 @@ class _SproutifyPurchasePageWidgetState
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    5.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                5.0, 0.0, 0.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -520,7 +520,7 @@ class _SproutifyPurchasePageWidgetState
                                                                   height: 30.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xFFEDF8EA),
                                                                     shape: BoxShape
                                                                         .circle,
@@ -534,7 +534,7 @@ class _SproutifyPurchasePageWidgetState
                                                                   ),
                                                                   child: Align(
                                                                     alignment:
-                                                                        AlignmentDirectional(
+                                                                        const AlignmentDirectional(
                                                                             0.0,
                                                                             0.0),
                                                                     child:
@@ -584,17 +584,17 @@ class _SproutifyPurchasePageWidgetState
                                         safeSetState(() {});
                                       }),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 20.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 20.0, 0.0, 0.0),
                                         child: Container(
                                           width: 350.0,
                                           height: 110.0,
                                           decoration: BoxDecoration(
                                             color: _model.isCard2Hovered == true
-                                                ? Color(0xFFEEF0EE)
+                                                ? const Color(0xFFEEF0EE)
                                                 : FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
-                                            boxShadow: [
+                                            boxShadow: const [
                                               BoxShadow(
                                                 blurRadius: 4.0,
                                                 color: Color(0x33000000),
@@ -610,8 +610,8 @@ class _SproutifyPurchasePageWidgetState
                                             border: Border.all(
                                               color:
                                                   _model.isCard2Hovered == true
-                                                      ? Color(0xFF8FBC8F)
-                                                      : Color(0xFFE2E8F0),
+                                                      ? const Color(0xFF8FBC8F)
+                                                      : const Color(0xFFE2E8F0),
                                             ),
                                           ),
                                           child: Row(
@@ -621,7 +621,8 @@ class _SproutifyPurchasePageWidgetState
                                             children: [
                                               Flexible(
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(10.0),
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -655,7 +656,7 @@ class _SproutifyPurchasePageWidgetState
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: Color(
+                                                                  color: const Color(
                                                                       0xFF2F6D23),
                                                                   fontSize:
                                                                       20.0,
@@ -679,12 +680,12 @@ class _SproutifyPurchasePageWidgetState
                                                           Flexible(
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          7.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      7.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
                                                                 'Best value option',
                                                                 textAlign:
@@ -703,7 +704,7 @@ class _SproutifyPurchasePageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF2F6D23),
                                                                       letterSpacing:
                                                                           0.0,
@@ -727,7 +728,8 @@ class _SproutifyPurchasePageWidgetState
                                               ),
                                               Flexible(
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(10.0),
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -761,7 +763,7 @@ class _SproutifyPurchasePageWidgetState
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xFF2F6D23),
                                                                     fontSize:
                                                                         20.0,
@@ -789,12 +791,12 @@ class _SproutifyPurchasePageWidgetState
                                                           Flexible(
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          7.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      0.0,
+                                                                      7.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
                                                                 'per year',
                                                                 textAlign:
@@ -813,7 +815,7 @@ class _SproutifyPurchasePageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF2F6D23),
                                                                       letterSpacing:
                                                                           0.0,
@@ -833,12 +835,9 @@ class _SproutifyPurchasePageWidgetState
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    5.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                5.0, 0.0, 0.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -872,7 +871,7 @@ class _SproutifyPurchasePageWidgetState
                                                                   height: 30.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xFFEDF8EA),
                                                                     shape: BoxShape
                                                                         .circle,
@@ -886,7 +885,7 @@ class _SproutifyPurchasePageWidgetState
                                                                   ),
                                                                   child: Align(
                                                                     alignment:
-                                                                        AlignmentDirectional(
+                                                                        const AlignmentDirectional(
                                                                             0.0,
                                                                             0.0),
                                                                     child:
@@ -936,17 +935,17 @@ class _SproutifyPurchasePageWidgetState
                                         safeSetState(() {});
                                       }),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 20.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 20.0, 0.0, 0.0),
                                         child: Container(
                                           width: 350.0,
                                           height: 110.0,
                                           decoration: BoxDecoration(
                                             color: _model.isCard3Hovered == true
-                                                ? Color(0xFFEEF0EE)
+                                                ? const Color(0xFFEEF0EE)
                                                 : FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
-                                            boxShadow: [
+                                            boxShadow: const [
                                               BoxShadow(
                                                 blurRadius: 4.0,
                                                 color: Color(0x33000000),
@@ -962,8 +961,8 @@ class _SproutifyPurchasePageWidgetState
                                             border: Border.all(
                                               color:
                                                   _model.isCard3Hovered == true
-                                                      ? Color(0xFF8FBC8F)
-                                                      : Color(0xFFE2E8F0),
+                                                      ? const Color(0xFF8FBC8F)
+                                                      : const Color(0xFFE2E8F0),
                                             ),
                                           ),
                                           child: Row(
@@ -972,7 +971,8 @@ class _SproutifyPurchasePageWidgetState
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsets.all(10.0),
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1004,7 +1004,7 @@ class _SproutifyPurchasePageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF2F6D23),
                                                                 fontSize: 20.0,
                                                                 letterSpacing:
@@ -1026,12 +1026,12 @@ class _SproutifyPurchasePageWidgetState
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      0.0,
-                                                                      7.0,
-                                                                      0.0,
-                                                                      0.0),
+                                                                  0.0,
+                                                                  7.0,
+                                                                  0.0,
+                                                                  0.0),
                                                           child: Text(
                                                             'Pay once, use forever',
                                                             textAlign:
@@ -1051,7 +1051,7 @@ class _SproutifyPurchasePageWidgetState
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: Color(
+                                                                  color: const Color(
                                                                       0xFF2F6D23),
                                                                   letterSpacing:
                                                                       0.0,
@@ -1072,7 +1072,8 @@ class _SproutifyPurchasePageWidgetState
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsets.all(10.0),
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1105,7 +1106,7 @@ class _SproutifyPurchasePageWidgetState
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: Color(
+                                                                  color: const Color(
                                                                       0xFF2F6D23),
                                                                   fontSize:
                                                                       20.0,
@@ -1131,12 +1132,12 @@ class _SproutifyPurchasePageWidgetState
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      0.0,
-                                                                      7.0,
-                                                                      0.0,
-                                                                      0.0),
+                                                                  0.0,
+                                                                  7.0,
+                                                                  0.0,
+                                                                  0.0),
                                                           child: Text(
                                                             'one time',
                                                             textAlign:
@@ -1156,7 +1157,7 @@ class _SproutifyPurchasePageWidgetState
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: Color(
+                                                                  color: const Color(
                                                                       0xFF2F6D23),
                                                                   letterSpacing:
                                                                       0.0,
@@ -1175,12 +1176,9 @@ class _SproutifyPurchasePageWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0),
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(0.0,
+                                                              5.0, 0.0, 0.0),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -1213,7 +1211,7 @@ class _SproutifyPurchasePageWidgetState
                                                                 height: 30.0,
                                                                 decoration:
                                                                     BoxDecoration(
-                                                                  color: Color(
+                                                                  color: const Color(
                                                                       0xFFEDF8EA),
                                                                   shape: BoxShape
                                                                       .circle,
@@ -1226,7 +1224,7 @@ class _SproutifyPurchasePageWidgetState
                                                                 ),
                                                                 child: Align(
                                                                   alignment:
-                                                                      AlignmentDirectional(
+                                                                      const AlignmentDirectional(
                                                                           0.0,
                                                                           0.0),
                                                                   child:
@@ -1990,30 +1988,65 @@ class _SproutifyPurchasePageWidgetState
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Auto-renews unless cancelled. Terms & Privacy apply.',
+                                            'Auto-renews unless cancelled.',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.readexPro(
                                                     fontWeight: FontWeight.w600,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
                                                   ),
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
                                                   fontSize: 12.0,
                                                   letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
                                                 ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // Terms and Privacy Links
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 8.0, 0.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
+                                            child: Text(
+                                              'Terms of Use',
+                                              style: GoogleFonts.readexPro(
+                                                color: FlutterFlowTheme.of(context).primary,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w600,
+                                                decoration: TextDecoration.underline,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            '|',
+                                            style: GoogleFonts.readexPro(
+                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                              fontSize: 12.0,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          GestureDetector(
+                                            onTap: () => launchUrl(Uri.parse('https://www.sproutify.app/index.php/privacy-policy-2/')),
+                                            child: Text(
+                                              'Privacy Policy',
+                                              style: GoogleFonts.readexPro(
+                                                color: FlutterFlowTheme.of(context).primary,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w600,
+                                                decoration: TextDecoration.underline,
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),

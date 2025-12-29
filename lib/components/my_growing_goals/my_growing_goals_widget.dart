@@ -49,14 +49,14 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
     return SafeArea(
       top: true,
       child: Align(
-        alignment: AlignmentDirectional(0.0, 0.0),
+        alignment: const AlignmentDirectional(0.0, 0.0),
         child: Container(
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).primaryBackground,
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Container(
               width: 320.0,
               height: 370.0,
@@ -69,7 +69,7 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 20.0),
+                        const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 20.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,7 +94,7 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
                         ),
                         Padding(
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                              const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderRadius: 8.0,
                             buttonSize: 40.0,
@@ -145,7 +145,7 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
                           listViewUserProfilesWithGoalsRowList = snapshot.data!;
 
                       if (listViewUserProfilesWithGoalsRowList.isEmpty) {
-                        return NoGoalsWidget();
+                        return const NoGoalsWidget();
                       }
 
                       return ListView.builder(
@@ -157,14 +157,14 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
                               listViewUserProfilesWithGoalsRowList[
                                   listViewIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 20.0, 0.0, 0.0, 10.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Flexible(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 20.0),
                                     child: Text(
                                       valueOrDefault<String>(
@@ -201,7 +201,7 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
                     },
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,

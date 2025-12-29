@@ -33,7 +33,8 @@
       "Bash(./gradlew --stop)",
       "Bash(code:*)",
       "Bash(flutter doctor:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(flutter emulators:*)"
     ],
     "deny": [],
     "ask": []

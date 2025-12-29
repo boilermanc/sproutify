@@ -9,7 +9,7 @@ class TowerGardensTable extends SupabaseTable<TowerGardensRow> {
 }
 
 class TowerGardensRow extends SupabaseDataRow {
-  TowerGardensRow(Map<String, dynamic> data) : super(data);
+  TowerGardensRow(super.data);
 
   @override
   SupabaseTable get table => TowerGardensTable();

@@ -11,7 +11,7 @@ class ViewPlantDetailsByCategoryTable
 }
 
 class ViewPlantDetailsByCategoryRow extends SupabaseDataRow {
-  ViewPlantDetailsByCategoryRow(Map<String, dynamic> data) : super(data);
+  ViewPlantDetailsByCategoryRow(super.data);
 
   @override
   SupabaseTable get table => ViewPlantDetailsByCategoryTable();

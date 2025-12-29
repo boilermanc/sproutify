@@ -67,7 +67,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -93,7 +93,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -108,7 +108,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                     queryFn: (q) => q
                         .eqOrNull(
                           'categoryid',
-                          widget!.catagoryID,
+                          widget.catagoryID,
                         )
                         .isFilter(
                           'isvisible',
@@ -146,7 +146,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     20.0, 15.0, 20.0, 15.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -176,7 +176,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         bottomLeft: Radius.circular(10.0),
                                         bottomRight: Radius.circular(10.0),
                                         topLeft: Radius.circular(10.0),
@@ -190,7 +190,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   10.0, 0.0, 10.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -215,7 +215,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 5.0, 30.0, 0.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -273,7 +273,7 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 10.0, 0.0),
                                               child: Icon(

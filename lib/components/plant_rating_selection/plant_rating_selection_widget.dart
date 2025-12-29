@@ -58,7 +58,7 @@ class _PlantRatingSelectionWidgetState
         color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -66,7 +66,7 @@ class _PlantRatingSelectionWidgetState
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -75,7 +75,7 @@ class _PlantRatingSelectionWidgetState
                   children: [
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             12.0, 0.0, 12.0, 0.0),
                         child: Text(
                           'Rate Your Plant\'s Performance',
@@ -151,7 +151,7 @@ class _PlantRatingSelectionWidgetState
                               final listViewPlantratingsRow =
                                   listViewPlantratingsRowList[listViewIndex];
                               return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 12.0, 10.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -168,7 +168,7 @@ class _PlantRatingSelectionWidgetState
                                       },
                                       matchingRows: (rows) => rows.eqOrNull(
                                         'user_plant_id',
-                                        widget!.userPlantID,
+                                        widget.userPlantID,
                                       ),
                                     );
                                     safeSetState(
@@ -184,7 +184,7 @@ class _PlantRatingSelectionWidgetState
                                             fontSize: 18.0,
                                           ),
                                         ),
-                                        duration: Duration(milliseconds: 4000),
+                                        duration: const Duration(milliseconds: 4000),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context)
                                                 .success,
@@ -206,7 +206,7 @@ class _PlantRatingSelectionWidgetState
                                       ),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.all(16.0),
+                                      padding: const EdgeInsets.all(16.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment:
@@ -254,9 +254,9 @@ class _PlantRatingSelectionWidgetState
                                                         listViewPlantratingsRow
                                                             .ratingnumber,
                                                   ),
-                                                ].divide(SizedBox(width: 2.0)),
+                                                ].divide(const SizedBox(width: 2.0)),
                                               ),
-                                            ].divide(SizedBox(width: 4.0)),
+                                            ].divide(const SizedBox(width: 4.0)),
                                           ),
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -305,7 +305,7 @@ class _PlantRatingSelectionWidgetState
                                               ),
                                             ],
                                           ),
-                                        ].divide(SizedBox(height: 8.0)),
+                                        ].divide(const SizedBox(height: 8.0)),
                                       ),
                                     ),
                                   ),
@@ -318,7 +318,7 @@ class _PlantRatingSelectionWidgetState
                     ],
                   ),
                 ),
-              ].divide(SizedBox(height: 16.0)),
+              ].divide(const SizedBox(height: 16.0)),
             ),
           ),
         ),

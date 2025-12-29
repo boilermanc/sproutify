@@ -11,7 +11,7 @@ class GardeningInspirationalMessagesTable
 }
 
 class GardeningInspirationalMessagesRow extends SupabaseDataRow {
-  GardeningInspirationalMessagesRow(Map<String, dynamic> data) : super(data);
+  GardeningInspirationalMessagesRow(super.data);
 
   @override
   SupabaseTable get table => GardeningInspirationalMessagesTable();

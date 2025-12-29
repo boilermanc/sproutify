@@ -75,7 +75,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
@@ -88,7 +88,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Text(
                   'Pesticides',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -111,7 +111,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
@@ -123,7 +123,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Text(
                   'Get Ahead Stay Ahead',
                   style: FlutterFlowTheme.of(context).titleSmall.override(
@@ -142,7 +142,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
                 child: Text(
                   'Dealing with aphids on produce can be a challenging task for gardeners and farmers. These tiny, sap-sucking insects can quickly infest plants, causing damage and reducing yields.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -169,7 +169,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                 color: FlutterFlowTheme.of(context).alternate,
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -226,9 +226,9 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                           listViewPestContentRowList[listViewIndex];
                       return Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Container(
                             width: double.infinity,
                             color: Colors.white,
@@ -236,7 +236,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                               initialExpanded: false,
                               child: ExpandablePanel(
                                 header: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     listViewPestContentRow.contentTitle,
@@ -280,7 +280,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 5.0, 10.0, 5.0),
                                       child: Text(
                                         listViewPestContentRow.contentBody,
@@ -297,7 +297,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color: Color(0x8A000000),
+                                              color: const Color(0x8A000000),
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -311,7 +311,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 5.0, 10.0, 5.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -359,7 +359,7 @@ class _PesticideDetailWidgetState extends State<PesticideDetailWidget> {
                                     ),
                                   ],
                                 ),
-                                theme: ExpandableThemeData(
+                                theme: const ExpandableThemeData(
                                   tapHeaderToExpand: true,
                                   tapBodyToExpand: false,
                                   tapBodyToCollapse: false,

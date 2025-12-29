@@ -69,7 +69,7 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
               borderRadius: 30.0,
               borderWidth: 1.0,
               buttonSize: 60.0,
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_rounded,
                 color: Colors.white,
                 size: 30.0,
@@ -95,7 +95,7 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 2.0,
           ),
@@ -108,14 +108,14 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           10.0, 30.0, 10.0, 20.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Flexible(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 10.0, 0.0),
                               child: Text(
                                 'Create a name for your tower. It can be something like Herb, or porch.',
@@ -147,13 +147,13 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Container(
                           height: 75.0,
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             minWidth: double.infinity,
                           ),
                           decoration: BoxDecoration(
@@ -166,7 +166,7 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                             child: Opacity(
                               opacity: 0.5,
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 20.0, 0.0),
                                 child: TextFormField(
                                   controller:
@@ -288,7 +288,7 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           HapticFeedback.lightImpact();
@@ -305,7 +305,7 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                                 ParamType.String,
                               ),
                               'towerID': serializeParam(
-                                widget!.towerID,
+                                widget.towerID,
                                 ParamType.int,
                               ),
                             }.withoutNulls,
@@ -314,9 +314,9 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                         text: 'Next...',
                         options: FFButtonOptions(
                           height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
@@ -340,7 +340,7 @@ class _NameTowerWidgetState extends State<NameTowerWidget> {
                                         .fontStyle,
                                   ),
                           elevation: 3.0,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),

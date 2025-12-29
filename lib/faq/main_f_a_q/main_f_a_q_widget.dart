@@ -73,7 +73,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -100,7 +100,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                       FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -113,13 +113,13 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                 Flexible(
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 8.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 8.0, 0.0),
                     child: TextFormField(
                       controller: _model.faqSearchFieldTextController,
                       focusNode: _model.faqSearchFieldFocusNode,
                       onChanged: (_) => EasyDebounce.debounce(
                         '_model.faqSearchFieldTextController',
-                        Duration(milliseconds: 2000),
+                        const Duration(milliseconds: 2000),
                         () => safeSetState(() {}),
                       ),
                       onFieldSubmitted: (_) async {
@@ -205,7 +205,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                         filled: true,
                         fillColor:
                             FlutterFlowTheme.of(context).primaryBackground,
-                        contentPadding: EdgeInsetsDirectional.fromSTEB(
+                        contentPadding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 20.0, 24.0),
                         prefixIcon: Icon(
                           Icons.search,
@@ -219,7 +219,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                   _model.faqSearchFieldTextController?.clear();
                                   safeSetState(() {});
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.clear,
                                   color: Color(0xFF757575),
                                   size: 22.0,
@@ -265,7 +265,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
               child: Column(
                 children: [
                   Align(
-                    alignment: Alignment(-1.0, 0),
+                    alignment: const Alignment(-1.0, 0),
                     child: FlutterFlowButtonTabBar(
                       useToggleButtonStyle: false,
                       isScrollable: true,
@@ -284,22 +284,22 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                     .titleSmall
                                     .fontStyle,
                               ),
-                      unselectedLabelStyle: TextStyle(),
+                      unselectedLabelStyle: const TextStyle(),
                       labelColor: FlutterFlowTheme.of(context).primaryText,
                       unselectedLabelColor:
                           FlutterFlowTheme.of(context).secondaryText,
-                      backgroundColor: Color(0xFFBDE3BD),
+                      backgroundColor: const Color(0xFFBDE3BD),
                       borderColor: FlutterFlowTheme.of(context).primary,
                       borderWidth: 2.0,
                       borderRadius: 12.0,
                       elevation: 0.0,
                       labelPadding:
-                          EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                       buttonMargin:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 0.0),
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-                      tabs: [
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                      tabs: const [
                         Tab(
                           text: 'General',
                         ),
@@ -335,7 +335,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
                                 child: Container(
                                   width: 350.0,
@@ -385,7 +385,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                   listViewIndex];
                                           return Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 10.0, 10.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -446,7 +446,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                     Flexible(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     20.0,
                                                                     10.0,
@@ -491,7 +491,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -567,7 +567,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: SingleChildScrollView(
                             primary: false,
@@ -623,7 +623,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                   listViewIndex];
                                           return Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 10.0, 10.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -678,7 +678,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                     Flexible(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     10.0,
                                                                     20.0,
@@ -750,7 +750,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
                                 child: Container(
                                   width: 350.0,
@@ -800,7 +800,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                   listViewIndex];
                                           return Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 10.0, 10.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -855,7 +855,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                     Flexible(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     20.0,
                                                                     10.0,
@@ -900,7 +900,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -982,7 +982,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
                                 child: Container(
                                   width: 350.0,
@@ -1032,7 +1032,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                   listViewIndex];
                                           return Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 10.0, 10.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -1087,7 +1087,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                     Flexible(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     20.0,
                                                                     10.0,
@@ -1132,7 +1132,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,

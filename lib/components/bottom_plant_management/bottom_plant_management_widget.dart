@@ -53,12 +53,12 @@ class _BottomPlantManagementWidgetState
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 1.0),
+      alignment: const AlignmentDirectional(0.0, 1.0),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).primaryBackground,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(10.0),
@@ -66,11 +66,11 @@ class _BottomPlantManagementWidgetState
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
           child: Material(
             color: Colors.transparent,
             elevation: 5.0,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(0.0),
                 bottomRight: Radius.circular(0.0),
@@ -83,7 +83,7 @@ class _BottomPlantManagementWidgetState
               height: 500.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(0.0),
                   bottomRight: Radius.circular(0.0),
                   topLeft: Radius.circular(16.0),
@@ -95,7 +95,7 @@ class _BottomPlantManagementWidgetState
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: Container(
                       width: 50.0,
                       height: 4.0,
@@ -107,7 +107,7 @@ class _BottomPlantManagementWidgetState
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -140,7 +140,7 @@ class _BottomPlantManagementWidgetState
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                     child: ListView(
                       padding: EdgeInsets.zero,
                       primary: false,
@@ -148,7 +148,7 @@ class _BottomPlantManagementWidgetState
                       scrollDirection: Axis.vertical,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 12.0, 16.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -158,7 +158,7 @@ class _BottomPlantManagementWidgetState
                             onTap: () async {
                               HapticFeedback.lightImpact();
                               await UserplantActionsTable().insert({
-                                'user_plant_id': widget!.userPlantID,
+                                'user_plant_id': widget.userPlantID,
                                 'action_type': 'Harvested',
                                 'action_date': supaSerialize<DateTime>(
                                     getCurrentTimestamp),
@@ -169,7 +169,7 @@ class _BottomPlantManagementWidgetState
                                 },
                                 matchingRows: (rows) => rows.eqOrNull(
                                   'user_plant_id',
-                                  widget!.userPlantID,
+                                  widget.userPlantID,
                                 ),
                               );
                               Navigator.pop(context);
@@ -189,7 +189,7 @@ class _BottomPlantManagementWidgetState
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 12.0, 8.0, 12.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -198,7 +198,7 @@ class _BottomPlantManagementWidgetState
                                   children: [
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 8.0, 0.0),
                                         child: Text(
                                           'I harvested a plant I grew myself!',
@@ -230,7 +230,7 @@ class _BottomPlantManagementWidgetState
                                         ),
                                       ),
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.chevron_right_rounded,
                                       color: Color(0xFF7C8791),
                                       size: 24.0,
@@ -242,7 +242,7 @@ class _BottomPlantManagementWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 12.0, 16.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -252,7 +252,7 @@ class _BottomPlantManagementWidgetState
                             onTap: () async {
                               HapticFeedback.lightImpact();
                               await UserplantActionsTable().insert({
-                                'user_plant_id': widget!.userPlantID,
+                                'user_plant_id': widget.userPlantID,
                                 'action_type': 'Pest',
                                 'action_date': supaSerialize<DateTime>(
                                     getCurrentTimestamp),
@@ -263,7 +263,7 @@ class _BottomPlantManagementWidgetState
                                 },
                                 matchingRows: (rows) => rows.eqOrNull(
                                   'user_plant_id',
-                                  widget!.userPlantID,
+                                  widget.userPlantID,
                                 ),
                               );
                               Navigator.pop(context);
@@ -282,7 +282,7 @@ class _BottomPlantManagementWidgetState
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 12.0, 8.0, 12.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -317,7 +317,7 @@ class _BottomPlantManagementWidgetState
                                             ),
                                       ),
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.chevron_right_rounded,
                                       color: Color(0xFF7C8791),
                                       size: 24.0,
@@ -329,7 +329,7 @@ class _BottomPlantManagementWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 12.0, 16.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -339,7 +339,7 @@ class _BottomPlantManagementWidgetState
                             onTap: () async {
                               HapticFeedback.lightImpact();
                               await UserplantActionsTable().insert({
-                                'user_plant_id': widget!.userPlantID,
+                                'user_plant_id': widget.userPlantID,
                                 'action_type': 'Waste',
                                 'action_date': supaSerialize<DateTime>(
                                     getCurrentTimestamp),
@@ -350,7 +350,7 @@ class _BottomPlantManagementWidgetState
                                 },
                                 matchingRows: (rows) => rows.eqOrNull(
                                   'user_plant_id',
-                                  widget!.userPlantID,
+                                  widget.userPlantID,
                                 ),
                               );
                               Navigator.pop(context);
@@ -370,7 +370,7 @@ class _BottomPlantManagementWidgetState
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 12.0, 8.0, 12.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -405,7 +405,7 @@ class _BottomPlantManagementWidgetState
                                             ),
                                       ),
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.chevron_right_rounded,
                                       color: Color(0xFF7C8791),
                                       size: 24.0,
@@ -425,7 +425,7 @@ class _BottomPlantManagementWidgetState
                     children: [
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderRadius: 8.0,
                           buttonSize: 40.0,

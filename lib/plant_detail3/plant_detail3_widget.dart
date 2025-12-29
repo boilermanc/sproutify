@@ -71,7 +71,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -82,7 +82,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
           ),
           title: Text(
             valueOrDefault<String>(
-              widget!.plantName,
+              widget.plantName,
               'Plant Name',
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -99,7 +99,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -114,7 +114,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                   future: PlantsTable().querySingleRow(
                     queryFn: (q) => q.eqOrNull(
                       'plant_name',
-                      widget!.plantName,
+                      widget.plantName,
                     ),
                   ),
                   builder: (context, snapshot) {
@@ -144,14 +144,14 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                       scrollDirection: Axis.vertical,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
                                   child: Image.network(
@@ -170,14 +170,14 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 10.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   HapticFeedback.lightImpact();
                                   // insertUserPlants
                                   await UserplantsTable().insert({
-                                    'plant_id': listViewPlantsRow?.plantId,
+                                    'plant_id': listViewPlantsRow.plantId,
                                     'user_id': currentUserUid,
                                   });
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -190,7 +190,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                                           fontSize: 18.0,
                                         ),
                                       ),
-                                      duration: Duration(milliseconds: 5300),
+                                      duration: const Duration(milliseconds: 5300),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).success,
                                     ),
@@ -202,9 +202,9 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                                 text: 'Add to My Plants',
                                 options: FFButtonOptions(
                                   height: 40.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -230,7 +230,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                                             .fontStyle,
                                       ),
                                   elevation: 3.0,
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),
@@ -241,7 +241,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -249,7 +249,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               Flexible(
                                 child: Text(
                                   valueOrDefault<String>(
-                                    listViewPlantsRow?.plantName,
+                                    listViewPlantsRow.plantName,
                                     'plant name',
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -274,7 +274,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -282,7 +282,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               Flexible(
                                 child: Text(
                                   valueOrDefault<String>(
-                                    listViewPlantsRow?.shortDescription,
+                                    listViewPlantsRow.shortDescription,
                                     'short description',
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -308,13 +308,13 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 5.0, 0.0),
                                 child: Text(
                                   'Growing Season:',
@@ -338,7 +338,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               ),
                               Text(
                                 valueOrDefault<String>(
-                                  listViewPlantsRow?.growingSeason,
+                                  listViewPlantsRow.growingSeason,
                                   'growing_season',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -361,13 +361,13 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 5.0, 0.0),
                                 child: Text(
                                   'Harvest Method:',
@@ -391,7 +391,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               ),
                               Text(
                                 valueOrDefault<String>(
-                                  listViewPlantsRow?.harvestMethod,
+                                  listViewPlantsRow.harvestMethod,
                                   'harvest_method',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -414,13 +414,13 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 5.0, 0.0),
                                 child: Text(
                                   'First Harvest:',
@@ -444,7 +444,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               ),
                               Text(
                                 valueOrDefault<String>(
-                                  listViewPlantsRow?.firstHarvest,
+                                  listViewPlantsRow.firstHarvest,
                                   'first harvest',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -467,13 +467,13 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 5.0, 0.0),
                                 child: Text(
                                   'Final Harvest:',
@@ -497,7 +497,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               ),
                               Text(
                                 valueOrDefault<String>(
-                                  listViewPlantsRow?.finalHarvest,
+                                  listViewPlantsRow.finalHarvest,
                                   'final harvest',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -520,13 +520,13 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 5.0, 0.0),
                                 child: Text(
                                   'Best Placement:',
@@ -550,7 +550,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               ),
                               Text(
                                 valueOrDefault<String>(
-                                  listViewPlantsRow?.bestPlacement,
+                                  listViewPlantsRow.bestPlacement,
                                   'best placement',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -573,13 +573,13 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 5.0, 0.0),
                                 child: Text(
                                   'Indoor/Outdoor:',
@@ -603,7 +603,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               ),
                               Text(
                                 valueOrDefault<String>(
-                                  listViewPlantsRow?.indoorOutdoor,
+                                  listViewPlantsRow.indoorOutdoor,
                                   'indoor outdoor',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -626,7 +626,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -653,9 +653,9 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 10.0, 0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -663,7 +663,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               children: [
                                 Text(
                                   valueOrDefault<String>(
-                                    listViewPlantsRow?.averageRating
+                                    listViewPlantsRow.averageRating
                                         ?.toString(),
                                     'average rating',
                                   ),
@@ -694,7 +694,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -709,7 +709,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                                 ),
                                 direction: Axis.horizontal,
                                 initialRating: _model.ratingBarValue ??=
-                                    listViewPlantsRow!.averageRating!,
+                                    listViewPlantsRow.averageRating!,
                                 unratedColor:
                                     FlutterFlowTheme.of(context).accent3,
                                 itemCount: 5,

@@ -16,7 +16,7 @@ class PlantCatagoriesWidget extends StatefulWidget {
   const PlantCatagoriesWidget({
     super.key,
     int? categoryID,
-  }) : this.categoryID = categoryID ?? 1;
+  }) : categoryID = categoryID ?? 1;
 
   final int categoryID;
 
@@ -72,7 +72,7 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                   },
                   child: Padding(
                     padding: MediaQuery.viewInsetsOf(context),
-                    child: BottomPlantCatagoriesWidget(),
+                    child: const BottomPlantCatagoriesWidget(),
                   ),
                 );
               },
@@ -94,7 +94,7 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -119,26 +119,26 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: FutureBuilder<List<ViewPlantDetailsByCategoryRow>>(
                       future: ViewPlantDetailsByCategoryTable().queryRows(
                         queryFn: (q) => q
                             .eqOrNull(
                               'category_id',
-                              widget!.categoryID,
+                              widget.categoryID,
                             )
                             .order('plant_name', ascending: true),
                       ),
@@ -164,7 +164,7 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                         return GridView.builder(
                           padding: EdgeInsets.zero,
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
@@ -214,10 +214,10 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 0.0, 0.0),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
+                                        borderRadius: const BorderRadius.only(
                                           bottomLeft: Radius.circular(0.0),
                                           bottomRight: Radius.circular(0.0),
                                           topLeft: Radius.circular(0.0),

@@ -142,3 +142,4 @@ INSERT INTO profanity_filter (word, severity, context) VALUES
   ('pot', 'low', 'drugs')
 ON CONFLICT (word) DO NOTHING;
 
+

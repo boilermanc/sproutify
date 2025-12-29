@@ -10,7 +10,7 @@ class FavoriteToggleSignalTable extends SupabaseTable<FavoriteToggleSignalRow> {
 }
 
 class FavoriteToggleSignalRow extends SupabaseDataRow {
-  FavoriteToggleSignalRow(Map<String, dynamic> data) : super(data);
+  FavoriteToggleSignalRow(super.data);
 
   @override
   SupabaseTable get table => FavoriteToggleSignalTable();

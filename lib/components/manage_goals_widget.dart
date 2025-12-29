@@ -63,13 +63,13 @@ class _ManageGoalsWidgetState extends State<ManageGoalsWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16.0, 46.0, 16.0, 16.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 46.0, 16.0, 16.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +111,7 @@ class _ManageGoalsWidgetState extends State<ManageGoalsWidget> {
                       }
                     },
                   ),
-                ].divide(SizedBox(width: 12.0)),
+                ].divide(const SizedBox(width: 12.0)),
               ),
               FutureBuilder<List<GardeningGoalsRow>>(
                 future: GardeningGoalsTable().queryRows(
@@ -147,7 +147,7 @@ class _ManageGoalsWidgetState extends State<ManageGoalsWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 5.0, 0.0, 5.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -194,9 +194,9 @@ class _ManageGoalsWidgetState extends State<ManageGoalsWidget> {
                                                 null)
                                         ? '#dadbd7'
                                         : '#FFFFFF',
-                                    defaultColor: Color(0xFFDADBD7),
+                                    defaultColor: const Color(0xFFDADBD7),
                                   ),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 4.0,
                                       color: Color(0x33000000),
@@ -209,7 +209,7 @@ class _ManageGoalsWidgetState extends State<ManageGoalsWidget> {
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16.0, 16.0, 16.0, 16.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -257,19 +257,19 @@ class _ManageGoalsWidgetState extends State<ManageGoalsWidget> {
                                               ),
                                         ),
                                       ),
-                                    ].divide(SizedBox(width: 16.0)),
+                                    ].divide(const SizedBox(width: 16.0)),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ].divide(SizedBox(height: 16.0)),
+                        ].divide(const SizedBox(height: 16.0)),
                       );
                     },
                   );
                 },
               ),
-            ].divide(SizedBox(height: 16.0)),
+            ].divide(const SizedBox(height: 16.0)),
           ),
         ),
       ),

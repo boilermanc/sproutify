@@ -58,14 +58,14 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Container(
             width: 300.0,
             height: 400.0,
@@ -82,7 +82,7 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                           ..complete(ProductsTable().querySingleRow(
                             queryFn: (q) => q.eqOrNull(
                               'productid',
-                              widget!.productID,
+                              widget.productID,
                             ),
                           )))
                         .future,
@@ -112,7 +112,7 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                     scrollDirection: Axis.vertical,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 10.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -137,7 +137,7 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                                   ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 20.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -159,7 +159,7 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 10.0, 20.0, 15.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -194,13 +194,13 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 100.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.enterCostTextController,
@@ -317,15 +317,15 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 150.0, 0.0),
-                                child: Container(
+                                child: SizedBox(
                                   width: 7.0,
                                   child: TextFormField(
                                     controller:
@@ -481,7 +481,7 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                                           .secondaryBackground,
                                     ),
                                   ),
-                                  duration: Duration(milliseconds: 4000),
+                                  duration: const Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).success,
                                 ),
@@ -501,9 +501,9 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                             text: 'Add to Inventory',
                             options: FFButtonOptions(
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -528,7 +528,7 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
                                         .fontStyle,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),

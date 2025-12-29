@@ -48,7 +48,7 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
     Function(bool) onChanged,
   ) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -60,7 +60,7 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 8.0, 12.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 8.0, 12.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,17 +119,17 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12.0),
           child: Container(
             width: 300.0,
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxHeight: 550.0,
             ),
             decoration: BoxDecoration(
@@ -141,7 +141,7 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
               children: [
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 0.0, 20.0),
+                      const EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 0.0, 20.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,7 +167,7 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderRadius: 8.0,
                           buttonSize: 40.0,
@@ -188,7 +188,7 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Container(
                       width: 308.0,
                       decoration: BoxDecoration(
@@ -196,7 +196,7 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: FutureBuilder<
                             List<UserGardeningPlantPreferencesRow>>(
                           future:

@@ -11,7 +11,7 @@ class AllUnreadNotificationsTable
 }
 
 class AllUnreadNotificationsRow extends SupabaseDataRow {
-  AllUnreadNotificationsRow(Map<String, dynamic> data) : super(data);
+  AllUnreadNotificationsRow(super.data);
 
   @override
   SupabaseTable get table => AllUnreadNotificationsTable();

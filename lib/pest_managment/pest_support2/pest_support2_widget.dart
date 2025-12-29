@@ -61,7 +61,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -90,7 +90,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -105,7 +105,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
                       child: Container(
                         width: 390.0,
                         decoration: BoxDecoration(
@@ -117,7 +117,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 'Welcome to support',
@@ -139,7 +139,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 'Having Pest or Disease Issues?',
@@ -169,14 +169,14 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
                         child: GridView(
                           padding: EdgeInsets.zero,
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             crossAxisSpacing: 10.0,
                             childAspectRatio: 1.0,
@@ -214,7 +214,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
                                       child: Text(
                                         'Aphids',
@@ -277,7 +277,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
                                       child: Text(
                                         'Gnats',
@@ -340,7 +340,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
                                       child: Text(
                                         'Worms',
@@ -395,7 +395,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
@@ -408,7 +408,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
                                       child: Text(
                                         'Whiteflies',
@@ -472,7 +472,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
                                       child: Text(
                                         'Beneficials',
@@ -536,7 +536,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
                                       child: Text(
                                         'Pesticides',
@@ -582,7 +582,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 12.0, 0.0, 4.0),
                             child: Text(
                               'Review FAQ\'s below',
@@ -613,7 +613,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                     Expanded(
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                         child: FutureBuilder<List<PestContentRow>>(
                           future: PestContentTable().queryRows(
                             queryFn: (q) => q.eqOrNull(
@@ -648,10 +648,10 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                 final listViewPestContentRow =
                                     listViewPestContentRowList[listViewIndex];
                                 return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 5.0, 5.0, 5.0),
                                   child: Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: Container(
                                       width: double.infinity,
                                       color: Colors.white,
@@ -660,7 +660,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                         child: ExpandablePanel(
                                           header: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     5.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               listViewPestContentRow
@@ -711,7 +711,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                           ),
                                           expanded: Container(
                                             height: 500.0,
-                                            decoration: BoxDecoration(),
+                                            decoration: const BoxDecoration(),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
@@ -722,7 +722,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                                     Flexible(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     5.0,
                                                                     0.0,
@@ -785,7 +785,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                                       Flexible(
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       5.0,
                                                                       8.0,
@@ -848,7 +848,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                                               ],
                                             ),
                                           ),
-                                          theme: ExpandableThemeData(
+                                          theme: const ExpandableThemeData(
                                             tapHeaderToExpand: true,
                                             tapBodyToExpand: false,
                                             tapBodyToCollapse: false,

@@ -73,7 +73,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -97,7 +97,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                       FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -107,14 +107,14 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [],
               ),
               Flexible(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
                   child: FutureBuilder<List<UserFavoritePlantsRow>>(
                     future: (_model.requestCompleter ??=
                             Completer<List<UserFavoritePlantsRow>>()
@@ -144,7 +144,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                           listViewUserFavoritePlantsRowList = snapshot.data!;
 
                       if (listViewUserFavoritePlantsRowList.isEmpty) {
-                        return Center(
+                        return const Center(
                           child: NoFavoritesWidget(),
                         );
                       }
@@ -157,7 +157,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                           final listViewUserFavoritePlantsRow =
                               listViewUserFavoritePlantsRowList[listViewIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 1.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -169,7 +169,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                   PlantDetail3Widget.routeName,
                                   queryParameters: {
                                     'plantID': serializeParam(
-                                      widget!.myPlantID,
+                                      widget.myPlantID,
                                       ParamType.int,
                                     ),
                                     'plantName': serializeParam(
@@ -193,7 +193,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                       blurRadius: 0.0,
                                       color: FlutterFlowTheme.of(context)
                                           .alternate,
-                                      offset: Offset(
+                                      offset: const Offset(
                                         0.0,
                                         1.0,
                                       ),
@@ -201,15 +201,15 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                   ],
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 10.0, 0.0, 10.0),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
+                                          borderRadius: const BorderRadius.only(
                                             bottomLeft: Radius.circular(5.0),
                                             bottomRight: Radius.circular(5.0),
                                             topLeft: Radius.circular(5.0),
@@ -231,7 +231,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 0.0, 0.0, 0.0),
                                               child: Text(
@@ -272,7 +272,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 4.0, 0.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -280,7 +280,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                   Flexible(
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   12.0,
                                                                   0.0,
@@ -329,7 +329,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 10.0, 5.0),
                                         child: Builder(
                                           builder: (context) {
@@ -366,7 +366,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                         )
                                                         .eqOrNull(
                                                           'plant_id',
-                                                          widget!.myPlantID,
+                                                          widget.myPlantID,
                                                         ),
                                                   );
                                                   safeSetState(() => _model
@@ -404,7 +404,7 @@ class _PlantFavoritesWidgetState extends State<PlantFavoritesWidget>
                                                         )
                                                         .eqOrNull(
                                                           'plant_id',
-                                                          widget!.myPlantID,
+                                                          widget.myPlantID,
                                                         ),
                                                   );
                                                   safeSetState(() => _model

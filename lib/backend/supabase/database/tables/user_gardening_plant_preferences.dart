@@ -11,7 +11,7 @@ class UserGardeningPlantPreferencesTable
 }
 
 class UserGardeningPlantPreferencesRow extends SupabaseDataRow {
-  UserGardeningPlantPreferencesRow(Map<String, dynamic> data) : super(data);
+  UserGardeningPlantPreferencesRow(super.data);
 
   @override
   SupabaseTable get table => UserGardeningPlantPreferencesTable();

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../backend/supabase/supabase.dart';
 import '../../flutter_flow/flutter_flow_util.dart';

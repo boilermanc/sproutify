@@ -66,7 +66,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -84,7 +84,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                   children: [
                     Text(
                       valueOrDefault<String>(
-                        widget!.productName,
+                        widget.productName,
                         'Product Name',
                       ),
                       style:
@@ -109,7 +109,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
               ),
             ],
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -118,15 +118,15 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
@@ -134,7 +134,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                 future: ProductsWithVendorsTable().querySingleRow(
                   queryFn: (q) => q.eqOrNull(
                     'productid',
-                    widget!.productID,
+                    widget.productID,
                   ),
                 ),
                 builder: (context, snapshot) {
@@ -170,7 +170,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 20.0, 0.0, 0.0),
                               child: Container(
                                 width: 100.0,
@@ -204,11 +204,11 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                         children: [
                           Flexible(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   20.0, 20.0, 0.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
-                                  listViewProductsWithVendorsRow?.productname,
+                                  listViewProductsWithVendorsRow.productname,
                                   'product name',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -236,11 +236,11 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                         children: [
                           Flexible(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   20.0, 20.0, 10.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
-                                  listViewProductsWithVendorsRow?.description,
+                                  listViewProductsWithVendorsRow.description,
                                   'description',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -268,20 +268,20 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                           ),
                         ],
                       ),
-                      Row(
+                      const Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [],
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            if (listViewProductsWithVendorsRow?.vendorid !=
+                            if (listViewProductsWithVendorsRow.vendorid !=
                                 null)
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 10.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -308,12 +308,12 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                           ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 0.0, 0.0, 0.0),
                                       child: Text(
                                         valueOrDefault<String>(
                                           listViewProductsWithVendorsRow
-                                              ?.vendorname,
+                                              .vendorname,
                                           ' Vendor',
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -343,13 +343,13 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   15.0, 0.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -374,7 +374,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                               MediaQuery.viewInsetsOf(context),
                                           child: AddYourProductWidget(
                                             productID:
-                                                listViewProductsWithVendorsRow!
+                                                listViewProductsWithVendorsRow
                                                     .productid!,
                                           ),
                                         ),
@@ -386,14 +386,14 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                   width: 250.0,
                                   height: 55.0,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFFE4EFD0),
+                                    color: const Color(0xFFE4EFD0),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 0.0, 10.0, 0.0),
                                         child: Text(
                                           'Add to my supplies',
@@ -431,7 +431,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                           ],
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 10.0, 0.0, 0.0),
                         child: Row(
@@ -439,17 +439,17 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                           children: [],
                         ),
                       ),
-                      Row(
+                      const Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [],
                       ),
-                      if (listViewProductsWithVendorsRow?.affiliatelink !=
+                      if (listViewProductsWithVendorsRow.affiliatelink !=
                               null &&
-                          listViewProductsWithVendorsRow?.affiliatelink != '')
+                          listViewProductsWithVendorsRow.affiliatelink != '')
                         Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 20.0, 20.0, 0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -460,16 +460,16 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                     FFButtonWidget(
                                       onPressed: () async {
                                         await launchURL(
-                                            listViewProductsWithVendorsRow!
+                                            listViewProductsWithVendorsRow
                                                 .affiliatelink!);
                                       },
                                       text: 'Buy Now',
                                       options: FFButtonOptions(
                                         height: 40.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
@@ -498,7 +498,7 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                                                       .fontStyle,
                                             ),
                                         elevation: 3.0,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),
@@ -517,29 +517,29 @@ class _SuppliesDetailWidgetState extends State<SuppliesDetailWidget> {
                             ),
                           ),
                         ),
-                      Row(
+                      const Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [],
                       ),
-                      Row(
+                      const Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [],
                       ),
-                      Row(
+                      const Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [],
                       ),
-                      Row(
+                      const Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [],
                       ),
-                      Row(
+                      const Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [],
                       ),
-                      Row(
+                      const Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [],
                       ),

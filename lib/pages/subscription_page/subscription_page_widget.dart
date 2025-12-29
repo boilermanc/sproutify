@@ -1,5 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -601,7 +602,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
               // Terms and privacy
               Padding(
                 padding:
-                    const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 32.0),
+                    const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
                 child: Text(
                   'Subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. Payment will be charged to your App Store account.',
                   textAlign: TextAlign.center,
@@ -610,6 +611,47 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                     fontSize: 12.0,
                     letterSpacing: 0.0,
                   ),
+                ),
+              ),
+              // Terms and Privacy Links
+              Padding(
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 32.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
+                      child: Text(
+                        'Terms of Use',
+                        style: GoogleFonts.readexPro(
+                          color: FlutterFlowTheme.of(context).primary,
+                          fontSize: 12.0,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '|',
+                      style: GoogleFonts.readexPro(
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        fontSize: 12.0,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () => launchUrl(Uri.parse('https://www.sproutify.app/index.php/privacy-policy-2/')),
+                      child: Text(
+                        'Privacy Policy',
+                        style: GoogleFonts.readexPro(
+                          color: FlutterFlowTheme.of(context).primary,
+                          fontSize: 12.0,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

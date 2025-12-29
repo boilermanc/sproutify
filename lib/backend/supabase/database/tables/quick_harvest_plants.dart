@@ -10,7 +10,7 @@ class QuickHarvestPlantsTable extends SupabaseTable<QuickHarvestPlantsRow> {
 }
 
 class QuickHarvestPlantsRow extends SupabaseDataRow {
-  QuickHarvestPlantsRow(Map<String, dynamic> data) : super(data);
+  QuickHarvestPlantsRow(super.data);
 
   @override
   SupabaseTable get table => QuickHarvestPlantsTable();

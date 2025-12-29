@@ -74,7 +74,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
@@ -87,7 +87,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Text(
                   'Caterpillars and Worms',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -110,7 +110,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
@@ -122,7 +122,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10.0, 8.0, 10.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 8.0, 10.0, 0.0),
                 child: Text(
                   'Keeping Your Garden Free from Caterpillars and Worms',
                   textAlign: TextAlign.center,
@@ -142,7 +142,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
                 child: Text(
                   'Caterpillars and worms can turn lush gardens into their personal feasting grounds if left unchecked. These voracious eaters chew through leaves, stems, and fruits, causing extensive damage. Regular monitoring and prompt removal of these pests are essential. Introducing beneficial insects that prey on them or applying organic deterrents can help preserve your garden\'s bounty without resorting to harsh chemicals.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -169,7 +169,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 color: FlutterFlowTheme.of(context).alternate,
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -226,9 +226,9 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                           listViewPestContentRowList[listViewIndex];
                       return Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Container(
                             width: double.infinity,
                             color: Colors.white,
@@ -236,7 +236,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                               initialExpanded: false,
                               child: ExpandablePanel(
                                 header: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     listViewPestContentRow.contentTitle,
@@ -279,7 +279,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 5.0, 10.0, 5.0),
                                       child: Text(
                                         listViewPestContentRow.contentBody,
@@ -296,7 +296,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color: Color(0x8A000000),
+                                              color: const Color(0x8A000000),
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -311,7 +311,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                                     ),
                                   ],
                                 ),
-                                theme: ExpandableThemeData(
+                                theme: const ExpandableThemeData(
                                   tapHeaderToExpand: true,
                                   tapBodyToExpand: false,
                                   tapBodyToCollapse: false,

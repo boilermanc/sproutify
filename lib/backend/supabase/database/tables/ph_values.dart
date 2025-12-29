@@ -9,7 +9,7 @@ class PhValuesTable extends SupabaseTable<PhValuesRow> {
 }
 
 class PhValuesRow extends SupabaseDataRow {
-  PhValuesRow(Map<String, dynamic> data) : super(data);
+  PhValuesRow(super.data);
 
   @override
   SupabaseTable get table => PhValuesTable();

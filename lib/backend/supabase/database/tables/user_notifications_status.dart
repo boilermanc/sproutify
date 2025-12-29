@@ -11,7 +11,7 @@ class UserNotificationsStatusTable
 }
 
 class UserNotificationsStatusRow extends SupabaseDataRow {
-  UserNotificationsStatusRow(Map<String, dynamic> data) : super(data);
+  UserNotificationsStatusRow(super.data);
 
   @override
   SupabaseTable get table => UserNotificationsStatusTable();

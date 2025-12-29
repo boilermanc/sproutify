@@ -9,7 +9,7 @@ class PhEchistoryTable extends SupabaseTable<PhEchistoryRow> {
 }
 
 class PhEchistoryRow extends SupabaseDataRow {
-  PhEchistoryRow(Map<String, dynamic> data) : super(data);
+  PhEchistoryRow(super.data);
 
   @override
   SupabaseTable get table => PhEchistoryTable();

@@ -53,27 +53,27 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxWidth: 770.0,
         ),
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
               child: Align(
-                alignment: AlignmentDirectional(0.0, -1.0),
+                alignment: const AlignmentDirectional(0.0, -1.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             12.0, 12.0, 12.0, 0.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.0),
@@ -86,7 +86,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context).accent4,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x33000000),
@@ -109,21 +109,21 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                   Expanded(
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(0.0, -1.0),
+                                          const AlignmentDirectional(0.0, -1.0),
                                       child: Builder(
                                         builder: (context) {
                                           final chat =
                                               _model.chatHistory?.toList() ??
                                                   [];
                                           if (chat.isEmpty) {
-                                            return Container(
+                                            return SizedBox(
                                               width: double.infinity,
-                                              child: EmptyListWidget(),
+                                              child: const EmptyListWidget(),
                                             );
                                           }
 
                                           return ListView.builder(
-                                            padding: EdgeInsets.fromLTRB(
+                                            padding: const EdgeInsets.fromLTRB(
                                               0,
                                               16.0,
                                               0,
@@ -134,7 +134,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                             itemBuilder: (context, chatIndex) {
                                               final chatItem = chat[chatIndex];
                                               return Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 12.0, 12.0, 0.0),
                                                 child: Column(
@@ -179,10 +179,10 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                   ),
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xFFF6E9C7),
                                                                     borderRadius:
-                                                                        BorderRadius
+                                                                        const BorderRadius
                                                                             .only(
                                                                       bottomLeft:
                                                                           Radius.circular(
@@ -209,7 +209,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                   ),
                                                                   child:
                                                                       Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             12.0,
                                                                             8.0,
@@ -249,7 +249,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           2.0,
@@ -300,7 +300,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                                 ),
                                                                           ),
                                                                           duration:
-                                                                              Duration(milliseconds: 2000),
+                                                                              const Duration(milliseconds: 2000),
                                                                           backgroundColor:
                                                                               FlutterFlowTheme.of(context).primary,
                                                                         ),
@@ -309,10 +309,10 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                     child:
                                                                         Container(
                                                                       decoration:
-                                                                          BoxDecoration(),
+                                                                          const BoxDecoration(),
                                                                       child:
                                                                           Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             4.0,
                                                                             12.0,
@@ -323,7 +323,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                               MainAxisSize.max,
                                                                           children: [
                                                                             Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                                                                               child: Icon(
                                                                                 Icons.content_copy,
                                                                                 color: FlutterFlowTheme.of(context).secondaryText,
@@ -331,7 +331,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                               ),
                                                                             ),
                                                                             Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                                                                               child: Text(
                                                                                 'Copy response',
                                                                                 style: FlutterFlowTheme.of(context).labelSmall.override(
@@ -389,7 +389,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                       .of(context)
                                                                   .primaryBackground,
                                                               borderRadius:
-                                                                  BorderRadius
+                                                                  const BorderRadius
                                                                       .only(
                                                                 bottomLeft: Radius
                                                                     .circular(
@@ -413,7 +413,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                             ),
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           8.0,
@@ -478,7 +478,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                           model: _model.writingIndicatorModel,
                                           updateCallback: () =>
                                               safeSetState(() {}),
-                                          child: WritingIndicatorWidget(),
+                                          child: const WritingIndicatorWidget(),
                                         ),
                                       ],
                                     ),
@@ -494,12 +494,12 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 3.0,
                       color: Color(0x33000000),
@@ -513,7 +513,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                 ),
                 child: Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: TextFormField(
                         controller: _model.chatInputFieldTextController,
@@ -589,7 +589,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                             ),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
-                          contentPadding: EdgeInsetsDirectional.fromSTEB(
+                          contentPadding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 24.0, 70.0, 24.0),
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -629,7 +629,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(1.0, 0.0),
+                      alignment: const AlignmentDirectional(1.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -700,7 +700,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                             .fontStyle,
                                       ),
                                 ),
-                                duration: Duration(milliseconds: 4000),
+                                duration: const Duration(milliseconds: 4000),
                                 backgroundColor:
                                     FlutterFlowTheme.of(context).error,
                               ),
@@ -710,13 +710,13 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                           }
 
                           await Future.delayed(
-                            Duration(
+                            const Duration(
                               milliseconds: 800,
                             ),
                           );
                           await _model.listViewController?.animateTo(
                             _model.listViewController!.position.maxScrollExtent,
-                            duration: Duration(milliseconds: 100),
+                            duration: const Duration(milliseconds: 100),
                             curve: Curves.ease,
                           );
 
@@ -736,7 +736,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
               Container(
                 width: 100.0,
                 height: 60.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
               ),
           ],
         ),

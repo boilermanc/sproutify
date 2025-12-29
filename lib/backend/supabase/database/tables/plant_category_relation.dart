@@ -11,7 +11,7 @@ class PlantCategoryRelationTable
 }
 
 class PlantCategoryRelationRow extends SupabaseDataRow {
-  PlantCategoryRelationRow(Map<String, dynamic> data) : super(data);
+  PlantCategoryRelationRow(super.data);
 
   @override
   SupabaseTable get table => PlantCategoryRelationTable();

@@ -61,8 +61,8 @@ class _OnboardingQuestionsCopyWidgetState
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -80,8 +80,8 @@ class _OnboardingQuestionsCopyWidgetState
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.4, 0.4),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.4, 0.4),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -99,8 +99,8 @@ class _OnboardingQuestionsCopyWidgetState
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -118,8 +118,8 @@ class _OnboardingQuestionsCopyWidgetState
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -137,8 +137,8 @@ class _OnboardingQuestionsCopyWidgetState
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -156,8 +156,8 @@ class _OnboardingQuestionsCopyWidgetState
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -175,8 +175,8 @@ class _OnboardingQuestionsCopyWidgetState
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -194,8 +194,8 @@ class _OnboardingQuestionsCopyWidgetState
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.5, 0.5),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.5, 0.5),
+            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -248,7 +248,7 @@ class _OnboardingQuestionsCopyWidgetState
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 2.0,
           ),
@@ -262,7 +262,7 @@ class _OnboardingQuestionsCopyWidgetState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -336,7 +336,7 @@ class _OnboardingQuestionsCopyWidgetState
                                   });
                                 }
                                 await _model.collectInfoController?.nextPage(
-                                  duration: Duration(milliseconds: 300),
+                                  duration: const Duration(milliseconds: 300),
                                   curve: Curves.ease,
                                 );
                               },
@@ -368,14 +368,14 @@ class _OnboardingQuestionsCopyWidgetState
                         ).animateOnPageLoad(
                             animationsMap['textOnPageLoadAnimation2']!),
                         Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: SingleChildScrollView(
                             primary: false,
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -387,7 +387,7 @@ class _OnboardingQuestionsCopyWidgetState
                                               AutovalidateMode.disabled,
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 32.0),
                                             child: ListView(
                                               padding: EdgeInsets.zero,
@@ -396,7 +396,7 @@ class _OnboardingQuestionsCopyWidgetState
                                               scrollDirection: Axis.vertical,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(16.0, 12.0,
                                                           16.0, 0.0),
                                                   child: Container(
@@ -425,7 +425,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       12.0,
@@ -503,7 +503,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                           width:
                                                                               2,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).secondaryText!,
+                                                                              FlutterFlowTheme.of(context).secondaryText,
                                                                         )
                                                                       : null,
                                                                   activeColor:
@@ -521,7 +521,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -564,7 +564,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(16.0, 12.0,
                                                           16.0, 0.0),
                                                   child: Container(
@@ -593,7 +593,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       12.0,
@@ -671,7 +671,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                           width:
                                                                               2,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).secondaryText!,
+                                                                              FlutterFlowTheme.of(context).secondaryText,
                                                                         )
                                                                       : null,
                                                                   activeColor:
@@ -689,7 +689,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -732,7 +732,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(16.0, 12.0,
                                                           16.0, 0.0),
                                                   child: Container(
@@ -761,7 +761,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       12.0,
@@ -839,7 +839,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                           width:
                                                                               2,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).secondaryText!,
+                                                                              FlutterFlowTheme.of(context).secondaryText,
                                                                         )
                                                                       : null,
                                                                   activeColor:
@@ -857,7 +857,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -900,7 +900,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(16.0, 12.0,
                                                           16.0, 0.0),
                                                   child: Container(
@@ -929,7 +929,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       12.0,
@@ -1007,7 +1007,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                           width:
                                                                               2,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).secondaryText!,
+                                                                              FlutterFlowTheme.of(context).secondaryText,
                                                                         )
                                                                       : null,
                                                                   activeColor:
@@ -1025,7 +1025,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -1068,7 +1068,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(16.0, 12.0,
                                                           16.0, 0.0),
                                                   child: Container(
@@ -1097,7 +1097,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       12.0,
@@ -1175,7 +1175,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                           width:
                                                                               2,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).secondaryText!,
+                                                                              FlutterFlowTheme.of(context).secondaryText,
                                                                         )
                                                                       : null,
                                                                   activeColor:
@@ -1193,7 +1193,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -1257,13 +1257,13 @@ class _OnboardingQuestionsCopyWidgetState
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 20.0, 0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -1293,7 +1293,7 @@ class _OnboardingQuestionsCopyWidgetState
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Text(
                               'Whether your a beginer or an expert, we want to be a resource to help you meet your goals.',
@@ -1326,7 +1326,7 @@ class _OnboardingQuestionsCopyWidgetState
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 32.0),
                                   child: ListView(
                                     padding: EdgeInsets.zero,
@@ -1335,7 +1335,7 @@ class _OnboardingQuestionsCopyWidgetState
                                     scrollDirection: Axis.vertical,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 6.0, 16.0, 0.0),
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -1356,7 +1356,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -1413,14 +1413,14 @@ class _OnboardingQuestionsCopyWidgetState
                                                               (rows) =>
                                                                   rows.eqOrNull(
                                                             'id',
-                                                            widget!.userID,
+                                                            widget.userID,
                                                           ),
                                                         );
                                                         await _model
                                                             .collectInfoController
                                                             ?.animateToPage(
                                                           2,
-                                                          duration: Duration(
+                                                          duration: const Duration(
                                                               milliseconds:
                                                                   500),
                                                           curve: Curves.ease,
@@ -1439,7 +1439,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 8.0, 12.0),
                                                 child: Text(
@@ -1481,7 +1481,7 @@ class _OnboardingQuestionsCopyWidgetState
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 6.0, 16.0, 0.0),
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -1502,7 +1502,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -1568,7 +1568,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                             .collectInfoController
                                                             ?.animateToPage(
                                                           2,
-                                                          duration: Duration(
+                                                          duration: const Duration(
                                                               milliseconds:
                                                                   500),
                                                           curve: Curves.ease,
@@ -1587,7 +1587,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 8.0, 12.0),
                                                 child: Text(
@@ -1629,7 +1629,7 @@ class _OnboardingQuestionsCopyWidgetState
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 6.0, 16.0, 0.0),
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -1650,7 +1650,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -1716,7 +1716,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                             .collectInfoController
                                                             ?.animateToPage(
                                                           2,
-                                                          duration: Duration(
+                                                          duration: const Duration(
                                                               milliseconds:
                                                                   500),
                                                           curve: Curves.ease,
@@ -1735,7 +1735,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 8.0, 12.0),
                                                 child: Text(
@@ -1777,7 +1777,7 @@ class _OnboardingQuestionsCopyWidgetState
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 6.0, 16.0, 0.0),
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -1798,7 +1798,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -1867,7 +1867,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                             .collectInfoController
                                                             ?.animateToPage(
                                                           2,
-                                                          duration: Duration(
+                                                          duration: const Duration(
                                                               milliseconds:
                                                                   500),
                                                           curve: Curves.ease,
@@ -1886,7 +1886,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 8.0, 12.0),
                                                 child: Text(
@@ -1928,7 +1928,7 @@ class _OnboardingQuestionsCopyWidgetState
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 6.0, 16.0, 0.0),
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -1949,7 +1949,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -2018,7 +2018,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                             .collectInfoController
                                                             ?.animateToPage(
                                                           2,
-                                                          duration: Duration(
+                                                          duration: const Duration(
                                                               milliseconds:
                                                                   500),
                                                           curve: Curves.ease,
@@ -2037,7 +2037,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 8.0, 12.0),
                                                 child: Text(
@@ -2095,7 +2095,7 @@ class _OnboardingQuestionsCopyWidgetState
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2124,7 +2124,7 @@ class _OnboardingQuestionsCopyWidgetState
                           ).animateOnPageLoad(
                               animationsMap['textOnPageLoadAnimation5']!),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Text(
                               'Deciding on the type of plants you like to grow makes it easier to get started. Some plants are easier to grow then others. ',
@@ -2223,7 +2223,7 @@ class _OnboardingQuestionsCopyWidgetState
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 32.0),
                                   child: ListView(
                                     padding: EdgeInsets.zero,
@@ -2232,7 +2232,7 @@ class _OnboardingQuestionsCopyWidgetState
                                     scrollDirection: Axis.vertical,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 12.0, 16.0, 0.0),
                                         child: Container(
                                           width: 100.0,
@@ -2254,7 +2254,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -2332,7 +2332,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                 width: 2,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryText!,
+                                                                    .secondaryText,
                                                               )
                                                             : null,
                                                         activeColor:
@@ -2353,7 +2353,7 @@ class _OnboardingQuestionsCopyWidgetState
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 12.0, 16.0, 0.0),
                                         child: Container(
                                           width: 100.0,
@@ -2375,7 +2375,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -2456,7 +2456,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                 width: 2,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryText!,
+                                                                    .secondaryText,
                                                               )
                                                             : null,
                                                         activeColor:
@@ -2477,7 +2477,7 @@ class _OnboardingQuestionsCopyWidgetState
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 12.0, 16.0, 0.0),
                                         child: Container(
                                           width: 100.0,
@@ -2499,7 +2499,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -2577,7 +2577,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                 width: 2,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryText!,
+                                                                    .secondaryText,
                                                               )
                                                             : null,
                                                         activeColor:
@@ -2598,7 +2598,7 @@ class _OnboardingQuestionsCopyWidgetState
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 12.0, 16.0, 0.0),
                                         child: Container(
                                           width: 100.0,
@@ -2620,7 +2620,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -2701,7 +2701,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                 width: 2,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryText!,
+                                                                    .secondaryText,
                                                               )
                                                             : null,
                                                         activeColor:
@@ -2722,7 +2722,7 @@ class _OnboardingQuestionsCopyWidgetState
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 12.0, 16.0, 0.0),
                                         child: Container(
                                           width: 100.0,
@@ -2744,7 +2744,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 12.0, 8.0, 5.0),
                                                 child: Row(
@@ -2825,7 +2825,7 @@ class _OnboardingQuestionsCopyWidgetState
                                                                 width: 2,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryText!,
+                                                                    .secondaryText,
                                                               )
                                                             : null,
                                                         activeColor:

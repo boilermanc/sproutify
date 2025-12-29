@@ -64,7 +64,7 @@ class _FaqSearchResultsWidgetState extends State<FaqSearchResultsWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -89,7 +89,7 @@ class _FaqSearchResultsWidgetState extends State<FaqSearchResultsWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -101,7 +101,7 @@ class _FaqSearchResultsWidgetState extends State<FaqSearchResultsWidget> {
               children: [
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 0.0, 15.0),
+                      const EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 0.0, 15.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -126,7 +126,7 @@ class _FaqSearchResultsWidgetState extends State<FaqSearchResultsWidget> {
                 ),
                 FutureBuilder<ApiCallResponse>(
                   future: FAQIndexSearchCall.call(
-                    searchterm: widget!.searchTerm,
+                    searchterm: widget.searchTerm,
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -165,14 +165,14 @@ class _FaqSearchResultsWidgetState extends State<FaqSearchResultsWidget> {
                             final searchResultsItem =
                                 searchResults[searchResultsIndex];
                             return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 10.0, 10.0),
                               child: Container(
                                 width: 100.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(10.0),
                                     bottomRight: Radius.circular(10.0),
                                     topLeft: Radius.circular(10.0),
@@ -187,7 +187,7 @@ class _FaqSearchResultsWidgetState extends State<FaqSearchResultsWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           15.0, 10.0, 15.0, 10.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -228,7 +228,7 @@ class _FaqSearchResultsWidgetState extends State<FaqSearchResultsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           15.0, 10.0, 15.0, 10.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,

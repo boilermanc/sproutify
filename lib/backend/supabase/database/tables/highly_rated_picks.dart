@@ -10,7 +10,7 @@ class HighlyRatedPicksTable extends SupabaseTable<HighlyRatedPicksRow> {
 }
 
 class HighlyRatedPicksRow extends SupabaseDataRow {
-  HighlyRatedPicksRow(Map<String, dynamic> data) : super(data);
+  HighlyRatedPicksRow(super.data);
 
   @override
   SupabaseTable get table => HighlyRatedPicksTable();

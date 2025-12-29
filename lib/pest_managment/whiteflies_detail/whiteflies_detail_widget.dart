@@ -75,7 +75,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                 fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
@@ -88,7 +88,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Text(
                   'White Flies',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -111,7 +111,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
@@ -123,7 +123,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Text(
                   'Rising to the Challenge of Whiteflies',
                   style: FlutterFlowTheme.of(context).titleSmall.override(
@@ -142,7 +142,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 4.0),
                 child: Text(
                   'Managing whiteflies in your garden is crucial for maintaining plant health. These tiny, white-winged insects congregate on the undersides of leaves, where they feed on plant juices. This not only weakens the plant but can also lead to the spread of diseases. Vigilance and early intervention are key in preventing these pests from taking over and affecting the quality of your produce.',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -169,7 +169,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                 color: FlutterFlowTheme.of(context).alternate,
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -226,9 +226,9 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                           listViewPestContentRowList[listViewIndex];
                       return Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Container(
                             width: double.infinity,
                             color: Colors.white,
@@ -236,7 +236,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                               initialExpanded: false,
                               child: ExpandablePanel(
                                 header: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     listViewPestContentRow.contentTitle,
@@ -280,7 +280,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 5.0, 10.0, 5.0),
                                       child: Text(
                                         listViewPestContentRow.contentBody,
@@ -297,7 +297,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color: Color(0x8A000000),
+                                              color: const Color(0x8A000000),
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -311,7 +311,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 5.0, 10.0, 5.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -359,7 +359,7 @@ class _WhitefliesDetailWidgetState extends State<WhitefliesDetailWidget> {
                                     ),
                                   ],
                                 ),
-                                theme: ExpandableThemeData(
+                                theme: const ExpandableThemeData(
                                   tapHeaderToExpand: true,
                                   tapBodyToExpand: false,
                                   tapBodyToCollapse: false,

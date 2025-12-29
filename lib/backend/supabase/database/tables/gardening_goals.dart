@@ -10,7 +10,7 @@ class GardeningGoalsTable extends SupabaseTable<GardeningGoalsRow> {
 }
 
 class GardeningGoalsRow extends SupabaseDataRow {
-  GardeningGoalsRow(Map<String, dynamic> data) : super(data);
+  GardeningGoalsRow(super.data);
 
   @override
   SupabaseTable get table => GardeningGoalsTable();

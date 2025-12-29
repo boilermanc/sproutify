@@ -58,7 +58,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -83,7 +83,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -92,14 +92,14 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
               Flexible(
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 15.0, 10.0),
+                      const EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 15.0, 10.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -133,7 +133,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
                   Expanded(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 5.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 5.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -197,7 +197,7 @@ class _PlantSelectorWidgetState extends State<PlantSelectorWidget> {
                   Expanded(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 5.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 5.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,

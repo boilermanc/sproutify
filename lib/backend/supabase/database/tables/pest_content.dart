@@ -9,7 +9,7 @@ class PestContentTable extends SupabaseTable<PestContentRow> {
 }
 
 class PestContentRow extends SupabaseDataRow {
-  PestContentRow(Map<String, dynamic> data) : super(data);
+  PestContentRow(super.data);
 
   @override
   SupabaseTable get table => PestContentTable();
