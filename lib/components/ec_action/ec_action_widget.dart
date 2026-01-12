@@ -538,15 +538,15 @@ class _EcInfoPopupState extends State<EcInfoPopup>
                                     ),
                                   ),
                                 ),
-                                Align(
+                                const Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Padding(
                                     padding:
-                                        const EdgeInsets.only(bottom: 10.0),
+                                        EdgeInsets.only(bottom: 10.0),
                                     child: Text(
                                       "Sweet Spot (1.5 - 2.5 mS/cm)",
                                       style: TextStyle(
-                                        color: const Color(0xFF2ECC71),
+                                        color: Color(0xFF2ECC71),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12,
                                       ),
@@ -568,9 +568,9 @@ class _EcInfoPopupState extends State<EcInfoPopup>
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.trending_down,
-                      color: const Color(0xFF3498DB), // Blue
+                      color: Color(0xFF3498DB), // Blue
                       size: 24,
                     ),
                     const SizedBox(width: 12),
@@ -606,9 +606,9 @@ class _EcInfoPopupState extends State<EcInfoPopup>
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.check_circle,
-                      color: const Color(0xFF2ECC71), // Green
+                      color: Color(0xFF2ECC71), // Green
                       size: 24,
                     ),
                     const SizedBox(width: 12),
@@ -644,9 +644,9 @@ class _EcInfoPopupState extends State<EcInfoPopup>
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.trending_up,
-                      color: const Color(0xFFE74C3C), // Red
+                      color: Color(0xFFE74C3C), // Red
                       size: 24,
                     ),
                     const SizedBox(width: 12),

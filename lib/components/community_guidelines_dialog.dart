@@ -76,7 +76,7 @@ class _CommunityGuidelinesDialogState extends State<CommunityGuidelinesDialog> {
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to save acceptance. Please try again.'),
+            content: const Text('Failed to save acceptance. Please try again.'),
             backgroundColor: FlutterFlowTheme.of(context).error,
           ),
         );
@@ -110,7 +110,7 @@ class _CommunityGuidelinesDialogState extends State<CommunityGuidelinesDialog> {
               ),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.info_outline,
                     color: Colors.white,
                     size: 28.0,
@@ -347,7 +347,7 @@ class _CommunityGuidelinesDialogState extends State<CommunityGuidelinesDialog> {
                         elevation: 0,
                       ),
                       child: _isAccepting
-                          ? SizedBox(
+                          ? const SizedBox(
                               height: 20.0,
                               width: 20.0,
                               child: CircularProgressIndicator(
@@ -441,4 +441,5 @@ class _CommunityGuidelinesDialogState extends State<CommunityGuidelinesDialog> {
     );
   }
 }
+
 

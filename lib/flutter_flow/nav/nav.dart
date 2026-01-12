@@ -88,20 +88,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : const LoginPageWidget(),
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? const NavBarPage()
+          : const LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : const LoginPageWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? const NavBarPage()
+              : const LoginPageWidget(),
         ),
         FFRoute(
           name: HomePageWidget.routeName,
           path: HomePageWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'HomePage')
+              ? const NavBarPage(initialPage: 'HomePage')
               : HomePageWidget(
                   cat02: params.getParam(
                     'cat02',
@@ -191,7 +193,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PlantFavoritesWidget.routeName,
           path: PlantFavoritesWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'plantFavorites')
+              ? const NavBarPage(initialPage: 'plantFavorites')
               : PlantFavoritesWidget(
                   myPlantID: params.getParam(
                     'myPlantID',
@@ -228,7 +230,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PestSupport2Widget.routeName,
           path: PestSupport2Widget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'pestSupport2')
+              ? const NavBarPage(initialPage: 'pestSupport2')
               : const PestSupport2Widget(),
         ),
         FFRoute(
@@ -365,7 +367,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: MyCostsWidget.routeName,
           path: MyCostsWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'myCosts')
+              ? const NavBarPage(initialPage: 'myCosts')
               : const MyCostsWidget(),
         ),
         FFRoute(
@@ -421,7 +423,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: MySuppliesWidget.routeName,
           path: MySuppliesWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'mySupplies')
+              ? const NavBarPage(initialPage: 'mySupplies')
               : MySuppliesWidget(
                   userID: params.getParam(
                     'userID',
@@ -433,7 +435,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: CommunityFeedWidget.routeName,
           path: CommunityFeedWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'community')
+              ? const NavBarPage(initialPage: 'community')
               : const CommunityFeedWidget(),
         ),
         FFRoute(
@@ -594,6 +596,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: TrialBenefitsPageWidget.routeName,
           path: TrialBenefitsPageWidget.routePath,
           builder: (context, params) => const TrialBenefitsPageWidget(),
+        ),
+        FFRoute(
+          name: PlanWithSageWidget.routeName,
+          path: PlanWithSageWidget.routePath,
+          builder: (context, params) => PlanWithSageWidget(
+            towerId: params.getParam(
+              'towerId',
+              ParamType.int,
+            ),
+            towerName: params.getParam(
+              'towerName',
+              ParamType.String,
+            ),
+            portCount: params.getParam(
+              'portCount',
+              ParamType.int,
+            ),
+            indoorOutdoor: params.getParam(
+              'indoorOutdoor',
+              ParamType.String,
+            ),
+          ),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -829,7 +853,8 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() =>
+      const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

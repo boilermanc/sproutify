@@ -98,3 +98,4 @@ export '/authflow/trial_benefits_page/trial_benefits_page_widget.dart'
     show TrialBenefitsPageWidget;
 export '/components/community_feed_widget.dart' show CommunityFeedWidget;
 export '/pages/badges_page.dart' show BadgesPage;
+export '/plan_with_sage/plan_with_sage_widget.dart' show PlanWithSageWidget;

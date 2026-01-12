@@ -9,7 +9,6 @@ import '/services/community_service.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/pages/badges_page.dart';
 import '/index.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -259,8 +258,8 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
             ),
             onPressed: () async {
               HapticFeedback.lightImpact();
-              // Navigate to HomePage route - this replaces current route with NavBarPage(HomePage)
-              context.go(HomePageWidget.routePath);
+              // Navigate back to the default NavBarPage route so the home tab is visible.
+              context.go('/');
             },
           ),
           title: Text(
@@ -298,7 +297,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
                 // Show user search dialog
                 showDialog(
                   context: context,
-                  builder: (context) => UserSearchDialog(),
+                  builder: (context) => const UserSearchDialog(),
                 );
               },
             ),
@@ -317,7 +316,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
               final accepted = await showDialog<bool>(
                 context: context,
                 barrierDismissible: false,
-                builder: (context) => CommunityGuidelinesDialog(),
+                builder: (context) => const CommunityGuidelinesDialog(),
               );
 
               if (accepted != true) {

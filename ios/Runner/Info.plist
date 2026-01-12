@@ -36,10 +36,10 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>sproutifyhome.com</string>
+        <string>sproutifymobile.com</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>sproutifyhome</string>
+        <string>sproutifymobile</string>
         </array>
         </dict>
     </array>

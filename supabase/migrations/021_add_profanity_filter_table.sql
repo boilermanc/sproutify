@@ -143,3 +143,4 @@ INSERT INTO profanity_filter (word, severity, context) VALUES
 ON CONFLICT (word) DO NOTHING;
 
 
+

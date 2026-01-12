@@ -8,9 +8,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
-import 'dart:ui';
 import '/index.dart';
-import '/pages/harvest_scorecard/harvest_scorecard_widget.dart';
 import '/pages/subscription_page/subscription_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -1149,8 +1147,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
         ),
         body: Column(
           children: [
-            // Trial banner
+            // Trial banner - only show for active trials
             if (Env.enableTrialBanner &&
+                _model.trialStatus == 'active' &&
                 _model.trialDaysRemaining != null &&
                 !(_model.isTrialBannerDismissed ?? false))
               TrialBannerWidget(

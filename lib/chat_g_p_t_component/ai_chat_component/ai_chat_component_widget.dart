@@ -116,9 +116,9 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                               _model.chatHistory?.toList() ??
                                                   [];
                                           if (chat.isEmpty) {
-                                            return SizedBox(
+                                            return const SizedBox(
                                               width: double.infinity,
-                                              child: const EmptyListWidget(),
+                                              child: EmptyListWidget(),
                                             );
                                           }
 
@@ -134,8 +134,9 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                             itemBuilder: (context, chatIndex) {
                                               final chatItem = chat[chatIndex];
                                               return Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         12.0, 12.0, 12.0, 0.0),
                                                 child: Column(
                                                   mainAxisSize:
@@ -211,10 +212,10 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                       Padding(
                                                                     padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            12.0,
-                                                                            8.0,
-                                                                            12.0,
-                                                                            8.0),
+                                                                        12.0,
+                                                                        8.0,
+                                                                        12.0,
+                                                                        8.0),
                                                                     child:
                                                                         Column(
                                                                       mainAxisSize:
@@ -249,8 +250,9 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           2.0,
                                                                           0.0,
@@ -312,7 +314,8 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                                           const BoxDecoration(),
                                                                       child:
                                                                           Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional
+                                                                            .fromSTEB(
                                                                             0.0,
                                                                             4.0,
                                                                             12.0,
@@ -415,10 +418,10 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                                                               padding:
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          12.0,
-                                                                          8.0,
-                                                                          12.0,
-                                                                          8.0),
+                                                                      12.0,
+                                                                      8.0,
+                                                                      12.0,
+                                                                      8.0),
                                                               child: Column(
                                                                 mainAxisSize:
                                                                     MainAxisSize

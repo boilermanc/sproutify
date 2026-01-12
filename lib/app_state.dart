@@ -28,6 +28,7 @@ class FFAppState extends ChangeNotifier {
     _isTowerActive = prefs.getBool('isTowerActive') ?? false;
     _plantSearchActive = prefs.getBool('plantSearchActive') ?? false;
     _isNewNotification = prefs.getBool('isNewNotification') ?? false;
+    _unreadNotificationCount = prefs.getInt('unreadNotificationCount') ?? 0;
     _wrongLogin = prefs.getBool('wrongLogin') ?? false;
     _aiSearchResultDisplay = prefs.getBool('aiSearchResultDisplay') ?? false;
     _isTowerActive = prefs.getBool('isTowerActive') ?? false;
@@ -73,6 +74,7 @@ class FFAppState extends ChangeNotifier {
     await prefs.setBool('isTowerActive', _isTowerActive);
     await prefs.setBool('plantSearchActive', _plantSearchActive);
     await prefs.setBool('isNewNotification', _isNewNotification);
+    await prefs.setInt('unreadNotificationCount', _unreadNotificationCount);
     await prefs.setBool('wrongLogin', _wrongLogin);
     await prefs.setBool('aiSearchResultDisplay', _aiSearchResultDisplay);
     await prefs.setBool('hasSeenTrialTimeline', _hasSeenTrialTimeline);
@@ -151,6 +153,31 @@ class FFAppState extends ChangeNotifier {
   bool get isNewNotification => _isNewNotification;
   set isNewNotification(bool value) {
     _isNewNotification = value;
+  }
+
+  int _unreadNotificationCount = 0;
+  int get unreadNotificationCount => _unreadNotificationCount;
+  set unreadNotificationCount(int value) {
+    _unreadNotificationCount = value;
+    // Also update the boolean flag for backwards compatibility
+    _isNewNotification = value > 0;
+  }
+
+  void incrementNotificationCount() {
+    _unreadNotificationCount++;
+    _isNewNotification = true;
+  }
+
+  void decrementNotificationCount() {
+    if (_unreadNotificationCount > 0) {
+      _unreadNotificationCount--;
+    }
+    _isNewNotification = _unreadNotificationCount > 0;
+  }
+
+  void clearNotificationCount() {
+    _unreadNotificationCount = 0;
+    _isNewNotification = false;
   }
 
   bool _wrongLogin = false;

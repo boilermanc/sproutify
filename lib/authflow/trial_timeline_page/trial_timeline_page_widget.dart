@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'trial_timeline_page_model.dart';
@@ -85,8 +84,8 @@ class _TrialTimelinePageWidgetState extends State<TrialTimelinePageWidget> {
                           child: Container(
                             width: 120.0,
                             height: 120.0,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFEDF8EA),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFEDF8EA),
                               shape: BoxShape.circle,
                             ),
                             child: Padding(
@@ -324,9 +323,9 @@ class _TrialTimelinePageWidgetState extends State<TrialTimelinePageWidget> {
       padding: const EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.check_circle_rounded,
-            color: const Color(0xFF2F6D23),
+            color: Color(0xFF2F6D23),
             size: 20.0,
           ),
           const SizedBox(width: 8.0),

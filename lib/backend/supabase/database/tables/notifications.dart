@@ -34,4 +34,7 @@ class NotificationsRow extends SupabaseDataRow {
 
   bool get status => getField<bool>('status')!;
   set status(bool value) => setField<bool>('status', value);
+
+  String? get type => getField<String>('type');
+  set type(String? value) => setField<String>('type', value);
 }

@@ -60,3 +60,4 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 GRANT EXECUTE ON FUNCTION is_user_blocked TO authenticated;
 
 
+

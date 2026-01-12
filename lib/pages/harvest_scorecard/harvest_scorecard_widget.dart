@@ -10,7 +10,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 import '/flutter_flow/flutter_flow_animations.dart';
 
-import 'dart:ui';
 
 import 'dart:async';
 
@@ -22,7 +21,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:intl/intl.dart';
 
 import 'harvest_scorecard_model.dart';
 
@@ -58,8 +56,8 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
             curve: Curves.easeInOut,
             delay: 0.ms,
             duration: 600.ms,
-            begin: Offset(0, 50),
-            end: Offset(0, 0)),
+            begin: const Offset(0, 50),
+            end: const Offset(0, 0)),
       ],
     ),
     'cardsOnPageLoadAnimation': AnimationInfo(
@@ -70,8 +68,8 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
             curve: Curves.easeInOut,
             delay: 200.ms,
             duration: 600.ms,
-            begin: Offset(0, 30),
-            end: Offset(0, 0)),
+            begin: const Offset(0, 30),
+            end: const Offset(0, 0)),
       ],
     ),
   };
@@ -174,7 +172,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
             future: _userPlantsFuture,
             builder: (context, userPlantsSnapshot) {
               if (!userPlantsSnapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
 
               final userPlantIds = <int>[];
@@ -205,7 +203,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                 future: _actionsFuture,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   List<UserplantActionsRow> allActions;
@@ -239,9 +237,9 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                   for (final a in actions) {
                     final t = a.getField<String>('action_type');
 
-                    if (t == 'Harvested_Good' || t == 'Harvested')
+                    if (t == 'Harvested_Good' || t == 'Harvested') {
                       goodHarvests++;
-                    else if (t == 'Harvested_Waste')
+                    } else if (t == 'Harvested_Waste')
                       wasteHarvests++;
                     else if (t == 'Pest')
                       pestIssues++;
@@ -381,7 +379,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                                   'Composted',
                                   wasteHarvests,
                                   Icons.delete_outline_rounded,
-                                  Color(0xFFE89A3C)),
+                                  const Color(0xFFE89A3C)),
                               _buildStatCard(
                                   context,
                                   'Pests',
@@ -487,10 +485,10 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                                       ),
                                     ),
                                     child: ListTile(
-                                      contentPadding: EdgeInsets.symmetric(
+                                      contentPadding: const EdgeInsets.symmetric(
                                           horizontal: 16, vertical: 4),
                                       leading: Container(
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBackground,
@@ -548,11 +546,13 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
   }
 
   IconData _getIconForType(String type) {
-    if (type.contains('Good') || type == 'Harvested')
+    if (type.contains('Good') || type == 'Harvested') {
       return Icons.check_circle_outline_rounded;
+    }
 
-    if (type.contains('Waste') || type == 'Composted')
+    if (type.contains('Waste') || type == 'Composted') {
       return Icons.delete_outline_rounded;
+    }
 
     if (type == 'Pest') return Icons.bug_report_outlined;
 
@@ -560,10 +560,11 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
   }
 
   Color _getColorForType(BuildContext context, String type) {
-    if (type.contains('Good') || type == 'Harvested')
+    if (type.contains('Good') || type == 'Harvested') {
       return FlutterFlowTheme.of(context).success;
+    }
 
-    if (type.contains('Waste') || type == 'Composted') return Color(0xFFE89A3C);
+    if (type.contains('Waste') || type == 'Composted') return const Color(0xFFE89A3C);
 
     if (type == 'Pest') return FlutterFlowTheme.of(context).error;
 
@@ -581,7 +582,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
 
     return Container(
       width: cardWidth,
-      constraints: BoxConstraints(minHeight: 110.0),
+      constraints: const BoxConstraints(minHeight: 110.0),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(20.0),

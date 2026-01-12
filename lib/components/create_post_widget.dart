@@ -10,7 +10,6 @@ import '/backend/supabase/database/tables/my_towers.dart';
 import '/backend/supabase/database/tables/plants.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// Widget for creating a new community post

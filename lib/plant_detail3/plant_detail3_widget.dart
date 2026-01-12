@@ -4,13 +4,11 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'plant_detail3_model.dart';
 export 'plant_detail3_model.dart';
 
@@ -190,7 +188,8 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                                           fontSize: 18.0,
                                         ),
                                       ),
-                                      duration: const Duration(milliseconds: 5300),
+                                      duration:
+                                          const Duration(milliseconds: 5300),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).success,
                                     ),
@@ -204,8 +203,9 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                                   height: 40.0,
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
@@ -663,8 +663,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               children: [
                                 Text(
                                   valueOrDefault<String>(
-                                    listViewPlantsRow.averageRating
-                                        ?.toString(),
+                                    listViewPlantsRow.averageRating?.toString(),
                                     'average rating',
                                   ),
                                   style: FlutterFlowTheme.of(context)

@@ -273,7 +273,7 @@ class _ReportPostDialogState extends State<ReportPostDialog> {
                   elevation: 0,
                 ),
                 child: _isSubmitting
-                    ? SizedBox(
+                    ? const SizedBox(
                         height: 20.0,
                         width: 20.0,
                         child: CircularProgressIndicator(
@@ -300,4 +300,5 @@ class _ReportPostDialogState extends State<ReportPostDialog> {
     );
   }
 }
+
 

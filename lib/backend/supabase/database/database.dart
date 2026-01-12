@@ -54,3 +54,4 @@ export 'tables/indoor_outdoor_plants.dart';
 export 'tables/categories.dart';
 export 'tables/gardening_inspirational_messages.dart';
 export 'tables/notifications.dart';
+export 'tables/saved_plans.dart';

@@ -3,7 +3,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,9 +16,13 @@ class CreateNewPasswordWidget extends StatefulWidget {
   const CreateNewPasswordWidget({
     super.key,
     this.code,
+    this.accessToken,
+    this.refreshToken,
   });
 
   final String? code;
+  final String? accessToken;
+  final String? refreshToken;
 
   static String routeName = 'createNewPassword';
   static String routePath = '/createNewPassword';
@@ -85,20 +88,23 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
-          title: Text(
-            'Create New Password',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  font: GoogleFonts.outfit(
+          title: Flexible(
+            child: Text(
+              'Create New Password',
+              overflow: TextOverflow.ellipsis,
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    font: GoogleFonts.outfit(
+                      fontWeight: FontWeight.w600,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                    ),
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w600,
                     fontStyle:
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.w600,
-                  fontStyle:
-                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                ),
+            ),
           ),
           actions: const [],
           centerTitle: true,
@@ -107,7 +113,8 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+            padding:
+                const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -528,7 +535,7 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                 FFButtonWidget(
                   onPressed: () async {
                     HapticFeedback.lightImpact();
-                    
+
                     // Validate password before submitting
                     final passwordError = _model.passwordTextControllerValidator
                         ?.call(context, _model.passwordTextController.text);
@@ -552,8 +559,8 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
 
                     // Validate password confirmation
                     final confirmError =
-                        _model.confirmPasswordTextControllerValidator
-                            ?.call(context, _model.confirmPasswordTextController.text);
+                        _model.confirmPasswordTextControllerValidator?.call(
+                            context, _model.confirmPasswordTextController.text);
                     if (confirmError != null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -576,11 +583,11 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                       newPassword: _model.passwordTextController.text,
                       context: context,
                     );
-                    
+
                     if (!success) {
                       return;
                     }
-                    
+
                     safeSetState(() {});
 
                     _model.apiResult84k = await SendEmailWithResendCall.call(
@@ -615,9 +622,10 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                   options: FFButtonOptions(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     height: 50.0,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle:
                         FlutterFlowTheme.of(context).titleMedium.override(

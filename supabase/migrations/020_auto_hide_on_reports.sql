@@ -41,3 +41,4 @@ CREATE TRIGGER trigger_auto_hide_on_reports
 GRANT EXECUTE ON FUNCTION handle_post_report() TO authenticated;
 
 
+

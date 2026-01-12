@@ -4,12 +4,10 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'settings1_add_profile_model.dart';
 export 'settings1_add_profile_model.dart';
 
@@ -63,19 +61,22 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
-        title: Text(
-          'Almost There...',
-          style: FlutterFlowTheme.of(context).titleSmall.override(
-                font: GoogleFonts.readexPro(
-                  fontWeight:
-                      FlutterFlowTheme.of(context).titleSmall.fontWeight,
+        title: Flexible(
+          child: Text(
+            'Almost There...',
+            overflow: TextOverflow.ellipsis,
+            style: FlutterFlowTheme.of(context).titleSmall.override(
+                  font: GoogleFonts.readexPro(
+                    fontWeight:
+                        FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                  ),
+                  fontSize: 24.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
                   fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                 ),
-                fontSize: 24.0,
-                letterSpacing: 0.0,
-                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-              ),
+          ),
         ),
         actions: const [],
         centerTitle: false,

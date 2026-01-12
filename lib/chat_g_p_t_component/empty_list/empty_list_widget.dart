@@ -1,11 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'empty_list_model.dart';
 export 'empty_list_model.dart';
 
@@ -59,42 +56,53 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.forum_outlined,
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 90.0,
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFF9C27B0), Color(0xFFE91E63)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(bounds),
+                  child: const Icon(
+                    Icons.auto_awesome,
+                    color: Colors.white,
+                    size: 90.0,
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
                   child: SelectionArea(
                     child: AutoSizeText(
                       'Sage Is Active!',
                       textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).headlineMedium.override(
-                            font: GoogleFonts.outfit(
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .headlineMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .headlineMedium
-                                  .fontStyle,
-                            ),
-                            letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .headlineMedium
-                                .fontWeight,
-                            fontStyle:
-                                FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                            lineHeight: 1.5,
-                          ),
+                      style:
+                          FlutterFlowTheme.of(context).headlineMedium.override(
+                                font: GoogleFonts.outfit(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontStyle,
+                                ),
+                                letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontStyle,
+                                lineHeight: 1.5,
+                              ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 0.0),
                   child: SelectionArea(
                     child: AutoSizeText(
-                      'I\'m your personal Tower Garden assistant. Ask me anything about growing your plants, maintaining your tower, or getting the most from your Tower Garden!',
+                      'I\'m your personal Aeroponic Tower assistant. Ask me anything about growing your plants, maintaining your tower, or getting the most from your Aeroponic Tower!',
                       textAlign: TextAlign.center,
                       maxLines: 5,
                       style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -102,14 +110,17 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
                               fontWeight: FlutterFlowTheme.of(context)
                                   .labelLarge
                                   .fontWeight,
-                              fontStyle:
-                                  FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .fontStyle,
                             ),
                             letterSpacing: 0.0,
-                            fontWeight:
-                                FlutterFlowTheme.of(context).labelLarge.fontWeight,
-                            fontStyle:
-                                FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .fontStyle,
                           ),
                     ),
                   ),

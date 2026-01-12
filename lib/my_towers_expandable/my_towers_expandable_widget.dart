@@ -9,8 +9,6 @@ import '/components/ph_ec_chart/ph_ec_chart_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/my_towers_expandable/edit_tower/edit_tower_widget.dart';
-import 'dart:ui';
 import '/index.dart';
 import 'dart:async';
 import 'package:expandable/expandable.dart';
@@ -1079,7 +1077,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                               },
                                                                               child: Padding(
                                                                                 padding: MediaQuery.viewInsetsOf(context),
-                                                                                child: EcInfoPopup(),
+                                                                                child: const EcInfoPopup(),
                                                                               ),
                                                                             );
                                                                           },

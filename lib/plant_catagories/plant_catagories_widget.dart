@@ -3,12 +3,9 @@ import '/components/bottom_plant_catagories/bottom_plant_catagories_widget.dart'
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'plant_catagories_model.dart';
 export 'plant_catagories_model.dart';
 
@@ -103,21 +100,24 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
               context.pushNamed(PlantCatalogWidget.routeName);
             },
           ),
-          title: Text(
-            'Plant Categories',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  font: GoogleFonts.outfit(
+          title: Flexible(
+            child: Text(
+              'Plant Categories',
+              overflow: TextOverflow.ellipsis,
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    font: GoogleFonts.outfit(
+                      fontWeight: FontWeight.w600,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                    ),
+                    color: Colors.white,
+                    fontSize: 24.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w600,
                     fontStyle:
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
-                  color: Colors.white,
-                  fontSize: 24.0,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.w600,
-                  fontStyle:
-                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                ),
+            ),
           ),
           actions: const [],
           centerTitle: true,
@@ -168,7 +168,7 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                             crossAxisCount: 3,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
-                            childAspectRatio: 1.0,
+                            childAspectRatio: 0.75,
                           ),
                           scrollDirection: Axis.vertical,
                           itemCount:
@@ -232,7 +232,9 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                                         ),
                                       ),
                                     ),
-                                    Flexible(
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          4.0, 4.0, 4.0, 4.0),
                                       child: Text(
                                         valueOrDefault<String>(
                                           gridViewViewPlantDetailsByCategoryRow
@@ -240,6 +242,8 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                                           'plant',
                                         ),
                                         textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -250,7 +254,7 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              fontSize: 12.0,
+                                              fontSize: 11.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                               fontStyle:

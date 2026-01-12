@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
-import '../schema/structs/index.dart';
 
 import 'package:flutter/foundation.dart';
 
@@ -72,6 +70,69 @@ class SendFullPromptCall {
 }
 
 /// End neightn main chat Group Code
+
+class SagePlannerCall {
+  static Future<ApiCallResponse> call({
+    int? towerId,
+    String? towerName,
+    String? indoorOutdoor,
+    int? portCount,
+    String? userRequest,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "tower_id": $towerId,
+  "tower_name": "${escapeStringForJson(towerName)}",
+  "indoor_outdoor": "${escapeStringForJson(indoorOutdoor)}",
+  "port_count": $portCount,
+  "user_request": "${escapeStringForJson(userRequest)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Sage Planner',
+      apiUrl: 'https://n8n.sproutify.app/webhook/d4408b90-f256-458f-a7e8-d034f22d83cc',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+
+  static String? planName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.plan_name''',
+      ));
+
+  static String? description(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.description''',
+      ));
+
+  static List? plants(dynamic response) => getJsonField(
+        response,
+        r'''$.plants''',
+        true,
+      ) as List?;
+
+  static int? totalSlotsUsed(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.total_slots_used''',
+      ));
+}
 
 class UpsertRatingsCall {
   static Future<ApiCallResponse> call({

@@ -48,7 +48,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="sproutifyhome" android:host="sproutifyhome.com" />
+                <data android:scheme="sproutifymobile" android:host="sproutifymobile.com" />
             </intent-filter>
 
         </activity>
