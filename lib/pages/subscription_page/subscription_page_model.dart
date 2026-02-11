@@ -15,6 +15,11 @@ class SubscriptionPageModel extends FlutterFlowModel<SubscriptionPageWidget> {
   bool isLoadingOfferings = true;
   String? offeringsError;
 
+  // Lifetime cap tracking
+  int? lifetimeCount; // null = not yet loaded
+  bool get lifetimeSoldOut => (lifetimeCount ?? 0) >= 100;
+  int get lifetimeRemaining => (100 - (lifetimeCount ?? 0)).clamp(0, 100);
+
   // RevenueCat product identifiers
   String get selectedProductId {
     switch (selectedPlan) {

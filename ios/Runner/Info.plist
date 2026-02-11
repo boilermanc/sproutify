@@ -53,9 +53,11 @@
 	<true/>
 
 	<key>NSCameraUsageDescription</key>
-    <string>In order to take a picture or video, this app requires permission to access the camera.</string>
+	<string>Sproutify uses your camera to take photos of your plants for growth tracking, capture images for pest identification assistance, and share photos with the community. For example, you can photograph a plant issue to get AI-powered diagnosis help.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>In order to upload data, this app requires permission to access the photo library.</string>
+	<string>Sproutify accesses your photo library to select existing plant photos for growth tracking, add images to community posts, and set your profile picture. For example, you can upload a photo of your harvest to share with other growers.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Sproutify saves photos to your library so you can keep copies of your plant progress photos and pest identification images. For example, saving a time-lapse of your tower garden growth.</string>
 
 
 

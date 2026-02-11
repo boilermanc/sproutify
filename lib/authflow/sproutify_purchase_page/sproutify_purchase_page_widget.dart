@@ -2,10 +2,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'sproutify_purchase_page_model.dart';
 export 'sproutify_purchase_page_model.dart';
 
@@ -2016,14 +2014,18 @@ class _SproutifyPurchasePageWidgetState
                                             MainAxisAlignment.center,
                                         children: [
                                           GestureDetector(
-                                            onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
+                                            onTap: () => launchUrl(Uri.parse(
+                                                'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
                                             child: Text(
                                               'Terms of Use',
                                               style: GoogleFonts.readexPro(
-                                                color: FlutterFlowTheme.of(context).primary,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
                                                 fontSize: 12.0,
                                                 fontWeight: FontWeight.w600,
-                                                decoration: TextDecoration.underline,
+                                                decoration:
+                                                    TextDecoration.underline,
                                               ),
                                             ),
                                           ),
@@ -2031,20 +2033,26 @@ class _SproutifyPurchasePageWidgetState
                                           Text(
                                             '|',
                                             style: GoogleFonts.readexPro(
-                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                               fontSize: 12.0,
                                             ),
                                           ),
                                           const SizedBox(width: 8),
                                           GestureDetector(
-                                            onTap: () => launchUrl(Uri.parse('https://www.sproutify.app/index.php/privacy-policy-2/')),
+                                            onTap: () => launchUrl(Uri.parse(
+                                                'https://www.sproutify.app/index.php/privacy-policy-2/')),
                                             child: Text(
                                               'Privacy Policy',
                                               style: GoogleFonts.readexPro(
-                                                color: FlutterFlowTheme.of(context).primary,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
                                                 fontSize: 12.0,
                                                 fontWeight: FontWeight.w600,
-                                                decoration: TextDecoration.underline,
+                                                decoration:
+                                                    TextDecoration.underline,
                                               ),
                                             ),
                                           ),

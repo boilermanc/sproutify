@@ -258,8 +258,8 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
             ),
             onPressed: () async {
               HapticFeedback.lightImpact();
-              // Navigate back to the default NavBarPage route so the home tab is visible.
-              context.go('/');
+              // Use safePop for reliable iPad navigation - pops if possible, else goes to home
+              context.safePop();
             },
           ),
           title: Text(

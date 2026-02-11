@@ -13,6 +13,14 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'subscription_page_model.dart';
 export 'subscription_page_model.dart';
 
+/// Sentinel substring returned by `convert_trial_to_subscription_with_cap`
+/// when the 100-lifetime-subscriber cap is reached. The Supabase RPC must
+/// include this phrase (case-insensitive) in its error message so the client
+/// can detect a sold-out condition and refresh the UI.
+///
+/// If the server-side wording changes, update this constant to match.
+const _kLifetimeSoldOutError = 'sold out';
+
 class SubscriptionPageWidget extends StatefulWidget {
   const SubscriptionPageWidget({super.key});
 
@@ -33,6 +41,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
     super.initState();
     _model = createModel(context, () => SubscriptionPageModel());
     _loadOfferings();
+    _loadLifetimeCount();
   }
 
   Future<void> _loadOfferings({bool retry = false}) async {
@@ -47,7 +56,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
       // Try loading offerings with retry logic
       int attempts = 0;
       const maxAttempts = 3;
-      
+
       while (attempts < maxAttempts) {
         try {
           await revenue_cat.loadOfferings();
@@ -55,7 +64,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
           // If loadOfferings throws, log it but continue to check offerings
           print('Error calling loadOfferings: $e');
         }
-        
+
         final offerings = revenue_cat.offerings;
 
         if (offerings != null && offerings.current != null) {
@@ -80,7 +89,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
       if (mounted) {
         final offerings = revenue_cat.offerings;
         String errorMessage = 'Unable to load subscription options.';
-        
+
         if (offerings == null) {
           errorMessage += ' Please check your internet connection and RevenueCat configuration.';
         } else if (offerings.current == null) {
@@ -88,7 +97,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
         } else {
           errorMessage += ' Please try again.';
         }
-        
+
         setState(() {
           _model.isLoadingOfferings = false;
           _model.offeringsError = errorMessage;
@@ -98,10 +107,30 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
       if (mounted) {
         setState(() {
           _model.isLoadingOfferings = false;
-          _model.offeringsError = 
+          _model.offeringsError =
               'Error loading subscription options: ${e.toString().replaceAll('Exception: ', '')}';
         });
       }
+    }
+  }
+
+  /// Load the current count of lifetime subscribers (fail open).
+  Future<void> _loadLifetimeCount() async {
+    try {
+      final result = await SupaFlow.client.rpc('get_lifetime_count');
+      final count = (result as num?)?.toInt() ?? 0;
+      if (mounted) {
+        setState(() {
+          _model.lifetimeCount = count;
+          // If lifetime was selected but now sold out, switch to annual
+          if (_model.lifetimeSoldOut && _model.selectedPlan == 'lifetime') {
+            _model.selectedPlan = 'annual';
+          }
+        });
+      }
+    } catch (e) {
+      // Fail open — leave lifetimeCount as null so the card stays enabled
+      print('Error loading lifetime count: $e');
     }
   }
 
@@ -109,6 +138,26 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
   void dispose() {
     _model.dispose();
     super.dispose();
+  }
+
+  /// Find a StoreProduct from RevenueCat offerings by product ID.
+  StoreProduct? _getStoreProduct(String productId) {
+    final offerings = revenue_cat.offerings;
+    if (offerings?.current == null) return null;
+    for (final package in offerings!.current!.availablePackages) {
+      if (package.storeProduct.identifier == productId) {
+        return package.storeProduct;
+      }
+    }
+    return null;
+  }
+
+  /// Whether the current date falls in the Early Adopter launch window (Mar 31 – Apr 30).
+  bool get _isEarlyAdopterPeriod {
+    final now = DateTime.now();
+    final start = DateTime(now.year, 3, 31);
+    final end = DateTime(now.year, 5, 1); // Up to but not including May 1
+    return !now.isBefore(start) && now.isBefore(end);
   }
 
   @override
@@ -305,41 +354,80 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                     ),
                     const SizedBox(height: 16.0),
 
-                    // Annual plan (recommended)
-                    _buildPricingCard(
-                      plan: 'annual',
-                      title: 'Annual',
-                      price: '\$39.99',
-                      period: '/year',
-                      savings: 'Save 33%',
-                      isRecommended: true,
-                      perMonth: '\$3.33/mo',
-                    ),
-
-                    const SizedBox(height: 12.0),
-
                     // Monthly plan
                     _buildPricingCard(
                       plan: 'monthly',
                       title: 'Monthly',
-                      price: '\$4.99',
+                      price: _getStoreProduct('Sprout_Sub_M')?.priceString ?? '\$4.99',
                       period: '/month',
-                      savings: null,
-                      isRecommended: false,
-                      perMonth: null,
+                      features: const [
+                        'Full app access',
+                        'Cancel anytime',
+                      ],
                     ),
 
                     const SizedBox(height: 12.0),
 
-                    // Lifetime plan (best value)
+                    // Annual plan (recommended)
+                    Builder(builder: (_) {
+                      final product = _getStoreProduct('Sprout_Sub_A');
+                      final hasIntroOffer = _isEarlyAdopterPeriod &&
+                          product?.introductoryPrice != null;
+                      final displayPrice = hasIntroOffer
+                          ? product!.introductoryPrice!.priceString
+                          : (product?.priceString ?? '\$49.99');
+                      final perMonthAmount =
+                          (product?.price ?? 49.99) / 12;
+
+                      return _buildPricingCard(
+                        plan: 'annual',
+                        title: 'Annual',
+                        price: displayPrice,
+                        period: '/year',
+                        savings: 'Save ~\$10',
+                        isRecommended: true,
+                        perMonth:
+                            '\$${perMonthAmount.toStringAsFixed(2)}/mo',
+                        features: const [
+                          'Full app access',
+                          'Save ~\$10 vs monthly',
+                        ],
+                        badge: _isEarlyAdopterPeriod ? 'EARLY ADOPTER' : null,
+                        badgeColor: const Color(0xFFD08008),
+                        originalPrice:
+                            hasIntroOffer ? product!.priceString : null,
+                      );
+                    }),
+
+                    const SizedBox(height: 12.0),
+
+                    // Lifetime plan
                     _buildPricingCard(
                       plan: 'lifetime',
                       title: 'Lifetime',
-                      price: '\$99.99',
+                      price: _getStoreProduct('Sprout_Sub_Life')?.priceString ?? '\$199.99',
                       period: 'one-time',
-                      savings: 'Best Value',
-                      isRecommended: false,
-                      perMonth: 'Pay once, own forever',
+                      badge: _model.lifetimeSoldOut ? 'SOLD OUT' : 'FOUNDING GROWER',
+                      badgeColor: _model.lifetimeSoldOut
+                          ? const Color(0xFF9E9E9E)
+                          : const Color(0xFFD08008),
+                      features: _model.lifetimeSoldOut
+                          ? const [
+                              'All 100 Founding Grower spots have been claimed',
+                            ]
+                          : const [
+                              '"Founding Grower" badge',
+                              'Limited to first 100 customers',
+                              '\$25 annual seedling credit*',
+                              '10% off all seedlings forever',
+                            ],
+                      subtitle: (!_model.lifetimeSoldOut && _model.lifetimeCount != null)
+                          ? '${_model.lifetimeRemaining} of 100 remaining'
+                          : null,
+                      disclaimer: _model.lifetimeSoldOut
+                          ? null
+                          : '*Shipping not included. Credit expires after 12 months. Cannot combine with other promos.',
+                      isDisabled: _model.lifetimeSoldOut,
                     ),
                   ],
                 ),
@@ -355,6 +443,20 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       : () async {
                     if (_model.isPurchasing) {
                       return; // Prevent double-tap
+                    }
+
+                    // Prevent purchasing sold-out lifetime plan
+                    if (_model.selectedPlan == 'lifetime' && _model.lifetimeSoldOut) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'All 100 Founding Grower spots have been claimed.',
+                            style: GoogleFonts.readexPro(),
+                          ),
+                          backgroundColor: FlutterFlowTheme.of(context).error,
+                        ),
+                      );
+                      return;
                     }
 
                     setState(() {
@@ -377,7 +479,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                         // Try loading one more time
                         await revenue_cat.loadOfferings();
                         offerings = revenue_cat.offerings;
-                        
+
                         if (offerings == null || offerings.current == null) {
                           throw Exception(
                               'No subscription options available. Please check your internet connection and try again.');
@@ -411,14 +513,28 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                             : (_model.selectedPlan == 'annual' ? 365 : 30);
 
                         await SupaFlow.client.rpc(
-                          'convert_trial_to_subscription',
+                          'convert_trial_to_subscription_with_cap',
                           params: {
                             'user_uuid': currentUserUid,
                             'duration_days': durationDays,
                             'platform': Platform.isIOS ? 'ios' : 'android',
                             'rc_customer_id': purchaserInfo.originalAppUserId,
+                            'tier': _model.selectedPlan,
                           },
                         );
+
+                        try {
+                          await SupaFlow.client.rpc(
+                            'issue_seedling_credit',
+                            params: {
+                              'p_user_id': currentUserUid,
+                              'p_subscription_tier': _model.selectedPlan,
+                            },
+                          );
+                        } catch (e) {
+                          print('Failed to issue seedling credit: $e');
+                          // Don't block — subscription is already active
+                        }
 
                         // Show success message
                         if (mounted) {
@@ -442,7 +558,26 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                             'Purchase did not complete. Please try again.');
                       }
                     } catch (e) {
-                      // Handle errors
+                      // Handle sold-out lifetime cap (see _kLifetimeSoldOutError)
+                      final errorStr = e.toString().toLowerCase();
+                      if (errorStr.contains(_kLifetimeSoldOutError)) {
+                        _loadLifetimeCount(); // Refresh count
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Sorry, all 100 Founding Grower spots have been claimed!',
+                                style: GoogleFonts.readexPro(),
+                              ),
+                              backgroundColor: FlutterFlowTheme.of(context).error,
+                              duration: const Duration(seconds: 4),
+                            ),
+                          );
+                        }
+                        return;
+                      }
+
+                      // Handle other errors
                       String errorMessage =
                           'Purchase failed. Please try again.';
 
@@ -476,10 +611,10 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       }
                     }
                   },
-                  text: _model.isPurchasing 
-                      ? 'Processing...' 
-                      : (_model.isLoadingOfferings 
-                          ? 'Loading...' 
+                  text: _model.isPurchasing
+                      ? 'Processing...'
+                      : (_model.isLoadingOfferings
+                          ? 'Loading...'
                           : 'Continue'),
                   options: FFButtonOptions(
                     width: double.infinity,
@@ -531,22 +666,26 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                         final entitlement =
                             customerInfo.entitlements.active.values.first;
 
-                        // Determine duration based on product identifier
+                        // Determine duration and tier based on product identifier
                         int durationDays = 30; // default to monthly
-                        if (entitlement.productIdentifier.contains('Year')) {
-                          durationDays = 365;
-                        } else if (entitlement.productIdentifier
-                            .contains('Life')) {
+                        String tier = 'monthly';
+                        if (entitlement.productIdentifier.contains('Life')) {
                           durationDays = 36500;
+                          tier = 'lifetime';
+                        } else if (entitlement.productIdentifier.contains('Sub_A') ||
+                            entitlement.productIdentifier.contains('Year')) {
+                          durationDays = 365;
+                          tier = 'annual';
                         }
 
                         await SupaFlow.client.rpc(
-                          'convert_trial_to_subscription',
+                          'convert_trial_to_subscription_with_cap',
                           params: {
                             'user_uuid': currentUserUid,
                             'duration_days': durationDays,
                             'platform': Platform.isIOS ? 'ios' : 'android',
                             'rc_customer_id': customerInfo.originalAppUserId,
+                            'tier': tier,
                           },
                         );
 
@@ -723,17 +862,28 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
     required String price,
     required String period,
     String? savings,
-    required bool isRecommended,
+    bool isRecommended = false,
     String? perMonth,
+    List<String>? features,
+    String? badge,
+    Color? badgeColor,
+    String? originalPrice,
+    String? disclaimer,
+    String? subtitle,
+    bool isDisabled = false,
   }) {
-    final bool isSelected = _model.selectedPlan == plan;
+    final bool isSelected = !isDisabled && _model.selectedPlan == plan;
 
-    return InkWell(
-      onTap: () {
-        setState(() {
-          _model.selectedPlan = plan;
-        });
-      },
+    return Opacity(
+      opacity: isDisabled ? 0.5 : 1.0,
+      child: InkWell(
+      onTap: isDisabled
+          ? null
+          : () {
+              setState(() {
+                _model.selectedPlan = plan;
+              });
+            },
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -753,12 +903,17 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                   const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
+                        // Title row with badges
+                        Wrap(
+                          spacing: 8.0,
+                          runSpacing: 4.0,
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             Text(
                               title,
@@ -768,15 +923,12 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                 letterSpacing: 0.0,
                               ),
                             ),
-                            if (savings != null) ...[
-                              const SizedBox(width: 8.0),
+                            if (savings != null)
                               Container(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     8.0, 4.0, 8.0, 4.0),
                                 decoration: BoxDecoration(
-                                  color: isRecommended
-                                      ? FlutterFlowTheme.of(context).success
-                                      : FlutterFlowTheme.of(context).warning,
+                                  color: FlutterFlowTheme.of(context).success,
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Text(
@@ -789,10 +941,41 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                   ),
                                 ),
                               ),
-                            ],
+                            if (badge != null)
+                              Container(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 8.0, 4.0),
+                                decoration: BoxDecoration(
+                                  color: badgeColor ??
+                                      FlutterFlowTheme.of(context).tertiary,
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                                child: Text(
+                                  badge,
+                                  style: GoogleFonts.readexPro(
+                                    color: Colors.white,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.0,
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
+                        if (subtitle != null) ...[
+                          const SizedBox(height: 4.0),
+                          Text(
+                            subtitle,
+                            style: GoogleFonts.readexPro(
+                              color: FlutterFlowTheme.of(context).primary,
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.0,
+                            ),
+                          ),
+                        ],
                         const SizedBox(height: 4.0),
+                        // Price row
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -818,6 +1001,24 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                 ),
                               ),
                             ),
+                            // Strikethrough original price (e.g. during Early Adopter promo)
+                            if (originalPrice != null) ...[
+                              const SizedBox(width: 8.0),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 4.0),
+                                child: Text(
+                                  originalPrice,
+                                  style: GoogleFonts.readexPro(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    fontSize: 14.0,
+                                    decoration: TextDecoration.lineThrough,
+                                    letterSpacing: 0.0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ],
                         ),
                         if (perMonth != null) ...[
@@ -825,8 +1026,56 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                           Text(
                             perMonth,
                             style: GoogleFonts.readexPro(
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color:
+                                  FlutterFlowTheme.of(context).secondaryText,
                               fontSize: 12.0,
+                              letterSpacing: 0.0,
+                            ),
+                          ),
+                        ],
+                        // Feature bullets
+                        if (features != null && features.isNotEmpty) ...[
+                          const SizedBox(height: 8.0),
+                          ...features.map(
+                            (feature) => Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 2.0, 0.0, 2.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.check_circle_outline_rounded,
+                                    color:
+                                        FlutterFlowTheme.of(context).success,
+                                    size: 16.0,
+                                  ),
+                                  const SizedBox(width: 6.0),
+                                  Expanded(
+                                    child: Text(
+                                      feature,
+                                      style: GoogleFonts.readexPro(
+                                        fontSize: 13.0,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        letterSpacing: 0.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                        // Disclaimer text
+                        if (disclaimer != null) ...[
+                          const SizedBox(height: 6.0),
+                          Text(
+                            disclaimer,
+                            style: GoogleFonts.readexPro(
+                              color:
+                                  FlutterFlowTheme.of(context).secondaryText,
+                              fontSize: 10.0,
+                              fontStyle: FontStyle.italic,
                               letterSpacing: 0.0,
                             ),
                           ),
@@ -835,28 +1084,32 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                     ),
                   ),
                   // Selection indicator
-                  Container(
-                    width: 24.0,
-                    height: 24.0,
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? FlutterFlowTheme.of(context).primary
-                          : Colors.transparent,
-                      shape: BoxShape.circle,
-                      border: Border.all(
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        8.0, 0.0, 0.0, 0.0),
+                    child: Container(
+                      width: 24.0,
+                      height: 24.0,
+                      decoration: BoxDecoration(
                         color: isSelected
                             ? FlutterFlowTheme.of(context).primary
-                            : FlutterFlowTheme.of(context).alternate,
-                        width: 2.0,
+                            : Colors.transparent,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: isSelected
+                              ? FlutterFlowTheme.of(context).primary
+                              : FlutterFlowTheme.of(context).alternate,
+                          width: 2.0,
+                        ),
                       ),
+                      child: isSelected
+                          ? const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                              size: 16.0,
+                            )
+                          : null,
                     ),
-                    child: isSelected
-                        ? const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 16.0,
-                          )
-                        : null,
                   ),
                 ],
               ),
@@ -890,6 +1143,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
           ],
         ),
       ),
+    ),
     );
   }
 }

@@ -260,9 +260,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
         // Notify parent
         widget.onPostCreated?.call();
 
-        // Navigate back
+        // Navigate back - use safePop for reliable iPad navigation
         if (mounted) {
-          context.pop();
+          context.safePop();
         }
       } else {
         throw Exception(result['error'] ?? 'Failed to create post');
@@ -309,7 +309,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
             size: 30.0,
           ),
           onPressed: () async {
-            context.pop();
+            // Use safePop for reliable iPad navigation
+            context.safePop();
           },
         ),
         title: Text(
