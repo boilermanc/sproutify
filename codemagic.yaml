@@ -54,10 +54,3 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-```
-
-Replace the entire `codemagic.yaml` with this, also bump `pubspec.yaml` to `version: 2.6.8+21`, then:
-```
-git add pubspec.yaml codemagic.yaml
-git commit -m "Bump build to 21, auto-increment build number in CI"
-git push
