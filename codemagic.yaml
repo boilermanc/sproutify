@@ -4,7 +4,6 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m1
     integrations:
-      # The name here must match your actual App Store Connect integration name
       app_store_connect: "Sproutify CodeMagic"
     environment:
       flutter: stable
@@ -13,24 +12,14 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.sproutify.sproutifymobile
-
-      # This section loads your secret variables
       groups:
         - app_secrets
       vars:
-        # App configuration
         APP_ID: com.sproutify.sproutifymobile
         BUNDLE_ID: com.sproutify.sproutifymobile
-        
-        # These will be set via environment variable groups in Codemagic UI
-        # SUPABASE_URL: (set in app_secrets group) - REQUIRED
-        # SUPABASE_ANON_KEY: (set in app_secrets group) - REQUIRED
-        # REVENUE_CAT_IOS_API_KEY: (set in app_secrets group) - REQUIRED
-        # N8N_WEBHOOK_URL: (set in app_secrets group) - REQUIRED
     scripts:
       - name: Set up code signing
         script: |
-          # Use the certificates and profiles already uploaded to Codemagic
           keychain add-certificates
           xcode-project use-profiles
       - name: Get Flutter dependencies
@@ -41,7 +30,9 @@ workflows:
           cd ios && pod install && cd ..
       - name: Build iOS archive
         script: |
-          flutter build ipa --release --no-codesign \
+          BUILD_NUMBER=$(($(app-store-connect get-latest-testflight-build-number "$APP_ID") + 1))
+          echo "Using build number: $BUILD_NUMBER"
+          flutter build ipa --build-number=$BUILD_NUMBER --release --no-codesign \
             --dart-define=SUPABASE_URL="$SUPABASE_URL" \
             --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY" \
             --dart-define=REVENUE_CAT_IOS_API_KEY="${REVENUE_CAT_IOS_API_KEY:-}" \
@@ -63,9 +54,10 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-        
-        # Beta groups to distribute to (optional)
-        # beta_groups:
-        #   - group name 1
-        #   - group name 2
+```
 
+Replace the entire `codemagic.yaml` with this, also bump `pubspec.yaml` to `version: 2.6.8+21`, then:
+```
+git add pubspec.yaml codemagic.yaml
+git commit -m "Bump build to 21, auto-increment build number in CI"
+git push
