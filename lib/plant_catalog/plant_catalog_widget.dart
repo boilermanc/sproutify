@@ -261,7 +261,7 @@ class _PlantCatalogWidgetState extends State<PlantCatalogWidget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                       child: Container(
-                        width: 388.0,
+                        width: double.infinity,
                         height: 100.0,
                         decoration: BoxDecoration(
                           color:

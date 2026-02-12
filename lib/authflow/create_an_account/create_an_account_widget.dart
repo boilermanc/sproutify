@@ -155,7 +155,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                     child: SizedBox(
-                                      width: 370.0,
+                                      width: double.infinity,
                                       child: TextFormField(
                                         controller:
                                             _model.emailAddressTextController,
@@ -275,7 +275,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                     child: SizedBox(
-                                      width: 370.0,
+                                      width: double.infinity,
                                       child: TextFormField(
                                         controller:
                                             _model.passwordTextController,
@@ -410,7 +410,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                     child: SizedBox(
-                                      width: 370.0,
+                                      width: double.infinity,
                                       child: TextFormField(
                                         controller: _model
                                             .passwordConfirmTextController,
@@ -585,7 +585,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                       },
                                       text: 'Start Your Free Trial',
                                       options: FFButtonOptions(
-                                        width: 370.0,
+                                        width: double.infinity,
                                         height: 44.0,
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0.0, 0.0, 0.0, 0.0),
@@ -755,7 +755,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 20.0, 0.0, 0.0),
                                     child: Container(
-                                      width: 388.0,
+                                      width: double.infinity,
                                       height: 100.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)

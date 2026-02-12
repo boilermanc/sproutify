@@ -140,7 +140,7 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
     required IconData icon,
   }) {
     final costs = [monthlyCost, quarterlyCost, yearlyCost];
-    final labels = ['Monthly', 'Quarterly', 'Yearly'];
+    final labels = ['month', 'quarter', 'year'];
     final selectedCost = costs[_tabController.index];
 
     return AnimatedBuilder(
@@ -239,7 +239,7 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                           ),
                           const SizedBox(height: 4.0),
                           Text(
-                            'this ${labels[_tabController.index].toLowerCase()}',
+                            'this ${labels[_tabController.index]}',
                             style: GoogleFonts.readexPro(
                               fontSize: 13.0,
                               color: Colors.white.withOpacity(0.75),
@@ -413,7 +413,12 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                             purchase['productname'] as String? ?? 'Unknown';
                         final cost =
                             purchase['userpurchasecost'] as double? ?? 0.0;
-                        final date = purchase['userpurchasedate'] as DateTime?;
+                        final rawDate = purchase['userpurchasedate'];
+                        final date = rawDate is DateTime
+                            ? rawDate
+                            : rawDate is String
+                                ? DateTime.tryParse(rawDate)
+                                : null;
                         final quantity =
                             purchase['userpurchasedquantity'] as int? ?? 1;
 

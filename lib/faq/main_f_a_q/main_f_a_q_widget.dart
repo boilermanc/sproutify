@@ -335,7 +335,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
                                 child: Container(
-                                  width: 350.0,
+                                  width: double.infinity,
                                   height: 500.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
@@ -573,7 +573,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: 350.0,
+                                  width: double.infinity,
                                   height: 500.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
@@ -750,7 +750,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
                                 child: Container(
-                                  width: 350.0,
+                                  width: double.infinity,
                                   height: 500.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
@@ -982,7 +982,7 @@ class _MainFAQWidgetState extends State<MainFAQWidget>
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
                                 child: Container(
-                                  width: 350.0,
+                                  width: double.infinity,
                                   height: 500.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)

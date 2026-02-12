@@ -103,7 +103,7 @@ class _SproutifyPurchasePageWidgetState
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Container(
-                                      width: 350.0,
+                                      width: double.infinity,
                                       height: 100.0,
                                       decoration: BoxDecoration(
                                         color: const Color(0xFFDAE5D7),
@@ -234,7 +234,7 @@ class _SproutifyPurchasePageWidgetState
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0.0, 20.0, 0.0, 0.0),
                                         child: Container(
-                                          width: 350.0,
+                                          width: double.infinity,
                                           height: 110.0,
                                           decoration: BoxDecoration(
                                             color: _model.isCard1Hovered == true
@@ -585,7 +585,7 @@ class _SproutifyPurchasePageWidgetState
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0.0, 20.0, 0.0, 0.0),
                                         child: Container(
-                                          width: 350.0,
+                                          width: double.infinity,
                                           height: 110.0,
                                           decoration: BoxDecoration(
                                             color: _model.isCard2Hovered == true
@@ -936,7 +936,7 @@ class _SproutifyPurchasePageWidgetState
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0.0, 20.0, 0.0, 0.0),
                                         child: Container(
-                                          width: 350.0,
+                                          width: double.infinity,
                                           height: 110.0,
                                           decoration: BoxDecoration(
                                             color: _model.isCard3Hovered == true
@@ -1259,7 +1259,7 @@ class _SproutifyPurchasePageWidgetState
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 20.0, 0.0, 0.0),
                                       child: Container(
-                                        width: 350.0,
+                                        width: double.infinity,
                                         height: 140.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)

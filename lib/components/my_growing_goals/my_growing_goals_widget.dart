@@ -55,7 +55,7 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Container(
-              width: 320.0,
+              width: double.infinity,
               height: 370.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -111,7 +111,7 @@ class _MyGrowingGoalsWidgetState extends State<MyGrowingGoalsWidget> {
                     ),
                   ),
                 Container(
-                  width: 308.0,
+                  width: double.infinity,
                   height: 200.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,

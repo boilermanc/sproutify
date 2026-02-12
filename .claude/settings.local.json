@@ -34,7 +34,11 @@
       "Bash(code:*)",
       "Bash(flutter doctor:*)",
       "Bash(powershell:*)",
-      "Bash(flutter emulators:*)"
+      "Bash(flutter emulators:*)",
+      "Bash(grep:*)",
+      "Bash(dart analyze:*)",
+      "Bash(gh pr list --limit 10)",
+      "Bash(gh pr list:*)"
     ],
     "deny": [],
     "ask": []

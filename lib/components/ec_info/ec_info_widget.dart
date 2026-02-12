@@ -50,7 +50,7 @@ class _EcInfoWidgetState extends State<EcInfoWidget> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
-            width: 330.0,
+            width: double.infinity,
             height: 450.0,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,

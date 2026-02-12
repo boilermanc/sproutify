@@ -1733,7 +1733,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           : null;
 
                                   return Container(
-                                    width: 390.0,
+                                    width: double.infinity,
                                     height: 240.0,
                                     decoration: const BoxDecoration(
                                       color: Color(0xFFE4EFD0),

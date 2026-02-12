@@ -102,7 +102,7 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                       ),
                     ),
                     Container(
-                      width: 360.0,
+                      width: double.infinity,
                       decoration: const BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,

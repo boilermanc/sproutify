@@ -43,7 +43,7 @@ class _GrowingIndoorsWidgetState extends State<GrowingIndoorsWidget> {
     return Align(
       alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
-        width: 300.0,
+        width: double.infinity,
         height: 800.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,

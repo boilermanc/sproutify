@@ -62,7 +62,7 @@ class _AddPlantCostWidgetState extends State<AddPlantCostWidget> {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
-            width: 300.0,
+            width: double.infinity,
             height: 350.0,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,

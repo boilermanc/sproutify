@@ -62,7 +62,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
           await revenue_cat.loadOfferings();
         } catch (e) {
           // If loadOfferings throws, log it but continue to check offerings
-          print('Error calling loadOfferings: $e');
+          debugPrint('Error calling loadOfferings: $e');
         }
 
         final offerings = revenue_cat.offerings;
@@ -130,7 +130,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
       }
     } catch (e) {
       // Fail open — leave lifetimeCount as null so the card stays enabled
-      print('Error loading lifetime count: $e');
+      debugPrint('Error loading lifetime count: $e');
     }
   }
 
@@ -152,12 +152,15 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
     return null;
   }
 
-  /// Whether the current date falls in the Early Adopter launch window (Mar 31 – Apr 30).
+  /// Whether the current date falls in the Early Adopter launch window
+  /// (launch through March 31, 2026). Price is locked at the intro rate
+  /// for early adopters.
+  // TODO(post-launch): Remove this getter after April 2026 and clean up
+  // all `_isEarlyAdopterPeriod` references once the promo window closes.
   bool get _isEarlyAdopterPeriod {
     final now = DateTime.now();
-    final start = DateTime(now.year, 3, 31);
-    final end = DateTime(now.year, 5, 1); // Up to but not including May 1
-    return !now.isBefore(start) && now.isBefore(end);
+    final end = DateTime(2026, 4, 1); // Up to but not including April 1
+    return now.isBefore(end);
   }
 
   @override
@@ -376,26 +379,38 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       final displayPrice = hasIntroOffer
                           ? product!.introductoryPrice!.priceString
                           : (product?.priceString ?? '\$49.99');
-                      final perMonthAmount =
-                          (product?.price ?? 49.99) / 12;
+                      final perMonthAmount = hasIntroOffer
+                          ? product!.introductoryPrice!.price / 12
+                          : (product?.price ?? 49.99) / 12;
 
                       return _buildPricingCard(
                         plan: 'annual',
                         title: 'Annual',
                         price: displayPrice,
                         period: '/year',
-                        savings: 'Save ~\$10',
+                        savings: hasIntroOffer ? 'Save ~\$20' : 'Save ~\$10',
                         isRecommended: true,
                         perMonth:
                             '\$${perMonthAmount.toStringAsFixed(2)}/mo',
-                        features: const [
-                          'Full app access',
-                          'Save ~\$10 vs monthly',
-                        ],
+                        features: hasIntroOffer
+                            ? const [
+                                'Full app access',
+                                'Price locked for 2 years',
+                                '\$25 seedling credit (1st year)*',
+                              ]
+                            : const [
+                                'Full app access',
+                                'Save ~\$10 vs monthly',
+                              ],
                         badge: _isEarlyAdopterPeriod ? 'EARLY ADOPTER' : null,
                         badgeColor: const Color(0xFFD08008),
                         originalPrice:
                             hasIntroOffer ? product!.priceString : null,
+                        disclaimer: hasIntroOffer
+                            ? '*Seedling credit redeemable through ATL Urban Farms. Shipping not included. Credit expires after 12 months. Cannot combine with other promos.'
+                            : null,
+                        disclaimerLinkText: hasIntroOffer ? 'Visit ATL Urban Farms' : null,
+                        disclaimerLinkUrl: hasIntroOffer ? 'https://atlurbanfarms.com' : null,
                       );
                     }),
 
@@ -426,7 +441,9 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                           : null,
                       disclaimer: _model.lifetimeSoldOut
                           ? null
-                          : '*Shipping not included. Credit expires after 12 months. Cannot combine with other promos.',
+                          : '*Seedling credit redeemable through ATL Urban Farms. Shipping not included. Credit expires after 12 months. Cannot combine with other promos.',
+                      disclaimerLinkText: _model.lifetimeSoldOut ? null : 'Visit ATL Urban Farms',
+                      disclaimerLinkUrl: _model.lifetimeSoldOut ? null : 'https://atlurbanfarms.com',
                       isDisabled: _model.lifetimeSoldOut,
                     ),
                   ],
@@ -529,10 +546,11 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                             params: {
                               'p_user_id': currentUserUid,
                               'p_subscription_tier': _model.selectedPlan,
+                              'p_is_early_adopter': _isEarlyAdopterPeriod,
                             },
                           );
                         } catch (e) {
-                          print('Failed to issue seedling credit: $e');
+                          debugPrint('Failed to issue seedling credit: $e');
                           // Don't block — subscription is already active
                         }
 
@@ -762,14 +780,21 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
-                      child: Text(
-                        'Terms of Use',
-                        style: GoogleFonts.readexPro(
-                          color: FlutterFlowTheme.of(context).primary,
-                          fontSize: 12.0,
-                          decoration: TextDecoration.underline,
+                    Semantics(
+                      link: true,
+                      label: 'Terms of Use',
+                      child: GestureDetector(
+                        onTap: () => launchUrl(
+                          Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'),
+                          mode: LaunchMode.externalApplication,
+                        ),
+                        child: Text(
+                          'Terms of Use',
+                          style: GoogleFonts.readexPro(
+                            color: FlutterFlowTheme.of(context).primary,
+                            fontSize: 12.0,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
                     ),
@@ -782,14 +807,21 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: () => launchUrl(Uri.parse('https://www.sproutify.app/index.php/privacy-policy-2/')),
-                      child: Text(
-                        'Privacy Policy',
-                        style: GoogleFonts.readexPro(
-                          color: FlutterFlowTheme.of(context).primary,
-                          fontSize: 12.0,
-                          decoration: TextDecoration.underline,
+                    Semantics(
+                      link: true,
+                      label: 'Privacy Policy',
+                      child: GestureDetector(
+                        onTap: () => launchUrl(
+                          Uri.parse('https://www.sproutify.app/index.php/privacy-policy-2/'),
+                          mode: LaunchMode.externalApplication,
+                        ),
+                        child: Text(
+                          'Privacy Policy',
+                          style: GoogleFonts.readexPro(
+                            color: FlutterFlowTheme.of(context).primary,
+                            fontSize: 12.0,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
                     ),
@@ -869,6 +901,8 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
     Color? badgeColor,
     String? originalPrice,
     String? disclaimer,
+    String? disclaimerLinkText,
+    String? disclaimerLinkUrl,
     String? subtitle,
     bool isDisabled = false,
   }) {
@@ -1079,6 +1113,30 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                               letterSpacing: 0.0,
                             ),
                           ),
+                          if (disclaimerLinkText != null &&
+                              disclaimerLinkUrl != null) ...[
+                            const SizedBox(height: 4.0),
+                            Semantics(
+                              link: true,
+                              label: disclaimerLinkText,
+                              child: GestureDetector(
+                                onTap: () => launchUrl(
+                                  Uri.parse(disclaimerLinkUrl),
+                                  mode: LaunchMode.externalApplication,
+                                ),
+                                child: Text(
+                                  disclaimerLinkText,
+                                  style: GoogleFonts.readexPro(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                    letterSpacing: 0.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ],
                     ),

@@ -107,7 +107,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
                       child: Container(
-                        width: 390.0,
+                        width: double.infinity,
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
@@ -574,7 +574,7 @@ class _PestSupport2WidgetState extends State<PestSupport2Widget> {
                       ),
                     ),
                     Container(
-                      width: 390.0,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),

@@ -127,7 +127,7 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Container(
-            width: 300.0,
+            width: double.infinity,
             constraints: const BoxConstraints(
               maxHeight: 550.0,
             ),
@@ -189,7 +189,7 @@ class _WhatILikeToGrowWidgetState extends State<WhatILikeToGrowWidget> {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
-                      width: 308.0,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(10.0),

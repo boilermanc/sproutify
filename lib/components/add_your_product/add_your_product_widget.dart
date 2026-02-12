@@ -65,7 +65,7 @@ class _AddYourProductWidgetState extends State<AddYourProductWidget> {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
-            width: 300.0,
+            width: double.infinity,
             height: 400.0,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,

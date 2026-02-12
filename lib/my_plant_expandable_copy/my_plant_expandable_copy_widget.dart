@@ -514,7 +514,7 @@ class _MyPlantExpandableCopyWidgetState
                                                 ),
                                               ),
                                               expanded: Container(
-                                                width: 370.0,
+                                                width: double.infinity,
                                                 decoration: const BoxDecoration(),
                                                 child: Column(
                                                   mainAxisSize:
