@@ -88,8 +88,7 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
-          title: Flexible(
-            child: Text(
+          title: Text(
               'Create New Password',
               overflow: TextOverflow.ellipsis,
               style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -104,7 +103,6 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                     fontStyle:
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
-            ),
           ),
           actions: const [],
           centerTitle: true,

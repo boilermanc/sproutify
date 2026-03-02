@@ -331,8 +331,7 @@ class _PlanWithSageWidgetState extends State<PlanWithSageWidget> {
               }
             },
           ),
-          title: Flexible(
-            child: Text(
+          title: Text(
               'Plan with Sage',
               overflow: TextOverflow.ellipsis,
               style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -343,7 +342,6 @@ class _PlanWithSageWidgetState extends State<PlanWithSageWidget> {
                     fontSize: 24.0,
                     letterSpacing: 0.0,
                   ),
-            ),
           ),
           actions: const [],
           centerTitle: true,

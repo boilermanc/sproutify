@@ -222,8 +222,7 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primary,
             automaticallyImplyLeading: false,
-            title: Flexible(
-              child: Text(
+            title: Text(
                 'Let\'s Get To Know You',
                 overflow: TextOverflow.ellipsis,
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -239,7 +238,6 @@ class _OnboardingQuestionsWidgetState extends State<OnboardingQuestionsWidget>
                       fontStyle:
                           FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
-              ),
             ),
             actions: const [],
             centerTitle: false,

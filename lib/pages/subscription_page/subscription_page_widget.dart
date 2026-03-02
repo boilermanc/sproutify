@@ -171,8 +171,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: true,
-        title: Flexible(
-          child: Text(
+        title: Text(
             'Subscribe to Sproutify',
             overflow: TextOverflow.ellipsis,
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -181,7 +180,6 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                   fontSize: 22.0,
                   letterSpacing: 0.0,
                 ),
-          ),
         ),
         centerTitle: true,
         elevation: 2.0,

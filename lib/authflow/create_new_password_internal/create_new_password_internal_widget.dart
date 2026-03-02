@@ -78,8 +78,7 @@ class _CreateNewPasswordInternalWidgetState
               context.pop();
             },
           ),
-          title: Flexible(
-            child: Text(
+          title: Text(
               'Create New Password',
               overflow: TextOverflow.ellipsis,
               style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -94,7 +93,6 @@ class _CreateNewPasswordInternalWidgetState
                     fontStyle:
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
-            ),
           ),
           actions: const [],
           centerTitle: true,

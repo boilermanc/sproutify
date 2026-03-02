@@ -61,8 +61,7 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
-        title: Flexible(
-          child: Text(
+        title: Text(
             'Almost There...',
             overflow: TextOverflow.ellipsis,
             style: FlutterFlowTheme.of(context).titleSmall.override(
@@ -76,7 +75,6 @@ class _Settings1AddProfileWidgetState extends State<Settings1AddProfileWidget> {
                   fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
                   fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                 ),
-          ),
         ),
         actions: const [],
         centerTitle: false,

@@ -265,8 +265,7 @@ class _AdminGuidelinesWidgetState extends State<AdminGuidelinesWidget> {
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         automaticallyImplyLeading: true,
-        title: Flexible(
-          child: Text(
+        title: Text(
             'Guidelines Management',
             overflow: TextOverflow.ellipsis,
             style: FlutterFlowTheme.of(context).headlineSmall.override(
@@ -275,7 +274,6 @@ class _AdminGuidelinesWidgetState extends State<AdminGuidelinesWidget> {
                   ),
                   letterSpacing: 0.0,
                 ),
-          ),
         ),
         actions: [
           IconButton(

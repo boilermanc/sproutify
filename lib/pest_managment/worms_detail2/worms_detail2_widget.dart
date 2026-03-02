@@ -59,8 +59,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
             size: 32.0,
           ),
         ),
-        title: Flexible(
-          child: Text(
+        title: Text(
             'Caterpillars and Worms',
             overflow: TextOverflow.ellipsis,
             style: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -72,7 +71,6 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                   fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
                   fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                 ),
-          ),
         ),
         actions: const [],
         centerTitle: false,

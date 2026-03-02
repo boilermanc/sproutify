@@ -100,8 +100,7 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
               context.pushNamed(PlantCatalogWidget.routeName);
             },
           ),
-          title: Flexible(
-            child: Text(
+          title: Text(
               'Plant Categories',
               overflow: TextOverflow.ellipsis,
               style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -117,7 +116,6 @@ class _PlantCatagoriesWidgetState extends State<PlantCatagoriesWidget> {
                     fontStyle:
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
-            ),
           ),
           actions: const [],
           centerTitle: true,
