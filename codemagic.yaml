@@ -32,8 +32,8 @@ workflows:
         script: |
           LATEST=$(app-store-connect get-latest-testflight-build-number "$APP_ID" 2>/dev/null || echo "0")
           # Guard against the API returning empty/zero — never go below known floor
-          if [ -z "$LATEST" ] || [ "$LATEST" -lt 21 ]; then
-            LATEST=21
+          if [ -z "$LATEST" ] || [ "$LATEST" -lt 22 ]; then
+            LATEST=22
           fi
           BUILD_NUMBER=$((LATEST + 1))
           echo "Using build number: $BUILD_NUMBER (latest was $LATEST)"
