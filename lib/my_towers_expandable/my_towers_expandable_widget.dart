@@ -352,9 +352,6 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
                                                 Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1474,8 +1471,6 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                     ),
                                                   ],
                                                 ),
-                                              ],
-                                            ),
                                             Padding(
                                               padding:
                                                   const EdgeInsetsDirectional
