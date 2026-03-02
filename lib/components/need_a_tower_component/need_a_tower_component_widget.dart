@@ -94,7 +94,7 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
                   ].divide(const SizedBox(width: 8.0)),
                 ),
                 Text(
-                  'Tower Garden® lets you easily grow your own fresh, nutrient-rich food without soil. ',
+                  'Aeroponic towers let you easily grow your own fresh, nutrient-rich food without soil. ',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.readexPro(
                           fontWeight: FontWeight.w600,
@@ -133,12 +133,12 @@ class _NeedATowerComponentWidgetState extends State<NeedATowerComponentWidget> {
                 FFButtonWidget(
                   onPressed: () async {
                     HapticFeedback.lightImpact();
-                    await launchURL('https://us.towergarden.com/');
+                    await launchURL('https://atlurbanfarms.com');
 
                     // Navigate to trial screens before going to dashboard
                     context.pushNamed('TrialBenefitsPage');
                   },
-                  text: 'Visit Tower Garden Website',
+                  text: 'Shop Aeroponic Towers',
                   icon: const Icon(
                     Icons.open_in_new,
                     size: 20.0,

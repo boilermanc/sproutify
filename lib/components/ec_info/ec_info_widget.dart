@@ -122,7 +122,7 @@ class _EcInfoWidgetState extends State<EcInfoWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
                                 child: Text(
-                                  'The ideal Electrical Conductivity (EC) for a Tower Garden, an aeroponic system, is typically between 1.5 to 2.5 mS/cm. ',
+                                  'The ideal Electrical Conductivity (EC) for an aeroponic tower system is typically between 1.5 to 2.5 mS/cm. ',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

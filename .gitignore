@@ -4,6 +4,8 @@
 *.pyc
 *.swp
 .DS_Store
+nul
+SproutifyCard.tsx
 .atom/
 .buildlog/
 .history
@@ -16,12 +18,10 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
+# VS Code (uncomment if you want to ignore it)
 #.vscode/
 
-# Flutter/Dart/Pub related
+# Flutter / Dart / Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
@@ -38,7 +38,7 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
+# Android build outputs
 /android/app/debug
 /android/app/profile
 /android/app/release
@@ -52,3 +52,13 @@ app.*.map.json
 # Build scripts (optional - remove if you want to commit them)
 # build.sh
 # build.bat
+
+# -----------------------------------
+# Supabase CLI
+# -----------------------------------
+
+# Supabase local temp files (DO NOT COMMIT)
+supabase/.temp/
+
+# Optional: local Supabase Docker volumes (if ever created)
+supabase/.local/

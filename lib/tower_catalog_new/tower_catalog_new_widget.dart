@@ -178,7 +178,7 @@ class _TowerCatalogNewWidgetState extends State<TowerCatalogNewWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
                                       child: Image.asset(
-                                        'assets/images/Tower_Garden_Clip_100x100.png',
+                                        'assets/images/aeroponic_tower_clip_100x100.png',
                                         width: 100.0,
                                         height: 100.0,
                                         fit: BoxFit.cover,

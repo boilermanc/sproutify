@@ -51,12 +51,12 @@ Future<bool> deleteUserData() async {
           .eq('user_id', userId);
       print('Deleted userproducts');
 
-      // Delete user tower gardens
+      // Delete user towers
       await SupaFlow.client
-          .from('tower_gardens')
+          .from('my_towers')
           .delete()
           .eq('user_id', userId);
-      print('Deleted tower_gardens');
+      print('Deleted my_towers');
 
       // Delete user favorite plants
       await SupaFlow.client

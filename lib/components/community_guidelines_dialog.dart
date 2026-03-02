@@ -162,7 +162,7 @@ class _CommunityGuidelinesDialogState extends State<CommunityGuidelinesDialog> {
                       icon: Icons.local_florist,
                       title: 'Keep It Relevant',
                       items: [
-                        'Posts should be related to gardening, tower gardens, plants, or growing',
+                        'Posts should be related to gardening, aeroponic towers, plants, or growing',
                         'No spam, advertisements, or self-promotion',
                         'No off-topic content',
                       ],

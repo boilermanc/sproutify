@@ -57,7 +57,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Sproutify accesses your photo library to select existing plant photos for growth tracking, add images to community posts, and set your profile picture. For example, you can upload a photo of your harvest to share with other growers.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Sproutify saves photos to your library so you can keep copies of your plant progress photos and pest identification images. For example, saving a time-lapse of your tower garden growth.</string>
+	<string>Sproutify saves photos to your library so you can keep copies of your plant progress photos and pest identification images. For example, saving a time-lapse of your aeroponic tower growth.</string>
 
 
 

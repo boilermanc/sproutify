@@ -155,7 +155,7 @@ class _CoralChatWidgetState extends State<CoralChatWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 10.0, 7.0, 0.0),
                           child: Text(
-                            'I\'m your AI assistant dedicated to everything related to tower gardening. Feel free to inquire about any aspect of cultivating in a Tower Garden. Keep in mind, though, that while I strive for accuracy, I\'m still AI and might not always provide perfect answers. Therefore, trust but verify.',
+                            'I\'m your AI assistant dedicated to everything related to aeroponic tower gardening. Feel free to ask about any aspect of growing in your tower. Keep in mind, while I strive for accuracy, I\'m still AI and might not always provide perfect answers. Therefore, trust but verify.',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

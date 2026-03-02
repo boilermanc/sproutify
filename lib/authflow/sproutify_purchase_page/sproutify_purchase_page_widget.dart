@@ -133,7 +133,7 @@ class _SproutifyPurchasePageWidgetState
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  'Manage Your Tower Garden',
+                                                  'Manage Your Aeroponic Tower',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -1949,7 +1949,7 @@ class _SproutifyPurchasePageWidgetState
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Complete tower garden management for \$4/month',
+                                            'Complete aeroponic tower management for \$4/month',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(

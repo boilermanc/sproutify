@@ -377,7 +377,7 @@ class _TowerCatalogWidgetState extends State<TowerCatalogWidget> {
                                                     fit: BoxFit.contain,
                                                   )
                                                 : Image.asset(
-                                                    'assets/images/Tower_Garden_Clip_100x100.png',
+                                                    'assets/images/aeroponic_tower_clip_100x100.png',
                                                     width: 120.0,
                                                     height: 120.0,
                                                     fit: BoxFit.contain,

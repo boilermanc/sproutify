@@ -297,21 +297,24 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(50.0),
-                                            child: CachedNetworkImage(
-                                              fadeInDuration: const Duration(
-                                                  milliseconds: 500),
-                                              fadeOutDuration: const Duration(
-                                                  milliseconds: 500),
-                                              imageUrl:
-                                                  valueOrDefault<String>(
-                                                listViewProfilesRow
-                                                    .avatarUrl,
-                                                'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tower-garden-community-l9w4j2/assets/cpng3hq99m1r/Tower_Garden_Clip_100x100.png',
-                                              ),
-                                              width: 100.0,
-                                              height: 100.0,
-                                              fit: BoxFit.cover,
-                                            ),
+                                            child: (listViewProfilesRow.avatarUrl != null &&
+                                                    listViewProfilesRow.avatarUrl!.isNotEmpty)
+                                                ? CachedNetworkImage(
+                                                    fadeInDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    imageUrl: listViewProfilesRow.avatarUrl!,
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.asset(
+                                                    'assets/images/aeroponic_tower_clip_100x100.png',
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                           ),
                                         ),
                                       ),

@@ -517,7 +517,7 @@ class _CustomerSupportWidgetState extends State<CustomerSupportWidget>
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 4.0, 0.0, 0.0),
                                     child: Text(
-                                      'If you don\'t find a plant in the plant catalog and wouldl ike to have it added, send us an email and we will research and add the plant if we feel it is an approriate addition to a Tower Garden.',
+                                      'If you don\'t find a plant in the plant catalog and would like to have it added, send us an email and we will research and add the plant if we feel it is an appropriate addition to an aeroponic tower garden.',
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(

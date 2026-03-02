@@ -89,7 +89,7 @@ Brand logos should be added to the `tower_brands.brand_logo_url` field. You can:
    - Format: PNG with transparent background preferred
 
 3. **Fallback:**
-   - If `brand_logo_url` is NULL or empty, the app shows: `assets/images/Tower_Garden_Clip_100x100.png`
+   - If `brand_logo_url` is NULL or empty, the app shows: `assets/images/aeroponic_tower_clip_100x100.png`
 
 ### Adding New Brands
 

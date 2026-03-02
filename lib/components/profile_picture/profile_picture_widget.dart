@@ -276,13 +276,15 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                                       decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
-                                      child: Image.network(
-                                        valueOrDefault<String>(
-                                          _model.uploadedFileUrl_uploadData0vm,
-                                          'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tower-garden-community-l9w4j2/assets/cpng3hq99m1r/Tower_Garden_Clip_100x100.png',
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: _model.uploadedFileUrl_uploadData0vm.isNotEmpty
+                                          ? Image.network(
+                                              _model.uploadedFileUrl_uploadData0vm,
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Image.asset(
+                                              'assets/images/aeroponic_tower_clip_100x100.png',
+                                              fit: BoxFit.cover,
+                                            ),
                                     ),
                                   ],
                                 ),

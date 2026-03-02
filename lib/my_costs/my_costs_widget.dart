@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'my_costs_model.dart';
@@ -108,6 +109,81 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
     }
   }
 
+  /// Fetch total spend per month for the last 6 months.
+  Future<List<double>> _fetchMonthlySupplySpend() async {
+    try {
+      final supabase = Supabase.instance.client;
+      final now = DateTime.now();
+      final sixMonthsAgo = DateTime(now.year, now.month - 5, 1);
+
+      final rows = await supabase
+          .from('userproducts')
+          .select('userpurchasedate, userpurchasecost')
+          .eq('userid', currentUserUid)
+          .or('archive.is.null,archive.eq.false')
+          .gte('userpurchasedate', sixMonthsAgo.toIso8601String());
+
+      // Bucket totals by month index (0 = oldest, 5 = current)
+      final totals = List<double>.filled(6, 0.0);
+      for (final row in rows) {
+        final rawDate = row['userpurchasedate'];
+        final date = rawDate is DateTime
+            ? rawDate
+            : rawDate is String
+                ? DateTime.tryParse(rawDate)
+                : null;
+        if (date == null) continue;
+        final cost = (row['userpurchasecost'] as num?)?.toDouble() ?? 0.0;
+        final monthOffset =
+            (date.year - sixMonthsAgo.year) * 12 + date.month - sixMonthsAgo.month;
+        if (monthOffset >= 0 && monthOffset < 6) {
+          totals[monthOffset] += cost;
+        }
+      }
+      return totals;
+    } catch (e) {
+      print('Error fetching monthly supply spend: $e');
+      return List<double>.filled(6, 0.0);
+    }
+  }
+
+  Future<List<double>> _fetchMonthlyPlantSpend() async {
+    try {
+      final supabase = Supabase.instance.client;
+      final now = DateTime.now();
+      final sixMonthsAgo = DateTime(now.year, now.month - 5, 1);
+
+      final rows = await supabase
+          .from('userplants')
+          .select('added_on, plant_cost')
+          .eq('user_id', currentUserUid)
+          .or('archived.is.null,archived.eq.false')
+          .gte('added_on', sixMonthsAgo.toIso8601String());
+
+      // Bucket totals by month index (0 = oldest, 5 = current)
+      final totals = List<double>.filled(6, 0.0);
+      for (final row in rows) {
+        final rawDate = row['added_on'];
+        final date = rawDate is DateTime
+            ? rawDate
+            : rawDate is String
+                ? DateTime.tryParse(rawDate)
+                : null;
+        if (date == null) continue;
+        final cost = (row['plant_cost'] as num?)?.toDouble() ?? 0.0;
+        final monthOffset =
+            (date.year - sixMonthsAgo.year) * 12 + date.month - sixMonthsAgo.month;
+        if (monthOffset >= 0 && monthOffset < 6) {
+          totals[monthOffset] += cost;
+        }
+      }
+      return totals;
+    } catch (e) {
+      print('Error fetching monthly plant spend: $e');
+      return List<double>.filled(6, 0.0);
+    }
+  }
+
   // Helper function to get icon based on category name
   IconData _getCategoryIcon(String categoryName) {
     final lowerName = categoryName.toLowerCase();
@@ -138,6 +214,7 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
     required String yearlyCost,
     required Color color,
     required IconData icon,
+    List<double>? sparklineData,
   }) {
     final costs = [monthlyCost, quarterlyCost, yearlyCost];
     final labels = ['month', 'quarter', 'year'];
@@ -194,14 +271,52 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                   size: 28.0,
                                 ),
                               ),
-                              Icon(
-                                Icons.trending_up,
-                                color: Colors.white.withOpacity(0.8),
-                                size: 20.0,
-                              ),
                             ],
                           ),
-                          const SizedBox(height: 20.0),
+                          if (sparklineData != null && sparklineData.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: SizedBox(
+                                height: 50.0,
+                                child: LineChart(
+                                  duration: const Duration(milliseconds: 800),
+                                  curve: Curves.easeInOut,
+                                  LineChartData(
+                                    gridData: const FlGridData(show: false),
+                                    titlesData: const FlTitlesData(show: false),
+                                    borderData: FlBorderData(show: false),
+                                    lineTouchData: const LineTouchData(enabled: false),
+                                    lineBarsData: [
+                                      LineChartBarData(
+                                        spots: [
+                                          for (var i = 0; i < sparklineData.length; i++)
+                                            FlSpot(i.toDouble(), sparklineData[i]),
+                                        ],
+                                        isCurved: true,
+                                        curveSmoothness: 0.35,
+                                        color: Colors.white.withOpacity(0.5),
+                                        barWidth: 2.5,
+                                        isStrokeCapRound: true,
+                                        dotData: const FlDotData(show: false),
+                                        belowBarData: BarAreaData(
+                                          show: true,
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.white.withOpacity(0.2),
+                                              Colors.white.withOpacity(0.0),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          else
+                            const SizedBox(height: 12.0),
                           Text(
                             title,
                             style: GoogleFonts.outfit(
@@ -741,12 +856,14 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                   child: Column(
                     children: [
                       // Cost Cards Grid
-                      FutureBuilder<List<ApiCallResponse>>(
+                      FutureBuilder<List<dynamic>>(
                         future: Future.wait([
                           TotalPlantCostPerUserCall.call(
                               userID: currentUserUid),
                           TotalSupplyCostPerUserCall.call(
                               userID: currentUserUid),
+                          _fetchMonthlyPlantSpend(),
+                          _fetchMonthlySupplySpend(),
                         ]),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
@@ -763,8 +880,10 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                             );
                           }
 
-                          final plantResponse = snapshot.data![0];
-                          final supplyResponse = snapshot.data![1];
+                          final plantResponse = snapshot.data![0] as ApiCallResponse;
+                          final supplyResponse = snapshot.data![1] as ApiCallResponse;
+                          final monthlyPlantSpend = snapshot.data![2] as List<double>;
+                          final monthlySupplySpend = snapshot.data![3] as List<double>;
 
                           final plantJsonBody = plantResponse.jsonBody;
                           final plantCostData =
@@ -806,6 +925,7 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                 ),
                                 color: FlutterFlowTheme.of(context).primary,
                                 icon: Icons.eco,
+                                sparklineData: monthlyPlantSpend,
                               ),
                               const SizedBox(height: 16.0),
                               _buildCostCard(
@@ -830,6 +950,7 @@ class _MyCostsWidgetState extends State<MyCostsWidget>
                                 ),
                                 color: FlutterFlowTheme.of(context).tertiary,
                                 icon: Icons.inventory_2_outlined,
+                                sparklineData: monthlySupplySpend,
                               ),
                             ],
                           );

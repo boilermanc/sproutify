@@ -246,7 +246,7 @@ class _DecideOnTowerWidgetState extends State<DecideOnTowerWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 12.0, 24.0, 0.0),
                           child: Text(
-                            'Do you have a Tower Garden?',
+                            'Do you have an aeroponic tower?',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall

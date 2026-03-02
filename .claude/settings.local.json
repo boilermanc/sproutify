@@ -38,7 +38,10 @@
       "Bash(grep:*)",
       "Bash(dart analyze:*)",
       "Bash(gh pr list --limit 10)",
-      "Bash(gh pr list:*)"
+      "Bash(gh pr list:*)",
+      "WebFetch(domain:pub.dev)",
+      "Bash(npx supabase db push --include-all --yes)",
+      "Bash(curl -s -X POST \"https://xzckfyipgrgpwnydddev.supabase.co/rest/v1/rpc/get_supply_costs\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODc2NTMsImV4cCI6MjAxMzY2MzY1M30._EnLLfn0DqX5uC94ZegKtfvz4uZW2bzWQidjqaYUsOo\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6Y2tmeWlwZ3JncHdueWRkZGV2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5ODA4NzY1MywiZXhwIjoyMDEzNjYzNjUzfQ.2US-amcxP5WJ1li8GStRMqgYHHPqP6lUVhEtzRsZs7Q\" -H \"Content-Type: application/json\" -d '{\"\"_user_id\"\": \"\"00000000-0000-0000-0000-000000000000\"\"}')"
     ],
     "deny": [],
     "ask": []
