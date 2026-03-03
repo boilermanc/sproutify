@@ -62,3 +62,6 @@ supabase/.temp/
 
 # Optional: local Supabase Docker volumes (if ever created)
 supabase/.local/
+
+# Claude Code project context
+CLAUDE.md
