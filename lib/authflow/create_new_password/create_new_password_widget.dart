@@ -34,6 +34,8 @@ class CreateNewPasswordWidget extends StatefulWidget {
 
 class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
   late CreateNewPasswordModel _model;
+  bool _isExchangingCode = false;
+  bool _codeExchangeFailed = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -56,20 +58,28 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
   }
 
   Future<void> _exchangeCodeForSession(String code) async {
+    safeSetState(() => _isExchangingCode = true);
     try {
+      // Prevent the router from redirecting us away when auth state changes
+      AppStateNotifier.instance.updateNotifyOnAuthChange(false);
       await authManager.exchangeCodeForSession(code);
     } catch (e) {
+      safeSetState(() => _codeExchangeFailed = true);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to verify reset link: $e'),
           backgroundColor: FlutterFlowTheme.of(context).error,
         ),
       );
+    } finally {
+      safeSetState(() => _isExchangingCode = false);
     }
   }
 
   @override
   void dispose() {
+    // Ensure auth notifications are re-enabled if user leaves without completing
+    AppStateNotifier.instance.updateNotifyOnAuthChange(true);
     _model.dispose();
 
     super.dispose();
@@ -110,7 +120,95 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Padding(
+          child: _isExchangingCode
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Text(
+                        'Verifying your reset link...',
+                        style: FlutterFlowTheme.of(context).bodyLarge.override(
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .fontStyle,
+                              ),
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
+                  ),
+                )
+              : _codeExchangeFailed
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.error_outline,
+                              color: FlutterFlowTheme.of(context).error,
+                              size: 48.0,
+                            ),
+                            const SizedBox(height: 16.0),
+                            Text(
+                              'This reset link has expired or is invalid.',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            Text(
+                              'Please request a new password reset from the login page.',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.readexPro(),
+                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                            const SizedBox(height: 24.0),
+                            FFButtonWidget(
+                              onPressed: () {
+                                HapticFeedback.lightImpact();
+                                context.goNamed(LoginPageWidget.routeName);
+                              },
+                              text: 'Back to Login',
+                              options: FFButtonOptions(
+                                width: 200.0,
+                                height: 50.0,
+                                color: FlutterFlowTheme.of(context).primary,
+                                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      color: FlutterFlowTheme.of(context).info,
+                                      letterSpacing: 0.0,
+                                    ),
+                                elevation: 3.0,
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : Padding(
             padding:
                 const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
             child: Column(
@@ -611,10 +709,11 @@ class _CreateNewPasswordWidgetState extends State<CreateNewPasswordWidget> {
                       ),
                     );
 
+                    // Re-enable auth state notifications before navigating
+                    AppStateNotifier.instance.updateNotifyOnAuthChange(true);
+
                     context.pushNamedAuth(
                         LoginPageWidget.routeName, context.mounted);
-
-                    safeSetState(() {});
                   },
                   text: 'Update Password',
                   options: FFButtonOptions(

@@ -344,7 +344,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 email: _model.emailAddressTextController.text,
                                 context: context,
                                 redirectTo:
-                                    "https://sproutify.app/createNewPassword",
+                                    "sproutifymobile://sproutifymobile.com/createNewPassword",
                               );
                               if (success) {
                                 safeSetState(() {
