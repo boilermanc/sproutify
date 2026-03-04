@@ -66,7 +66,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
         });
       }
     } catch (e) {
-      print('Error loading user gamification: $e');
+      debugPrint('Error loading user gamification: $e');
     }
   }
 
@@ -101,7 +101,7 @@ class _CommunityFeedWidgetState extends State<CommunityFeedWidget> {
         });
       }
     } catch (e) {
-      print('Error loading posts: $e');
+      debugPrint('Error loading posts: $e');
       if (mounted) {
         setState(() {
           _isLoading = false;
@@ -568,7 +568,7 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
     try {
       _currentUserId = currentUserUid;
     } catch (e) {
-      print('Error loading current user: $e');
+      debugPrint('Error loading current user: $e');
     }
   }
 
@@ -600,7 +600,7 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
         _isSearching = false;
       });
     } catch (e) {
-      print('Error searching users: $e');
+      debugPrint('Error searching users: $e');
       setState(() {
         _isSearching = false;
       });
@@ -617,7 +617,7 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
       // Refresh search results
       _onSearchChanged();
     } catch (e) {
-      print('Error toggling follow: $e');
+      debugPrint('Error toggling follow: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

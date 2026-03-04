@@ -235,7 +235,7 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                         children: [
                           FutureBuilder<List<ProfilesRow>>(
                             future: ProfilesTable().querySingleRow(
-                              queryFn: (q) => q,
+                              queryFn: (q) => q.eqOrNull('id', currentUserUid),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.

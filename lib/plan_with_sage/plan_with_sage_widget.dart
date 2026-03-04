@@ -439,7 +439,7 @@ class _PlanWithSageWidgetState extends State<PlanWithSageWidget> {
                 _model.messages.add({
                   'role': 'assistant',
                   'content': "Hello! I'm Sage, your garden planning assistant. "
-                      "I see you have ${widget.portCount} ports to fill in your ${widget.towerName}. "
+                      "I see you have ${widget.portCount ?? 0} ports to fill in your ${widget.towerName ?? 'tower'}. "
                       "What would you like to grow? Tell me about your gardening goals - "
                       "for example, 'I want a salad garden' or 'Focus on Italian herbs'."
                 });

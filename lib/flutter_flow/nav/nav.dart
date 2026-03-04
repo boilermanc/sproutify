@@ -414,9 +414,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: MySuppliesWidget.routeName,
           path: MySuppliesWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'mySupplies')
-              : MySuppliesWidget(
+          builder: (context, params) => MySuppliesWidget(
                   userID: params.getParam(
                     'userID',
                     ParamType.String,

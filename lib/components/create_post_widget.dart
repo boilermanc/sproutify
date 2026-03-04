@@ -108,7 +108,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
               });
             }
           } catch (e) {
-            print('Error loading plant info: $e');
+            debugPrint('Error loading plant info: $e');
           }
         }
       }

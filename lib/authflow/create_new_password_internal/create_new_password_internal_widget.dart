@@ -510,10 +510,59 @@ class _CreateNewPasswordInternalWidgetState
                 FFButtonWidget(
                   onPressed: () async {
                     HapticFeedback.lightImpact();
-                    await authManager.updatePassword(
+
+                    // Validate password before submitting
+                    final passwordError = _model.passwordTextControllerValidator
+                        ?.call(context, _model.passwordTextController.text);
+                    if (passwordError != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            passwordError,
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          backgroundColor: FlutterFlowTheme.of(context).error,
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                      return;
+                    }
+
+                    // Validate password confirmation
+                    final confirmError =
+                        _model.confirmPasswordTextControllerValidator?.call(
+                            context, _model.confirmPasswordTextController.text);
+                    if (confirmError != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            confirmError,
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          backgroundColor: FlutterFlowTheme.of(context).error,
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                      return;
+                    }
+
+                    final success = await authManager.updatePassword(
                       newPassword: _model.passwordTextController.text,
                       context: context,
                     );
+
+                    if (!success) {
+                      return;
+                    }
+
                     safeSetState(() {});
 
                     _model.emailSent5544 = await SendEmailWithResendCall.call(
@@ -528,7 +577,7 @@ class _CreateNewPasswordInternalWidgetState
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          'Password Reset!',
+                          'Password Updated!',
                           style: TextStyle(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
@@ -542,8 +591,6 @@ class _CreateNewPasswordInternalWidgetState
 
                     context.goNamedAuth(
                         HomePageWidget.routeName, context.mounted);
-
-                    safeSetState(() {});
                   },
                   text: 'Update Password',
                   options: FFButtonOptions(

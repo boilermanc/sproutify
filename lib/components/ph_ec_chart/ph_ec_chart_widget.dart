@@ -61,11 +61,8 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
 
   Future<void> _loadData() async {
     if (widget.towerID?.towerId == null) {
-      print('DEBUG: No tower ID provided');
       return;
     }
-
-    print('DEBUG: Loading data for tower_id: ${widget.towerID!.towerId}');
 
     try {
       final phData = await PhEchistoryTable().queryRows(
@@ -82,24 +79,12 @@ class _PhEcChartWidgetState extends State<PhEcChartWidget>
             .order('timestamp', ascending: true),
       );
 
-      print('DEBUG: Loaded ${phData.length} pH records, ${ecData.length} EC records');
-
-      // Show a snackbar with the count for visual feedback
-      if (mounted && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Loaded ${phData.length} pH records, ${ecData.length} EC records for tower ${widget.towerID!.towerId}'),
-            duration: const Duration(seconds: 3),
-          ),
-        );
-      }
-
       safeSetState(() {
         _model.phHistoryData = phData;
         _model.ecHistoryData = ecData;
       });
     } catch (e) {
-      print('DEBUG: Error loading data: $e');
+      debugPrint('Error loading pH/EC data: $e');
     }
 
     // Trigger the "Grow" animation after data loads

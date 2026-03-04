@@ -179,36 +179,23 @@ class _HomePageWidgetState extends State<HomePageWidget>
       if (Env.enableTrialBanner) {
         dataLoaders.add(Future(() async {
           // Load trial status
-          print('DEBUG: Starting trial status load for user: $currentUserUid');
-
           if (currentUserUid.isEmpty) {
-            print('DEBUG: currentUserUid is empty!');
             return;
           }
 
           try {
-            print('DEBUG: Calling RPC check_and_update_trial_status...');
             final trialData = await SupaFlow.client.rpc(
               'check_and_update_trial_status',
               params: {'user_uuid': currentUserUid},
             );
 
-            print('DEBUG: RPC returned successfully');
-            print('DEBUG: Trial data type: ${trialData.runtimeType}');
-            print('DEBUG: Trial data: $trialData');
-
             if (trialData != null) {
               if (trialData.isNotEmpty) {
                 final data = trialData.first;
-                print('DEBUG: First row data: $data');
-                print(
-                    'DEBUG: Parsed - status: ${data['status']}, days: ${data['days_remaining']}, dismissed: ${data['is_banner_dismissed']}');
 
                 _model.trialStatus = data['status'];
                 _model.trialDaysRemaining = data['days_remaining'];
                 _model.isTrialBannerDismissed = data['is_banner_dismissed'];
-
-                print('DEBUG: Model updated successfully');
 
                 // Show trial benefits page if user is on trial and hasn't seen it yet
                 if (mounted &&
@@ -221,15 +208,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 }
 
                 safeSetState(() {});
-              } else {
-                print('DEBUG: Trial data is empty: ${trialData.runtimeType}');
               }
-            } else {
-              print('DEBUG: Trial data is null');
             }
           } catch (e, stackTrace) {
-            print('ERROR: Trial status check failed: $e');
-            print('ERROR: Stack trace: $stackTrace');
+            debugPrint('Trial status check failed: $e');
             _model.trialErrorMessage = 'Error: $e';
             safeSetState(() {});
           }
