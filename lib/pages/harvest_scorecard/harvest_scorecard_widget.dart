@@ -17,6 +17,8 @@ import '/index.dart';
 
 import 'package:flutter/material.dart';
 
+import 'package:flutter/services.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_animate/flutter_animate.dart';
@@ -43,9 +45,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Future<List<UserplantdetailsRow>>? _userPlantsFuture;
-
-  Future<List<UserplantActionsRow>>? _actionsFuture;
+  Future<Map<String, dynamic>>? _dataFuture;
 
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
@@ -85,18 +85,43 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
-  void _loadData() {
-    _userPlantsFuture = UserplantdetailsTable().queryRows(
+  Future<Map<String, dynamic>> _fetchData() async {
+    final plants = await UserplantdetailsTable().queryRows(
       queryFn: (q) => q.eqOrNull('user_id', currentUserUid),
     );
 
-    _actionsFuture = UserplantActionsTable().queryRows(
-      queryFn: (q) => q.order('action_date', ascending: false),
-    );
+    final plantIds = <int>[];
+    final plantNameMap = <int, String>{};
+    for (final p in plants) {
+      final plantId = p.userPlantId;
+      final name = p.plantName ?? 'Plant #$plantId';
+      if (plantId != null) {
+        plantIds.add(plantId);
+        plantNameMap[plantId] = name;
+      }
+    }
+
+    List<UserplantActionsRow> actions = [];
+    if (plantIds.isNotEmpty) {
+      actions = await UserplantActionsTable().queryRows(
+        queryFn: (q) => q
+            .inFilter('user_plant_id', plantIds)
+            .order('action_date', ascending: false),
+      );
+    }
+
+    return {
+      'plantNameMap': plantNameMap,
+      'actions': actions,
+    };
+  }
+
+  void _loadData() {
+    _dataFuture = _fetchData();
   }
 
   void _refreshData() {
-    setState(() {
+    safeSetState(() {
       _loadData();
     });
   }
@@ -168,89 +193,39 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
         ),
         body: SafeArea(
           top: true,
-          child: FutureBuilder<List<UserplantdetailsRow>>(
-            future: _userPlantsFuture,
-            builder: (context, userPlantsSnapshot) {
-              if (!userPlantsSnapshot.hasData) {
+          child: FutureBuilder<Map<String, dynamic>>(
+            future: _dataFuture,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              final userPlantIds = <int>[];
+              final plantNameMap = snapshot.data!['plantNameMap'] as Map<int, String>;
+              final actions = snapshot.data!['actions'] as List<UserplantActionsRow>;
 
-              final plantNameMap = <int, String>{};
+              int goodHarvests = 0;
+              int wasteHarvests = 0;
+              int pestIssues = 0;
+              int didntGrow = 0;
 
-              try {
-                final plants =
-                    userPlantsSnapshot.data ?? <UserplantdetailsRow>[];
-
-                for (final p in plants) {
-                  final plantId = p.getField<int>('user_plant_id');
-
-                  final name =
-                      p.getField<String>('nickname') ?? 'Plant #$plantId';
-
-                  if (plantId != null) {
-                    userPlantIds.add(plantId);
-
-                    plantNameMap[plantId] = name;
-                  }
+              for (final a in actions) {
+                final t = a.actionType;
+                if (t == 'Harvested_Good' || t == 'Harvested') {
+                  goodHarvests++;
+                } else if (t == 'Harvested_Waste') {
+                  wasteHarvests++;
+                } else if (t == 'Pest') {
+                  pestIssues++;
+                } else if (t == 'Waste') {
+                  didntGrow++;
                 }
-              } catch (e) {
-                print('Error processing plants: $e');
               }
 
-              return FutureBuilder<List<UserplantActionsRow>>(
-                future: _actionsFuture,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-
-                  List<UserplantActionsRow> allActions;
-
-                  try {
-                    allActions = snapshot.data ?? <UserplantActionsRow>[];
-                  } catch (e) {
-                    allActions = <UserplantActionsRow>[];
-                  }
-
-                  final userPlantIdsSet = userPlantIds.toSet();
-
-                  final actions = <UserplantActionsRow>[];
-
-                  for (final a in allActions) {
-                    final plantId = a.getField<int>('user_plant_id');
-
-                    if (plantId != null && userPlantIdsSet.contains(plantId)) {
-                      actions.add(a);
-                    }
-                  }
-
-                  int goodHarvests = 0;
-
-                  int wasteHarvests = 0;
-
-                  int pestIssues = 0;
-
-                  int didntGrow = 0;
-
-                  for (final a in actions) {
-                    final t = a.getField<String>('action_type');
-
-                    if (t == 'Harvested_Good' || t == 'Harvested') {
-                      goodHarvests++;
-                    } else if (t == 'Harvested_Waste')
-                      wasteHarvests++;
-                    else if (t == 'Pest')
-                      pestIssues++;
-                    else if (t == 'Waste') didntGrow++;
-                  }
-
-                  int totalPlants = actions.length;
-
-                  double successRate = totalPlants > 0
-                      ? (goodHarvests / totalPlants * 100)
-                      : 0.0;
+              final int totalOutcomes =
+                  goodHarvests + wasteHarvests + didntGrow;
+              final double successRate = totalOutcomes > 0
+                  ? (goodHarvests / totalOutcomes * 100)
+                  : 0.0;
 
                   return SingleChildScrollView(
                     child: Padding(
@@ -317,15 +292,37 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                                               .animate()
                                               .fadeIn(delay: 400.ms)
                                               .slideY(begin: 0.2, end: 0),
-                                          Text(
-                                            'SUCCESS RATE',
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelSmall
-                                                .override(
-                                                  font: GoogleFonts.readexPro(
-                                                    letterSpacing: 2.0,
-                                                  ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                'SUCCESS RATE',
+                                                style: FlutterFlowTheme.of(context)
+                                                    .labelSmall
+                                                    .override(
+                                                      font: GoogleFonts.readexPro(
+                                                        letterSpacing: 2.0,
+                                                      ),
+                                                    ),
+                                              ),
+                                              const SizedBox(width: 4),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  HapticFeedback.lightImpact();
+                                                  _showInfoSheet(
+                                                    context,
+                                                    'Success Rate',
+                                                    'Your success rate is the percentage of successful harvests out of all plant outcomes (harvested, composted, and failed). Pest reports are tracked separately and don\'t affect this score.',
+                                                  );
+                                                },
+                                                child: Icon(
+                                                  Icons.info_outline_rounded,
+                                                  size: 14,
+                                                  color: FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                                 ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -334,7 +331,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                                   const SizedBox(height: 20.0),
                                   Text(
                                     _getMotivationalMessage(
-                                        successRate, totalPlants),
+                                        successRate, totalOutcomes),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
@@ -352,16 +349,41 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                           ).animateOnPageLoad(
                               animationsMap['containerOnPageLoadAnimation']!),
                           const SizedBox(height: 32.0),
-                          Text(
-                            'BREAKDOWN',
-                            style: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  font: GoogleFonts.readexPro(
-                                    letterSpacing: 1.5,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          Row(
+                            children: [
+                              Text(
+                                'BREAKDOWN',
+                                style: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      font: GoogleFonts.readexPro(
+                                        letterSpacing: 1.5,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                              ),
+                              const SizedBox(width: 6),
+                              GestureDetector(
+                                onTap: () {
+                                  HapticFeedback.lightImpact();
+                                  _showInfoSheet(
+                                    context,
+                                    'Breakdown',
+                                    'These counts come from the actions you log on your plants.\n\n'
+                                    'Harvested — Plants you successfully harvested.\n\n'
+                                    'Composted — Harvests that went to waste or compost.\n\n'
+                                    'Pests — Times you recorded a pest issue.\n\n'
+                                    'Failed — Plants that didn\'t grow or were removed.',
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.info_outline_rounded,
+                                  size: 14,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                 ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 16.0),
                           Wrap(
@@ -457,20 +479,12 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                                 final action = actions[index];
 
                                 final plantId =
-                                    action.getField<int>('user_plant_id') ?? 0;
+                                    action.userPlantId ?? 0;
 
                                 final type =
-                                    action.getField<String>('action_type') ??
-                                        'Unknown';
+                                    action.actionType ?? 'Unknown';
 
-                                final dateStr =
-                                    action.getField<String>('action_date');
-
-                                DateTime? date;
-
-                                if (dateStr != null) {
-                                  date = DateTime.tryParse(dateStr);
-                                }
+                                final date = action.actionDate;
 
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 12.0),
@@ -536,9 +550,51 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                       ),
                     ),
                   );
-                },
-              );
             },
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showInfoSheet(BuildContext context, String title, String description) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 12, 24, 32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).alternate,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                title,
+                style: FlutterFlowTheme.of(context).headlineSmall.override(
+                      font: GoogleFonts.outfit(fontWeight: FontWeight.w600),
+                    ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                description,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.readexPro(height: 1.5),
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                    ),
+              ),
+            ],
           ),
         ),
       ),
