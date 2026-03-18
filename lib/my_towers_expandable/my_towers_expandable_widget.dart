@@ -1,5 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/components/subscribe_bottom_sheet/subscribe_bottom_sheet_widget.dart';
 import '/components/ec_action/ec_action_widget.dart'
     show EcActionWidget, EcInfoPopup;
 import '/components/no_towers/no_towers_widget.dart';
@@ -123,6 +124,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
           child: FloatingActionButton(
             onPressed: () async {
               HapticFeedback.lightImpact();
+              if (!await checkSubscriptionAccess(context)) return;
               FFAppState().profileIsSet = true;
               safeSetState(() {});
 
@@ -737,6 +739,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                     highlightColor: Colors.transparent,
                                                                                     onTap: () async {
                                                                                       HapticFeedback.lightImpact();
+                                                                                      if (!await checkSubscriptionAccess(context)) return;
                                                                                       await showModalBottomSheet(
                                                                                         isScrollControlled: true,
                                                                                         backgroundColor: Colors.transparent,
@@ -1210,6 +1213,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                                                 highlightColor: Colors.transparent,
                                                                                 onTap: () async {
                                                                                   HapticFeedback.lightImpact();
+                                                                                  if (!await checkSubscriptionAccess(context)) return;
                                                                                   await showModalBottomSheet(
                                                                                     isScrollControlled: true,
                                                                                     backgroundColor: Colors.transparent,
@@ -1493,6 +1497,7 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                     onTap: () async {
                                                       HapticFeedback
                                                           .lightImpact();
+                                                      if (!await checkSubscriptionAccess(context)) return;
                                                       context.pushNamed(
                                                         PlanWithSageWidget
                                                             .routeName,

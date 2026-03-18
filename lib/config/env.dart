@@ -58,6 +58,13 @@ class Env {
   static bool get enableSupabaseDebug => isDevelopment;
 
   // Feature flags
+  // Feature gating flag. When enabled, write actions require active trial or
+  // subscription. Can be disabled via --dart-define=ENABLE_FEATURE_GATING=false.
+  static const bool enableFeatureGating = bool.fromEnvironment(
+    'ENABLE_FEATURE_GATING',
+    defaultValue: true,
+  );
+
   // Trial banner feature flag. Enabled by default so dev/test builds get the UI
   // automatically; can be disabled via --dart-define=ENABLE_TRIAL_BANNER=false.
   static const bool enableTrialBanner = bool.fromEnvironment(

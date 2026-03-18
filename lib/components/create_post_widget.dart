@@ -1,3 +1,4 @@
+import '/components/subscribe_bottom_sheet/subscribe_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -177,6 +178,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
   }
 
   Future<void> _createPost() async {
+    if (!await checkSubscriptionAccess(context)) return;
     if (_selectedFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

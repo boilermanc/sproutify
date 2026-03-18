@@ -13,6 +13,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'index.dart';
 import 'flutter_flow/revenue_cat_util.dart' as revenue_cat;
+import 'package:purchases_flutter/purchases_flutter.dart';
 import '/config/env.dart';
 
 void main() async {
@@ -37,6 +38,20 @@ void main() async {
     debugLogEnabled: Env.enableDebugLogging,
     loadDataAfterLaunch: true,
   );
+
+  // Sync subscription status when RevenueCat reports customer info changes
+  Purchases.addCustomerInfoUpdateListener((info) {
+    if (info.entitlements.active.isNotEmpty) {
+      appState.update(() {
+        appState.subscriptionStatus = 'active';
+      });
+    } else if (appState.subscriptionStatus == 'active') {
+      // Subscription lapsed (payment failure, cancellation) — revert to expired
+      appState.update(() {
+        appState.subscriptionStatus = 'expired';
+      });
+    }
+  });
 
   runApp(ChangeNotifierProvider(
     create: (context) => appState,

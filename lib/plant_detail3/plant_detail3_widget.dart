@@ -1,5 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/components/subscribe_bottom_sheet/subscribe_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -173,6 +174,7 @@ class _PlantDetail3WidgetState extends State<PlantDetail3Widget> {
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   HapticFeedback.lightImpact();
+                                  if (!await checkSubscriptionAccess(context)) return;
                                   // insertUserPlants
                                   await UserplantsTable().insert({
                                     'plant_id': listViewPlantsRow.plantId,

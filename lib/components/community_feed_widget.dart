@@ -1,3 +1,4 @@
+import '/components/subscribe_bottom_sheet/subscribe_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -608,6 +609,7 @@ class _UserSearchDialogState extends State<UserSearchDialog> {
   }
 
   Future<void> _toggleFollow(String userId, bool isCurrentlyFollowing) async {
+    if (!await checkSubscriptionAccess(context)) return;
     try {
       if (isCurrentlyFollowing) {
         await CommunityService.unfollowUser(userId: userId);

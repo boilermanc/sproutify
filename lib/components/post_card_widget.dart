@@ -1,3 +1,4 @@
+import '/components/subscribe_bottom_sheet/subscribe_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/models/index.dart';
 import '/services/community_service.dart';
@@ -223,6 +224,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
   }
 
   Future<void> _toggleFollow() async {
+    if (!await checkSubscriptionAccess(context)) return;
     if (_isFollowingLoading) return;
 
     final shouldFollow = !_isFollowing;

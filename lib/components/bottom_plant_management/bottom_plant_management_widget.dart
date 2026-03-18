@@ -1,4 +1,5 @@
 import '/backend/supabase/supabase.dart';
+import '/components/subscribe_bottom_sheet/subscribe_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -154,6 +155,7 @@ class _BottomPlantManagementWidgetState
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               HapticFeedback.lightImpact();
+                              if (!await checkSubscriptionAccess(context)) return;
                               await UserplantActionsTable().insert({
                                 'user_plant_id': widget.userPlantID,
                                 'action_type': 'Harvested',
@@ -248,6 +250,7 @@ class _BottomPlantManagementWidgetState
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               HapticFeedback.lightImpact();
+                              if (!await checkSubscriptionAccess(context)) return;
                               await UserplantActionsTable().insert({
                                 'user_plant_id': widget.userPlantID,
                                 'action_type': 'Pest',
@@ -335,6 +338,7 @@ class _BottomPlantManagementWidgetState
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               HapticFeedback.lightImpact();
+                              if (!await checkSubscriptionAccess(context)) return;
                               await UserplantActionsTable().insert({
                                 'user_plant_id': widget.userPlantID,
                                 'action_type': 'Waste',

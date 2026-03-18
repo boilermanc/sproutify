@@ -2,7 +2,9 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/community_feed_embedded.dart';
+import '/components/expired_trial_nag/expired_trial_nag_widget.dart';
 import '/components/trial_banner_widget.dart';
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import '/config/env.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -36,7 +38,7 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -52,6 +54,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _model = createModel(context, () => HomePageModel());
 
     // Setup animations for the four cards with staggered delays
@@ -197,6 +200,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 _model.trialDaysRemaining = data['days_remaining'];
                 _model.isTrialBannerDismissed = data['is_banner_dismissed'];
 
+                // Cache subscription status in app state
+                // RevenueCat entitlements take priority over Supabase trial status
+                final hasEntitlement =
+                    revenue_cat.activeEntitlementIds.isNotEmpty;
+                FFAppState().update(() {
+                  FFAppState().subscriptionStatus =
+                      hasEntitlement ? 'active' : data['status'];
+                });
+
                 // Show trial benefits page if user is on trial and hasn't seen it yet
                 if (mounted &&
                     data['status'] == 'trial' &&
@@ -205,6 +217,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     FFAppState().hasSeenTrialTimeline = true;
                   });
                   context.pushNamed('TrialBenefitsPage');
+                }
+
+                // Show expired trial nag screen
+                if (mounted &&
+                    FFAppState().subscriptionStatus == 'expired') {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (_) => const ExpiredTrialNagWidget(),
+                  );
                 }
 
                 safeSetState(() {});
@@ -230,9 +252,29 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _model.dispose();
 
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // Re-check subscription status on app resume to catch lapses
+      final hasEntitlement = revenue_cat.activeEntitlementIds.isNotEmpty;
+      if (hasEntitlement && FFAppState().subscriptionStatus != 'active') {
+        FFAppState().update(() {
+          FFAppState().subscriptionStatus = 'active';
+        });
+      } else if (!hasEntitlement &&
+          FFAppState().subscriptionStatus == 'active') {
+        // Subscription lapsed while app was backgrounded
+        FFAppState().update(() {
+          FFAppState().subscriptionStatus = 'expired';
+        });
+      }
+    }
   }
 
   @override
@@ -1131,7 +1173,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
           children: [
             // Trial banner - only show for active trials
             if (Env.enableTrialBanner &&
-                _model.trialStatus == 'active' &&
+                _model.trialStatus == 'trial' &&
                 _model.trialDaysRemaining != null &&
                 !(_model.isTrialBannerDismissed ?? false))
               TrialBannerWidget(

@@ -1,3 +1,4 @@
+import '/app_state.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -522,6 +523,11 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
 
                       // Check if purchase was successful
                       if (purchaserInfo.entitlements.active.isNotEmpty) {
+                        // Update cached subscription status
+                        FFAppState().update(() {
+                          FFAppState().subscriptionStatus = 'active';
+                        });
+
                         // Purchase successful - update database
                         final durationDays = _model.selectedPlan == 'lifetime'
                             ? 36500 // ~100 years for lifetime
@@ -678,6 +684,11 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
 
                       if (customerInfo != null &&
                           customerInfo.entitlements.active.isNotEmpty) {
+                        // Update cached subscription status
+                        FFAppState().update(() {
+                          FFAppState().subscriptionStatus = 'active';
+                        });
+
                         // Has active subscription - update database
                         final entitlement =
                             customerInfo.entitlements.active.values.first;

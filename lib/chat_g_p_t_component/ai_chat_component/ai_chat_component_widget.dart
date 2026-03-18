@@ -1,5 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/components/subscribe_bottom_sheet/subscribe_bottom_sheet_widget.dart';
 import '/chat_g_p_t_component/empty_list/empty_list_widget.dart';
 import '/chat_g_p_t_component/writing_indicator/writing_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -643,6 +644,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                         ),
                         showLoadingIndicator: true,
                         onPressed: () async {
+                          if (!await checkSubscriptionAccess(context)) return;
                           // addToChat_aiTyping
                           _model.aiResponding = true;
                           _model.chatHistory = functions.saveChatHistory(
