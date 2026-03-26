@@ -204,7 +204,6 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
               final actions = snapshot.data!['actions'] as List<UserplantActionsRow>;
 
               int goodHarvests = 0;
-              int wasteHarvests = 0;
               int pestIssues = 0;
               int didntGrow = 0;
 
@@ -212,8 +211,6 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                 final t = a.actionType;
                 if (t == 'Harvested_Good' || t == 'Harvested') {
                   goodHarvests++;
-                } else if (t == 'Harvested_Waste') {
-                  wasteHarvests++;
                 } else if (t == 'Pest') {
                   pestIssues++;
                 } else if (t == 'Waste') {
@@ -222,7 +219,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
               }
 
               final int totalOutcomes =
-                  goodHarvests + wasteHarvests + didntGrow;
+                  goodHarvests + didntGrow;
               final double successRate = totalOutcomes > 0
                   ? (goodHarvests / totalOutcomes * 100)
                   : 0.0;
@@ -312,7 +309,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                                                   _showInfoSheet(
                                                     context,
                                                     'Success Rate',
-                                                    'Your success rate is the percentage of successful harvests out of all plant outcomes (harvested, composted, and failed). Pest reports are tracked separately and don\'t affect this score.',
+                                                    'Your success rate is the percentage of successful harvests out of all plant outcomes (harvested and failed). Pest reports are tracked separately and don\'t affect this score.',
                                                   );
                                                 },
                                                 child: Icon(
@@ -371,7 +368,6 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                                     'Breakdown',
                                     'These counts come from the actions you log on your plants.\n\n'
                                     'Harvested — Plants you successfully harvested.\n\n'
-                                    'Composted — Harvests that went to waste or compost.\n\n'
                                     'Pests — Times you recorded a pest issue.\n\n'
                                     'Failed — Plants that didn\'t grow or were removed.',
                                   );
@@ -396,12 +392,6 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
                                   goodHarvests,
                                   Icons.check_circle_outline_rounded,
                                   FlutterFlowTheme.of(context).success),
-                              _buildStatCard(
-                                  context,
-                                  'Composted',
-                                  wasteHarvests,
-                                  Icons.delete_outline_rounded,
-                                  const Color(0xFFE89A3C)),
                               _buildStatCard(
                                   context,
                                   'Pests',
@@ -606,11 +596,9 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
       return Icons.check_circle_outline_rounded;
     }
 
-    if (type.contains('Waste') || type == 'Composted') {
-      return Icons.delete_outline_rounded;
-    }
-
     if (type == 'Pest') return Icons.bug_report_outlined;
+
+    if (type == 'Waste') return Icons.do_not_disturb_on_outlined;
 
     return Icons.circle_outlined;
   }
@@ -619,8 +607,6 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
     if (type.contains('Good') || type == 'Harvested') {
       return FlutterFlowTheme.of(context).success;
     }
-
-    if (type.contains('Waste') || type == 'Composted') return const Color(0xFFE89A3C);
 
     if (type == 'Pest') return FlutterFlowTheme.of(context).error;
 
