@@ -46,7 +46,6 @@ class _CultivateDirectionsWidgetState extends State<CultivateDirectionsWidget> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          height: 700.0,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).primaryBackground,
             borderRadius: BorderRadius.circular(10.0),
@@ -63,8 +62,9 @@ class _CultivateDirectionsWidgetState extends State<CultivateDirectionsWidget> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
+                  child: SingleChildScrollView(
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
@@ -387,6 +387,7 @@ class _CultivateDirectionsWidgetState extends State<CultivateDirectionsWidget> {
                         ),
                       ),
                     ].divide(const SizedBox(height: 16.0)),
+                  ),
                   ),
                 ),
               ),
