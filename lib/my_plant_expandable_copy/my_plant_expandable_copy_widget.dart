@@ -1538,7 +1538,9 @@ class _MyPlantExpandableCopyWidgetState
                                                                             child:
                                                                                 Text(
                                                                               valueOrDefault<String>(
-                                                                                listViewUserplantdetailsRow.indoorOutdoor,
+                                                                                listViewUserplantdetailsRow.indoorOutdoor == 'Indoor/Outdoor'
+                                                                                    ? 'Both'
+                                                                                    : listViewUserplantdetailsRow.indoorOutdoor,
                                                                                 'location',
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
