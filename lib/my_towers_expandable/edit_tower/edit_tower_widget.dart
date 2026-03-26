@@ -501,17 +501,30 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                           return;
                         }
 
-                        await MyTowersTable().update(
-                          data: {
-                            'tower_name': towerName,
-                            'port_count': portCount,
-                            'indoor_outdoor': location,
-                          },
-                          matchingRows: (rows) => rows.eqOrNull(
-                            'tower_id',
-                            widget.towerID,
-                          ),
-                        );
+                        try {
+                          await MyTowersTable().update(
+                            data: {
+                              'tower_name': towerName,
+                              'port_count': portCount,
+                              'indoor_outdoor': location,
+                            },
+                            matchingRows: (rows) => rows.eqOrNull(
+                              'tower_id',
+                              widget.towerID,
+                            ),
+                          );
+                        } catch (e) {
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Failed to update tower: $e'),
+                              backgroundColor: FlutterFlowTheme.of(context).error,
+                            ),
+                          );
+                          return;
+                        }
+
+                        if (!context.mounted) return;
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -523,7 +536,7 @@ class _EditTowerWidgetState extends State<EditTowerWidget> {
                                 fontSize: 18.0,
                               ),
                             ),
-                            duration: const Duration(milliseconds: 4000),
+                            duration: const Duration(milliseconds: 2000),
                             backgroundColor:
                                 FlutterFlowTheme.of(context).success,
                           ),

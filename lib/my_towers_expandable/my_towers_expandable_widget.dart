@@ -360,7 +360,6 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                   children: [
                                                     Container(
                                                       width: double.infinity,
-                                                      height: 430.0,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                                 .of(context)
@@ -368,12 +367,12 @@ class _MyTowersExpandableWidgetState extends State<MyTowersExpandableWidget> {
                                                       ),
                                                       child: Column(
                                                         mainAxisSize:
-                                                            MainAxisSize.max,
+                                                            MainAxisSize.min,
                                                         children: [
                                                           Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
-                                                                    .max,
+                                                                    .min,
                                                             children: [
                                                               Row(
                                                                 mainAxisSize:
