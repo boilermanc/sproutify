@@ -170,7 +170,7 @@ class _HarvestScorecardWidgetState extends State<HarvestScorecardWidget>
               size: 30.0,
             ),
             onPressed: () async {
-              context.pushNamed(HomePageWidget.routeName);
+              context.safePop();
             },
           ),
           title: Text(

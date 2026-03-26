@@ -141,7 +141,23 @@ class _MyPlantExpandableCopyWidgetState
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: const [],
+          actions: [
+            FlutterFlowIconButton(
+              borderColor: Colors.transparent,
+              borderRadius: 30.0,
+              borderWidth: 1.0,
+              buttonSize: 60.0,
+              icon: const Icon(
+                Icons.bar_chart,
+                color: Colors.white,
+                size: 28.0,
+              ),
+              onPressed: () async {
+                HapticFeedback.lightImpact();
+                context.pushNamed(HarvestScorecardWidget.routeName);
+              },
+            ),
+          ],
           centerTitle: true,
           elevation: 2.0,
         ),
