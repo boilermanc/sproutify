@@ -167,7 +167,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                 color: FlutterFlowTheme.of(context).alternate,
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
                 child: Text(
                   'Here are some great resources',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -217,6 +217,7 @@ class _WormsDetail2WidgetState extends State<WormsDetail2Widget> {
                     padding: EdgeInsets.zero,
                     primary: false,
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     itemCount: listViewPestContentRowList.length,
                     itemBuilder: (context, listViewIndex) {
