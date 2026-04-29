@@ -1538,7 +1538,7 @@ class _MyPlantExpandableCopyWidgetState
                                                                             child:
                                                                                 Text(
                                                                               valueOrDefault<String>(
-                                                                                listViewUserplantdetailsRow.indoorOutdoor == 'Indoor/Outdoor'
+                                                                                listViewUserplantdetailsRow.indoorOutdoor?.trim().toLowerCase() == 'indoor/outdoor'
                                                                                     ? 'Both'
                                                                                     : listViewUserplantdetailsRow.indoorOutdoor,
                                                                                 'location',
